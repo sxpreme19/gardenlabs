@@ -27,6 +27,7 @@ AppAsset::register($this);
 
 <header>
     <?php
+    /*
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -58,6 +59,7 @@ AppAsset::register($this);
             . Html::endForm();
     }
     NavBar::end();
+    */
     ?>
 </header>
 
