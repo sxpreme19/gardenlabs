@@ -102,6 +102,24 @@ class SiteController extends Controller
     }
 
     /**
+     * Signs user up.
+     *
+     * @return mixed
+     */
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            return $this->goHome();
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
      * Logs out the current user.
      *
      * @return mixed
@@ -147,21 +165,33 @@ class SiteController extends Controller
     }
 
     /**
-     * Signs user up.
+     * Displays gallery page.
      *
      * @return mixed
      */
-    public function actionSignup()
+    public function actionGallery()
     {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
-        }
+        return $this->render('gallery');
+    }
 
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
+    /**
+     * Displays SidebarShop page.
+     *
+     * @return mixed
+     */
+    public function actionSidebarShop()
+    {
+        return $this->render('shop');
+    }
+
+    /**
+     * Displays wishlist page.
+     *
+     * @return mixed
+     */
+    public function actionWhishlist()
+    {
+        return $this->render('wishlist');
     }
 
     /**
