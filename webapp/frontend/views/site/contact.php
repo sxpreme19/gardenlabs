@@ -40,7 +40,7 @@ $this->title = 'GardenLabs';
                 <div class="col-lg-12">
                     <h2>Contact Us</h2>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?=\yii\helpers\Url::to(['site/index'])?>">Home</a></li>
                         <li class="breadcrumb-item active"> Contact Us </li>
                     </ul>
                 </div>

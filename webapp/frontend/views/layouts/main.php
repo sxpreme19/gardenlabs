@@ -3,6 +3,7 @@
 /** @var \yii\web\View $this */
 /** @var string $content */
 
+use yii\helpers\Url;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use yii\bootstrap5\Breadcrumbs;
@@ -19,6 +20,7 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -46,7 +48,7 @@ AppAsset::register($this);
                         <ul>
                             <li><a href="#"><i class="fa fa-user s_color"></i> My Account</a></li>
                             <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
-                            <li><a href="<?= Yii::$app->urlManager->createUrl(['site/contact']) ?>"><i class="fas fa-headset"></i> Contact Us</a></li>
+                            <li><a href="<?=\yii\helpers\Url::to(['site/contact'])?>"><i class="fas fa-headset"></i> Contact Us</a></li>
                         </ul>
                     </div>
                 </div>

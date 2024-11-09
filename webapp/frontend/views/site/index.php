@@ -22,8 +22,8 @@ $this->title = 'GardenLabs';
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="shortcut icon" href="images/logo-no-background.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/logo-no-background.png">
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
