@@ -179,7 +179,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionSidebarShop()
+    public function actionShop()
     {
         return $this->render('shop');
     }
@@ -189,9 +189,19 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionWhishlist()
+    public function actionWishlist()
     {
         return $this->render('wishlist');
+    }
+
+    /**
+     * Displays cart page.
+     *
+     * @return mixed
+     */
+    public function actionCart()
+    {
+        return $this->render('cart');
     }
 
     /**
