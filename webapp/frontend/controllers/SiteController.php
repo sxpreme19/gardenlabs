@@ -185,6 +185,16 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays checkout page.
+     *
+     * @return mixed
+     */
+    public function actionShopDetail()
+    {
+        return $this->render('shop-detail');
+    }
+
+    /**
      * Displays wishlist page.
      *
      * @return mixed
@@ -204,6 +214,26 @@ class SiteController extends Controller
         return $this->render('cart');
     }
 
+    /**
+     * Displays checkout page.
+     *
+     * @return mixed
+     */
+    public function actionCheckout()
+    {
+        return $this->render('checkout');
+    }
+
+    /**
+     * Displays cart page.
+     *
+     * @return mixed
+     */
+    public function actionMyAccount()
+    {
+        return $this->render('my-account');
+    }
+    
     /**
      * Requests password reset.
      *

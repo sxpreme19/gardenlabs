@@ -19,7 +19,7 @@ class AppAsset extends AssetBundle
         'css/custom.css',
     ];
     public $js = [
-        /*'https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js',
+        /*
         'js/baguetteBox.min.js',
         'js/bootsnav.js',
         'js/bootstrap-select.js',
@@ -35,7 +35,7 @@ class AppAsset extends AssetBundle
         'js/jquery.nicescroll.min.js',
         'js/jquery.superslides.min.js',
         'js/owl.carousel.min.js',
-        'js/popper.min.js',*/
+        'js/popper.min.js'*/
     ];
     public $depends = [
         'yii\web\YiiAsset',
