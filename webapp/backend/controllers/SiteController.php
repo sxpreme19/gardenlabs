@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
+use common\models\User;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -27,6 +28,11 @@ class SiteController extends Controller
                     [
                         'allow' => false,
                         'roles' => ['client'],
+                        'denyCallback' => function ($rule, $action) {
+                            Yii::$app->session->setFlash('warning', 'You must have backend access.');
+                            Yii::$app->user->logout();
+                            return $this->redirect(['login']);
+                        },
                     ],
                     [
                         'actions' => ['login', 'error'],
@@ -67,7 +73,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $registeredUsers = User::find()->count();
+        return $this->render('index',['registeredUsers' => $registeredUsers]);
     }
 
     /**
@@ -81,7 +88,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $this->layout = 'main';
+        $this->layout = 'main-login';
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -93,6 +100,17 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Displays user control page.
+     *
+     * @return string
+     */
+    public function actionUserControl()
+    {
+        $registeredUsers = User::find()->count();
+        return $this->render('user-control',['registeredUsers' => $registeredUsers]);
     }
 
     /**

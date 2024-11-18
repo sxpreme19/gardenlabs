@@ -21,6 +21,11 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
     <?php $this->head() ?>
 </head>
 <body class="hold-transition login-page">
+<?php if (Yii::$app->session->hasFlash('warning')): ?>
+    <div class="alert alert-warning">
+        <?php echo Yii::$app->session->getFlash('warning'); ?>
+    </div>
+<?php endif; ?>
 <?php  $this->beginBody() ?>
 <div class="login-box">
     <div class="login-logo">

@@ -37,9 +37,18 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['signup','login','index','contact','shop','cart','my-account','wishlist','shop','gallery','about','logout'],
+                        'actions' => ['signup','login','index','contact','shop','cart','my-account','wishlist','shop','gallery','about'],
                         'allow' => true,
                         'roles' => ['client'],
+                    ],
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'], 
+                        'denyCallback' => function ($rule, $action) {
+                            Yii::$app->session->setFlash('warning', 'You must be logged in to log out.');
+                            return Yii::$app->response->redirect(['site/login']);
+                        }
                     ],
                     [
                         'allow' => false,
