@@ -29,21 +29,28 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['signup','login','index','logout',],
+                'only' => ['signup','login','index','contact','shop','cart','my-account','wishlist','gallery','about','logout',],
                 'rules' => [
                     [
-                        'actions' => ['signup','login','index'],
+                        'actions' => ['signup','login','index','contact','shop','gallery','about'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['signup','login','index','contact','shop','cart','my-account','wishlist','shop','gallery','about','logout'],
                         'allow' => true,
                         'roles' => ['client'],
                     ],
                     [
                         'allow' => false,
-                        'roles' => ['admin', 'manager'],
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action){
+                            return Yii::$app->user->can('accessBackend');
+                        }
+                    ],
+                    [
+                        'allow' => false,
+                        'roles' => ['@'], 
                     ],
                 ],
             ],

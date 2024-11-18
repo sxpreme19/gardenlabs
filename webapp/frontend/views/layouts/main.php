@@ -57,10 +57,11 @@ AppAsset::register($this);
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="login-box">
-                        <select id="basic" class="selectpicker show-tick form-control" data-placeholder="Sign In">
-                            <option>Register Here</option>
-                            <option>Sign In</option>
-                        </select>
+                        <?php if (Yii::$app->user->isGuest): ?>
+                            <a href="<?= \yii\helpers\Url::to(['site/login']) ?>" class="btn btn-primary">Login</a>
+                        <?php else: ?>
+                            <a href="<?= \yii\helpers\Url::to(['site/logout']) ?>" class="btn btn-danger" data-method="post">Logout</a>
+                        <?php endif; ?>
                     </div>
                     <div class="text-slid-box">
                         <div id="offer-box" class="carouselTicker">

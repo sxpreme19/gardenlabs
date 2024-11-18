@@ -31,6 +31,8 @@ class m241116_220638_init_rbac extends Migration
         //assign permissions
         $auth->addChild($admin, $accessBackend);
         $auth->addChild($manager, $accessBackend);
+
+        echo "m241116_220638_init_rbac applied.\n";
     }
 
     /**
