@@ -44,7 +44,7 @@
                             ['label' => 'Inactive Page', 'iconStyle' => 'far'],
                         ]
                     ],
-                    ['label' => 'User Control','url' => ['site/user-control'], 'icon' => 'user', 'badge' => '<span class="right badge badge-danger">New</span>'],
+                    ['label' => 'User Control','url' => ['user/index'], 'icon' => 'user', 'badge' => '<span class="right badge badge-danger">New</span>'],
                     ['label' => 'Yii2 PROVIDED', 'header' => true],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
