@@ -47,29 +47,27 @@
                         ]*/
                     ],
                     ['label' => 'User Control','url' => ['user/index'], 'icon' => 'user', 'badge' => '<span class="right badge badge-danger">New</span>'],
-                    ['label' => 'GardenLabs', 'header' => true],
+                    ['label' => 'Shopping Management', 'header' => true],
                     [
                         'label' => 'Shopping',
-                        'icon' => 'shopping-cart',
+                        'icon' => 'fas fa-shopping-cart',
                         'items' => [
-                            ['label' => 'Products', 'iconStyle' => 'far'],
-                            ['label' => 'Services', 'iconStyle' => 'far'],
-                            [
-                                'label' => 'Level2',
-                                'iconStyle' => 'far',
-                                'items' => [
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle']
-                                ]
-                            ],
-                        ]
+                            ['label' => 'Products', 'icon' => 'fas fa-box','url' => ['produto/index']],
+                            ['label' => 'Services', 'icon' => 'fas fa-concierge-bell','url' => ['servico/index']],
+                        ],
+                    ],
+                    [
+                        'label' => 'Order Details',
+                        'icon' => 'fas fa-receipt',
+                        'items' => [
+                            ['label' => 'Expedition Methods', 'icon' => 'fas fa-shipping-fast','url' => ['produto/index']],
+                            ['label' => 'Payment Methods', 'icon' => 'fas fa-credit-card','url' => ['servico/index']],
+                        ],
                     ],
                     ['label' => 'Yii2 PROVIDED', 'header' => true],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
                     ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
-                    ['label' => 'Level1'],
                     ['label' => 'LABELS', 'header' => true],
                     ['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
                     ['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
