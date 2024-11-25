@@ -2,18 +2,16 @@
 
 namespace backend\controllers;
 
-use Yii;
-use common\models\User;
-use backend\models\UserSearch;
+use common\models\Fornecedor;
+use backend\models\FornecedorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * FornecedorController implements the CRUD actions for Fornecedor model.
  */
-class UserController extends Controller
+class FornecedorController extends Controller
 {
     /**
      * @inheritDoc
@@ -23,21 +21,6 @@ class UserController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                'access' => [
-                'class' => AccessControl::class,
-                'only' => ['index','view','create','update','delete'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin'],
-                    ],
-                    [
-                        'denyCallback' => function ($rule, $action) {
-                            throw new \yii\web\ForbiddenHttpException('You are not allowed to acess this page.');
-                        },
-                    ],
-                ],
-                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -49,13 +32,13 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all Fornecedor models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new FornecedorSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -65,8 +48,8 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
-     * @param int $id
+     * Displays a single Fornecedor model.
+     * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -78,13 +61,13 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Fornecedor model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new Fornecedor();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -100,9 +83,9 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing Fornecedor model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id
+     * @param int $id ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -111,20 +94,6 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            $postData = $this->request->post();
-
-            if (isset($postData['roleDropDown'])) {
-                $selectedRole = $postData['roleDropDown'];
-    
-                $authManager = Yii::$app->authManager;
-                $authManager->revokeAll($model->id);
-    
-                $role = $authManager->getRole($selectedRole); 
-                if ($role) {
-                    $authManager->assign($role, $model->id);
-                }
-            }
- 
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -134,9 +103,9 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing Fornecedor model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id
+     * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -148,15 +117,15 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Fornecedor model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id
-     * @return User the loaded model
+     * @param int $id ID
+     * @return Fornecedor the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne(['id' => $id])) !== null) {
+        if (($model = Fornecedor::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

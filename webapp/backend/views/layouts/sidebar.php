@@ -46,7 +46,7 @@
                             ['label' => 'Inactive Page', 'iconStyle' => 'far'],
                         ]*/
                     ],
-                    ['label' => 'User Control','url' => ['user/index'], 'icon' => 'user', 'badge' => '<span class="right badge badge-danger">New</span>'],
+                    ['label' => 'User Control','url' => ['user/index'], 'icon' => 'user', 'badge' => '<span class="right badge badge-danger">Admin</span>'],
                     ['label' => 'Shopping Management', 'header' => true],
                     [
                         'label' => 'Shopping',
@@ -57,11 +57,20 @@
                         ],
                     ],
                     [
+                        'label' => 'Product Details',
+                        'icon' => 'fas fa-list',
+                        'items' => [
+                            ['label' => 'Categories', 'icon' => 'fas fa-layer-group','url' => ['categoria/index']],
+                            ['label' => 'Suppliers', 'icon' => 'fas fa-parachute-box','url' => ['fornecedor/index']],
+                        ],
+                    ],
+                    [
                         'label' => 'Order Details',
                         'icon' => 'fas fa-receipt',
+                        'badge' => '<span class="right badge badge-danger">Admin</span>',
                         'items' => [
-                            ['label' => 'Expedition Methods', 'icon' => 'fas fa-shipping-fast','url' => ['produto/index']],
-                            ['label' => 'Payment Methods', 'icon' => 'fas fa-credit-card','url' => ['servico/index']],
+                            ['label' => 'Expedition Methods', 'icon' => 'fas fa-shipping-fast','url' => ['metodoexpedicao/index']],
+                            ['label' => 'Payment Methods', 'icon' => 'fas fa-credit-card','url' => ['metodopagamento/index']],
                         ],
                     ],
                     ['label' => 'Yii2 PROVIDED', 'header' => true],

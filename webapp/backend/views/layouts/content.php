@@ -10,23 +10,25 @@ use yii\bootstrap4\Breadcrumbs;
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">
-                        <?php
-                        if (!is_null($this->title)) {
-                            echo \yii\helpers\Html::encode($this->title);
-                        } else {
-                            echo \yii\helpers\Inflector::camelize($this->context->id);
-                        }
-                        ?>
+                        <?php if($this->title == "Dashboard"): ?>
+                            Welcome, <b><?= \yii\helpers\Html::encode(Yii::$app->user->identity->username) ?></b>!
+                        <?php elseif($this->title == "Users"): ?>
+                            User Management
+                        <?php elseif($this->title == "Produtos"): ?>
+                            Product Management
+                        <?php endif; ?>
                     </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <?php
-                    echo Breadcrumbs::widget([
-                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                        'options' => [
-                            'class' => 'breadcrumb float-sm-right'
-                        ]
-                    ]);
+                    if($this->title != "Dashboard"):
+                        echo Breadcrumbs::widget([
+                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                            'options' => [
+                                'class' => 'breadcrumb float-sm-right'
+                            ]
+                        ]);
+                    endif; 
                     ?>
                 </div><!-- /.col -->
             </div><!-- /.row -->

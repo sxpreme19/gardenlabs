@@ -10,10 +10,19 @@ use yii\widgets\ActiveForm;
 
 <div class="user-form">
 
+    <?php 
+        $data=['client'=>'Client','manager'=>'Manager','admin'=>'Admin']; 
+    ?>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'status')->textInput() ?>
-
+    <?= Html::label('Role', 'roleDropDown', ['class' => 'control-label']) ?>
+    <?= Html::dropDownList('roleDropDown',null,$data,[   
+        'class' => 'form-control',
+        'id' => 'roleDropDown', 
+    ]);
+    ?>
+    <br>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
