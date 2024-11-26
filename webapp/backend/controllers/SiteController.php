@@ -73,8 +73,19 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $roleCounts = (new \yii\db\Query())
+        ->select(['item_name AS role', 'COUNT(*) AS user_count'])
+        ->from('auth_assignment')  
+        ->groupBy('item_name')     
+        ->all();
+
+        $roleData = [];
+        foreach ($roleCounts as $role) {
+            $roleData[$role['role']] = $role['user_count'];
+        }
+
         $registeredUsers = User::find()->count();
-        return $this->render('index',['registeredUsers' => $registeredUsers]);
+        return $this->render('index',['registeredUsers' => $registeredUsers, 'roleData' => $roleData]);
     }
 
     /**

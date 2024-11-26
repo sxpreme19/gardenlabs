@@ -7,10 +7,22 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         <div class="col-12 col-sm-6 col-md-3">
             <?= \hail812\adminlte\widgets\InfoBox::widget([
                 'text' => 'Registered Users',
+
                 'number' => $registeredUsers,
                 'icon' => 'fas fa-user',
             ]) ?>
         </div>
+    </div>
+    <div class = row>
+    <?php foreach ($roleData as $role => $count): ?>
+        <div class="col-md-4 col-sm-6 col-12">
+            <?= \hail812\adminlte\widgets\InfoBox::widget([
+                'text' => ucfirst($role), 
+                'number' => $count, 
+                'icon' => 'far fa-user', 
+            ]) ?>
+        </div>
+    <?php endforeach; ?>
     </div>
 
     <div class="row">
