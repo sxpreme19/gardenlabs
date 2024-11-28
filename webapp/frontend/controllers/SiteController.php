@@ -245,13 +245,23 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays cart page.
+     * Displays My-Account page.
      *
      * @return mixed
      */
     public function actionMyAccount()
     {
         return $this->render('my-account');
+    }
+
+      /**
+     * Displays Login-Security page.
+     *
+     * @return mixed
+     */
+    public function actionLoginSecurity()
+    {
+        return $this->render('login-security');
     }
     
     /**
