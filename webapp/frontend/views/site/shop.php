@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'GardenLabs';
+$this->title = 'Shop';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,9 +21,6 @@ $this->title = 'GardenLabs';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>

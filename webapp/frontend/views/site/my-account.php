@@ -67,10 +67,10 @@ $this->title = 'GardenLabs';
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href=<?=yii\helpers\Url::to(['site/login-security'])?>><i class="fa fa-lock"></i> </a>
+                                    <a href=<?=yii\helpers\Url::to(['site/account-details'])?>><i class="fa fa-lock"></i> </a>
                                 </div>
                                 <div class="service-desc">
-                                    <h4>Login &amp; security</h4>
+                                    <h4>Account details</h4>
                                     <p>Edit account details</p>
                                 </div>
                             </div>

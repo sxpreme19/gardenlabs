@@ -14,7 +14,10 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use frontend\models\UpdateUserForm;
 use frontend\models\ContactForm;
+use common\models\User;
+use common\models\Userprofile;
 
 /**
  * Site controller
@@ -29,7 +32,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['signup','login','index','contact','shop','cart','my-account','wishlist','gallery','about','logout',],
+                'only' => ['signup','login','index','contact','shop','cart','my-account','account-details','wishlist','gallery','about','logout',],
                 'rules' => [
                     [
                         'actions' => ['signup','login','index','contact','shop','gallery','about'],
@@ -37,7 +40,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['signup','login','index','contact','shop','cart','my-account','wishlist','shop','gallery','about'],
+                        'actions' => ['signup','login','index','contact','shop','cart','my-account','account-details','wishlist','shop','gallery','about'],
                         'allow' => true,
                         'roles' => ['client'],
                     ],
@@ -255,13 +258,24 @@ class SiteController extends Controller
     }
 
       /**
-     * Displays Login-Security page.
+     * Displays account-details page.
      *
      * @return mixed
      */
-    public function actionLoginSecurity()
+    public function actionAccountDetails()
     {
-        return $this->render('login-security');
+        $model = new UpdateUserForm();
+        $userProfile = Userprofile::findOne(['user_id' => Yii::$app->user->id]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->update()) {
+            Yii::$app->session->setFlash('success', 'Details have been updated successfully!');
+            return $this->goHome();
+        }
+
+        return $this->render('account-details', [
+        'model' => $model,
+        'userProfile' => $userProfile,
+    ]);
     }
     
     /**
