@@ -4,21 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\Fornecedor $model */
+/** @var common\models\Prestador $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="fornecedor-form">
+<div class="prestador-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'telefone')->textInput() ?>
 
-    <?= $form->field($model, 'telefone')->textInput(['maxlength' => 9]) ?>
-
-    <?= $form->field($model, 'localizacao')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'user_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -13,6 +13,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             ]) ?>
         </div>
     </div>
+    <!--
     <div class = row>
     <?php foreach ($roleData as $role => $count): ?>
         <div class="col-md-4 col-sm-6 col-12">
@@ -24,7 +25,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         </div>
     <?php endforeach; ?>
     </div>
-
+    -->
     <div class="row">
         <div class="col-md-4 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\InfoBox::widget([

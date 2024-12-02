@@ -80,9 +80,11 @@ $this->title = 'Account Details';
                             'value' => isset($userProfile->nome) ? $userProfile->nome : '',
                         ]) ?>
                         <?= $form->field($model, 'telefone')->textInput([
+                            'maxlength' => 9,
                             'value' => isset($userProfile->telefone) ? $userProfile->telefone : '',
                         ]) ?>
                         <?= $form->field($model, 'nif')->textInput([
+                            'maxlength' => 9,
                             'value' => isset($userProfile->nif) ? $userProfile->nif : '',
                         ]) ?>
                         
