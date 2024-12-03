@@ -1,31 +1,11 @@
 <?php
-
-/** @var yii\web\View $this */
 /** @var yii\bootstrap5\ActiveForm $form */
 /** @var \common\models\LoginForm $model */
-
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
-
-$this->title = 'Login';
 ?>
 <div class="site-login">
-    <!-- Start All Title Box -->
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Login</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?=\yii\helpers\Url::to(['site/index'])?>">Home</a></li>
-                        <li class="breadcrumb-item active">Login</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End All Title Box -->
-
+    <!-- Login Form -->
     <br>
     <h1>Please fill out the following fields to login:</h1>
     <div class="row">

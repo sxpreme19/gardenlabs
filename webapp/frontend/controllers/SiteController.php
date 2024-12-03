@@ -185,6 +185,12 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
+        $this->view->title = 'About Us';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
+
         return $this->render('about');
     }
 
@@ -205,10 +211,15 @@ class SiteController extends Controller
      */
     public function actionShop()
     {
-        $products = Produto::find()->all();
-        $productCount = Produto::find()->count();
+        
 
-        return $this->render('shop',['products' => $products,'productCount' => $productCount]);
+        $this->view->title = 'Shop';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
+
+        return $this->render('shop');
     }
 
     /**
@@ -219,6 +230,14 @@ class SiteController extends Controller
     public function actionShopDetail($id)
     {
         $product = Produto::findOne($id);
+
+        $this->view->title = $product->nome;
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Shop', 'url' => ['site/shop']],
+        //['label' => 'Category Name', 'url' => ['site/', 'id' => $product->categoria_id]],
+        ['label' => $product->nome],
+        ];
+
         return $this->render('shop-detail',['product' => $product]);
     }
 

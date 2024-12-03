@@ -24,6 +24,22 @@ AppAsset::register($this);
     <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="logo.ico">   
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -109,15 +125,13 @@ AppAsset::register($this);
                                     'data-toggle' => 'dropdown',
                                 ],
                                 'items' => [
-                                    ['label' => 'Sidebar Shop', 'url' => ['/site/shop']],
-                                    ['label' => 'Shop Detail', 'url' => ['/site/shop-detail']],
+                                    ['label' => 'Product Shop', 'url' => ['/produto/index']],
                                     ['label' => 'Cart', 'url' => ['/site/cart']],
-                                    ['label' => 'Checkout', 'url' => ['/site/checkout']],
-                                    ['label' => 'My Account', 'url' => ['/site/my-account']],
-                                    ['label' => 'Wishlist', 'url' => ['/site/wishlist']],
+                                    ['label' => 'My Account', 'url' => ['/user/my-account']],
+                                    ['label' => 'Wishlist', 'url' => ['/user/wishlist']],
                                 ],
                             ],
-                            ['label' => 'Gallery', 'url' => ['/site/gallery'], 'options' => ['class' => 'nav-item']],
+                            ['label' => 'Gallery', 'url' => ['/produto/gallery'], 'options' => ['class' => 'nav-item']],
                             ['label' => 'Contact Us', 'url' => ['/site/contact'], 'options' => ['class' => 'nav-item']],
                         ],
                     ]);
@@ -184,106 +198,40 @@ AppAsset::register($this);
     </div>
     <!-- End Top Search -->
 
-
-    <main role="main" class="flex-shrink-0">
-        <div class="container-fluid">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>
-        </div>
-    </main>
-
-    
-    <!-- Start Instagram Feed  
-    <div class="instagram-box">
-        <div class="main-instagram owl-carousel owl-theme">
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-01.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-02.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-03.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-04.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-05.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-06.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-07.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-08.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-09.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="images/instagram-img-05.jpg" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
+    <?php if (isset($this->title) && $this->title != 'Home'): ?>
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2><?= Html::encode($this->title) ?></h2>
+                    <ul class="breadcrumb">
+                        <?php if (isset($this->params['breadcrumbs']) && is_array($this->params['breadcrumbs'])): ?>
+                            <?php foreach ($this->params['breadcrumbs'] as $breadcrumb): ?>
+                                <li class="breadcrumb-item <?= isset($breadcrumb['url']) ? '' : 'active' ?>">
+                                    <?php if (isset($breadcrumb['url'])): ?>
+                                        <a href="<?= Url::to($breadcrumb['url']) ?>"><?= Html::encode($breadcrumb['label']) ?></a>
+                                    <?php else: ?>
+                                        <?= Html::encode($breadcrumb['label']) ?>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    -->
-    <!-- End Instagram Feed  -->
-    
+    <?php endif; ?>
+
+    <!-- End All Title Box -->
+
+    <main role="main" class="flex-shrink-0">
+        <div class="container-fluid">
+            <?= Alert::widget() ?>
+            <?= $content ?>
+        </div>
+    </main>
 
     <!-- Start Footer  -->
     <footer>

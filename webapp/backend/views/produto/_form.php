@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\Categoria;
 use common\models\Fornecedor;
+use kartik\file\FileInput;
 
 /** @var yii\web\View $this */
 /** @var common\models\Produto $model */

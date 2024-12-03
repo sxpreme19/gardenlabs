@@ -18,10 +18,12 @@ class m241116_220638_init_rbac extends Migration
         $admin = $auth->createRole('admin');
         $manager = $auth->createRole('manager');
         $client = $auth->createRole('client');
+        $provider = $auth->createRole('provider');
 
         $auth->add($admin);
         $auth->add($manager);
         $auth->add($client);
+        $auth->add($provider);
 
         //permissions
         $accessBackend = $auth->createPermission('accessBackend');
