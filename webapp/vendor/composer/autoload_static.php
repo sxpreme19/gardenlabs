@@ -36,6 +36,12 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
             'yii\\bootstrap4\\' => 15,
             'yii\\' => 4,
         ),
+        'k' => 
+        array (
+            'kartik\\plugins\\fileinput\\' => 25,
+            'kartik\\file\\' => 12,
+            'kartik\\base\\' => 12,
+        ),
         'h' => 
         array (
             'hail812\\adminlte\\widgets\\' => 25,
@@ -145,6 +151,18 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         'yii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
+        ),
+        'kartik\\plugins\\fileinput\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/bootstrap-fileinput',
+        ),
+        'kartik\\file\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-fileinput/src',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
         ),
         'hail812\\adminlte\\widgets\\' => 
         array (

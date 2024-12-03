@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Produto;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -204,7 +205,10 @@ class SiteController extends Controller
      */
     public function actionShop()
     {
-        return $this->render('shop');
+        $products = Produto::find()->all();
+        $productCount = Produto::find()->count();
+
+        return $this->render('shop',['products' => $products,'productCount' => $productCount]);
     }
 
     /**
@@ -212,9 +216,10 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionShopDetail()
+    public function actionShopDetail($id)
     {
-        return $this->render('shop-detail');
+        $product = Produto::findOne($id);
+        return $this->render('shop-detail',['product' => $product]);
     }
 
     /**
