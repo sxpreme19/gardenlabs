@@ -178,6 +178,12 @@ class SiteController extends Controller
             return $this->refresh();
         }
 
+        $this->view->title = 'Contact';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
+
         return $this->render('contact', [
             'model' => $model,
         ]);
