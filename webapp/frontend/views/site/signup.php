@@ -1,32 +1,10 @@
 <?php
-
-/** @var yii\web\View $this */
 /** @var yii\bootstrap5\ActiveForm $form */
 /** @var \frontend\models\SignupForm $model */
-
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
-
-$this->title = 'Signup';
 ?>
 <div class="site-signup">
-   <!-- Start All Title Box -->
-   <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Sign Up</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?=\yii\helpers\Url::to(['site/index'])?>">Home</a></li>
-                        <li class="breadcrumb-item active">Sign Up</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End All Title Box -->
-
-    <br>
     <h1>Please fill out the following fields to signup:</h1>
     <div class="row">
         <div class="col-lg-5">

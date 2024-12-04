@@ -1,50 +1,7 @@
-<?php
-
-/** @var yii\web\View $this */
-
-$this->title = 'GardenLabs';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Site Metas -->
-    <title>ThewayShop - Ecommerce Bootstrap 4 HTML Template</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
 <body>
-    <!-- Start All Title Box -->
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>My Account</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active">My Account</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End All Title Box -->
-
     <!-- Start My Account  -->
     <div class="my-account-box-main">
         <div class="container">
@@ -67,7 +24,7 @@ $this->title = 'GardenLabs';
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href=<?=yii\helpers\Url::to(['site/account-details'])?>><i class="fa fa-lock"></i> </a>
+                                    <a href=<?=yii\helpers\Url::to(['user/account-details'])?>><i class="fa fa-lock"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>Account details</h4>

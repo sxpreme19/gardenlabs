@@ -127,7 +127,7 @@ AppAsset::register($this);
                                 'items' => [
                                     ['label' => 'Product Shop', 'url' => ['/produto/index']],
                                     ['label' => 'Cart', 'url' => ['/site/cart']],
-                                    ['label' => 'My Account', 'url' => ['/user/my-account']],
+                                    ['label' => 'My Account', 'url' => ['/user/index']],
                                     ['label' => 'Wishlist', 'url' => ['/user/wishlist']],
                                 ],
                             ],

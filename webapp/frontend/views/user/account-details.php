@@ -1,55 +1,15 @@
 <?php
-
-/** @var yii\web\View $this */
 /** @var yii\bootstrap5\ActiveForm $form */
 /** @var \frontend\models\UpdateUserForm $model */
-
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
-
-$this->title = 'Account Details';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Site Metas -->
-    <title>ThewayShop - Ecommerce Bootstrap 4 HTML Template</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
 
 <body>
-    <!-- Start All Title Box -->
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Account Details</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href=<?= yii\helpers\Url::to(['site/my-account']) ?>>My-Account</a></li>
-                        <li class="breadcrumb-item active">Account Details</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End All Title Box -->
-
     <!-- Start Cart  -->
     <div class="cart-box-main">
         <div class="container">
@@ -72,7 +32,7 @@ $this->title = 'Account Details';
                         <?= $form->field($model, 'email')->input('email', [
                             'value' => Yii::$app->user->identity->email
                         ]) ?>
-                        <?= $form->field($model, 'password')->passwordInput() ?>
+                        <?= $form->field($model, 'password')->passwordInput()->label("Password (Leave blank to maintain password)") ?>
                     </div>
 
                     <div class="col-sm-6 col-lg-6 mb-3">

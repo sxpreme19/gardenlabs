@@ -15,10 +15,8 @@ use common\models\Produto;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
-use frontend\models\UpdateUserForm;
 use frontend\models\ContactForm;
 use common\models\User;
-use common\models\Userprofile;
 
 /**
  * Site controller
@@ -33,22 +31,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['signup','login','index','contact','shop','cart','my-account','account-details','wishlist','gallery','about','logout',],
+                'only' => ['signup','login','index','contact','about','logout',],
                 'rules' => [
                     [
-                        'actions' => ['signup','login','index','contact','shop','gallery','about'],
+                        'actions' => ['signup','login','index','contact','about'],
                         'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['signup','login','index','contact','shop','cart','my-account','account-details','wishlist','shop','gallery','about'],
-                        'allow' => true,
-                        'roles' => ['client'],
+                        'roles' => ['?','client'],
                     ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['@'], 
+                        'roles' => ['client'], 
                         'denyCallback' => function ($rule, $action) {
                             Yii::$app->session->setFlash('warning', 'You must be logged in to log out.');
                             return Yii::$app->response->redirect(['site/login']);
@@ -120,6 +113,12 @@ class SiteController extends Controller
 
         $model->password = '';
 
+        $this->view->title = 'Login';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
+
         return $this->render('login', [
             'model' => $model,
         ]);
@@ -137,6 +136,12 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
+
+        $this->view->title = 'Sign up';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
 
         return $this->render('signup', [
             'model' => $model,
@@ -195,63 +200,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays gallery page.
-     *
-     * @return mixed
-     */
-    public function actionGallery()
-    {
-        return $this->render('gallery');
-    }
-
-    /**
-     * Displays SidebarShop page.
-     *
-     * @return mixed
-     */
-    public function actionShop()
-    {
-        
-
-        $this->view->title = 'Shop';
-        $this->view->params['breadcrumbs'] = [
-        ['label' => 'Home', 'url' => ['site/index']],
-        ['label' => $this->view->title],
-        ];
-
-        return $this->render('shop');
-    }
-
-    /**
-     * Displays checkout page.
-     *
-     * @return mixed
-     */
-    public function actionShopDetail($id)
-    {
-        $product = Produto::findOne($id);
-
-        $this->view->title = $product->nome;
-        $this->view->params['breadcrumbs'] = [
-        ['label' => 'Shop', 'url' => ['site/shop']],
-        //['label' => 'Category Name', 'url' => ['site/', 'id' => $product->categoria_id]],
-        ['label' => $product->nome],
-        ];
-
-        return $this->render('shop-detail',['product' => $product]);
-    }
-
-    /**
-     * Displays wishlist page.
-     *
-     * @return mixed
-     */
-    public function actionWishlist()
-    {
-        return $this->render('wishlist');
-    }
-
-    /**
      * Displays cart page.
      *
      * @return mixed
@@ -269,37 +217,6 @@ class SiteController extends Controller
     public function actionCheckout()
     {
         return $this->render('checkout');
-    }
-
-    /**
-     * Displays My-Account page.
-     *
-     * @return mixed
-     */
-    public function actionMyAccount()
-    {
-        return $this->render('my-account');
-    }
-
-      /**
-     * Displays account-details page.
-     *
-     * @return mixed
-     */
-    public function actionAccountDetails()
-    {
-        $model = new UpdateUserForm();
-        $userProfile = Userprofile::findOne(['user_id' => Yii::$app->user->id]);
-
-        if ($model->load(Yii::$app->request->post()) && $model->update()) {
-            Yii::$app->session->setFlash('success', 'Details have been updated successfully!');
-            return $this->goHome();
-        }
-
-        return $this->render('account-details', [
-        'model' => $model,
-        'userProfile' => $userProfile,
-    ]);
     }
     
     /**

@@ -2,18 +2,20 @@
 
 namespace frontend\controllers;
 
-use common\models\Produto;
-use common\models\ProdutoSearch;
+use common\models\User;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use Yii;
+use frontend\models\UpdateUserForm;
+use common\models\Userprofile;
 
 /**
- * ProdutoController implements the CRUD actions for Produto model.
+ * UserController implements the CRUD actions for User model.
  */
-class ProdutoController extends Controller
+class UserController extends Controller
 {
     /**
      * @inheritDoc
@@ -25,12 +27,12 @@ class ProdutoController extends Controller
             [
                 'access' => [
                 'class' => AccessControl::class,
-                'only' => ['index','product-details','gallery'],
+                'only' => ['index','account-details','wishlist'],
                 'rules' => [
                     [
-                        'actions' => ['index','product-details','gallery'],
+                        'actions' => ['index','account-details','wishlist'],
                         'allow' => true,
-                        'roles' => ['?','client'],
+                        'roles' => ['client'],
                     ],
                     [
                         'allow' => false,
@@ -56,84 +58,85 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Lists all Produto models.
+     * Lists all User models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => User::find(),
+            /*
+            'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+            */
+        ]);
 
-        $products = Produto::find()->all();
-        $productCount = Produto::find()->count();
-
-        $this->view->title = 'Product Shop';
+        $this->view->title = 'My Account';
         $this->view->params['breadcrumbs'] = [
         ['label' => 'Home', 'url' => ['site/index']],
         ['label' => $this->view->title],
         ];
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'products' => $products,
-            'productCount' => $productCount,
         ]);
     }
 
+          /**
+     * Displays account-details page.
+     *
+     * @return mixed
+     */
+    public function actionAccountDetails()
+    {
+        $model = new UpdateUserForm();
+        $userProfile = Userprofile::findOne(['user_id' => Yii::$app->user->id]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->update()) {
+            Yii::$app->session->setFlash('success', 'Details have been updated successfully!');
+            return $this->goHome();
+        }
+
+        $this->view->title = 'Account Details';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'My Account', 'url' => ['user/index']],
+        ['label' => $this->view->title],
+        ];
+
+        return $this->render('account-details', [
+        'model' => $model,
+        'userProfile' => $userProfile,
+    ]);
+    }
+
     /**
-     * Displays a single Produto model.
-     * @param int $id ID
+     * Displays a single User model.
+     * @param int $id
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionProductDetails($id)
+    public function actionView($id)
     {
-        $product = Produto::findOne($id);
-
-        $this->view->title = $product->nome;
-        $this->view->params['breadcrumbs'] = [
-        ['label' => 'Shop', 'url' => ['site/shop']],
-        //['label' => 'Category Name', 'url' => ['site/', 'id' => $product->categoria_id]],
-        ['label' => $product->nome],
-        ];
-        
-        return $this->render('product-details', [
-            'product' => $product,
+        return $this->render('view', [
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Displays the Produto gallery.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionGallery()
-    {
-        $products = Produto::find()->all();
-
-        $this->view->title = 'Gallery';
-        $this->view->params['breadcrumbs'] = [
-        ['label' => 'Home', 'url' => ['site/index']],
-        //['label' => 'Category Name', 'url' => ['site/', 'id' => $product->categoria_id]],
-        ['label' => 'Gallery'],
-        ];
-        
-        return $this->render('gallery', [
-            'products' => $products,
-        ]);
-    }
-
-    /**
-     * Creates a new Produto model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Produto();
+        $model = new User();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -149,9 +152,9 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Updates an existing Produto model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $id
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -169,9 +172,9 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Deletes an existing Produto model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $id
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -183,15 +186,15 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Finds the Produto model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Produto the loaded model
+     * @param int $id
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Produto::findOne(['id' => $id])) !== null) {
+        if (($model = User::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
