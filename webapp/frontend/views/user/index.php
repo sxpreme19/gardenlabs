@@ -24,11 +24,11 @@
                         <div class="account-box">
                             <div class="service-box">
                                 <div class="service-icon">
-                                    <a href=<?=yii\helpers\Url::to(['user/account-details'])?>><i class="fa fa-lock"></i> </a>
+                                    <a href=<?=yii\helpers\Url::to(['user/my-account'])?>><i class="fa fa-lock"></i> </a>
                                 </div>
                                 <div class="service-desc">
                                     <h4>Account details</h4>
-                                    <p>Edit account details</p>
+                                    <p>View account details</p>
                                 </div>
                             </div>
                         </div>

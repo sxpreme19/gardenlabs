@@ -1,7 +1,7 @@
 <?php
 /** @var yii\bootstrap5\ActiveForm $form */
 /** @var \frontend\models\UpdateUserForm $model */
-use yii\bootstrap5\Html;
+use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 ?>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ use yii\bootstrap5\ActiveForm;
             <div class="row new-account-login">
                 <div class="col-12 mb-4">
                     <div class="title-left">
-                        <h3>Your Details</h3>
+                        <h3>Edit Details</h3>
                     </div>
                 </div>
 
@@ -26,11 +26,11 @@ use yii\bootstrap5\ActiveForm;
                     <div class="col-sm-6 col-lg-6 mb-3">
                         <?= $form->field($model, 'username')->textInput([
                             'autofocus' => true,
-                            'value' => Yii::$app->user->identity->username
+                            'value' => Html::encode(Yii::$app->user->identity->username)
                         ]) ?>
 
                         <?= $form->field($model, 'email')->input('email', [
-                            'value' => Yii::$app->user->identity->email
+                            'value' => Html::encode(Yii::$app->user->identity->email)
                         ]) ?>
                         <?= $form->field($model, 'password')->passwordInput()->label("Password (Leave blank to maintain password)") ?>
                     </div>

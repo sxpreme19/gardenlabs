@@ -31,17 +31,22 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['signup','login','index','contact','about','logout',],
+                'only' => ['signup','login','index','contact','about','logout','cart'],
                 'rules' => [
                     [
                         'actions' => ['signup','login','index','contact','about'],
                         'allow' => true,
-                        'roles' => ['?','client'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['index','contact','about','cart'],
+                        'allow' => true,
+                        'roles' => ['client'],
                     ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['client'], 
+                        'roles' => ['@'], 
                         'denyCallback' => function ($rule, $action) {
                             Yii::$app->session->setFlash('warning', 'You must be logged in to log out.');
                             return Yii::$app->response->redirect(['site/login']);
@@ -51,12 +56,8 @@ class SiteController extends Controller
                         'allow' => false,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action){
-                            return Yii::$app->user->can('accessBackend');
+                            return !Yii::$app->user->can('accessBackend');
                         }
-                    ],
-                    [
-                        'allow' => false,
-                        'roles' => ['@'], 
                     ],
                 ],
             ],
@@ -212,6 +213,12 @@ class SiteController extends Controller
      */
     public function actionCart()
     {
+        $this->view->title = 'Cart';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
+
         return $this->render('cart');
     }
 

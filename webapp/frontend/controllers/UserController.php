@@ -27,10 +27,10 @@ class UserController extends Controller
             [
                 'access' => [
                 'class' => AccessControl::class,
-                'only' => ['index','account-details','wishlist'],
+                'only' => ['index','my-account','account-details','wishlist'],
                 'rules' => [
                     [
-                        'actions' => ['index','account-details','wishlist'],
+                        'actions' => ['index','my-account','account-details','wishlist'],
                         'allow' => true,
                         'roles' => ['client'],
                     ],
@@ -89,6 +89,25 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Displays My-Account page.
+     *
+     * @return mixed
+     */
+    public function actionMyAccount()
+    {
+        $userProfile = Userprofile::findOne(['user_id' => Yii::$app->user->id]);
+
+        $this->view->title = 'My Account';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
+        return $this->render('my-account',[
+            'userProfile' => $userProfile,
+        ]);
+    }
+
           /**
      * Displays account-details page.
      *
@@ -104,9 +123,9 @@ class UserController extends Controller
             return $this->goHome();
         }
 
-        $this->view->title = 'Account Details';
+        $this->view->title = 'Edit Details';
         $this->view->params['breadcrumbs'] = [
-        ['label' => 'My Account', 'url' => ['user/index']],
+        ['label' => 'My Account', 'url' => ['user/my-account']],
         ['label' => $this->view->title],
         ];
 
@@ -114,6 +133,22 @@ class UserController extends Controller
         'model' => $model,
         'userProfile' => $userProfile,
     ]);
+    }
+
+    /**
+     * Displays wishlist page.
+     *
+     * @return mixed
+     */
+    public function actionWishlist()
+    {
+
+        $this->view->title = 'Wishlist';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
+        return $this->render('wishlist');
     }
 
     /**
