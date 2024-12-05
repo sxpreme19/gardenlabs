@@ -4,16 +4,16 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\Categoria;
 use common\models\Fornecedor;
-use kartik\file\FileInput;
 
 /** @var yii\web\View $this */
 /** @var common\models\Produto $model */
 /** @var yii\widgets\ActiveForm $form */
+/** @var backend\models\UploadForm $uploadForm */
 ?>
 
 <div class="row">
     <div class="col-lg-5">
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
         <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
@@ -33,10 +33,13 @@ use kartik\file\FileInput;
             ['prompt' => 'Select a Fornecedor']
         ) ?>
 
+
+        <?= $form->field($uploadForm, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
     </div>
-</div>
+</div>  

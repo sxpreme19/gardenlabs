@@ -3,10 +3,14 @@
 namespace backend\controllers;
 
 use common\models\Produto;
-use backend\models\ProdutoSearch;
+use common\models\Imagem;
+use common\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\UploadForm;
+use yii\web\UploadedFile;
+use Yii;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -68,17 +72,34 @@ class ProdutoController extends Controller
     public function actionCreate()
     {
         $model = new Produto();
+        $uploadForm = new UploadForm();
 
         if ($this->request->isPost) {
+            $uploadForm->imageFiles = UploadedFile::getInstances($uploadForm, 'imageFiles');
             if ($model->load($this->request->post()) && $model->save()) {
+                if ($uploadForm->validate() && $uploadForm->imageFiles) {
+                    foreach ($uploadForm->imageFiles as $file) {
+                        $filePath = Yii::getAlias('@webroot/uploads/') . $file->baseName . '.' . $file->extension;
+                        if ($file->saveAs($filePath)) {
+                            $image = new Imagem();
+                            $image->produto_id = $model->id;
+                            $image->filename = $file->baseName . '.' . $file->extension;
+                            
+                            if (!$image->save()) {
+                                Yii::error('Image save failed: ' . json_encode($image->errors));
+                            } else {
+                                Yii::info('Image saved in database: ' . $image->filename);
+                            }
+                        }
+                    }
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
+            'uploadForm' => $uploadForm,
         ]);
     }
 

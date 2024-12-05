@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "psi_project.gardenlabs"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "psi_project.gardenlabs"
