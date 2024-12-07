@@ -29,10 +29,9 @@ class Imagem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'filename', 'produto_id'], 'required'],
-            [['id', 'produto_id'], 'integer'],
+            [['filename', 'produto_id'], 'required'],
+            [['produto_id'], 'integer'],
             [['filename'], 'string', 'max' => 80],
-            [['id'], 'unique'],
             [['produto_id'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['produto_id' => 'id']],
         ];
     }

@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Produto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -30,17 +31,30 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
+            'nome',
             'descricao',
             'preco',
-            'nome',
             'quantidade',
             //'categoria_id',
             //'fornecedor_id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Produto $model, $key, $index, $column) {
+                    if ($action === 'images') {
+                        return Url::toRoute(['produto/manage-images', 'id' => $model->id]); 
+                    }
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'template' => '{view} {update} {delete} {images} ', 
+                'buttons' => [
+                    'images' => function ($url, $model) {
+                        return Html::a('<i class="fas fa-images"></i>', $url, [
+                            'title' => 'Manage Images', 
+                            'style' => 'padding: 0; margin: 0; line-height: 2;', 
+                            'data-toggle' => 'tooltip', 
+                        ]);
+                    },
+                ],
             ],
         ],
     ]); ?>

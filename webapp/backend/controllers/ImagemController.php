@@ -5,18 +5,17 @@ namespace backend\controllers;
 use common\models\Produto;
 use common\models\Imagem;
 use backend\models\ImagemSearch;
-use common\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\UploadForm;
+use yii\web\UploadedFile;
 use Yii;
 
-
-
 /**
- * ProdutoController implements the CRUD actions for Produto model.
+ * ImagemController implements the CRUD actions for Imagem model.
  */
-class ProdutoController extends Controller
+class ImagemController extends Controller
 {
     /**
      * @inheritDoc
@@ -37,13 +36,13 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Lists all Produto models.
+     * Lists all Imagem models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new ProdutoSearch();
+        $searchModel = new ImagemSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -53,7 +52,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Displays a single Produto model.
+     * Displays a single Imagem model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -66,38 +65,60 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Creates a new Produto model.
+     * Creates a new Imagem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionUpload($id)
     {
-        $model = new Produto();
+        if (!Produto::findOne($id)) {
+            Yii::$app->session->addFlash('error', "Produto with ID $id does not exist.");
+            return $this->redirect(['produto/index']);
+        }
+
+        $uploadForm = new UploadForm();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                // Check if the admin wants to upload images or return to index
-                if ($this->request->post('add_images') === 'yes') {
-                    return $this->redirect(['imagem/upload', 'id' => $model->id]);
-                } else {
-                    return $this->redirect(['index']);
+            $uploadForm->imageFiles = UploadedFile::getInstances($uploadForm, 'imageFiles');
+            if ($uploadForm->validate() && $uploadForm->imageFiles) {
+                foreach ($uploadForm->imageFiles as $file) {
+                    $FileName = $id . '.' . $file->baseName . '.' . $file->extension;
+                    $filePath = Yii::getAlias('@webroot/uploads/') . $FileName;
+
+                    if ($file->saveAs($filePath)) {
+                        $image = new Imagem();
+                        $image->produto_id = $id;
+                        $image->filename = $FileName;
+
+                        if ($image->save()) {
+                            Yii::$app->session->addFlash('success', 'Image uploaded: ' . $FileName);
+                        } else {
+                            Yii::$app->session->addFlash('error', 'Failed to save image: ' . json_encode($image->errors));
+                        }
+                    } else {
+                        Yii::$app->session->addFlash('error', 'Failed to save file: ' . $FileName);
+                    }
                 }
+
+                return $this->redirect(['produto/view', 'id' => $id]);
+            } else {
+                Yii::$app->session->addFlash('error', 'Validation failed: ' . json_encode($uploadForm->errors));
             }
         }
 
-        $this->view->title = 'Create Produto';
-        $this->view->params['breadcrumbs'] = [
-            ['label' => 'Products', 'url' => ['produto/index']],
-            ['label' => $this->view->title],
-        ];
+        $model = new Imagem();
+        $model->produto_id = $id;
 
-        return $this->render('create', [
+        return $this->render('upload', [
             'model' => $model,
+            'uploadForm' => $uploadForm,
         ]);
     }
 
+
+
     /**
-     * Updates an existing Produto model.
+     * Updates an existing Imagem model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -117,7 +138,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Deletes an existing Produto model.
+     * Deletes an existing Imagem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -125,48 +146,26 @@ class ProdutoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $filePath = Yii::getAlias('@webroot/uploads/' . $model->filename);
+        if (file_exists($filePath)) {
+            unlink($filePath); 
+        }
+        $model->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Managing images of an existing Produto model.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionManageImages($id)
-    {
-        $searchModel = new ImagemSearch();
-
-        $dataProvider = $searchModel->search([
-            'produto_id' => $id, 
-        ]);
-
-        $this->view->title = 'Manage Images';
-        $this->view->params['breadcrumbs'] = [
-            ['label' => 'Products', 'url' => ['produto/index']],
-            ['label' => $this->view->title],
-        ];
-    
-        return $this->render('manage-images', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'produto_id' => $id,
-        ]);
-    }
-
-    /**
-     * Finds the Produto model based on its primary key value.
+     * Finds the Imagem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Produto the loaded model
+     * @return Imagem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Produto::findOne(['id' => $id])) !== null) {
+        if (($model = Imagem::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

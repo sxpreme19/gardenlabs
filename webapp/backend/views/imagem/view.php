@@ -2,21 +2,21 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var common\models\Produto $model */
+/** @var common\models\Imagem $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Produtos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Imagems', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="produto-view">
+<div class="imagem-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -30,13 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'nome',
-            'descricao',
-            'preco',
-            'quantidade',
-            'categoria_id',
-            'fornecedor_id',
+            'filename',
+            'produto_id',
         ],
     ]) ?>
+
+<h3>Image Preview:</h3>
+    <div>
+        <?= Html::img(Url::to('@web/uploads/' . $model->filename), ['alt' => 'Image', 'class' => 'img-fluid', 'style' => 'max-width: 50%; height: auto;']) ?>
+    </div>
 
 </div>

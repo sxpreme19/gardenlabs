@@ -65,8 +65,11 @@ class ProdutoController extends Controller
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $products = Produto::find()->all();
-        $productCount = Produto::find()->count();
+        $products = Produto::find()
+            ->joinWith('imagems') 
+            ->where(['not', ['imagem.id' => null]]) 
+            ->all();
+        $productCount = count($products);
 
         $this->view->title = 'Product Shop';
         $this->view->params['breadcrumbs'] = [

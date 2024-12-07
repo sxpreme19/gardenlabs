@@ -63,6 +63,7 @@
                         'items' => [
                             ['label' => 'Categories', 'icon' => 'fas fa-layer-group','url' => ['categoria/index']],
                             ['label' => 'Suppliers', 'icon' => 'fas fa-parachute-box','url' => ['fornecedor/index']],
+                            ['label' => 'Images', 'icon' => 'fas fa-image','url' => ['imagem/index']],
                         ],
                     ],
                     [

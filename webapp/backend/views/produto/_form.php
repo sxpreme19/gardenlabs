@@ -8,7 +8,7 @@ use common\models\Fornecedor;
 /** @var yii\web\View $this */
 /** @var common\models\Produto $model */
 /** @var yii\widgets\ActiveForm $form */
-/** @var backend\models\UploadForm $uploadForm */
+
 ?>
 
 <div class="row">
@@ -33,11 +33,18 @@ use common\models\Fornecedor;
             ['prompt' => 'Select a Fornecedor']
         ) ?>
 
-
-        <?= $form->field($uploadForm, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
-
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Save and Add Images', [
+                'class' => 'btn btn-primary',
+                'name' => 'add_images',
+                'value' => 'yes',
+            ]) ?>
+
+            <?= Html::submitButton('Save and Go to Product Details', [
+                'class' => 'btn btn-success',
+                'name' => 'add_images',
+                'value' => 'no',
+            ]) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

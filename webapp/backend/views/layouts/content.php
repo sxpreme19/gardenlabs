@@ -16,6 +16,8 @@ use yii\bootstrap4\Breadcrumbs;
                             User Management
                         <?php elseif($this->title == "Produtos"): ?>
                             Product Management
+                        <?php elseif($this->title == "Create Produto"): ?>
+                            <h5>Products with no images <strong>wont</strong> be displayed in the shop</h5>
                         <?php endif; ?>
                     </h1>
                 </div><!-- /.col -->
