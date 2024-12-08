@@ -45,7 +45,13 @@
                                                     <div class="type-lb">
                                                         <p class="sale">Sale</p>
                                                     </div>
-                                                    <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
+                                                    <?php
+                                                    $productImages = $product->imagems; 
+                                                    if (!empty($productImages)): 
+                                                        $firstImage = $productImages[0]; 
+                                                    ?>
+                                                    <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="img-fluid" alt="Image">
+                                                    <?php endif; ?>
                                                     <div class="mask-icon">
                                                         <ul>
                                                             <li><a href=<?=yii\helpers\Url::to(['produto/product-details','id' => $product->id])?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>

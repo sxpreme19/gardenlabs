@@ -94,6 +94,7 @@ class ProdutoController extends Controller
     public function actionProductDetails($id)
     {
         $product = Produto::findOne($id);
+        $productImages = $product->imagems;
 
         $this->view->title = $product->nome;
         $this->view->params['breadcrumbs'] = [
@@ -104,6 +105,7 @@ class ProdutoController extends Controller
         
         return $this->render('product-details', [
             'product' => $product,
+            'productImages' => $productImages,
         ]);
     }
 
