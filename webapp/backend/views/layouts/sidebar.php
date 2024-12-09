@@ -55,6 +55,8 @@
                         'items' => [
                             ['label' => 'Products', 'icon' => 'fas fa-box','url' => ['produto/index']],
                             ['label' => 'Services', 'icon' => 'fas fa-concierge-bell','url' => ['servico/index']],
+                            ['label' => 'User Carts', 'icon' => 'fas fa-shopping-basket', 'url' => ['carrinho/index']],
+                            ['label' => 'Wishlists', 'icon' => 'fas fa-heart', 'url' => ['user/index']],
                         ],
                     ],
                     [
@@ -71,6 +73,7 @@
                         'icon' => 'fas fa-receipt',
                         'badge' => '<span class="right badge badge-danger">Admin</span>',
                         'items' => [
+                            ['label' => 'Invoices', 'icon' => 'fas fa-file-invoice-dollar', 'url' => ['fatura/index']],
                             ['label' => 'Expedition Methods', 'icon' => 'fas fa-shipping-fast','url' => ['metodoexpedicao/index']],
                             ['label' => 'Payment Methods', 'icon' => 'fas fa-credit-card','url' => ['metodopagamento/index']],
                         ],

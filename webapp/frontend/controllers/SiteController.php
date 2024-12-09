@@ -93,6 +93,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->view->title = 'Home';
         return $this->render('index');
     }
 

@@ -72,7 +72,7 @@ class ImagemController extends Controller
     public function actionUpload($id)
     {
         if (!Produto::findOne($id)) {
-            Yii::$app->session->addFlash('error', "Produto with ID $id does not exist.");
+            Yii::$app->session->setFlash('error', "Produto with ID $id does not exist.");
             return $this->redirect(['produto/index']);
         }
 
@@ -91,18 +91,18 @@ class ImagemController extends Controller
                         $image->filename = $FileName;
 
                         if ($image->save()) {
-                            Yii::$app->session->addFlash('success', 'Image uploaded: ' . $FileName);
+                            Yii::$app->session->setFlash('success', 'Image uploaded: ' . $FileName);
                         } else {
-                            Yii::$app->session->addFlash('error', 'Failed to save image: ' . json_encode($image->errors));
+                            Yii::$app->session->setFlash('error', 'Failed to save image: ' . json_encode($image->errors));
                         }
                     } else {
-                        Yii::$app->session->addFlash('error', 'Failed to save file: ' . $FileName);
+                        Yii::$app->session->setFlash('error', 'Failed to save file: ' . $FileName);
                     }
                 }
 
                 return $this->redirect(['produto/view', 'id' => $id]);
             } else {
-                Yii::$app->session->addFlash('error', 'Validation failed: ' . json_encode($uploadForm->errors));
+                Yii::$app->session->setFlash('error', 'Validation failed: ' . json_encode($uploadForm->errors));
             }
         }
 

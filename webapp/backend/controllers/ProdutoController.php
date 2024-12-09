@@ -76,7 +76,6 @@ class ProdutoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                // Check if the admin wants to upload images or return to index
                 if ($this->request->post('add_images') === 'yes') {
                     return $this->redirect(['imagem/upload', 'id' => $model->id]);
                 } else {
