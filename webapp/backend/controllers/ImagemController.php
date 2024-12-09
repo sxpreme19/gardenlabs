@@ -85,6 +85,16 @@ class ImagemController extends Controller
                     $FileName = $id . '.' . $file->baseName . '.' . $file->extension;
                     $filePath = Yii::getAlias('@webroot/uploads/') . $FileName;
 
+                    if (Imagem::find()->where(['filename' => $FileName])->exists()) {
+                        Yii::$app->session->setFlash('error', "An image with the filename '$FileName' already exists in the database.");
+                        return $this->redirect(['produto/manage-images', 'id' => $id]); 
+                    }
+    
+                    if (file_exists($filePath)) {
+                        Yii::$app->session->setFlash('error', "A file with the filename '$FileName' already exists on the server.");
+                        return $this->redirect(['produto/manage-images', 'id' => $id]);
+                    }
+
                     if ($file->saveAs($filePath)) {
                         $image = new Imagem();
                         $image->produto_id = $id;
@@ -153,6 +163,7 @@ class ImagemController extends Controller
         }
         $model->delete();
 
+        Yii::$app->session->setFlash('success', 'Image deleted successfully');
         return $this->redirect(['index']);
     }
 

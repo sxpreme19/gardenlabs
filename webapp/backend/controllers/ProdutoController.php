@@ -79,6 +79,7 @@ class ProdutoController extends Controller
                 if ($this->request->post('add_images') === 'yes') {
                     return $this->redirect(['imagem/upload', 'id' => $model->id]);
                 } else {
+                    Yii::$app->session->setFlash('success', "Product created (without image)");
                     return $this->redirect(['index']);
                 }
             }

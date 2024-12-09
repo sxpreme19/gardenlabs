@@ -15,11 +15,11 @@ use common\models\Fornecedor;
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
+        <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
+
         <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'preco')->textInput(['type' => 'number','step' => '0.01']) ?>
-
-        <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'quantidade')->textInput() ?>
 
