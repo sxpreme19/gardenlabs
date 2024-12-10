@@ -251,6 +251,12 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
         }
 
+        $this->view->title = 'Password';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
+
         return $this->render('requestPasswordResetToken', [
             'model' => $model,
         ]);
@@ -276,6 +282,12 @@ class SiteController extends Controller
 
             return $this->goHome();
         }
+
+        $this->view->title = 'Password';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
 
         return $this->render('resetPassword', [
             'model' => $model,

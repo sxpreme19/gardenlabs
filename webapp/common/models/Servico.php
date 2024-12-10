@@ -13,6 +13,9 @@ use Yii;
  * @property string $titulo
  * @property int $duracao
  * @property int $prestador_id
+ *
+ * @property Linhacarrinho[] $linhacarrinhos
+ * @property Linhafatura[] $linhafaturas
  */
 class Servico extends \yii\db\ActiveRecord
 {
@@ -51,5 +54,25 @@ class Servico extends \yii\db\ActiveRecord
             'duracao' => 'Duracao',
             'prestador_id' => 'Prestador ID',
         ];
+    }
+
+    /**
+     * Gets query for [[Linhacarrinhos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLinhacarrinhos()
+    {
+        return $this->hasMany(Linhacarrinho::class, ['servico_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Linhafaturas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLinhafaturas()
+    {
+        return $this->hasMany(Linhafatura::class, ['servico_id' => 'id']);
     }
 }

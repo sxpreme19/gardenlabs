@@ -1,14 +1,9 @@
 <?php
-
-/** @var yii\web\View $this */
 /** @var yii\bootstrap5\ActiveForm $form */
 /** @var \frontend\models\PasswordResetRequestForm $model */
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
-
-$this->title = 'Request password reset';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-request-password-reset">
     <h1><?= Html::encode($this->title) ?></h1>

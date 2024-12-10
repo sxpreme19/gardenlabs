@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use common\models\User;
 use common\models\Userprofile;
+use common\models\Carrinho;
 
 /**
  * Signup form
@@ -67,8 +68,14 @@ class SignupForm extends Model
             $userprofile->user_id = $user->id;
 
             if($userprofile->save()) {
-                $this->sendEmail($user);
-                return $user;
+                //$this->sendEmail($user);
+                $userCart = new Carrinho();
+                $userCart->userprofile_id = $userprofile->id;
+                var_dump($userCart);
+                if($userCart->save()) {
+                    
+                    return $user;
+                }
             }
 
             $user->delete();
