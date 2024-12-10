@@ -47,7 +47,6 @@
                         ]*/
                     ],
                     ['label' => 'User Control','url' => ['user/index'], 'icon' => 'user', 'badge' => '<span class="right badge badge-danger">Admin</span>'],
-                    ['label' => 'Providers','url' => ['prestador/index'], 'icon' => 'users-cog', 'badge' => '<span class="right badge badge-danger">Admin</span>'],
                     ['label' => 'Shopping Management', 'header' => true],
                     [
                         'label' => 'Shopping',
