@@ -42,9 +42,28 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => 'yii\rest\UrlRule','controller' => 'api/user'],
+                [
+                    'class' => 'yii\rest\UrlRule','controller' => 'api/produto',
+                    'extraPatterns' => [
+                        'GET count' => 'count',
+                        'GET nomes' => 'nomes',
+                        'GET {id}/preco' => 'preco',
+                        'GET preco/{nomeproduto}' => 'precopornome',
+                        'DELETE {nomeproduto}' => 'delpornome',
+                        'PUT {nomeproduto}' => 'putprecopornome',
+                        'POST vazio' => 'postprodutovazio',
+                        'GET {data_criacao}' => 'data_criacao',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                        '{nomeproduto}' => '<nomeproduto:[\\w ]+>',
+                        '{data_criacao}' => '<data_criacao:\\d{4}-\d{2}-\d{2}+>'
+                    ],    
+                ],
             ],
         ],
         

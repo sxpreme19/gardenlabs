@@ -83,6 +83,7 @@ class UpdateUserForm extends Model
 
         if ($this->password) {
             $user->setPassword($this->password);
+            $user->generateAuthKey();
         }
 
         if ($user->save()) {
