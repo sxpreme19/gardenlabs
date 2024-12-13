@@ -5,22 +5,21 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "carrinho".
+ * This is the model class for table "favorito".
  *
  * @property int $id
- * @property float $total
  * @property int $userprofile_id
- *
- * @property Linhacarrinho[] $linhacarrinhos
+ * @property int|null $servico_id
+ * @property int|null $produto_id
  */
-class Carrinho extends \yii\db\ActiveRecord
+class Favorito extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'carrinho';
+        return 'favorito';
     }
 
     /**
@@ -30,8 +29,7 @@ class Carrinho extends \yii\db\ActiveRecord
     {
         return [
             [['userprofile_id'], 'required'],
-            [['total'], 'number'],
-            [['userprofile_id'], 'integer'],
+            [['userprofile_id', 'servico_id', 'produto_id'], 'integer'],
         ];
     }
 
@@ -42,19 +40,10 @@ class Carrinho extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'total' => 'Total',
             'userprofile_id' => 'Userprofile ID',
+            'servico_id' => 'Servico ID',
+            'produto_id' => 'Produto ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Linhacarrinhos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLinhacarrinhos()
-    {
-        return $this->hasMany(Linhacarrinho::class, ['carrinho_id' => 'id']);
     }
 
     public function getUserProfile()

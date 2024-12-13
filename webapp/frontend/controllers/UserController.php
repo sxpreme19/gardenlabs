@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Carrinho;
 use common\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -11,6 +12,7 @@ use yii\filters\AccessControl;
 use Yii;
 use frontend\models\UpdateUserForm;
 use common\models\Userprofile;
+use common\models\Favorito;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -26,26 +28,26 @@ class UserController extends Controller
             parent::behaviors(),
             [
                 'access' => [
-                'class' => AccessControl::class,
-                'only' => ['index','my-account','account-details','wishlist'],
-                'rules' => [
-                    [
-                        'actions' => ['index','my-account','account-details','wishlist'],
-                        'allow' => true,
-                        'roles' => ['client'],
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'my-account', 'account-details', 'wishlist'],
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'my-account', 'account-details', 'wishlist'],
+                            'allow' => true,
+                            'roles' => ['client'],
+                        ],
+                        [
+                            'allow' => false,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                return Yii::$app->user->can('accessBackend');
+                            }
+                        ],
+                        [
+                            'allow' => false,
+                            'roles' => ['@'],
+                        ],
                     ],
-                    [
-                        'allow' => false,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rule, $action){
-                            return Yii::$app->user->can('accessBackend');
-                        }
-                    ],
-                    [
-                        'allow' => false,
-                        'roles' => ['@'], 
-                    ],
-                ],
                 ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
@@ -80,8 +82,8 @@ class UserController extends Controller
 
         $this->view->title = 'My Account';
         $this->view->params['breadcrumbs'] = [
-        ['label' => 'Home', 'url' => ['site/index']],
-        ['label' => $this->view->title],
+            ['label' => 'Home', 'url' => ['site/index']],
+            ['label' => $this->view->title],
         ];
 
         return $this->render('index', [
@@ -100,15 +102,15 @@ class UserController extends Controller
 
         $this->view->title = 'My Account';
         $this->view->params['breadcrumbs'] = [
-        ['label' => 'Home', 'url' => ['site/index']],
-        ['label' => $this->view->title],
+            ['label' => 'Home', 'url' => ['site/index']],
+            ['label' => $this->view->title],
         ];
-        return $this->render('my-account',[
+        return $this->render('my-account', [
             'userProfile' => $userProfile,
         ]);
     }
 
-          /**
+    /**
      * Displays account-details page.
      *
      * @return mixed
@@ -125,14 +127,14 @@ class UserController extends Controller
 
         $this->view->title = 'Edit Details';
         $this->view->params['breadcrumbs'] = [
-        ['label' => 'My Account', 'url' => ['user/my-account']],
-        ['label' => $this->view->title],
+            ['label' => 'My Account', 'url' => ['user/my-account']],
+            ['label' => $this->view->title],
         ];
 
         return $this->render('account-details', [
-        'model' => $model,
-        'userProfile' => $userProfile,
-    ]);
+            'model' => $model,
+            'userProfile' => $userProfile,
+        ]);
     }
 
     /**
@@ -145,8 +147,8 @@ class UserController extends Controller
 
         $this->view->title = 'Wishlist';
         $this->view->params['breadcrumbs'] = [
-        ['label' => 'Home', 'url' => ['site/index']],
-        ['label' => $this->view->title],
+            ['label' => 'Home', 'url' => ['site/index']],
+            ['label' => $this->view->title],
         ];
         return $this->render('wishlist');
     }
@@ -215,10 +217,24 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $user = $this->findModel($id);
+        $userProfile = $user->userProfile; 
+
+        if ($userProfile) {
+            if ($userProfile->carrinho) {
+                $userProfile->carrinho->delete();
+            }
+            if ($userProfile->favorito) {
+                $userProfile->favorito->delete();
+            }
+            $userProfile->delete();
+        }
+
+        $user->delete();
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the User model based on its primary key value.
