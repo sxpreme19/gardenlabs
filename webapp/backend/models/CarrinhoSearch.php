@@ -1,15 +1,15 @@
 <?php
 
-namespace common\models;
+namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Produto;
+use common\models\Carrinho;
 
 /**
- * ProdutoSearch represents the model behind the search form of `common\models\Produto`.
+ * CarrinhoSearch represents the model behind the search form of `common\models\Carrinho`.
  */
-class ProdutoSearch extends Produto
+class CarrinhoSearch extends Carrinho
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,8 @@ class ProdutoSearch extends Produto
     public function rules()
     {
         return [
-            [['id', 'quantidade', 'categoria_id', 'fornecedor_id'], 'integer'],
-            [['descricao', 'nome'], 'safe'],
-            [['preco'], 'number'],
+            [['id', 'userprofile_id'], 'integer'],
+            [['total'], 'number'],
         ];
     }
 
@@ -41,15 +40,12 @@ class ProdutoSearch extends Produto
      */
     public function search($params)
     {
-        $query = Produto::find();
+        $query = Carrinho::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'pageSize' => 9, 
-            ],
         ]);
 
         $this->load($params);
@@ -63,14 +59,9 @@ class ProdutoSearch extends Produto
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'preco' => $this->preco,
-            'quantidade' => $this->quantidade,
-            'categoria_id' => $this->categoria_id,
-            'fornecedor_id' => $this->fornecedor_id,
+            'total' => $this->total,
+            'userprofile_id' => $this->userprofile_id,
         ]);
-
-        $query->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'nome', $this->nome]);
 
         return $dataProvider;
     }

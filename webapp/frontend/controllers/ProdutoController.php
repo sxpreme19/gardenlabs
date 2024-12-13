@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Categoria;
 use common\models\Produto;
 use common\models\ProdutoSearch;
 use yii\web\Controller;
@@ -60,16 +61,30 @@ class ProdutoController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($categoria_id = null)
     {
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $products = Produto::find()
+        if($categoria_id != null){
+            $products = Produto::find()
+            ->joinWith('imagems') 
+            ->where(['not', ['imagem.id' => null]])
+            ->andWhere(['categoria_id' => $categoria_id]) 
+            ->all();
+        }else{
+            $products = Produto::find()
             ->joinWith('imagems') 
             ->where(['not', ['imagem.id' => null]]) 
             ->all();
-        $productCount = count($products);
+        }
+        
+        $productDisplayCount = count($products);
+        $categories = Categoria::find()->all();
+        $productsPerCategory = [];
+        foreach($categories as $category){
+            $productsPerCategory[$category->id] = count(Produto::find()->where(['categoria_id' => $category->id])->all());
+        }
 
         $this->view->title = 'Product Shop';
         $this->view->params['breadcrumbs'] = [
@@ -81,7 +96,9 @@ class ProdutoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'products' => $products,
-            'productCount' => $productCount,
+            'productDisplayCount' => $productDisplayCount,
+            'categories' => $categories,
+            'productsPerCategory' => $productsPerCategory,
         ]);
     }
 
@@ -117,7 +134,11 @@ class ProdutoController extends Controller
      */
     public function actionGallery()
     {
-        $products = Produto::find()->all();
+        $products = Produto::find()
+            ->joinWith('imagems') 
+            ->where(['not', ['imagem.id' => null]]) 
+            ->all();
+        $categories = Categoria::find()->all();
 
         $this->view->title = 'Gallery';
         $this->view->params['breadcrumbs'] = [
@@ -128,6 +149,7 @@ class ProdutoController extends Controller
         
         return $this->render('gallery', [
             'products' => $products,
+            'categories' => $categories,
         ]);
     }
 
