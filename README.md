@@ -15,14 +15,15 @@ Tomás Monteiro
 
 ## Desenvolvimento e Funcionalidades
 
-Este projeto pretende criar uma aplicação de gestão que permita gerir os menus e reservas da cantina de uma escola.
-Também foram implementadas as funcionalidades necessárias para gerir os menus dos dias de uma determinada semana, controlar as reservas, carregar o saldo dos clientes e efetuar a faturação das reservas.
+Este projeto tem como objetivos principais produzir uma loja web operacional com uma grande variedade de produtos categorizados (Front-office e Back-office) e uma app mobile que permite agendar os serviços de jardinagem (Semanalmente, mensalmente, anualmente, etc...).
 
 Foi utilizada uma metodologia ágil de desenvolvimento de software **(Scrum)** através do softwware de gestão de projetos **JIRA**.
 
 
 ***
 
-> Desenvolvimento de Aplicações - Metodologias de Desenvolvimento de Software @ 2024
+> Projeto em Sistemas de Informação - GardenLabs @ 2024
 
-![Logo](https://eduportugal.eu/wp-content/uploads/2017/08/eduportugal_ipleiria_n.jpg)
+![Logo](https://github.com/user-attachments/assets/ba888cc6-ef2a-47f0-840f-7550aec0e6dd)
+
+
