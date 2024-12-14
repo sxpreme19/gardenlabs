@@ -7,7 +7,6 @@ use yii\base\Model;
 use common\models\User;
 use common\models\Userprofile;
 use common\models\Carrinho;
-use common\models\Favorito;
 
 /**
  * Signup form
@@ -73,11 +72,7 @@ class SignupForm extends Model
                 $userCart = new Carrinho();
                 $userCart->userprofile_id = $userprofile->id;
                 if($userCart->save()) {
-                    $userFav = new Favorito();
-                    $userFav->userprofile_id = $userprofile->id;
-                    if($userFav->save()){
-                        return $user;
-                    }
+                    return $user;
                 }
             }
 
