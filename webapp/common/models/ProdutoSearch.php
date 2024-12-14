@@ -41,36 +41,26 @@ class ProdutoSearch extends Produto
      */
     public function search($params)
     {
-        $query = Produto::find();
+        $query = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]]);
 
-        // add conditions that should always apply here
+        if (!empty($params['categoria_id'])) {
+            $query->andWhere(['categoria_id' => $params['categoria_id']]);
+        }
+
+        if (!empty($params['minPrice']) && !empty($params['maxPrice'])) {
+            $minPrice = $params['minPrice'];
+            $maxPrice = $params['maxPrice'];
+            $query->andWhere(['between', 'preco', $minPrice, $maxPrice]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 9, 
+                'pageSize' => 12,
             ],
         ]);
 
         $this->load($params);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'preco' => $this->preco,
-            'quantidade' => $this->quantidade,
-            'categoria_id' => $this->categoria_id,
-            'fornecedor_id' => $this->fornecedor_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'nome', $this->nome]);
 
         return $dataProvider;
     }

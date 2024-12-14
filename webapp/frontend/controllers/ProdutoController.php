@@ -25,26 +25,26 @@ class ProdutoController extends Controller
             parent::behaviors(),
             [
                 'access' => [
-                'class' => AccessControl::class,
-                'only' => ['index','product-details','gallery'],
-                'rules' => [
-                    [
-                        'actions' => ['index','product-details','gallery'],
-                        'allow' => true,
-                        'roles' => ['?','client'],
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'product-details', 'gallery'],
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'product-details', 'gallery'],
+                            'allow' => true,
+                            'roles' => ['?', 'client'],
+                        ],
+                        [
+                            'allow' => false,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                return Yii::$app->user->can('accessBackend');
+                            }
+                        ],
+                        [
+                            'allow' => false,
+                            'roles' => ['@'],
+                        ],
                     ],
-                    [
-                        'allow' => false,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rule, $action){
-                            return Yii::$app->user->can('accessBackend');
-                        }
-                    ],
-                    [
-                        'allow' => false,
-                        'roles' => ['@'], 
-                    ],
-                ],
                 ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
@@ -61,46 +61,41 @@ class ProdutoController extends Controller
      *
      * @return string
      */
-    public function actionIndex($categoria_id = null)
+    public function actionIndex($categoria_id = null,$minPrice = null, $maxPrice = null)
     {
         $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $queryParams = $this->request->queryParams;
 
-        if($categoria_id != null){
-            $products = Produto::find()
-            ->joinWith('imagems') 
-            ->where(['not', ['imagem.id' => null]])
-            ->andWhere(['categoria_id' => $categoria_id]) 
-            ->all();
-        }else{
-            $products = Produto::find()
-            ->joinWith('imagems') 
-            ->where(['not', ['imagem.id' => null]]) 
-            ->all();
+        if ($categoria_id !== null) {
+            $queryParams['categoria_id'] = $categoria_id;
         }
-        
-        $productDisplayCount = count($products);
+
+        $dataProvider = $searchModel->search($queryParams);
+        $productDisplayCount = $dataProvider->getTotalCount();
         $categories = Categoria::find()->all();
+
         $productsPerCategory = [];
-        foreach($categories as $category){
-            $productsPerCategory[$category->id] = count(Produto::find()->where(['categoria_id' => $category->id])->all());
+        foreach ($categories as $category) {
+            $productsPerCategory[$category->id] = Produto::find()
+                ->where(['categoria_id' => $category->id])
+                ->count();
         }
 
         $this->view->title = 'Product Shop';
         $this->view->params['breadcrumbs'] = [
-        ['label' => 'Home', 'url' => ['site/index']],
-        ['label' => $this->view->title],
+            ['label' => 'Home', 'url' => ['site/index']],
+            ['label' => $this->view->title],
         ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'products' => $products,
             'productDisplayCount' => $productDisplayCount,
             'categories' => $categories,
             'productsPerCategory' => $productsPerCategory,
         ]);
     }
+
 
     /**
      * Displays a single Produto model.
@@ -115,11 +110,10 @@ class ProdutoController extends Controller
 
         $this->view->title = $product->nome;
         $this->view->params['breadcrumbs'] = [
-        ['label' => 'Shop', 'url' => ['site/shop']],
-        //['label' => 'Category Name', 'url' => ['site/', 'id' => $product->categoria_id]],
-        ['label' => $product->nome],
+            ['label' => 'Shop', 'url' => ['produto/index']],
+            ['label' => $product->nome],
         ];
-        
+
         return $this->render('product-details', [
             'product' => $product,
             'productImages' => $productImages,
@@ -132,24 +126,30 @@ class ProdutoController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionGallery()
+    public function actionGallery($categoria_id = null)
     {
-        $products = Produto::find()
-            ->joinWith('imagems') 
-            ->where(['not', ['imagem.id' => null]]) 
-            ->all();
+        $searchModel = new ProdutoSearch();
+        $queryParams = $this->request->queryParams;
+
+        if ($categoria_id !== null) {
+            $queryParams['ProdutoSearch']['categoria_id'] = $categoria_id;
+        }
+        $dataProvider = $searchModel->search($queryParams);
+
         $categories = Categoria::find()->all();
+        $productTotalCount = Produto::find()->count();
 
         $this->view->title = 'Gallery';
         $this->view->params['breadcrumbs'] = [
-        ['label' => 'Home', 'url' => ['site/index']],
-        //['label' => 'Category Name', 'url' => ['site/', 'id' => $product->categoria_id]],
-        ['label' => 'Gallery'],
+            ['label' => 'Home', 'url' => ['site/index']],
+            ['label' => 'Gallery'],
         ];
-        
+
         return $this->render('gallery', [
-            'products' => $products,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
             'categories' => $categories,
+            'productTotalCount' => $productTotalCount,
         ]);
     }
 

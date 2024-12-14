@@ -141,7 +141,24 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $user = $this->findModel($id);
+        $userProfile = $user->userProfile; 
+
+        if ($userProfile) {
+            if ($userProfile->carrinho) {
+                $userProfile->carrinho->delete();
+            }
+            if ($userProfile->favorito) {
+                $userProfile->favorito->delete();
+            }
+            $userProfile->delete();
+        }
+
+        \Yii::$app->db->createCommand()
+        ->delete('auth_assignment', ['user_id' => $user->id])
+        ->execute();
+
+        $user->delete();
 
         return $this->redirect(['index']);
     }

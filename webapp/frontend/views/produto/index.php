@@ -43,7 +43,7 @@ use yii\widgets\LinkPager;
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                     <div class="row">
-                                        <?php foreach ($products as $product): ?>
+                                        <?php foreach ($dataProvider->models as $product): ?>
                                             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 category-<?= $product->categoria_id ?>">
                                                 <div class="products-single fix">
                                                     <div class="box-img-hover">
@@ -77,7 +77,7 @@ use yii\widgets\LinkPager;
                                 <div role="tabpanel" class="tab-pane fade" id="list-view">
                                     <div class="list-view-box">
                                         <div class="row">
-                                            <?php foreach ($products as $product): ?>
+                                            <?php foreach ($dataProvider->models as $product): ?>
                                                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                                     <div class="products-single fix">
                                                         <div class="box-img-hover">
@@ -113,11 +113,22 @@ use yii\widgets\LinkPager;
                                         </div>
                                     </div>
                                 </div>
-                                <?php if ($dataProvider->pagination->pageCount > 1) {
+                                <div class="pagination-container">
+                                    <?php
                                     echo LinkPager::widget([
                                         'pagination' => $dataProvider->pagination,
+                                        'options' => [
+                                            'class' => 'pagination justify-content-center'
+                                        ],
+                                        'linkOptions' => [
+                                            'class' => 'page-link',
+                                        ],
+                                        'prevPageLabel' => '&laquo;',
+                                        'nextPageLabel' => '&raquo;',
+                                        'disabledListItemSubTagOptions' => ['tag' => 'span', 'class' => 'page-link'],
                                     ]);
-                                } ?>
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>

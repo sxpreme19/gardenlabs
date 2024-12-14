@@ -19,9 +19,9 @@ use common\models\Fornecedor;
 
         <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'preco')->textInput(['type' => 'number','step' => '0.01']) ?>
+        <?= $form->field($model, 'preco')->textInput(['type' => 'number','step' => '0.01','min' => '0.01']) ?>
 
-        <?= $form->field($model, 'quantidade')->textInput() ?>
+        <?= $form->field($model, 'quantidade')->textInput(['type' => 'number','step' => '1','min' => '1']) ?>
 
         <?= $form->field($model, 'categoria_id')->dropDownList(
             \yii\helpers\ArrayHelper::map(Categoria::find()->all(), 'id', 'nome'), 

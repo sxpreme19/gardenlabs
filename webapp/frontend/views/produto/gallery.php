@@ -1,3 +1,7 @@
+<?php
+
+use yii\widgets\LinkPager;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
@@ -10,7 +14,7 @@
                 <div class="col-lg-12">
                     <div class="title-all text-center">
                         <h1>Our Gallery</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
+                        <h3>Feel free to explore our <b><?= $productTotalCount ?></b> products!</h3>
                     </div>
                 </div>
             </div>
@@ -18,9 +22,17 @@
                 <div class="col-lg-12">
                     <div class="special-menu text-center">
                         <div class="button-group filter-button-group">
-                            <button class="active" data-filter="*">All</button>
+                            <a href="<?= yii\helpers\Url::to(['produto/gallery', 'categoria_id' => null]) ?>"
+                                class="btn <?= Yii::$app->request->get('categoria_id') === null ? 'btn-success active' : 'btn-light' ?>"
+                                role="button">
+                                All
+                            </a>
                             <?php foreach ($categories as $category): ?>
-                                <button data-filter=".<?= $category->id ?>"><?= $category->nome ?></button>
+                                <a href="<?= yii\helpers\Url::to(['produto/gallery', 'categoria_id' => $category->id]) ?>"
+                                    class="btn <?= Yii::$app->request->get('categoria_id') == $category->id ? 'btn-success active' : 'btn-light' ?>"
+                                    role="button">
+                                    <?= $category->nome ?>
+                                </a>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -28,8 +40,8 @@
             </div>
 
             <div class="row special-list">
-                <?php foreach ($products as $product): ?>
-                    <div class="col-lg-3 col-md-6 special-grid <?= $product->categoria_id ?>">
+                <?php foreach ($dataProvider->models as $product): ?>
+                    <div class="col-lg-3 col-md-6 special-grid">
                         <div class="products-single fix">
                             <div class="box-img-hover">
                                 <div class="type-lb">
@@ -53,6 +65,22 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
+            </div>
+            <div class="pagination-container">
+                <?php
+                echo LinkPager::widget([
+                    'pagination' => $dataProvider->pagination,
+                    'options' => [
+                        'class' => 'pagination justify-content-center'
+                    ],
+                    'linkOptions' => [
+                        'class' => 'page-link',
+                    ],
+                    'prevPageLabel' => '&laquo;', 
+                    'nextPageLabel' => '&raquo;', 
+                    'disabledListItemSubTagOptions' => ['tag' => 'span', 'class' => 'page-link'], 
+                ]);
+                ?>
             </div>
         </div>
     </div>

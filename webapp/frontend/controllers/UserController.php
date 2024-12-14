@@ -68,16 +68,6 @@ class UserController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
         ]);
 
         $this->view->title = 'My Account';
@@ -229,6 +219,10 @@ class UserController extends Controller
             }
             $userProfile->delete();
         }
+
+        \Yii::$app->db->createCommand()
+        ->delete('auth_assignment', ['user_id' => $user->id])
+        ->execute();
 
         $user->delete();
 
