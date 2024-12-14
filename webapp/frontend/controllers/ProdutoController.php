@@ -126,15 +126,12 @@ class ProdutoController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionGallery($categoria_id = null)
+    public function actionGallery()
     {
-        $searchModel = new ProdutoSearch();
-        $queryParams = $this->request->queryParams;
-
-        if ($categoria_id !== null) {
-            $queryParams['ProdutoSearch']['categoria_id'] = $categoria_id;
-        }
-        $dataProvider = $searchModel->search($queryParams);
+        $products = Produto::find()
+            ->joinWith('imagems') 
+            ->where(['not', ['imagem.id' => null]]) 
+            ->all();
 
         $categories = Categoria::find()->all();
         $productTotalCount = Produto::find()->count();
@@ -146,8 +143,7 @@ class ProdutoController extends Controller
         ];
 
         return $this->render('gallery', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'products' => $products,
             'categories' => $categories,
             'productTotalCount' => $productTotalCount,
         ]);

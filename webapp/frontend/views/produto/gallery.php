@@ -1,7 +1,3 @@
-<?php
-
-use yii\widgets\LinkPager;
-?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
@@ -22,17 +18,9 @@ use yii\widgets\LinkPager;
                 <div class="col-lg-12">
                     <div class="special-menu text-center">
                         <div class="button-group filter-button-group">
-                            <a href="<?= yii\helpers\Url::to(['produto/gallery', 'categoria_id' => null]) ?>"
-                                class="btn <?= Yii::$app->request->get('categoria_id') === null ? 'btn-success active' : 'btn-light' ?>"
-                                role="button">
-                                All
-                            </a>
+                            <button class="active" data-filter="*">All</button>
                             <?php foreach ($categories as $category): ?>
-                                <a href="<?= yii\helpers\Url::to(['produto/gallery', 'categoria_id' => $category->id]) ?>"
-                                    class="btn <?= Yii::$app->request->get('categoria_id') == $category->id ? 'btn-success active' : 'btn-light' ?>"
-                                    role="button">
-                                    <?= $category->nome ?>
-                                </a>
+                                <button data-filter=".<?= $category->id ?>"><?= $category->nome ?></button>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -40,8 +28,8 @@ use yii\widgets\LinkPager;
             </div>
 
             <div class="row special-list">
-                <?php foreach ($dataProvider->models as $product): ?>
-                    <div class="col-lg-3 col-md-6 special-grid">
+                <?php foreach ($products as $product): ?>
+                    <div class="col-lg-3 col-md-6 special-grid <?= $product->categoria_id ?>">
                         <div class="products-single fix">
                             <div class="box-img-hover">
                                 <div class="type-lb">
@@ -65,22 +53,6 @@ use yii\widgets\LinkPager;
                         </div>
                     </div>
                 <?php endforeach; ?>
-            </div>
-            <div class="pagination-container">
-                <?php
-                echo LinkPager::widget([
-                    'pagination' => $dataProvider->pagination,
-                    'options' => [
-                        'class' => 'pagination justify-content-center'
-                    ],
-                    'linkOptions' => [
-                        'class' => 'page-link',
-                    ],
-                    'prevPageLabel' => '&laquo;', 
-                    'nextPageLabel' => '&raquo;', 
-                    'disabledListItemSubTagOptions' => ['tag' => 'span', 'class' => 'page-link'], 
-                ]);
-                ?>
             </div>
         </div>
     </div>
