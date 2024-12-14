@@ -22,6 +22,6 @@ Foi utilizada uma metodologia ágil de desenvolvimento de software **(Scrum)** a
 
 ***
 
-> Desenvolvimento de Aplicações - Metodologias de Desenvolvimento de Software @ 2024
+> Projeto em Sistemas de Informação - GardenLabs @ 2024
 
-![Logo](https://eduportugal.eu/wp-content/uploads/2017/08/eduportugal_ipleiria_n.jpg)
+![Logo]("C:\wamp64\www\gardenlabs\assets\logo-no-background.png")
