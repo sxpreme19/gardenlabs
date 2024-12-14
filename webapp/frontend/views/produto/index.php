@@ -147,7 +147,7 @@ use yii\widgets\LinkPager;
                             </div>
                             <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
                                 <div class="list-group-collapse sub-men">
-                                    <a class="list-group-item list-group-item-action" href="<?= yii\helpers\Url::to(['produto/index', 'categoria_id' => null]) ?>">All</a>
+                                    <a class="list-group-item list-group-item-action <?= (Yii::$app->request->get('categoria_id') == null) ? 'active' : '' ?>" href="<?= yii\helpers\Url::to(['produto/index', 'categoria_id' => null]) ?>">All</a>
                                     <?php foreach ($categories as $category): ?>
                                         <a class="list-group-item list-group-item-action <?= ($category->id == Yii::$app->request->get('categoria_id')) ? 'active' : '' ?>"
                                             href="<?= yii\helpers\Url::to(['produto/index', 'categoria_id' => $category->id]) ?>">

@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string $descricao
+ * @property float $preco
+ * @property string $duracao
  */
 class Metodoexpedicao extends \yii\db\ActiveRecord
 {
@@ -26,8 +28,10 @@ class Metodoexpedicao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao'], 'required'],
+            [['descricao', 'preco', 'duracao'], 'required'],
+            [['preco'], 'number'],
             [['descricao'], 'string', 'max' => 45],
+            [['duracao'], 'string', 'max' => 60],
         ];
     }
 
@@ -39,6 +43,8 @@ class Metodoexpedicao extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'descricao' => 'Descricao',
+            'preco' => 'Preco',
+            'duracao' => 'Duracao',
         ];
     }
 }

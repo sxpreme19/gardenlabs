@@ -14,6 +14,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'preco')->textInput() ?>
+
+    <?= $form->field($model, 'duracao')->textInput(['maxlength' => true]) ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

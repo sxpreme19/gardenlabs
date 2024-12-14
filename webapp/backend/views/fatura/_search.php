@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var backend\models\MetodopagamentoSearch $model */
+/** @var backend\models\FaturaSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="metodopagamento-search">
+<div class="fatura-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,11 +17,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'descricao') ?>
+    <?= $form->field($model, 'total') ?>
 
-    <?= $form->field($model, 'preco') ?>
+    <?= $form->field($model, 'datahora') ?>
 
-    <?= $form->field($model, 'duracao') ?>
+    <?= $form->field($model, 'metodopagamento_id') ?>
+
+    <?= $form->field($model, 'metodoexpedicao_id') ?>
+
+    <?php // echo $form->field($model, 'userprofile_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

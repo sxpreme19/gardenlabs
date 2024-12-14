@@ -47,7 +47,7 @@
                     <div class="hover-team">
                         <div class="our-team"> <img src="images/img-1.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Williamson</h3> <span class="post">Web Developer</span>
+                                <h3 class="title">Diogo Ruivo</h3> <span class="post">Web Developer</span>
                             </div>
                             <ul class="social">
                                 <li>
@@ -75,7 +75,7 @@
                     <div class="hover-team">
                         <div class="our-team"> <img src="images/img-2.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Kristiana</h3> <span class="post">Web Developer</span>
+                                <h3 class="title">Duarte Fragoso</h3> <span class="post">Web Developer</span>
                             </div>
                             <ul class="social">
                                 <li>
@@ -103,7 +103,7 @@
                     <div class="hover-team">
                         <div class="our-team"> <img src="images/img-3.jpg" alt="" />
                             <div class="team-content">
-                                <h3 class="title">Steve Thomas</h3> <span class="post">Web Developer</span>
+                                <h3 class="title">Tomás Monteiro</h3> <span class="post">Web Developer</span>
                             </div>
                             <ul class="social">
                                 <li>

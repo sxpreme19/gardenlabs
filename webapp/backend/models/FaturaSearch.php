@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Metodoexpedicao;
+use common\models\Fatura;
 
 /**
- * MetodoexpedicaoSearch represents the model behind the search form of `common\models\Metodoexpedicao`.
+ * FaturaSearch represents the model behind the search form of `common\models\Fatura`.
  */
-class MetodoexpedicaoSearch extends Metodoexpedicao
+class FaturaSearch extends Fatura
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,9 @@ class MetodoexpedicaoSearch extends Metodoexpedicao
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['descricao', 'duracao'], 'safe'],
-            [['preco'], 'number'],
+            [['id', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'integer'],
+            [['total'], 'number'],
+            [['datahora'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class MetodoexpedicaoSearch extends Metodoexpedicao
      */
     public function search($params)
     {
-        $query = Metodoexpedicao::find();
+        $query = Fatura::find();
 
         // add conditions that should always apply here
 
@@ -60,11 +60,12 @@ class MetodoexpedicaoSearch extends Metodoexpedicao
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'preco' => $this->preco,
+            'total' => $this->total,
+            'datahora' => $this->datahora,
+            'metodopagamento_id' => $this->metodopagamento_id,
+            'metodoexpedicao_id' => $this->metodoexpedicao_id,
+            'userprofile_id' => $this->userprofile_id,
         ]);
-
-        $query->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'duracao', $this->duracao]);
 
         return $dataProvider;
     }

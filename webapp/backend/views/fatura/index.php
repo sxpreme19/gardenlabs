@@ -1,24 +1,24 @@
 <?php
 
-use common\models\Servico;
+use common\models\Fatura;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\ServicoSearch $searchModel */
+/** @var backend\models\FaturaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Servicos';
+$this->title = 'Faturas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="servico-index">
+<div class="fatura-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Servico', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Fatura', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,14 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'titulo',
-            'descricao',
-            'preco',
-            'duracao', 
-            //'prestador_id',
+            'total',
+            'datahora',
+            'metodopagamento_id',
+            'metodoexpedicao_id',
+            //'userprofile_id',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Servico $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

@@ -7,7 +7,6 @@ use backend\models\MetodopagamentoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
  * MetodopagamentoController implements the CRUD actions for Metodopagamento model.
@@ -22,21 +21,6 @@ class MetodopagamentoController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                'access' => [
-                'class' => AccessControl::class,
-                'only' => ['index','view','create','update','delete'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin'],
-                    ],
-                    [
-                        'denyCallback' => function ($rule, $action) {
-                            throw new \yii\web\ForbiddenHttpException('You are not allowed to acess this page.');
-                        },
-                    ],
-                ],
-                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

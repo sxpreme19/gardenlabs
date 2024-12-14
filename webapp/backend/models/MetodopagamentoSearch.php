@@ -18,7 +18,8 @@ class MetodopagamentoSearch extends Metodopagamento
     {
         return [
             [['id'], 'integer'],
-            [['descricao'], 'safe'],
+            [['descricao', 'duracao'], 'safe'],
+            [['preco'], 'number'],
         ];
     }
 
@@ -59,9 +60,11 @@ class MetodopagamentoSearch extends Metodopagamento
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'preco' => $this->preco,
         ]);
 
-        $query->andFilterWhere(['like', 'descricao', $this->descricao]);
+        $query->andFilterWhere(['like', 'descricao', $this->descricao])
+            ->andFilterWhere(['like', 'duracao', $this->duracao]);
 
         return $dataProvider;
     }
