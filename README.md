@@ -15,8 +15,7 @@ Tomás Monteiro
 
 ## Desenvolvimento e Funcionalidades
 
-Este projeto pretende criar uma aplicação de gestão que permita gerir os menus e reservas da cantina de uma escola.
-Também foram implementadas as funcionalidades necessárias para gerir os menus dos dias de uma determinada semana, controlar as reservas, carregar o saldo dos clientes e efetuar a faturação das reservas.
+Este projeto tem como objetivos principais produzir uma loja web operacional com uma grande variedade de produtos categorizados (Front-office e Back-office) e uma app mobile que permite agendar os serviços de jardinagem (Semanalmente, mensalmente, anualmente, etc...).
 
 Foi utilizada uma metodologia ágil de desenvolvimento de software **(Scrum)** através do softwware de gestão de projetos **JIRA**.
 
