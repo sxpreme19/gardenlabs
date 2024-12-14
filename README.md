@@ -24,5 +24,6 @@ Foi utilizada uma metodologia ágil de desenvolvimento de software **(Scrum)** a
 
 > Projeto em Sistemas de Informação - GardenLabs @ 2024
 
-![Logo](https://github.com/user-attachments/assets/5c39782c-1d8f-41ef-8f61-c86db0fff346)
+![Logo](https://github.com/user-attachments/assets/ba888cc6-ef2a-47f0-840f-7550aec0e6dd)
+
 
