@@ -56,6 +56,7 @@
                             ['label' => 'Services', 'icon' => 'fas fa-concierge-bell','url' => ['servico/index']],
                             ['label' => 'User Carts', 'icon' => 'fas fa-shopping-basket', 'url' => ['carrinho/index']],
                             ['label' => 'Wishlists', 'icon' => 'fas fa-heart', 'url' => ['favorito/index']],
+                            ['label' => 'Reviews', 'icon' => 'fas fa-star', 'url' => ['review/index']],
                         ],
                     ],
                     [

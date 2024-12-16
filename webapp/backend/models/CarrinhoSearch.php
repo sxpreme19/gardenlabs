@@ -5,11 +5,12 @@ namespace backend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Carrinho;
+use common\models\Carrinhoproduto;
 
 /**
  * CarrinhoSearch represents the model behind the search form of `common\models\Carrinho`.
  */
-class CarrinhoSearch extends Carrinho
+class CarrinhoSearch extends Carrinhoproduto
 {
     /**
      * {@inheritdoc}

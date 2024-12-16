@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Carrinho;
+use common\models\Carrinhoproduto;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'userprofile_id',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Carrinho $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Carrinhoproduto $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
