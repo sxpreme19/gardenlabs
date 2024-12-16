@@ -12,12 +12,13 @@ use Yii;
  * @property float $preco
  * @property string $nome
  * @property int $quantidade
- * @property int $categoria_id
  * @property int $fornecedor_id
+ * @property int $categoria_id
  *
  * @property Imagem[] $imagems
- * @property Linhacarrinho[] $linhacarrinhos
+ * @property Linhacarrinhoproduto[] $linhacarrinhoprodutos
  * @property Linhafatura[] $linhafaturas
+ * @property Review[] $reviews
  */
 class Produto extends \yii\db\ActiveRecord
 {
@@ -35,9 +36,9 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'preco', 'nome', 'quantidade', 'categoria_id', 'fornecedor_id'], 'required'],
+            [['descricao', 'preco', 'nome', 'quantidade', 'fornecedor_id', 'categoria_id'], 'required'],
             [['preco'], 'number'],
-            [['quantidade', 'categoria_id', 'fornecedor_id'], 'integer'],
+            [['quantidade', 'fornecedor_id', 'categoria_id'], 'integer'],
             [['descricao'], 'string', 'max' => 200],
             [['nome'], 'string', 'max' => 80],
         ];
@@ -54,11 +55,11 @@ class Produto extends \yii\db\ActiveRecord
             'preco' => 'Preco',
             'nome' => 'Nome',
             'quantidade' => 'Quantidade',
-            'categoria_id' => 'Categoria ID',
             'fornecedor_id' => 'Fornecedor ID',
+            'categoria_id' => 'Categoria ID',
         ];
     }
-    
+
     /**
      * Gets query for [[Imagems]].
      *
@@ -70,13 +71,13 @@ class Produto extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Linhacarrinhos]].
+     * Gets query for [[Linhacarrinhoprodutos]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLinhacarrinhos()
+    public function getLinhacarrinhoprodutos()
     {
-        return $this->hasMany(Linhacarrinho::class, ['produto_id' => 'id']);
+        return $this->hasMany(Linhacarrinhoproduto::class, ['produto_id' => 'id']);
     }
 
     /**
@@ -87,5 +88,15 @@ class Produto extends \yii\db\ActiveRecord
     public function getLinhafaturas()
     {
         return $this->hasMany(Linhafatura::class, ['produto_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Reviews]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReviews()
+    {
+        return $this->hasMany(Review::class, ['produto_id' => 'id']);
     }
 }

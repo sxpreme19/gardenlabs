@@ -6,7 +6,8 @@ use Yii;
 use yii\base\Model;
 use common\models\User;
 use common\models\Userprofile;
-use common\models\Carrinho;
+use common\models\Carrinhoproduto;
+use common\models\Carrinhoservico;
 
 /**
  * Signup form
@@ -59,20 +60,24 @@ class SignupForm extends Model
         $user->generateEmailVerificationToken();
         $user->status = 10;
 
-        if($user->save()) {
+        if ($user->save()) {
             $auth = Yii::$app->authManager;
             $clientRole = $auth->getRole('client');
-            $auth->assign($clientRole, $user->id);    
-            
+            $auth->assign($clientRole, $user->id);
+
             $userprofile = new UserProfile();
             $userprofile->user_id = $user->id;
 
-            if($userprofile->save()) {
+            if ($userprofile->save()) {
                 //$this->sendEmail($user);
-                $userCart = new Carrinho();
-                $userCart->userprofile_id = $userprofile->id;
-                if($userCart->save()) {
-                    return $user;
+                $userProductCart = new Carrinhoproduto();
+                $userProductCart->userprofile_id = $userprofile->id;
+                if ($userProductCart->save()) {
+                    $userServiceCart = new Carrinhoservico();
+                    $userServiceCart->userprofile_id = $userprofile->id;
+                    if ($userServiceCart->save()) {
+                        return $user;
+                    }
                 }
             }
 

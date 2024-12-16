@@ -5,27 +5,26 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "linhacarrinho".
+ * This is the model class for table "review".
  *
  * @property int $id
- * @property int $quantidade
- * @property float $precounitario
- * @property int $carrinho_id
- * @property int|null $produto_id
+ * @property string $conteudo
+ * @property string $datahora
+ * @property float $avaliacao
  * @property int|null $servico_id
+ * @property int|null $produto_id
  *
- * @property Carrinho $carrinho
  * @property Produto $produto
  * @property Servico $servico
  */
-class LinhaCarrinho extends \yii\db\ActiveRecord
+class Review extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'linhacarrinho';
+        return 'review';
     }
 
     /**
@@ -34,10 +33,12 @@ class LinhaCarrinho extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['quantidade', 'precounitario', 'carrinho_id'], 'required'],
-            [['quantidade', 'carrinho_id', 'produto_id', 'servico_id'], 'integer'],
-            [['precounitario'], 'number'],
-            [['carrinho_id'], 'exist', 'skipOnError' => true, 'targetClass' => Carrinho::class, 'targetAttribute' => ['carrinho_id' => 'id']],
+            [['id', 'conteudo', 'datahora', 'avaliacao'], 'required'],
+            [['id', 'servico_id', 'produto_id'], 'integer'],
+            [['datahora'], 'safe'],
+            [['avaliacao'], 'number'],
+            [['conteudo'], 'string', 'max' => 100],
+            [['id'], 'unique'],
             [['produto_id'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['produto_id' => 'id']],
             [['servico_id'], 'exist', 'skipOnError' => true, 'targetClass' => Servico::class, 'targetAttribute' => ['servico_id' => 'id']],
         ];
@@ -50,22 +51,12 @@ class LinhaCarrinho extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'quantidade' => 'Quantidade',
-            'precounitario' => 'Precounitario',
-            'carrinho_id' => 'Carrinho ID',
-            'produto_id' => 'Produto ID',
+            'conteudo' => 'Conteudo',
+            'datahora' => 'Datahora',
+            'avaliacao' => 'Avaliacao',
             'servico_id' => 'Servico ID',
+            'produto_id' => 'Produto ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Carrinho]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCarrinho()
-    {
-        return $this->hasOne(Carrinho::class, ['id' => 'carrinho_id']);
     }
 
     /**
