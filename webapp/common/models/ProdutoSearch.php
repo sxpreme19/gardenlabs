@@ -53,6 +53,8 @@ class ProdutoSearch extends Produto
             $query->andWhere(['between', 'preco', $minPrice, $maxPrice]);
         }
 
+        $query->groupBy(['produto.id']);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

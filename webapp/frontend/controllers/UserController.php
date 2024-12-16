@@ -134,13 +134,15 @@ class UserController extends Controller
      */
     public function actionWishlist()
     {
+        $userProfile = Yii::$app->user->identity->userProfile;
+        $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id,])->with('produto')->all();
 
         $this->view->title = 'Wishlist';
         $this->view->params['breadcrumbs'] = [
             ['label' => 'Home', 'url' => ['site/index']],
             ['label' => $this->view->title],
         ];
-        return $this->render('wishlist');
+        return $this->render('wishlist', ['userWishlist' => $userWishlist]);
     }
 
     /**

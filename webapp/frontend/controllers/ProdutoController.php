@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Categoria;
 use common\models\Produto;
 use common\models\ProdutoSearch;
+use common\models\Favorito;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,12 +27,17 @@ class ProdutoController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'product-details', 'gallery'],
+                    'only' => ['index', 'product-details', 'gallery', 'add-to-wishlist'],
                     'rules' => [
                         [
                             'actions' => ['index', 'product-details', 'gallery'],
                             'allow' => true,
                             'roles' => ['?', 'client'],
+                        ],
+                        [
+                            'actions' => ['add-to-wishlist'],
+                            'allow' => true,
+                            'roles' => ['client'],
                         ],
                         [
                             'allow' => false,
@@ -61,7 +67,7 @@ class ProdutoController extends Controller
      *
      * @return string
      */
-    public function actionIndex($categoria_id = null,$minPrice = null, $maxPrice = null)
+    public function actionIndex($categoria_id = null, $minPrice = null, $maxPrice = null)
     {
         $searchModel = new ProdutoSearch();
         $queryParams = $this->request->queryParams;
@@ -77,7 +83,10 @@ class ProdutoController extends Controller
         $productsPerCategory = [];
         foreach ($categories as $category) {
             $productsPerCategory[$category->id] = Produto::find()
-                ->where(['categoria_id' => $category->id])
+                ->joinWith('imagems')
+                ->where(['not', ['imagem.id' => null]])
+                ->andWhere(['categoria_id' => $category->id])
+                ->groupBy(['produto.id'])
                 ->count();
         }
 
@@ -129,8 +138,8 @@ class ProdutoController extends Controller
     public function actionGallery()
     {
         $products = Produto::find()
-            ->joinWith('imagems') 
-            ->where(['not', ['imagem.id' => null]]) 
+            ->joinWith('imagems')
+            ->where(['not', ['imagem.id' => null]])
             ->all();
 
         $categories = Categoria::find()->all();
@@ -150,58 +159,24 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Creates a new Produto model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * Adds product to the users wishlist.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionCreate()
+    public function actionAddToWishlist($productId)
     {
-        $model = new Produto();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        $userProfile = Yii::$app->user->identity->userProfile;
+        $wishlistItem = new Favorito();
+        $wishlistItem->userprofile_id = $userProfile->user_id;
+        $wishlistItem->produto_id = $productId;
+        $existingWishlistItem = Favorito::find()->where(['userprofile_id' => $userProfile->user_id, 'produto_id' => $productId])->one();
+        if (!$existingWishlistItem) {
+            $wishlistItem->save();
+            Yii::$app->session->setFlash('success', 'Product added to your wishlist.');
         } else {
-            $model->loadDefaultValues();
+            Yii::$app->session->setFlash('info', 'This product is already in your wishlist.');
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Produto model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Produto model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

@@ -218,7 +218,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getUserProfile()
     {
-        return $this->hasOne(UserProfile::class, ['user_id' => 'user_id']);
+        return $this->hasOne(UserProfile::class, ['user_id' => 'id']);
     }
 
     

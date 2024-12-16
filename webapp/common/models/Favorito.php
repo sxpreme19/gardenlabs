@@ -50,4 +50,9 @@ class Favorito extends \yii\db\ActiveRecord
     {
         return $this->hasOne(UserProfile::class, ['id' => 'userprofile_id']);
     }
+
+    public function getProduto()
+    {
+        return $this->hasOne(Produto::class, ['id' => 'produto_id']);
+    }
 }

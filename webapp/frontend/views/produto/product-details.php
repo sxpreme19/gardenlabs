@@ -11,10 +11,8 @@
                     <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
                             <?php
-                            $inc = -1; // To start from -1 because first item needs to be 'active'
                             if (!empty($productImages)):
                                 foreach ($productImages as $index => $image):
-                                    // Add 'active' class to the first image
                                     $activeClass = $index == 0 ? 'active' : '';
                             ?>
                                     <div class="carousel-item <?= $activeClass ?>">
@@ -37,7 +35,7 @@
                         <!-- Carousel indicators -->
                         <ol class="carousel-indicators">
                             <?php
-                            $inc = 0; // For indicators
+                            $inc = 0; 
                             if (!empty($productImages)):
                                 foreach ($productImages as $index => $image):
                             ?>
@@ -78,7 +76,7 @@
 
                         <div class="add-to-btn">
                             <div class="add-comp">
-                                <a class="btn hvr-hover" href="#"><i class="fas fa-heart"></i> Add to wishlist</a>
+                                <a class="btn hvr-hover" href=<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id])?>><i class="fas fa-heart"></i> Add to wishlist</a>
                                 <!--<a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Add to Compare</a>-->
                             </div>
                             <div class="share-bar">
