@@ -3,6 +3,7 @@
 /** @var \yii\web\View $this */
 /** @var string $content */
 
+use common\models\Carrinhoproduto;
 use yii\helpers\Url;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
@@ -12,6 +13,11 @@ use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
+
+if (!Yii::$app->user->isGuest) {
+    $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
+    $totalUserCartLines = count($userCart->linhacarrinhoprodutos);
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -20,9 +26,9 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="logo.ico">   
+    <link rel="apple-touch-icon" href="logo.ico">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,9 +70,9 @@ AppAsset::register($this);
                     </div>
                     <div class="our-link">
                         <ul>
-                            <li><a href="<?=\yii\helpers\Url::to(['user/index'])?>"><i class="fa fa-user s_color"></i> My Account</a></li>
-                            <li><a href="<?=\yii\helpers\Url::to(['site/about'])?>"><i class="fas fa-location-arrow"></i> Our location</a></li>
-                            <li><a href="<?=\yii\helpers\Url::to(['site/contact'])?>"><i class="fas fa-headset"></i> Contact Us</a></li>
+                            <li><a href="<?= \yii\helpers\Url::to(['user/index']) ?>"><i class="fa fa-user s_color"></i> My Account</a></li>
+                            <li><a href="<?= \yii\helpers\Url::to(['site/about']) ?>"><i class="fas fa-location-arrow"></i> Our location</a></li>
+                            <li><a href="<?= \yii\helpers\Url::to(['site/contact']) ?>"><i class="fas fa-headset"></i> Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
@@ -125,7 +131,7 @@ AppAsset::register($this);
                                 ],
                                 'items' => [
                                     ['label' => 'Product Shop', 'url' => ['/produto/index']],
-                                    ['label' => 'Cart', 'url' => ['/site/cart']],
+                                    ['label' => 'Cart', 'url' => ['/user/cart']],
                                     ['label' => 'My Account', 'url' => ['/user/index']],
                                     ['label' => 'Wishlist', 'url' => ['/user/wishlist']],
                                 ],
@@ -138,19 +144,19 @@ AppAsset::register($this);
                 </div>
 
                 <?php if (!Yii::$app->user->isGuest): ?>
-                <!-- Start Atribute Navigation -->
-                <div class="attr-nav">
-                    <ul>
-                        <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
-                        <li class="side-menu">
-                            <a href="#">
-                                <i class="fa fa-shopping-bag"></i>
-                                <span class="badge" style="color:black">X</span>
-                                <p>My Cart</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                    <!-- Start Atribute Navigation -->
+                    <div class="attr-nav">
+                        <ul>
+                            <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                            <li class="side-menu">
+                                <a href="#">
+                                    <i class="fa fa-shopping-bag"></i>
+                                    <span class="badge" style="color:black"><?= $totalUserCartLines ?></span>
+                                    <p>My Cart</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 <?php endif; ?>
                 <!-- End Atribute Navigation -->
             </div>
@@ -159,24 +165,27 @@ AppAsset::register($this);
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
                     <ul class="cart-list">
-                        <li>
-                            <a href="#" class="photo"><img src="images/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Delica omtantur </a></h6>
-                            <p>1x - <span class="price">$80.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="images/img-pro-02.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Omnes ocurreret</a></h6>
-                            <p>1x - <span class="price">$60.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="images/img-pro-03.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Agam facilisis</a></h6>
-                            <p>1x - <span class="price">$40.00</span></p>
-                        </li>
+                        <?php foreach ($userCart->linhacarrinhoprodutos as $linhacarrinho): ?>
+                            <?php
+                            $produto = $linhacarrinho->produto;
+                            $productImages = $produto->imagems;
+                            if (!empty($productImages)):
+                                $firstImage = $productImages[0];
+                            endif;
+                            ?>
+                            <li>
+                                <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>" class="photo">
+                                    <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="cart-thumb" alt="<?= $produto->nome ?>" />
+                                </a>
+                                <h6><a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>"><?= $produto->nome ?></a></h6>
+                                <p><?= $linhacarrinho->quantidade ?>x -
+                                    <span class="price"><?= $produto->preco ?>€</span>
+                                </p>
+                            </li>
+                        <?php endforeach; ?>
                         <li class="total">
-                            <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                            <span class="float-right"><strong>Total</strong>: $180.00</span>
+                            <a href="<?= yii\helpers\Url::to(['user/cart']) ?>" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
+                            <span class="float-right"><strong>Total</strong>: <?=$userCart->total?>€</span>
                         </li>
                     </ul>
                 </li>
@@ -198,29 +207,29 @@ AppAsset::register($this);
     <!-- End Top Search -->
 
     <?php if (isset($this->title) && $this->title != 'Home'): ?>
-    <!-- Start All Title Box -->
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2><?= Html::encode($this->title) ?></h2>
-                    <ul class="breadcrumb">
-                        <?php if (isset($this->params['breadcrumbs']) && is_array($this->params['breadcrumbs'])): ?>
-                            <?php foreach ($this->params['breadcrumbs'] as $breadcrumb): ?>
-                                <li class="breadcrumb-item <?= isset($breadcrumb['url']) ? '' : 'active' ?>">
-                                    <?php if (isset($breadcrumb['url'])): ?>
-                                        <a href="<?= Url::to($breadcrumb['url']) ?>"><?= Html::encode($breadcrumb['label']) ?></a>
-                                    <?php else: ?>
-                                        <?= Html::encode($breadcrumb['label']) ?>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </ul>
+        <!-- Start All Title Box -->
+        <div class="all-title-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2><?= Html::encode($this->title) ?></h2>
+                        <ul class="breadcrumb">
+                            <?php if (isset($this->params['breadcrumbs']) && is_array($this->params['breadcrumbs'])): ?>
+                                <?php foreach ($this->params['breadcrumbs'] as $breadcrumb): ?>
+                                    <li class="breadcrumb-item <?= isset($breadcrumb['url']) ? '' : 'active' ?>">
+                                        <?php if (isset($breadcrumb['url'])): ?>
+                                            <a href="<?= Url::to($breadcrumb['url']) ?>"><?= Html::encode($breadcrumb['label']) ?></a>
+                                        <?php else: ?>
+                                            <?= Html::encode($breadcrumb['label']) ?>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <!-- End All Title Box -->
@@ -327,11 +336,10 @@ AppAsset::register($this);
     </footer>
     <!-- End Footer  -->
 
-    
+
 
     <?php $this->endBody() ?>
 </body>
 
 </html>
 <?php $this->endPage();
-

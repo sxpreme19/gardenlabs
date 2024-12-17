@@ -21,98 +21,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-									<img class="img-fluid" src="images/img-pro-01.jpg" alt="" />
-								</a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-									Lorem ipsum dolor sit amet
-								</a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ 80.0</p>
-                                    </td>
-                                    <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>
-                                    <td class="total-pr">
-                                        <p>$ 80.0</p>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="#">
-									<i class="fas fa-times"></i>
-								</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-									<img class="img-fluid" src="images/img-pro-02.jpg" alt="" />
-								</a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-									Lorem ipsum dolor sit amet
-								</a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ 60.0</p>
-                                    </td>
-                                    <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>
-                                    <td class="total-pr">
-                                        <p>$ 80.0</p>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="#">
-									<i class="fas fa-times"></i>
-								</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-									<img class="img-fluid" src="images/img-pro-03.jpg" alt="" />
-								</a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-									Lorem ipsum dolor sit amet
-								</a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ 30.0</p>
-                                    </td>
-                                    <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>
-                                    <td class="total-pr">
-                                        <p>$ 80.0</p>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="#">
-									<i class="fas fa-times"></i>
-								</a>
-                                    </td>
-                                </tr>
+                                <?php foreach ($userCart->linhacarrinhoprodutos as $linhacarrinho): ?>
+                                    <?php
+                                    $produto = $linhacarrinho->produto;
+                                    $productImages = $produto->imagems;
+                                    if (!empty($productImages)):
+                                        $firstImage = $productImages[0];
+                                    endif;
+                                    ?>
+                                    <tr>
+                                        <td class="thumbnail-img">
+                                            <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>">
+                                                <img class="img-fluid" src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" alt="" />
+                                            </a>
+                                        </td>
+                                        <td class="name-pr">
+                                            <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>">
+                                                <?= $produto->nome ?>
+                                            </a>
+                                        </td>
+                                        <td class="price-pr">
+                                            <?= $produto->preco ?>
+                                        </td>
+                                        <td class="quantity-box"><input type="number" size="4" value="<?=$linhacarrinho->quantidade?>" min="0" step="1" class="c-input-text qty text"></td>
+                                        <td class="total-pr">
+                                            <p><?=$produto->preco * $linhacarrinho->quantidade?></p>
+                                        </td>
+                                        <td class="remove-pr">
+                                            <a href="#">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row my-5">
-                <div class="col-lg-6 col-sm-6">
-                    <div class="coupon-box">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control" placeholder="Enter your coupon code" aria-label="Coupon code" type="text">
-                            <div class="input-group-append">
-                                <button class="btn btn-theme" type="button">Apply Coupon</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-sm-6">
-                    <div class="update-box">
-                        <input value="Update Cart" type="submit">
                     </div>
                 </div>
             </div>
@@ -148,7 +91,8 @@
                             <h5>Grand Total</h5>
                             <div class="ml-auto h5"> $ 388 </div>
                         </div>
-                        <hr> </div>
+                        <hr>
+                    </div>
                 </div>
                 <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">Checkout</a> </div>
             </div>
@@ -173,6 +117,7 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+
 </body>
 
 </html>

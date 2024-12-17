@@ -185,6 +185,45 @@
 		});
 	});
 
+	/* ..............................................
+	   Cart Product Quantity
+	   ................................................. */
+
+	   document.addEventListener('DOMContentLoaded', function() {
+		// Select all quantity input fields
+		const quantityInputs = document.querySelectorAll('.quantity-box input');
+	
+		// Loop through each input and add an event listener
+		quantityInputs.forEach(input => {
+			input.addEventListener('input', function () {
+				const row = this.closest('tr'); // Get the closest row (tr) element
+				const priceElement = row.querySelector('.price-pr'); // Get the price cell
+				const price = parseFloat(priceElement.textContent.replace('$', '').trim()); // Get price as number
+	
+				// Check if the price is a valid number
+				if (isNaN(price)) {
+					console.error('Invalid price value');
+					return;
+				}
+	
+				// Get the quantity from the input field
+				const quantity = parseInt(this.value) || 0; 
+	
+				// Calculate the total price
+				const total = price * quantity;
+	
+				// Get the total element and update its content
+				const totalElement = row.querySelector('.total-pr p');
+				if (totalElement) {
+					totalElement.textContent = `$${total.toFixed(2)}`;
+				} else {
+					console.error('Total price element not found');
+				}
+			});
+		});
+	});
+	
+
 
 	/* ..............................................
 	   Slider Range
@@ -214,3 +253,4 @@
 	
 	
 }(jQuery));
+

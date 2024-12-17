@@ -38,6 +38,7 @@ CREATE TABLE `auth_assignment` (
 
 LOCK TABLES `auth_assignment` WRITE;
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
+INSERT INTO `auth_assignment` VALUES ('admin','48',1734380274),('client','49',1734433393);
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +139,7 @@ CREATE TABLE `carrinhoproduto` (
   `userprofile_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_carrinhoproduto_userprofile1_idx` (`userprofile_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,6 +148,7 @@ CREATE TABLE `carrinhoproduto` (
 
 LOCK TABLES `carrinhoproduto` WRITE;
 /*!40000 ALTER TABLE `carrinhoproduto` DISABLE KEYS */;
+INSERT INTO `carrinhoproduto` VALUES (7,0,32),(8,12,33);
 /*!40000 ALTER TABLE `carrinhoproduto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +165,7 @@ CREATE TABLE `carrinhoservico` (
   `userprofile_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_carrinhoservico_userprofile1_idx` (`userprofile_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,6 +174,7 @@ CREATE TABLE `carrinhoservico` (
 
 LOCK TABLES `carrinhoservico` WRITE;
 /*!40000 ALTER TABLE `carrinhoservico` DISABLE KEYS */;
+INSERT INTO `carrinhoservico` VALUES (7,0,32),(8,0,33);
 /*!40000 ALTER TABLE `carrinhoservico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +189,7 @@ CREATE TABLE `categoria` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,6 +198,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES (5,'Hydro');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +248,7 @@ CREATE TABLE `favorito` (
   KEY `fk_favorito_userprofile1_idx` (`userprofile_id`),
   KEY `fk_favorito_produto1_idx` (`produto_id`),
   KEY `fk_favorito_servico1_idx` (`servico_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,6 +257,7 @@ CREATE TABLE `favorito` (
 
 LOCK TABLES `favorito` WRITE;
 /*!40000 ALTER TABLE `favorito` DISABLE KEYS */;
+INSERT INTO `favorito` VALUES (8,49,46,NULL);
 /*!40000 ALTER TABLE `favorito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +275,7 @@ CREATE TABLE `fornecedor` (
   `telefone` int NOT NULL,
   `localizacao` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -279,6 +284,7 @@ CREATE TABLE `fornecedor` (
 
 LOCK TABLES `fornecedor` WRITE;
 /*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
+INSERT INTO `fornecedor` VALUES (4,'Gardeners','gardeners@gmail.com',950123421,'Rua das Fontinhas,Coimbra');
 /*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,9 +300,8 @@ CREATE TABLE `imagem` (
   `filename` varchar(80) NOT NULL,
   `produto_id` int NOT NULL,
   PRIMARY KEY (`id`,`produto_id`),
-  KEY `fk_imagem_produto1_idx` (`produto_id`),
-  CONSTRAINT `fk_imagem_produto1` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_imagem_produto1_idx` (`produto_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -305,6 +310,7 @@ CREATE TABLE `imagem` (
 
 LOCK TABLES `imagem` WRITE;
 /*!40000 ALTER TABLE `imagem` DISABLE KEYS */;
+INSERT INTO `imagem` VALUES (36,'46.banner-01.jpg',46),(37,'46.banner-02.jpg',46),(38,'46.banner-03.jpg',46);
 /*!40000 ALTER TABLE `imagem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,10 +329,8 @@ CREATE TABLE `linhacarrinhoproduto` (
   `produto_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_linhacarrinhoproduto_carrinhoproduto1_idx` (`carrinhoproduto_id`),
-  KEY `fk_linhacarrinhoproduto_produto1_idx` (`produto_id`),
-  CONSTRAINT `fk_linhacarrinhoproduto_carrinhoproduto1` FOREIGN KEY (`carrinhoproduto_id`) REFERENCES `carrinhoproduto` (`id`),
-  CONSTRAINT `fk_linhacarrinhoproduto_produto1` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_linhacarrinhoproduto_produto1_idx` (`produto_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,6 +339,7 @@ CREATE TABLE `linhacarrinhoproduto` (
 
 LOCK TABLES `linhacarrinhoproduto` WRITE;
 /*!40000 ALTER TABLE `linhacarrinhoproduto` DISABLE KEYS */;
+INSERT INTO `linhacarrinhoproduto` VALUES (6,1,12,8,46);
 /*!40000 ALTER TABLE `linhacarrinhoproduto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -490,7 +495,7 @@ CREATE TABLE `produto` (
   PRIMARY KEY (`id`),
   KEY `fk_produto_fornecedor1_idx` (`fornecedor_id`),
   KEY `fk_produto_categoria1_idx` (`categoria_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -499,6 +504,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (46,'Produto bueda bacano',12,'Produto',31,4,5);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -583,7 +589,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -592,6 +598,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (48,'tomas','b9lL8mYkAgDUOG6w4v7_LwBCiNUoiM9S','$2y$13$c1CNp0VW0M.gB.nDz7i7Wuwbg4Y03T5IZkf6Vm/bA85e/tGKkxZpq',NULL,'tomas.az@outlook.pt',10,1734380274,1734380274,'jz96_JvDeq2AYnVLAsAgKurHZRfBROW5_1734380274'),(49,'diogo','K0TYMdGedf_MowighUEhEecSvrwE_X2c','$2y$13$Ik3XMmpejaR0x4X7kl03ROqZvxE339JR1KujeelPWLjGt.NEKOUlW',NULL,'diogo@gmail.com',10,1734433393,1734433393,'WNfpt6giI8JUomzg1j3xI0n4Wos55EKC_1734433393');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -612,7 +619,7 @@ CREATE TABLE `userprofile` (
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_user1_idx` (`user_id`),
   CONSTRAINT `fk_userprofile_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -621,6 +628,7 @@ CREATE TABLE `userprofile` (
 
 LOCK TABLES `userprofile` WRITE;
 /*!40000 ALTER TABLE `userprofile` DISABLE KEYS */;
+INSERT INTO `userprofile` VALUES (32,NULL,NULL,NULL,NULL,48),(33,NULL,NULL,NULL,NULL,49);
 /*!40000 ALTER TABLE `userprofile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -633,4 +641,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-16 19:42:50
+-- Dump completed on 2024-12-17 14:11:13

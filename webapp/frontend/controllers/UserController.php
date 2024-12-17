@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use common\models\Carrinho;
+use common\models\Carrinhoproduto;
 use common\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -29,10 +29,10 @@ class UserController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'my-account', 'account-details', 'wishlist','cart','checkout','delete'],
+                    'only' => ['index', 'my-account', 'account-details', 'wishlist', 'cart', 'checkout', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'my-account', 'account-details', 'wishlist','cart','checkout','delete'],
+                            'actions' => ['index', 'my-account', 'account-details', 'wishlist', 'cart', 'checkout', 'delete'],
                             'allow' => true,
                             'roles' => ['client'],
                         ],
@@ -152,13 +152,15 @@ class UserController extends Controller
      */
     public function actionCart()
     {
+        $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
+
         $this->view->title = 'Cart';
         $this->view->params['breadcrumbs'] = [
-        ['label' => 'Home', 'url' => ['site/index']],
-        ['label' => $this->view->title],
+            ['label' => 'Home', 'url' => ['site/index']],
+            ['label' => $this->view->title],
         ];
 
-        return $this->render('cart');
+        return $this->render('cart',['userCart' => $userCart]);
     }
 
     /**
@@ -181,7 +183,7 @@ class UserController extends Controller
     public function actionDelete($id)
     {
         $user = $this->findModel($id);
-        $userProfile = $user->userProfile; 
+        $userProfile = $user->userProfile;
 
         if ($userProfile) {
             if ($userProfile->carrinho) {
@@ -194,8 +196,8 @@ class UserController extends Controller
         }
 
         \Yii::$app->db->createCommand()
-        ->delete('auth_assignment', ['user_id' => $user->id])
-        ->execute();
+            ->delete('auth_assignment', ['user_id' => $user->id])
+            ->execute();
 
         $user->delete();
 

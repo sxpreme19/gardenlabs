@@ -62,7 +62,7 @@ use yii\widgets\LinkPager;
                                                                 <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id])?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                                 <li><a href=<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id])?> data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                             </ul>
-                                                            <a class="cart" href="#">Add to Cart</a>
+                                                            <a class="cart" href="<?= yii\helpers\Url::to(['produto/add-to-cart', 'productId' => $product->id,'productQuantity' => 1])?>">Add to Cart</a>
                                                         </div>
                                                     </div>
                                                     <div class="why-text">
