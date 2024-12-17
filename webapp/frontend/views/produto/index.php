@@ -93,12 +93,12 @@ use yii\widgets\LinkPager;
                                                             <?php endif; ?>
                                                             <div class="mask-icon">
                                                                 <ul>
-                                                                    <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                    <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id])?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                                    <li><a href=<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                                 </ul>
 
                                                             </div>
-                                                        </div>
+                                                        </div>  
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
@@ -106,7 +106,7 @@ use yii\widgets\LinkPager;
                                                         <h4><?= $product->nome ?></h4>
                                                         <h5> <del><?= $product->preco + 10 ?>€</del> <?= $product->preco ?>€</h5>
                                                         <p><?= $product->descricao ?></p>
-                                                        <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                        <a href=<?= yii\helpers\Url::to(['produto/add-to-cart', 'productId' => $product->id,'productQuantity' => 1])?> class="btn hvr-hover" >Add to Cart</a>
                                                     </div>
                                                 </div>
                                             <?php endforeach ?>

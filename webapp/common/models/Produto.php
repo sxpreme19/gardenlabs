@@ -61,6 +61,16 @@ class Produto extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for Categoria.
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategoria()
+    {
+        return $this->hasOne(Categoria::class, ['id' => 'categoria_id']);
+    }
+
+    /**
      * Gets query for [[Imagems]].
      *
      * @return \yii\db\ActiveQuery

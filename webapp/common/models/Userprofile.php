@@ -64,9 +64,9 @@ class Userprofile extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public function getCarrinho()
+    public function getCarrinhoproduto()
     {
-        return $this->hasOne(Carrinho::class, ['userprofile_id' => 'id']);
+        return $this->hasOne(Carrinhoproduto::class, ['userprofile_id' => 'id']);
     }
 
     public function getFavorito()

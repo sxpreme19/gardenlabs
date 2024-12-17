@@ -6,6 +6,7 @@ use common\models\Categoria;
 use common\models\Produto;
 use common\models\ProdutoSearch;
 use common\models\Favorito;
+use common\models\Linhacarrinhoproduto;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,7 +28,7 @@ class ProdutoController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'product-details', 'gallery', 'add-to-wishlist'],
+                    'only' => ['index', 'product-details', 'gallery', 'add-to-wishlist','add-to-cart'],
                     'rules' => [
                         [
                             'actions' => ['index', 'product-details', 'gallery'],
@@ -35,7 +36,7 @@ class ProdutoController extends Controller
                             'roles' => ['?', 'client'],
                         ],
                         [
-                            'actions' => ['add-to-wishlist'],
+                            'actions' => ['add-to-wishlist','add-to-cart'],
                             'allow' => true,
                             'roles' => ['client'],
                         ],
@@ -176,6 +177,35 @@ class ProdutoController extends Controller
             Yii::$app->session->setFlash('success', 'Product added to your wishlist.');
         } else {
             Yii::$app->session->setFlash('info', 'This product is already in your wishlist.');
+        }
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Adds product to the usersw product cart.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionAddToCart($productId,$productQuantity)
+    {
+        $userProfile = Yii::$app->user->identity->userProfile;
+        $userProductCartItem = new Linhacarrinhoproduto();
+        $product = Produto::findOne($productId);
+        $userProductCartItem->precounitario = $product->preco;
+        $userProductCartItem->quantidade = $productQuantity;
+        $userProductCartItem->carrinhoproduto_id = $userProfile->carrinhoproduto->id;
+        $userProductCartItem->produto_id = $productId;
+        $existinguserProductCartItem = Linhacarrinhoproduto::find()->where(['carrinhoproduto_id' => $userProfile->carrinhoproduto->id, 'produto_id' => $productId])->one();
+        var_dump($userProductCartItem);
+        if (!$existinguserProductCartItem) {
+            $userProductCartItem->save();
+            $userCart = $userProfile->carrinhoproduto;
+            $userCart->total += $userProductCartItem->precounitario * $userProductCartItem->quantidade;
+            $userCart->save();
+            Yii::$app->session->setFlash('success', 'Product added to your cart!.');
+        } else {
+            Yii::$app->session->setFlash('info', 'This product is already in your cart!.');
         }
         return $this->redirect(['index']);
     }

@@ -35,7 +35,7 @@
                         <!-- Carousel indicators -->
                         <ol class="carousel-indicators">
                             <?php
-                            $inc = 0; 
+                            $inc = 0;
                             if (!empty($productImages)):
                                 foreach ($productImages as $index => $image):
                             ?>
@@ -70,22 +70,21 @@
                         <div class="price-box-bar">
                             <div class="cart-and-bay-btn">
                                 <!--<a class="btn hvr-hover" data-fancybox-close="" href="#">Buy New</a>-->
-                                <a class="btn hvr-hover" data-fancybox-close="" href="#">Add to cart</a>
+                                <a href=<?= yii\helpers\Url::to(['produto/add-to-cart', 'productId' => $product->id,'productQuantity' => 1])?> class="btn hvr-hover" data-fancybox-close="">Add to cart</a>
                             </div>
                         </div>
 
                         <div class="add-to-btn">
                             <div class="add-comp">
-                                <a class="btn hvr-hover" href=<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id])?>><i class="fas fa-heart"></i> Add to wishlist</a>
+                                <a class="btn hvr-hover" href=<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id]) ?>><i class="fas fa-heart"></i> Add to wishlist</a>
                                 <!--<a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Add to Compare</a>-->
                             </div>
-                            <div class="share-bar">
-                                <a class="btn hvr-hover" href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-                                <a class="btn hvr-hover" href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a>
-                                <a class="btn hvr-hover" href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                                <a class="btn hvr-hover" href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
-                                <a class="btn hvr-hover" href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                            <div class="category-container d-flex justify-content-end align-items-center">
+                                <span class="badge bg-primary text-light px-4 py-2">
+                                    <strong><?= $product->categoria->nome ?></strong>
+                                </span>
                             </div>
+
                         </div>
                     </div>
                 </div>
