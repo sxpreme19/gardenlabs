@@ -31,7 +31,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['signup','login','index','contact','about','logout','cart'],
+                'only' => ['signup','login','index','contact','about','logout'],
                 'rules' => [
                     [
                         'actions' => ['signup','login','index','contact','about'],
@@ -39,7 +39,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index','contact','about','cart'],
+                        'actions' => ['index','contact','about'],
                         'allow' => true,
                         'roles' => ['client'],
                     ],
@@ -205,32 +205,6 @@ class SiteController extends Controller
         ];
 
         return $this->render('about');
-    }
-
-    /**
-     * Displays cart page.
-     *
-     * @return mixed
-     */
-    public function actionCart()
-    {
-        $this->view->title = 'Cart';
-        $this->view->params['breadcrumbs'] = [
-        ['label' => 'Home', 'url' => ['site/index']],
-        ['label' => $this->view->title],
-        ];
-
-        return $this->render('cart');
-    }
-
-    /**
-     * Displays checkout page.
-     *
-     * @return mixed
-     */
-    public function actionCheckout()
-    {
-        return $this->render('checkout');
     }
     
     /**

@@ -29,10 +29,10 @@ class UserController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'my-account', 'account-details', 'wishlist','delete'],
+                    'only' => ['index', 'my-account', 'account-details', 'wishlist','cart','checkout','delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'my-account', 'account-details', 'wishlist','delete'],
+                            'actions' => ['index', 'my-account', 'account-details', 'wishlist','cart','checkout','delete'],
                             'allow' => true,
                             'roles' => ['client'],
                         ],
@@ -143,6 +143,32 @@ class UserController extends Controller
             ['label' => $this->view->title],
         ];
         return $this->render('wishlist', ['userWishlist' => $userWishlist]);
+    }
+
+    /**
+     * Displays cart page.
+     *
+     * @return mixed
+     */
+    public function actionCart()
+    {
+        $this->view->title = 'Cart';
+        $this->view->params['breadcrumbs'] = [
+        ['label' => 'Home', 'url' => ['site/index']],
+        ['label' => $this->view->title],
+        ];
+
+        return $this->render('cart');
+    }
+
+    /**
+     * Displays checkout page.
+     *
+     * @return mixed
+     */
+    public function actionCheckout()
+    {
+        return $this->render('checkout');
     }
 
     /**
