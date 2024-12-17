@@ -27,12 +27,13 @@
 	/* ..............................................
 	   Gallery
 	   ................................................. */
-
+	   $(document).ready(function() {
 	$('#slides-shop').superslides({
 		inherit_width_from: '.cover-slides',
 		inherit_height_from: '.cover-slides',
 		play: 5000,
 		animation: 'fade',
+	});
 	});
 
 	$(".cover-slides ul li").append("<div class='overlay-background'></div>");
@@ -60,7 +61,7 @@
 	/* ..............................................
 	   Special Menu
 	   ................................................. */
-
+$(document).ready(function() {
 	var Container = $('.container');
 	Container.imagesLoaded(function() {
 		var portfolio = $('.special-menu');
@@ -75,6 +76,7 @@
 			itemSelector: '.special-grid'
 		});
 	});
+});
 
 	/* ..............................................
 	   BaguetteBox
@@ -88,7 +90,7 @@
 	/* ..............................................
 	   Offer Box
 	   ................................................. */
-
+	$(document).ready(function() {
 	$('.offer-box').inewsticker({
 		speed: 3000,
 		effect: 'fade',
@@ -98,7 +100,7 @@
 		font_family: 'Montserrat, sans-serif',
 		delay_after: 1000
 	});
-
+});
 	/* ..............................................
 	   Tooltip
 	   ................................................. */
@@ -110,7 +112,7 @@
 	/* ..............................................
 	   Owl Carousel Instagram Feed
 	   ................................................. */
-
+	$(document).ready(function() {
 	$('.main-instagram').owlCarousel({
 		loop: true,
 		margin: 0,
@@ -135,11 +137,11 @@
 			}
 		}
 	});
-
+});
 	/* ..............................................
 	   Featured Products
 	   ................................................. */
-
+	$(document).ready(function() {
 	$('.featured-products-box').owlCarousel({
 		loop: true,
 		margin: 15,
@@ -164,7 +166,7 @@
 			}
 		}
 	});
-
+});
 	/* ..............................................
 	   Scroll
 	   ................................................. */
@@ -189,30 +191,23 @@
 	   Cart Product Quantity
 	   ................................................. */
 
-	   document.addEventListener('DOMContentLoaded', function() {
-		// Select all quantity input fields
+	   $(function() {
 		const quantityInputs = document.querySelectorAll('.quantity-box input');
 	
-		// Loop through each input and add an event listener
 		quantityInputs.forEach(input => {
 			input.addEventListener('input', function () {
-				const row = this.closest('tr'); // Get the closest row (tr) element
-				const priceElement = row.querySelector('.price-pr'); // Get the price cell
-				const price = parseFloat(priceElement.textContent.replace('$', '').trim()); // Get price as number
+				const row = this.closest('tr'); 
+				const priceElement = row.querySelector('.price-pr'); 
+				const price = parseFloat(priceElement.textContent.replace('$', '').trim()); 
 	
-				// Check if the price is a valid number
 				if (isNaN(price)) {
 					console.error('Invalid price value');
 					return;
 				}
-	
-				// Get the quantity from the input field
+
 				const quantity = parseInt(this.value) || 0; 
-	
-				// Calculate the total price
 				const total = price * quantity;
 	
-				// Get the total element and update its content
 				const totalElement = row.querySelector('.total-pr p');
 				if (totalElement) {
 					totalElement.textContent = `$${total.toFixed(2)}`;
@@ -223,7 +218,6 @@
 		});
 	});
 	
-
 
 	/* ..............................................
 	   Slider Range
@@ -246,11 +240,11 @@
 	/* ..............................................
 	   NiceScroll
 	   ................................................. */
-
+$(document).ready(function() {
 	$(".brand-box").niceScroll({
 		cursorcolor: "#9b9b9c",
 	});
-	
+});
 	
 }(jQuery));
 

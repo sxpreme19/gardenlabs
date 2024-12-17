@@ -55,14 +55,14 @@ use yii\widgets\LinkPager;
                                                         if (!empty($productImages)):
                                                             $firstImage = $productImages[0];
                                                         ?>
-                                                            <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="img-fluid" alt=<?=$product->nome?>>
+                                                            <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="img-fluid" alt=<?= $product->nome ?>>
                                                         <?php endif; ?>
                                                         <div class="mask-icon">
                                                             <ul>
-                                                                <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id])?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href=<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id])?> data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                                <li><a href=<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                             </ul>
-                                                            <a class="cart" href="<?= yii\helpers\Url::to(['produto/add-to-cart', 'productId' => $product->id,'productQuantity' => 1])?>">Add to Cart</a>
+                                                            <a class="cart" href="<?= yii\helpers\Url::to(['produto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
                                                         </div>
                                                     </div>
                                                     <div class="why-text">
@@ -93,26 +93,27 @@ use yii\widgets\LinkPager;
                                                             <?php endif; ?>
                                                             <div class="mask-icon">
                                                                 <ul>
-                                                                    <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id])?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                    <li><a href=<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                    <li><a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                                    <li><a href="<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                                 </ul>
-
+                                                                <a class="cart" href="<?= yii\helpers\Url::to(['produto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
                                                             </div>
-                                                        </div>  
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                                     <div class="why-text full-width">
                                                         <h4><?= $product->nome ?></h4>
-                                                        <h5> <del><?= $product->preco + 10 ?>€</del> <?= $product->preco ?>€</h5>
+                                                        <h5><del><?= $product->preco + 10 ?>€</del> <?= $product->preco ?>€</h5>
                                                         <p><?= $product->descricao ?></p>
-                                                        <a href=<?= yii\helpers\Url::to(['produto/add-to-cart', 'productId' => $product->id,'productQuantity' => 1])?> class="btn hvr-hover" >Add to Cart</a>
+                                                        <a href="<?= yii\helpers\Url::to(['produto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>" class="btn hvr-hover">Add to Cart</a>
                                                     </div>
                                                 </div>
                                             <?php endforeach ?>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="pagination-container">
                                     <?php
                                     echo LinkPager::widget([
@@ -176,25 +177,6 @@ use yii\widgets\LinkPager;
     </div>
 
     <!-- End Shop Page -->
-
-    <!-- ALL JS FILES -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- ALL PLUGINS -->
-    <script src="js/jquery.superslides.min.js"></script>
-    <script src="js/bootstrap-select.js"></script>
-    <script src="js/inewsticker.js"></script>
-    <script src="js/bootsnav.js."></script>
-    <script src="js/images-loded.min.js"></script>
-    <script src="js/isotope.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/baguetteBox.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/jquery.nicescroll.min.js"></script>
-    <script src="js/form-validator.min.js"></script>
-    <script src="js/contact-form-script.js"></script>
-    <script src="js/custom.js"></script>
 </body>
 
 </html>

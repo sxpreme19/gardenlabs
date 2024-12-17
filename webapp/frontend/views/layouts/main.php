@@ -14,6 +14,7 @@ use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
 
+
 if (!Yii::$app->user->isGuest) {
     $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
     $totalUserCartLines = count($userCart->linhacarrinhoprodutos);
