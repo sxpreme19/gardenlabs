@@ -72,11 +72,12 @@ class SignupForm extends Model
                 //$this->sendEmail($user);
                 $userProductCart = new Carrinhoproduto();
                 $userProductCart->userprofile_id = $userprofile->id;
+                var_dump($userProductCart);
                 if ($userProductCart->save()) {
                     $userServiceCart = new Carrinhoservico();
                     $userServiceCart->userprofile_id = $userprofile->id;
                     if ($userServiceCart->save()) {
-                        return $user;
+                        return $user;   
                     }
                 }
             }

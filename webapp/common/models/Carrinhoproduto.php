@@ -29,7 +29,7 @@ class Carrinhoproduto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['total', 'userprofile_id'], 'required'],
+            [['userprofile_id'], 'required'],
             [['total'], 'number'],
             [['userprofile_id'], 'integer'],
         ];

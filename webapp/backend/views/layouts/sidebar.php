@@ -54,7 +54,8 @@
                         'items' => [
                             ['label' => 'Products', 'icon' => 'fas fa-box','url' => ['produto/index']],
                             ['label' => 'Services', 'icon' => 'fas fa-concierge-bell','url' => ['servico/index']],
-                            ['label' => 'User Carts', 'icon' => 'fas fa-shopping-basket', 'url' => ['carrinho/index']],
+                            ['label' => 'User Product Carts', 'icon' => 'fas fa-shopping-basket', 'url' => ['carrinhoproduto/index']],
+                            ['label' => 'User Service Carts', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['carrinhoservico/index']],
                             ['label' => 'Wishlists', 'icon' => 'fas fa-heart', 'url' => ['favorito/index']],
                             ['label' => 'Reviews', 'icon' => 'fas fa-star', 'url' => ['review/index']],
                         ],

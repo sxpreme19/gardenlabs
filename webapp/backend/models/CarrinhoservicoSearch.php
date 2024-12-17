@@ -4,13 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Carrinho;
-use common\models\Carrinhoproduto;
+use common\models\Carrinhoservico;
 
 /**
- * CarrinhoSearch represents the model behind the search form of `common\models\Carrinho`.
+ * CarrinhoservicoSearch represents the model behind the search form of `common\models\Carrinhoservico`.
  */
-class CarrinhoSearch extends Carrinhoproduto
+class CarrinhoservicoSearch extends Carrinhoservico
 {
     /**
      * {@inheritdoc}
@@ -41,7 +40,7 @@ class CarrinhoSearch extends Carrinhoproduto
      */
     public function search($params)
     {
-        $query = Carrinho::find();
+        $query = Carrinhoservico::find();
 
         // add conditions that should always apply here
 
