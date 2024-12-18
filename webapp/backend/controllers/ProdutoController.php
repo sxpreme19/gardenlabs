@@ -5,7 +5,7 @@ namespace backend\controllers;
 use common\models\Produto;
 use common\models\Imagem;
 use backend\models\ImagemSearch;
-use common\models\ProdutoSearch;
+use backend\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

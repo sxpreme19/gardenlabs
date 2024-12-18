@@ -144,7 +144,7 @@ if (!Yii::$app->user->isGuest) {
                     ?>
                 </div>
 
-                <?php if (!Yii::$app->user->isGuest): ?>
+        <?php if (!Yii::$app->user->isGuest): ?>
                     <!-- Start Atribute Navigation -->
                     <div class="attr-nav">
                         <ul>
@@ -158,8 +158,7 @@ if (!Yii::$app->user->isGuest) {
                             </li>
                         </ul>
                     </div>
-                <?php endif; ?>
-                <!-- End Atribute Navigation -->
+                    <!-- End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
             <div class="side">
@@ -170,13 +169,16 @@ if (!Yii::$app->user->isGuest) {
                             <?php
                             $produto = $linhacarrinho->produto;
                             $productImages = $produto->imagems;
+                            $firstImage = null;
                             if (!empty($productImages)):
                                 $firstImage = $productImages[0];
                             endif;
                             ?>
                             <li>
                                 <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>" class="photo">
-                                    <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="cart-thumb" alt="<?= $produto->nome ?>" />
+                                    <?php if ($firstImage): ?>
+                                        <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="cart-thumb" title="<?= $produto->nome ?>" />
+                                    <?php endif; ?>
                                 </a>
                                 <h6><a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>"><?= $produto->nome ?></a></h6>
                                 <p><?= $linhacarrinho->quantidade ?>x -
@@ -186,12 +188,13 @@ if (!Yii::$app->user->isGuest) {
                         <?php endforeach; ?>
                         <li class="total">
                             <a href="<?= yii\helpers\Url::to(['user/cart']) ?>" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                            <span class="float-right"><strong>Total</strong>: <?=$userCart->total?>€</span>
+                            <span class="float-right"><strong>Total</strong>: <?= $userCart->total ?>€</span>
                         </li>
                     </ul>
                 </li>
             </div>
-            <!-- End Side Menu -->
+        <?php endif; ?>
+        <!-- End Side Menu -->
         </nav>
         <!-- End Navigation -->
     </header>

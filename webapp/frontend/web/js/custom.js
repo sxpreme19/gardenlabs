@@ -193,32 +193,36 @@ $(document).ready(function() {
 
 	   $(function() {
 		const quantityInputs = document.querySelectorAll('.quantity-box input');
-	
+		
 		quantityInputs.forEach(input => {
 			input.addEventListener('input', function () {
 				const row = this.closest('tr'); 
 				const priceElement = row.querySelector('.price-pr'); 
-				const price = parseFloat(priceElement.textContent.replace('$', '').trim()); 
+				const price = parseFloat(priceElement.textContent.replace('€', '').trim()); 
 	
 				if (isNaN(price)) {
 					console.error('Invalid price value');
 					return;
 				}
-
+	
 				const quantity = parseInt(this.value) || 0; 
 				const total = price * quantity;
 	
 				const totalElement = row.querySelector('.total-pr p');
 				if (totalElement) {
-					totalElement.textContent = `$${total.toFixed(2)}`;
+					totalElement.textContent = `${total.toFixed(2)}€`;
 				} else {
 					console.error('Total price element not found');
+				}
+
+				const form = this.closest('form');
+				if (form) {
+					form.submit();
 				}
 			});
 		});
 	});
 	
-
 	/* ..............................................
 	   Slider Range
 	   ................................................. */
@@ -245,6 +249,5 @@ $(document).ready(function() {
 		cursorcolor: "#9b9b9c",
 	});
 });
-	
 }(jQuery));
 

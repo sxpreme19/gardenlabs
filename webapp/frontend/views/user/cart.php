@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
-
 <body>
     <!-- Start Cart  -->
     <div class="cart-box-main">
@@ -41,11 +40,19 @@
                                             </a>
                                         </td>
                                         <td class="price-pr">
-                                            <?= $produto->preco ?>
+                                            <?= $produto->preco ?>€
                                         </td>
-                                        <td class="quantity-box"><input type="number" size="4" value="<?=$linhacarrinho->quantidade?>" min="0" step="1" class="c-input-text qty text"></td>
+                                        <td class="quantity-box">
+                                            <form method="POST" action="<?= yii\helpers\Url::to(['user/update-quantity']) ?>">
+                                                <input type="hidden" name="<?= Yii::$app->request->csrfParam ?>" value="<?= Yii::$app->request->csrfToken ?>" />
+                                                <input type="hidden" name="itemId" value="<?= $linhacarrinho->id ?>" />
+                                                <input type="number" name="quantity" value="<?= $linhacarrinho->quantidade ?>" min="1" step="1" class="c-input-text qty text">
+                                                <button type="submit" style="display:none;">Update</button>
+                                            </form>
+
+                                        </td>
                                         <td class="total-pr">
-                                            <p><?=$produto->preco * $linhacarrinho->quantidade?></p>
+                                            <p><?= $produto->preco * $linhacarrinho->quantidade ?>€</p>
                                         </td>
                                         <td class="remove-pr">
                                             <a href="#">
@@ -67,34 +74,22 @@
                         <h3>Order summary</h3>
                         <div class="d-flex">
                             <h4>Sub Total</h4>
-                            <div class="ml-auto font-weight-bold"> $ 130 </div>
-                        </div>
-                        <div class="d-flex">
-                            <h4>Discount</h4>
-                            <div class="ml-auto font-weight-bold"> $ 40 </div>
+                            <div class="ml-auto font-weight-bold"><?= $userCart->total ?>€</div>
                         </div>
                         <hr class="my-1">
                         <div class="d-flex">
-                            <h4>Coupon Discount</h4>
-                            <div class="ml-auto font-weight-bold"> $ 10 </div>
-                        </div>
-                        <div class="d-flex">
-                            <h4>Tax</h4>
-                            <div class="ml-auto font-weight-bold"> $ 2 </div>
-                        </div>
-                        <div class="d-flex">
                             <h4>Shipping Cost</h4>
-                            <div class="ml-auto font-weight-bold"> Free </div>
+                            <div class="ml-auto font-weight-bold"><?=$shippingCost = 0?>€</div>
                         </div>
                         <hr>
                         <div class="d-flex gr-total">
                             <h5>Grand Total</h5>
-                            <div class="ml-auto h5"> $ 388 </div>
+                            <div class="ml-auto h5"><?=$userCart->total + $shippingCost?>€</div>
                         </div>
                         <hr>
                     </div>
                 </div>
-                <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">Checkout</a> </div>
+                <div class="col-12 d-flex shopping-box"><a href="<?= yii\helpers\Url::to(['user/checkout']) ?>" class="ml-auto btn hvr-hover">Checkout</a> </div>
             </div>
 
         </div>

@@ -4,9 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Categoria;
 use common\models\Produto;
-use common\models\ProdutoSearch;
-use common\models\Favorito;
-use common\models\Linhacarrinhoproduto;
+use frontend\models\ProdutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,17 +26,12 @@ class ProdutoController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'product-details', 'gallery', 'add-to-wishlist','add-to-cart'],
+                    'only' => ['index', 'product-details', 'gallery'],
                     'rules' => [
                         [
                             'actions' => ['index', 'product-details', 'gallery'],
                             'allow' => true,
                             'roles' => ['?', 'client'],
-                        ],
-                        [
-                            'actions' => ['add-to-wishlist','add-to-cart'],
-                            'allow' => true,
-                            'roles' => ['client'],
                         ],
                         [
                             'allow' => false,
@@ -157,57 +150,6 @@ class ProdutoController extends Controller
             'categories' => $categories,
             'productTotalCount' => $productTotalCount,
         ]);
-    }
-
-    /**
-     * Adds product to the users wishlist.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionAddToWishlist($productId)
-    {
-        $userProfile = Yii::$app->user->identity->userProfile;
-        $wishlistItem = new Favorito();
-        $wishlistItem->userprofile_id = $userProfile->user_id;
-        $wishlistItem->produto_id = $productId;
-        $existingWishlistItem = Favorito::find()->where(['userprofile_id' => $userProfile->user_id, 'produto_id' => $productId])->one();
-        if (!$existingWishlistItem) {
-            $wishlistItem->save();
-            Yii::$app->session->setFlash('success', 'Product added to your wishlist.');
-        } else {
-            Yii::$app->session->setFlash('info', 'This product is already in your wishlist.');
-        }
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Adds product to the usersw product cart.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionAddToCart($productId,$productQuantity)
-    {
-        $userProfile = Yii::$app->user->identity->userProfile;
-        $userProductCartItem = new Linhacarrinhoproduto();
-        $product = Produto::findOne($productId);
-        $userProductCartItem->precounitario = $product->preco;
-        $userProductCartItem->quantidade = $productQuantity;
-        $userProductCartItem->carrinhoproduto_id = $userProfile->carrinhoproduto->id;
-        $userProductCartItem->produto_id = $productId;
-        $existinguserProductCartItem = Linhacarrinhoproduto::find()->where(['carrinhoproduto_id' => $userProfile->carrinhoproduto->id, 'produto_id' => $productId])->one();
-        var_dump($userProductCartItem);
-        if (!$existinguserProductCartItem) {
-            $userProductCartItem->save();
-            $userCart = $userProfile->carrinhoproduto;
-            $userCart->total += $userProductCartItem->precounitario * $userProductCartItem->quantidade;
-            $userCart->save();
-            Yii::$app->session->setFlash('success', 'Product added to your cart!.');
-        } else {
-            Yii::$app->session->setFlash('info', 'This product is already in your cart!.');
-        }
-        return $this->redirect(['index']);
     }
 
     /**

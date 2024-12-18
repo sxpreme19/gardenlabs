@@ -2,17 +2,21 @@
 
 namespace frontend\controllers;
 
-use common\models\Carrinhoproduto;
-use common\models\User;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use Yii;
 use frontend\models\UpdateUserForm;
 use common\models\Userprofile;
 use common\models\Favorito;
+use common\models\Metodoexpedicao;
+use common\models\Metodopagamento;
+use common\models\Linhacarrinhoproduto;
+use common\models\Carrinhoproduto;
+use common\models\User;
+use common\models\Produto;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -29,10 +33,10 @@ class UserController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'my-account', 'account-details', 'wishlist', 'cart', 'checkout', 'delete'],
+                    'only' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist', 'cart', 'add-to-cart', 'update-quantity', 'checkout', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'my-account', 'account-details', 'wishlist', 'cart', 'checkout', 'delete'],
+                            'actions' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist', 'cart', 'add-to-cart', 'update-quantity', 'checkout', 'delete'],
                             'allow' => true,
                             'roles' => ['client'],
                         ],
@@ -144,6 +148,52 @@ class UserController extends Controller
         ];
         return $this->render('wishlist', ['userWishlist' => $userWishlist]);
     }
+    /**
+     * Adds product to the users wishlist.
+     * @param int $id ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionAddToWishlist($productId)
+    {
+        $userProfile = Yii::$app->user->identity->userProfile;
+        $wishlistItem = new Favorito();
+        $wishlistItem->userprofile_id = $userProfile->user_id;
+        $wishlistItem->produto_id = $productId;
+        $existingWishlistItem = Favorito::find()->where(['userprofile_id' => $userProfile->user_id, 'produto_id' => $productId])->one();
+        if (!$existingWishlistItem) {
+            $wishlistItem->save();
+            Yii::$app->session->setFlash('success', 'Product added to your wishlist.');
+        } else {
+            Yii::$app->session->setFlash('info', 'This product is already in your wishlist.');
+        }
+        return $this->redirect(['wishlist']);
+    }
+
+    /**
+     * Removes wishlist item.
+     *
+     * @return mixed
+     */
+    public function actionRemoveWishlistItem($productId)
+    {
+        $userProfile = Yii::$app->user->identity->userProfile;
+        $userWishlistItemtoRemove = Favorito::findOne(['userprofile_id' => $userProfile->user_id,'produto_id' => $productId]);
+
+        if (!$userWishlistItemtoRemove) {
+            Yii::$app->session->setFlash('error', 'Item not found in wishlist.');
+            return $this->redirect(['wishlist']);
+        }
+
+        if ($userWishlistItemtoRemove->delete()) {
+            $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id])->with('produto')->all();
+            Yii::$app->session->setFlash('success', 'Item removed from wishlist successfully.');
+            return $this->render('wishlist', ['userWishlist' => $userWishlist]);
+        }else {
+            Yii::$app->session->setFlash('error', 'Failed to remove item from wishlist.');
+            return $this->redirect(['wishlist']);
+        }
+    }
 
     /**
      * Displays cart page.
@@ -160,7 +210,93 @@ class UserController extends Controller
             ['label' => $this->view->title],
         ];
 
-        return $this->render('cart',['userCart' => $userCart]);
+        return $this->render('cart', ['userCart' => $userCart]);
+    }
+
+    /**
+     * Adds product to the user's product cart.
+     * @param int $productId ID of the product to add
+     * @param int $productQuantity Quantity of the product to add
+     * @return \yii\web\Response Redirects to the index page
+     * @throws NotFoundHttpException if the product cannot be found
+     */
+    public function actionAddToCart($productId, $productQuantity)
+    {
+        $userProfile = Yii::$app->user->identity->userProfile;
+
+        $product = Produto::findOne($productId);
+        if (!$product) {
+            throw new NotFoundHttpException("Product not found.");
+        }
+
+        $userCart = $userProfile->carrinhoproduto;
+        if (!$userCart) {
+            throw new NotFoundHttpException("Cart not found.");
+        }
+
+        $existingCartItem = Linhacarrinhoproduto::find()
+            ->where(['carrinhoproduto_id' => $userCart->id, 'produto_id' => $productId])
+            ->one();
+
+        if ($existingCartItem) {
+            $existingCartItem->quantidade += $productQuantity;
+            $existingCartItem->save();
+
+            Yii::$app->session->setFlash('info', 'Product quantity updated in your cart.');
+        } else {
+            $newCartItem = new Linhacarrinhoproduto();
+            $newCartItem->precounitario = $product->preco;
+            $newCartItem->quantidade = $productQuantity;
+            $newCartItem->carrinhoproduto_id = $userCart->id;
+            $newCartItem->produto_id = $productId;
+            $newCartItem->save();
+
+            Yii::$app->session->setFlash('success', 'Product added to your cart.');
+        }
+
+        $cartTotal = 0;
+        foreach ($userCart->linhacarrinhoprodutos as $cartItem) {
+            $cartTotal += $cartItem->quantidade * $cartItem->precounitario;
+        }
+        $userCart->total = $cartTotal;
+        $userCart->save();
+
+        return $this->redirect(['cart']);
+    }
+
+    public function actionUpdateQuantity()
+    {
+        if (Yii::$app->request->isPost) {
+            $itemId = Yii::$app->request->post('itemId');
+            $quantity = Yii::$app->request->post('quantity');
+
+            if ($itemId && $quantity && is_numeric($quantity) && $quantity > 0) {
+                $cartItem = Linhacarrinhoproduto::findOne($itemId);
+
+                if ($cartItem) {
+                    $cartItem->quantidade = $quantity;
+                    if ($cartItem->save()) {
+                        $userProfile = Yii::$app->user->identity->userProfile;
+                        $userCart = $userProfile->carrinhoproduto;
+                        $userCart->total = 0;
+                        foreach ($userCart->linhacarrinhoprodutos as $item) {
+                            $userCart->total += $item->produto->preco * $item->quantidade;
+                        }
+                        $userCart->save();
+
+                        return $this->redirect(['user/cart']);
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Failed to update cart item');
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', 'Cart item not found');
+                }
+            } else {
+                Yii::$app->session->setFlash('error', 'Invalid quantity');
+            }
+        }
+
+        return $this->redirect(['user/cart']);
     }
 
     /**
@@ -170,7 +306,21 @@ class UserController extends Controller
      */
     public function actionCheckout()
     {
-        return $this->render('checkout');
+        $shippingMethods = Metodoexpedicao::find()->all();
+        $paymentMethods = Metodopagamento::find()->all();
+        $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
+
+        $this->view->title = 'Checkout';
+        $this->view->params['breadcrumbs'] = [
+            ['label' => 'Cart', 'url' => ['user/cart']],
+            ['label' => $this->view->title],
+        ];
+
+        return $this->render('checkout', [
+            'shippingMethods' => $shippingMethods,
+            'paymentMethods' => $paymentMethods,
+            'userCart' => $userCart
+        ]);
     }
 
     /**
