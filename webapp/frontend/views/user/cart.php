@@ -46,7 +46,7 @@
                                             <form method="POST" action="<?= yii\helpers\Url::to(['user/update-quantity']) ?>">
                                                 <input type="hidden" name="<?= Yii::$app->request->csrfParam ?>" value="<?= Yii::$app->request->csrfToken ?>" />
                                                 <input type="hidden" name="itemId" value="<?= $linhacarrinho->id ?>" />
-                                                <input type="number" name="quantity" value="<?= $linhacarrinho->quantidade ?>" min="1" step="1" class="c-input-text qty text">
+                                                <input type="number" name="quantity" value="<?= $linhacarrinho->quantidade ?>" min="1" step="1" class="c-input-text qty text form-control form-control-sm" style="max-width: 80px;">
                                                 <button type="submit" style="display:none;">Update</button>
                                             </form>
 
