@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="<?=\yii\helpers\Url::to(['site/index'])?>" class="brand-link">
         <img src="<?=$assetDir?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">GardenLabs</span>
     </a>
 
     <!-- Sidebar -->
@@ -50,12 +50,10 @@
                     ['label' => 'Shopping Management', 'header' => true],
                     [
                         'label' => 'Shopping',
-                        'icon' => 'fas fa-shopping-cart',
+                        'icon' => 'fas fa-tags',
                         'items' => [
                             ['label' => 'Products', 'icon' => 'fas fa-box','url' => ['produto/index']],
                             ['label' => 'Services', 'icon' => 'fas fa-concierge-bell','url' => ['servico/index']],
-                            ['label' => 'User Product Carts', 'icon' => 'fas fa-shopping-basket', 'url' => ['carrinhoproduto/index']],
-                            ['label' => 'User Service Carts', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['carrinhoservico/index']],
                             ['label' => 'Wishlists', 'icon' => 'fas fa-heart', 'url' => ['favorito/index']],
                             ['label' => 'Reviews', 'icon' => 'fas fa-star', 'url' => ['review/index']],
                         ],
@@ -67,6 +65,14 @@
                             ['label' => 'Categories', 'icon' => 'fas fa-layer-group','url' => ['categoria/index']],
                             ['label' => 'Suppliers', 'icon' => 'fas fa-parachute-box','url' => ['fornecedor/index']],
                             ['label' => 'Images', 'icon' => 'fas fa-image','url' => ['imagem/index']],
+                        ],
+                    ],
+                    [
+                        'label' => 'Carts',
+                        'icon' => 'fas fa-shopping-cart',
+                        'items' => [
+                            ['label' => 'User Product Carts', 'icon' => 'fas fa-shopping-basket', 'url' => ['carrinhoproduto/index']],
+                            ['label' => 'User Service Carts', 'icon' => 'fas fa-cart-arrow-down', 'url' => ['carrinhoservico/index']],
                         ],
                     ],
                     [
@@ -83,10 +89,6 @@
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
                     ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
-                    ['label' => 'LABELS', 'header' => true],
-                    ['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
-                    ['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
-                    ['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],
                 ],
             ]);
             ?>

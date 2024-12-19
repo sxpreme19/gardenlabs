@@ -11,9 +11,9 @@ use yii\web\ForbiddenHttpException;
 /**
  * Default controller for the `api` module
  */
-class ProdutoController extends ActiveController
+class ServicoController extends ActiveController
 {
-    public $modelClass = 'common\models\Produto';
+    public $modelClass = 'common\models\Servico';
 
     public function behaviors()
     {
@@ -45,36 +45,36 @@ class ProdutoController extends ActiveController
 
     public function actionCount()
     {
-        $produtosmodel = new $this->modelClass;
-        $recs = $produtosmodel::find()->all();
+        $servicosmodel = new $this->modelClass;
+        $recs = $servicosmodel::find()->all();
         return ['count' => count($recs)];
     }
     public function actionNomes()
     {
-        $produtosmodel = new $this->modelClass;
-        $recs = $produtosmodel::find()->select(['nome'])->all();
+        $servicosmodel = new $this->modelClass;
+        $recs = $servicosmodel::find()->select(['titulo'])->all();
         return $recs;
     }
 
     public function actionPreco($id)
     {
-        $produtosmodel = new $this->modelClass;
-        $recs = $produtosmodel::find()->select(['preco'])->where(['id' => $id])->one();
+        $servicosmodel = new $this->modelClass;
+        $recs = $servicosmodel::find()->select(['preco'])->where(['id' => $id])->one();
         return $recs;
     }
 
-    public function actionPrecopornome($nomeproduto){
-        $produtosmodel = new $this->modelClass;
-        $recs = $produtosmodel::find()->select(['preco'])->where(['nome' => $nomeproduto])->all();
+    public function actionPrecopornome($tituloservico){
+        $servicosmodel = new $this->modelClass;
+        $recs = $servicosmodel::find()->select(['preco'])->where(['titulo' => $tituloservico])->all();
         return $recs;
     }
 
     public function actionDelpornome($nomeproduto){
-        $produtosmodel = new $this->modelClass;
-        $recs = $produtosmodel::deleteAll(['nome' => $nomeproduto]);
+        $servicosmodel = new $this->modelClass;
+        $recs = $servicosmodel::deleteAll(['nome' => $nomeproduto]);
          return $recs;
     }
-
+    /*
     public function actionPutprecopornome($nomeprato){
         $novo_preco = \Yii::$app->request->post('preco');
         $pratosmodel = new $this->modelClass;
@@ -87,20 +87,22 @@ class ProdutoController extends ActiveController
         }
     }
 
-    public function actionPostpratovazio(){
-        $pratomodel = new $this->modelClass;
-        $pratomodel->id = 0;
-        $pratomodel->titulo = '';
-        $pratomodel->descricao = '';
-        $pratomodel->preco = 0;
-        $pratomodel->disponivel = 0;
-        $pratomodel->save();
-        return $pratomodel;
+    
+    public function actionPostprodutovazio(){
+        $produtomodel = new $this->modelClass;
+        $produtomodel->nome = null;
+        $produtomodel->descricao = null;
+        $produtomodel->preco = null;
+        $produtomodel->quantidade = 0;
+        $produtomodel->fornecedor_id = null;
+        $produtomodel->categoria_id = null;
+        $produtomodel->save();
+        return $produtomodel;
     }
 
     public function actionData_criacao($data_criacao){
         $pratosmodel = new $this->modelClass;
         $recs = $pratosmodel->find()->where(['>=' , 'data_criacao' , $data_criacao])->all();
         return $recs;
-    }
+    }*/
 }

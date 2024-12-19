@@ -159,7 +159,7 @@ use yii\widgets\LinkPager;
                                 <div id="slider-range"></div>
                                 <p>
                                     <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
-                                    <button class="btn hvr-hover" type="submit">Filter</button>
+                                    <button class="btn hvr-hover" type="button" id="filter-button">Filter</button>
                                 </p>
                             </div>
                         </div>
@@ -170,5 +170,9 @@ use yii\widgets\LinkPager;
     </div>
     <!-- End Shop Page -->
 </body>
-
 </html>
+<script>
+    var minPrice = <?= isset($minPrice) ? json_encode($minPrice) : '0' ?>;
+    var maxPrice = <?= isset($maxPrice) ? json_encode($maxPrice) : '1000' ?>;
+</script>
+

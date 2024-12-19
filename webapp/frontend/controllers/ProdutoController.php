@@ -70,6 +70,14 @@ class ProdutoController extends Controller
             $queryParams['categoria_id'] = $categoria_id;
         }
 
+        if ($minPrice !== null) {
+            $queryParams['minPrice'] = $minPrice;
+        }
+
+        if ($maxPrice !== null) {
+            $queryParams['maxPrice'] = $maxPrice;
+        }
+
         $dataProvider = $searchModel->search($queryParams);
         $productDisplayCount = $dataProvider->getTotalCount();
         $categories = Categoria::find()->all();

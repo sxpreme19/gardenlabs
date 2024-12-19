@@ -17,9 +17,10 @@ class AppAsset extends AssetBundle
         'css/style.css',
         'css/responsive.css',
         'css/custom.css',
+        'css/jquery-ui.css',
     ];
     public $js = [
-        'js/jquery-3.2.1.min.js',
+        //'js/jquery-3.2.1.min.js',
         'js/popper.min.js',       
         'js/bootstrap.min.js',     
         'js/baguetteBox.min.js',

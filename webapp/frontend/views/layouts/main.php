@@ -143,8 +143,7 @@ if (!Yii::$app->user->isGuest) {
                     ]);
                     ?>
                 </div>
-
-        <?php if (!Yii::$app->user->isGuest): ?>
+                <?php if (!Yii::$app->user->isGuest): ?>
                     <!-- Start Atribute Navigation -->
                     <div class="attr-nav">
                         <ul>
@@ -165,36 +164,45 @@ if (!Yii::$app->user->isGuest) {
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
                     <ul class="cart-list">
-                        <?php foreach ($userCart->linhacarrinhoprodutos as $linhacarrinho): ?>
-                            <?php
-                            $produto = $linhacarrinho->produto;
-                            $productImages = $produto->imagems;
-                            $firstImage = null;
-                            if (!empty($productImages)):
-                                $firstImage = $productImages[0];
-                            endif;
-                            ?>
-                            <li>
-                                <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>" class="photo">
-                                    <?php if ($firstImage): ?>
-                                        <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="cart-thumb" title="<?= $produto->nome ?>" />
-                                    <?php endif; ?>
-                                </a>
-                                <h6><a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>"><?= $produto->nome ?></a></h6>
-                                <p><?= $linhacarrinho->quantidade ?>x -
-                                    <span class="price"><?= $produto->preco ?>€</span>
-                                </p>
+                        <?php if (!empty($userCart->linhacarrinhoprodutos)): ?>
+                            <?php foreach ($userCart->linhacarrinhoprodutos as $linhacarrinho): ?>
+                                <?php if (!empty($linhacarrinho->produto)):
+                                    $produto = $linhacarrinho->produto;
+                                    if (!empty($produto->imagems)) {
+                                        $productImages = $produto->imagems;
+                                        $firstImage = null;
+                                        if (!empty($productImages)) {
+                                            $firstImage = $productImages[0];
+                                        }
+                                    }
+                                ?>
+                                    <li>
+                                        <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>" class="photo">
+                                            <?php if ($firstImage): ?>
+                                                <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="cart-thumb" title="<?= $produto->nome ?>" />
+                                            <?php endif; ?>
+                                        </a>
+                                        <h6><a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>"><?= $produto->nome ?></a></h6>
+                                        <p><?= $linhacarrinho->quantidade ?>x -
+                                            <span class="price"><?= $produto->preco ?>€</span>
+                                        </p>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <li class="total">
+                                <a href="<?= yii\helpers\Url::to(['user/cart']) ?>" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
+                                <span class="float-right"><strong>Total</strong>: <?= $userCart->total ?>€</span>
                             </li>
-                        <?php endforeach; ?>
-                        <li class="total">
-                            <a href="<?= yii\helpers\Url::to(['user/cart']) ?>" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                            <span class="float-right"><strong>Total</strong>: <?= $userCart->total ?>€</span>
-                        </li>
+                        <?php else: ?>
+                            <li>
+                                <p>Your cart is empty.</p>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </li>
             </div>
+            <!-- End Side Menu -->
         <?php endif; ?>
-        <!-- End Side Menu -->
         </nav>
         <!-- End Navigation -->
     </header>

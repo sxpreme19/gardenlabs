@@ -27,13 +27,13 @@
 	/* ..............................................
 	   Gallery
 	   ................................................. */
-	   $(document).ready(function() {
-	$('#slides-shop').superslides({
-		inherit_width_from: '.cover-slides',
-		inherit_height_from: '.cover-slides',
-		play: 5000,
-		animation: 'fade',
-	});
+	$(document).ready(function() {
+		$('#slides-shop').superslides({
+			inherit_width_from: '.cover-slides',
+			inherit_height_from: '.cover-slides',
+			play: 5000,
+			animation: 'fade',
+		});
 	});
 
 	$(".cover-slides ul li").append("<div class='overlay-background'></div>");
@@ -227,19 +227,37 @@ $(document).ready(function() {
 	   Slider Range
 	   ................................................. */
 
-	$(function() {
-		$("#slider-range").slider({
+	   jQuery(document).ready(function() {
+
+		var minPrice = window.minPrice;  
+   		var maxPrice = window.maxPrice;
+
+		jQuery("#slider-range").slider({
 			range: true,
-			min: 0,
-			max: 4000,
-			values: [1000, 3000],
+			min: minPrice,
+			max: maxPrice, 
+			values: [minPrice, maxPrice], 
 			slide: function(event, ui) {
-				$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+				jQuery("#amount").val(ui.values[0] + "€ - " + ui.values[1] + "€");
 			}
 		});
-		$("#amount").val("$" + $("#slider-range").slider("values", 0) +
-			" - $" + $("#slider-range").slider("values", 1));
-	});
+	
+		jQuery("#amount").val(jQuery("#slider-range").slider("values", 0) + "€ - " + jQuery("#slider-range").slider("values", 1) + "€");
+	
+		jQuery("#filter-button").click(function() {
+			var minPrice = jQuery("#slider-range").slider("values", 0);
+			var maxPrice = jQuery("#slider-range").slider("values", 1);
+	
+			var currentUrl = window.location.href.split('?')[0];  
+			var queryParams = new URLSearchParams(window.location.search);  
+	
+			queryParams.set('minPrice', minPrice);
+			queryParams.set('maxPrice', maxPrice);
+	
+			var newUrl = currentUrl + "?" + queryParams.toString();
+			window.location.href = newUrl;
+		});
+	});	
 
 	/* ..............................................
 	   NiceScroll

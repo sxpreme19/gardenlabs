@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use common\models\LoginForm;
 use common\models\User;
+use common\models\Produto;
+use common\models\Servico;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -85,7 +87,14 @@ class SiteController extends Controller
         }
 
         $registeredUsers = User::find()->count();
-        return $this->render('index',['registeredUsers' => $registeredUsers, 'roleData' => $roleData]);
+        $existingProducts = Produto::find()->count();
+        $existingServices = Servico::find()->count();
+        return $this->render('index',[
+             'registeredUsers' => $registeredUsers,
+             'roleData' => $roleData,
+             'existingProducts' => $existingProducts,
+             'existingServices' => $existingServices
+            ]);
     }
 
     /**
