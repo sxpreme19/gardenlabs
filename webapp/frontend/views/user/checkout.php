@@ -12,34 +12,39 @@
                         <div class="title-left">
                             <h3>Billing address</h3>
                         </div>
-                        <form class="needs-validation" novalidate>
+                        <form class="needs-validation" action="confirm-checkout.php" method="get" novalidate>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="firstName">First name *</label>
-                                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                <div class="mb-3">
+                                    <label for="firstName">Full name *</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Enter your full name" value="<?= isset($userProfile->nome) ? $userProfile->nome : null ?>" required>
                                     <div class="invalid-feedback"> Valid first name is required. </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="lastName">Last name *</label>
-                                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                                    <div class="invalid-feedback"> Valid last name is required. </div>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="username">Username *</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="username" placeholder="" required>
+                                    <input type="text" class="form-control" id="username" placeholder="Enter your username" value="<?= isset(Yii::$app->user->identity->username) ? Yii::$app->user->identity->username : null ?>" required>
                                     <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="email">Email Address *</label>
-                                <input type="email" class="form-control" id="email" placeholder="">
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email" value="<?= isset(Yii::$app->user->identity->email) ? Yii::$app->user->identity->email : null ?>" required>
                                 <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
                             </div>
                             <div class="mb-3">
                                 <label for="address">Address *</label>
-                                <input type="text" class="form-control" id="address" placeholder="" required>
+                                <input type="text" class="form-control" id="address" placeholder="Enter your address" value="<?= isset($userProfile->morada) ? $userProfile->morada : null ?>" required>
+                                <div class="invalid-feedback"> Please enter your shipping address. </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone">Phone number *</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" value="<?= isset($userProfile->telefone) ? $userProfile->telefone : null ?>" required>
+                                <div class="invalid-feedback"> Please enter your shipping address. </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nif">NIF *</label>
+                                <input type="text" class="form-control" id="nif" placeholder="Enter your nif" value="<?= isset($userProfile->nif) ? $userProfile->nif : null ?>" required>
                                 <div class="invalid-feedback"> Please enter your shipping address. </div>
                             </div>
                             <div class="title-left">
@@ -48,8 +53,14 @@
                             <div class="d-block my-3">
                                 <?php foreach ($paymentMethods as $paymentMethod): ?>
                                     <div class="custom-control custom-radio">
-                                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                                        <label class="custom-control-label" for="credit"><?= $paymentMethod->descricao ?></label>
+                                        <input
+                                            id="paymentMethod<?= $paymentMethod->id ?>"
+                                            name="checkoutSelectedPaymentMethod"
+                                            type="radio"
+                                            class="custom-control-input"
+                                            value="<?= $paymentMethod->id ?>"
+                                            required>
+                                        <label class="custom-control-label" for="paymentMethod<?= $paymentMethod->id ?>"><?= $paymentMethod->descricao ?></label>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -66,8 +77,15 @@
                                 <div class="mb-4">
                                     <?php foreach ($shippingMethods as $shippingMethod): ?>
                                         <div class="custom-control custom-radio">
-                                            <input id="shippingOption1" name="shipping-option" class="custom-control-input" checked="checked" type="radio">
-                                            <label class="custom-control-label" for="shippingOption1"><?= $shippingMethod->descricao ?></label> <span class="float-right font-weight-bold"><?= $shippingMethod->preco == 0 ? 'Free' : $shippingMethod->preco + '€' ?></span>
+                                            <input
+                                                id="shippingMethod<?= $shippingMethod->id ?>"
+                                                name="checkoutSelectedShippingMethod"
+                                                type="radio"
+                                                class="custom-control-input"
+                                                value="<?= $shippingMethod->id ?>"
+                                                required>
+                                            <label class="custom-control-label" for="shippingMethod<?= $shippingMethod->id ?>"><?= $shippingMethod->descricao ?></label>
+                                            <span class="float-right font-weight-bold"><?= $shippingMethod->preco == 0 ? 'Free' : $shippingMethod->preco . '€' ?></span>
                                         </div>
                                         <div class="ml-4 mb-2 small">(<?= $shippingMethod->duracao ?>)</div>
                                     <?php endforeach; ?>
@@ -102,35 +120,22 @@
                                 <hr class="my-1">
                                 <div class="d-flex">
                                     <h4>Sub Total</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 440 </div>
-                                </div>
-                                <div class="d-flex">
-                                    <h4>Discount</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 40 </div>
-                                </div>
-                                <hr class="my-1">
-                                <div class="d-flex">
-                                    <h4>Coupon Discount</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 10 </div>
-                                </div>
-                                <div class="d-flex">
-                                    <h4>Tax</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 2 </div>
+                                    <div class="ml-auto font-weight-bold"><?= $userCart->total ?>€</div>
                                 </div>
                                 <div class="d-flex">
                                     <h4>Shipping Cost</h4>
-                                    <div class="ml-auto font-weight-bold"> Free </div>
+                                    <div class="ml-auto font-weight-bold"><?= $shippingMethod->preco ?>€</div>
                                 </div>
                                 <hr>
                                 <div class="d-flex gr-total">
                                     <h5>Grand Total</h5>
-                                    <div class="ml-auto h5"> $ 388 </div>
+                                    <div class="ml-auto h5"><?= $userCart->total + $shippingMethod->preco ?>€</div>
                                 </div>
                                 <hr>
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-end">
-                            <a href="<?= yii\helpers\Url::to(['user/confirm-checkout']) ?>" class="btn btn-success btn-block mt-3" style="max-width: 200px;">
+                            <a href="<?= yii\helpers\Url::to(['user/confirm-checkout']) ?>" class="btn btn-success btn-block mt-3" style="max-width: 200px;" data-base-url="<?= yii\helpers\Url::to(['user/confirm-checkout']) ?>">
                                 <i class="fas fa-credit-card"></i> Place Order
                             </a>
                         </div>

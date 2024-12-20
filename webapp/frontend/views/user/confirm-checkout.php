@@ -1,3 +1,7 @@
+<?php
+    $selectedPaymentMethod = $_POST['selectedPaymentMethod'];
+    $selectedShippingMethod = $_POST['selectedShippingMethod'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <body>
@@ -51,11 +55,19 @@
                         <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
                     </div>
                     <div class="mb-3">
+                        <label for="shipping-method" class="form-label">Shipping Method</label>
+                        <select class="form-select" id="shipping-method" name="shipping_method" required>
+                            <?php foreach ($shippingMethods as $shippingMethod): ?>
+                                <option value="<?=$shippingMethod->id?>"><?=$shippingMethod->descricao?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="payment-method" class="form-label">Payment Method</label>
                         <select class="form-select" id="payment-method" name="payment_method" required>
-                            <option value="credit_card">Credit Card</option>
-                            <option value="paypal">PayPal</option>
-                            <option value="bank_transfer">Bank Transfer</option>
+                            <?php foreach ($paymentMethods as $paymentMethod): ?>
+                                <option value="<?=$paymentMethod->id?>"><?=$paymentMethod->descricao?></option>
+                            <?php endforeach; ?> 
                         </select>
                     </div>
                     <div class="text-end">
@@ -69,8 +81,8 @@
 
         <!-- Back to Shopping -->
         <div class="text-center">
-            <a href="shop.php" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Back to Shop
+            <a href="<?= yii\helpers\Url::to(['user/checkout']) ?>" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Checkout
             </a>
         </div>
     </div>
