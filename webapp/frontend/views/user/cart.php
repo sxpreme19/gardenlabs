@@ -1,97 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
+
 <body>
     <!-- Start Cart  -->
     <div class="cart-box-main">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="table-main table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Images</th>
-                                    <th>Product Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th>Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($userCart->linhacarrinhoprodutos as $linhacarrinho): ?>
-                                    <?php
-                                    $produto = $linhacarrinho->produto;
-                                    $productImages = $produto->imagems;
-                                    if (!empty($productImages)):
-                                        $firstImage = $productImages[0];
-                                    endif;
-                                    ?>
+                    <?php if (empty($userCart->linhacarrinhoprodutos)): ?>
+                        <div class="alert alert-info text-center mt-5 py-4" role="alert" style="border-radius: 15px;">
+                            <h4 class="alert-heading mb-3" style="font-weight: 600;">
+                                <i class="fas fa-shopping-cart text-primary"></i> Your Cart is Empty!
+                            </h4>
+                            <p style="font-size: 16px;">It looks like your cart is empty. Discover our products and start shopping now!</p>
+                            <a href="<?= yii\helpers\Url::to(['produto/index']) ?>" class="btn btn-primary mt-3" style="padding: 10px 20px; font-size: 16px;">
+                                <i class="fas fa-store"></i> Browse Products
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div class="table-main table-responsive">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td class="thumbnail-img">
-                                            <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>">
-                                                <img class="img-fluid" src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" alt="" />
-                                            </a>
-                                        </td>
-                                        <td class="name-pr">
-                                            <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>">
-                                                <?= $produto->nome ?>
-                                            </a>
-                                        </td>
-                                        <td class="price-pr">
-                                            <?= $produto->preco ?>€
-                                        </td>
-                                        <td class="quantity-box">
-                                            <form method="POST" action="<?= yii\helpers\Url::to(['user/update-quantity']) ?>">
-                                                <input type="hidden" name="<?= Yii::$app->request->csrfParam ?>" value="<?= Yii::$app->request->csrfToken ?>" />
-                                                <input type="hidden" name="itemId" value="<?= $linhacarrinho->id ?>" />
-                                                <input type="number" name="quantity" value="<?= $linhacarrinho->quantidade ?>" min="1" step="1" class="c-input-text qty text form-control form-control-sm" style="max-width: 80px;">
-                                                <button type="submit" style="display:none;">Update</button>
-                                            </form>
-
-                                        </td>
-                                        <td class="total-pr">
-                                            <p><?= $produto->preco * $linhacarrinho->quantidade ?>€</p>
-                                        </td>
-                                        <td class="remove-pr">
-                                            <a href="#">
-                                                <i class="fas fa-times"></i>
-                                            </a>
-                                        </td>
+                                        <th>Images</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>Remove</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($userCart->linhacarrinhoprodutos as $linhacarrinho): ?>
+                                        <?php
+                                        $produto = $linhacarrinho->produto;
+                                        if (!$produto) {
+                                            continue;
+                                        }
+                                        $productImages = $produto->imagems ?? [];
+                                        $firstImage = $productImages[0] ?? null;
+                                        $imageUrl = $firstImage ? yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) : yii\helpers\Url::to('/path/to/placeholder.jpg');
+                                        ?>
+                                        <tr>
+                                            <td class="thumbnail-img">
+                                                <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>">
+                                                    <img class="img-fluid" src="<?= $imageUrl ?>" alt="" />
+                                                </a>
+                                            </td>
+                                            <td class="name-pr">
+                                                <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>">
+                                                    <?= $produto->nome ?>
+                                                </a>
+                                            </td>
+                                            <td class="price-pr">
+                                                <?= $produto->preco ?>€
+                                            </td>
+                                            <td class="quantity-box">
+                                                <form method="POST" action="<?= yii\helpers\Url::to(['user/update-quantity']) ?>">
+                                                    <input type="hidden" name="<?= Yii::$app->request->csrfParam ?>" value="<?= Yii::$app->request->csrfToken ?>" />
+                                                    <input type="hidden" name="itemId" value="<?= $linhacarrinho->id ?>" />
+                                                    <input type="number" name="quantity" value="<?= $linhacarrinho->quantidade ?>" min="1" step="1" class="c-input-text qty text form-control form-control-sm" style="max-width: 80px;">
+                                                    <button type="submit" style="display:none;">Update</button>
+                                                </form>
+                                            </td>
+                                            <td class="total-pr">
+                                                <p><?= $produto->preco * $linhacarrinho->quantidade ?>€</p>
+                                            </td>
+                                            <td class="remove-pr">
+                                                <a href="<?= yii\helpers\Url::to(['user/remove-cart-item', 'cartItemId' => $linhacarrinho->id]) ?>">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
-
-            <div class="row my-5">
-                <div class="col-lg-8 col-sm-12"></div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="order-box">
-                        <h3>Order summary</h3>
-                        <div class="d-flex">
-                            <h4>Sub Total</h4>
-                            <div class="ml-auto font-weight-bold"><?= $userCart->total ?>€</div>
+            <?php if (!empty($userCart->linhacarrinhoprodutos)): ?>
+                <div class="row my-5">
+                    <div class="col-lg-4 offset-lg-8 col-sm-12">
+                        <div class="card shadow-sm border-2 rounded">
+                            <div class="card-body">
+                                <h4 class="card-title text-center"><b>Order Summary</b></h4>
+                                <hr style="border: 1px solid #000;">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="mb-0">Total</h4>
+                                    <span class="font-weight-bold h5"><strong><?= $userCart->total ?>€</strong></span>
+                                </div>
+                                <a href="<?= yii\helpers\Url::to(['user/checkout']) ?>" class="btn btn-success btn-block mt-3">
+                                    <i class="fas fa-credit-card"></i> Checkout
+                                </a>
+                            </div>
                         </div>
-                        <hr class="my-1">
-                        <div class="d-flex">
-                            <h4>Shipping Cost</h4>
-                            <div class="ml-auto font-weight-bold"><?=$shippingCost = 0?>€</div>
-                        </div>
-                        <hr>
-                        <div class="d-flex gr-total">
-                            <h5>Grand Total</h5>
-                            <div class="ml-auto h5"><?=$userCart->total + $shippingCost?>€</div>
-                        </div>
-                        <hr>
                     </div>
                 </div>
-                <div class="col-12 d-flex shopping-box"><a href="<?= yii\helpers\Url::to(['user/checkout']) ?>" class="ml-auto btn hvr-hover">Checkout</a> </div>
-            </div>
-
+            <?php endif; ?>
         </div>
     </div>
     <!-- End Cart -->

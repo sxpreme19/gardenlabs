@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
+
 <body>
     <!-- Start Wishlist  -->
     <div class="wishlist-box-main">
@@ -8,8 +9,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <?php if (empty($userWishlist)): ?>
-                        <div class="empty-wishlist">
-                            <h3>You have no favorite items in your wishlist.</h3>
+                        <div class="alert alert-info text-center mt-5 py-4" role="alert" style="border-radius: 15px;">
+                            <h4 class="alert-heading mb-3" style="font-weight: 600;">
+                                <i class="fas fa-heart text-danger"></i> Your Wishlist is Empty!
+                            </h4>
+                            <p style="font-size: 16px;">It looks like you haven’t added any items to your wishlist yet. Discover our products and save your favorites!</p>
+                            <a href="<?= yii\helpers\Url::to(['produto/index']) ?>" class="btn btn-primary mt-3" style="padding: 10px 20px; font-size: 16px;">
+                                <i class="fas fa-store"></i> Browse Products
+                            </a>
                         </div>
                     <?php else: ?>
                         <div class="table-main table-responsive">
@@ -48,10 +55,10 @@
                                             </td>
                                             <td class="quantity-box"><?= $wishlistItem->produto->quantidade ?> available</td>
                                             <td class="add-pr">
-                                                <a class="btn hvr-hover" href="<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $wishlistItem->produto->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
+                                                <a class="btn hvr-hover" style="color:white" href="<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $wishlistItem->produto->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
                                             </td>
                                             <td class="remove-pr">
-                                                <a href="<?= yii\helpers\Url::to(['user/remove-wishlist-item', 'productId' => $wishlistItem->produto->id]) ?>">
+                                                <a href="<?= yii\helpers\Url::to(['user/remove-wishlist-item', 'wishlistItemId' => $wishlistItem->id]) ?>">
                                                     <i class="fas fa-times"></i>
                                                 </a>
                                             </td>

@@ -12,6 +12,11 @@ use yii\helpers\Html;
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
+                    <?php if (!isset($userProfile->nome) && !isset($userProfile->telefone) && !isset($userProfile->morada) && !isset($userProfile->nif)): ?>
+                    <div class="text-center mb-3">
+                        <span class="badge bg-light text-muted" style="font-size: 14px;">*Fill the remaining profile fields to achieve easier and faster checkout*</span>
+                    </div>
+                    <?php endif; ?>
                     <div class="title-left mb-4">
                         <h3 class="fw-bold">User Details</h3>
                     </div>
@@ -52,7 +57,7 @@ use yii\helpers\Html;
                             </div>
                         </div>
                         <div class="mt-3">
-                            <a href=<?=\yii\helpers\Url::to(['user/account-details'])?> class="btn btn-success">Edit Details</a>
+                            <a href=<?= \yii\helpers\Url::to(['user/account-details']) ?> class="btn btn-success">Edit Details</a>
                             <?= Html::a('Delete', ['user/delete', 'id' => Yii::$app->user->identity->id], [
                                 'class' => 'btn btn-danger',
                                 'data' => [

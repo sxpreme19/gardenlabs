@@ -33,10 +33,10 @@ class UserController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist', 'cart', 'add-to-cart', 'update-quantity', 'checkout', 'delete'],
+                    'only' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist','remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity','remove-cart-item', 'checkout', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist', 'cart', 'add-to-cart', 'update-quantity', 'checkout', 'delete'],
+                            'actions' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist','remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity','remove-cart-item', 'checkout', 'delete'],
                             'allow' => true,
                             'roles' => ['client'],
                         ],
@@ -167,7 +167,7 @@ class UserController extends Controller
         } else {
             Yii::$app->session->setFlash('info', 'This product is already in your wishlist.');
         }
-        return $this->redirect(['wishlist']);
+        return $this->redirect(['produto/index']);
     }
 
     /**
@@ -175,10 +175,10 @@ class UserController extends Controller
      *
      * @return mixed
      */
-    public function actionRemoveWishlistItem($productId)
+    public function actionRemoveWishlistItem($wishlistItemId)
     {
         $userProfile = Yii::$app->user->identity->userProfile;
-        $userWishlistItemtoRemove = Favorito::findOne(['userprofile_id' => $userProfile->user_id,'produto_id' => $productId]);
+        $userWishlistItemtoRemove = Favorito::findOne(['id' => $wishlistItemId]);
 
         if (!$userWishlistItemtoRemove) {
             Yii::$app->session->setFlash('error', 'Item not found in wishlist.');
@@ -261,7 +261,7 @@ class UserController extends Controller
         $userCart->total = $cartTotal;
         $userCart->save();
 
-        return $this->redirect(['cart']);
+        return $this->redirect(['produto/index']);
     }
 
     public function actionUpdateQuantity()
@@ -297,6 +297,33 @@ class UserController extends Controller
         }
 
         return $this->redirect(['user/cart']);
+    }
+
+    /**
+     * Removes cart item.
+     *
+     * @return mixed
+     */
+    public function actionRemoveCartItem($cartItemId)
+    {
+        $userProfile = Yii::$app->user->identity->userProfile;
+        $userCartItemtoRemove = Linhacarrinhoproduto::findOne(['id' => $cartItemId]);
+
+        if (!$userCartItemtoRemove) {
+            Yii::$app->session->setFlash('error', 'Item not found in cart.');
+            return $this->redirect(['cart']);
+        }
+
+        if ($userCartItemtoRemove->delete()) {
+            $userCart = Carrinhoproduto::findOne(['userprofile_id' => $userProfile->id]);
+            $userCart->total -= $userCartItemtoRemove->produto->preco * $userCartItemtoRemove->quantidade;
+            $userCart->save();
+            Yii::$app->session->setFlash('success', 'Item removed from cart successfully.');
+            return $this->render('cart', ['userCart' => $userCart]);
+        }else {
+            Yii::$app->session->setFlash('error', 'Failed to remove item from cart.');
+            return $this->redirect(['cart']);
+        }
     }
 
     /**

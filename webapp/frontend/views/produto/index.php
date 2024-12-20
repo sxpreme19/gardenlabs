@@ -57,7 +57,11 @@ use yii\widgets\LinkPager;
                                                         <div class="mask-icon">
                                                             <ul>
                                                                 <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href=<?= yii\helpers\Url::to(['user/add-to-wishlist', 'productId' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                <?php if (in_array($product->id, $userWishlistIds)): ?>
+                                                                    <li><a href="<?= yii\helpers\Url::to(['user/remove-from-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                                <?php else: ?>
+                                                                    <li><a href="<?= yii\helpers\Url::to(['user/add-to-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                <?php endif; ?>
                                                             </ul>
                                                             <a class="cart" href="<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
                                                         </div>
@@ -76,25 +80,29 @@ use yii\widgets\LinkPager;
                                         <div class="row">
                                             <?php foreach ($dataProvider->models as $product): ?>
                                                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                <div class="products-single fix">
-                                                    <div class="box-img-hover">
-                                                        <?php
-                                                        $productImages = $product->imagems;
-                                                        if (!empty($productImages)):
-                                                            $firstImage = $productImages[0];
-                                                        ?>
-                                                            <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="img-fluid" alt=<?= $product->nome ?>>
-                                                        <?php endif; ?>
-                                                        <div class="mask-icon">
-                                                            <ul>
-                                                                <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href=<?= yii\helpers\Url::to(['user/add-to-wishlist', 'productId' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                            </ul>
-                                                            <a class="cart" href="<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
+                                                    <div class="products-single fix">
+                                                        <div class="box-img-hover">
+                                                            <?php
+                                                            $productImages = $product->imagems;
+                                                            if (!empty($productImages)):
+                                                                $firstImage = $productImages[0];
+                                                            ?>
+                                                                <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="img-fluid" alt=<?= $product->nome ?>>
+                                                            <?php endif; ?>
+                                                            <div class="mask-icon">
+                                                                <ul>
+                                                                    <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                                    <?php if (in_array($product->id, $userWishlistIds)): ?>
+                                                                        <li><a href="<?= yii\helpers\Url::to(['user/remove-from-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                                    <?php else: ?>
+                                                                        <li><a href="<?= yii\helpers\Url::to(['user/add-to-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                    <?php endif; ?>
+                                                                </ul>
+                                                                <a class="cart" href="<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                                 <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                                     <div class="why-text full-width">
                                                         <h4><?= $product->nome ?></h4>
@@ -170,9 +178,9 @@ use yii\widgets\LinkPager;
     </div>
     <!-- End Shop Page -->
 </body>
+
 </html>
 <script>
     var minPrice = <?= isset($minPrice) ? json_encode($minPrice) : '0' ?>;
     var maxPrice = <?= isset($maxPrice) ? json_encode($maxPrice) : '1000' ?>;
 </script>
-

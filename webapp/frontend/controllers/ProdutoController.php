@@ -5,11 +5,13 @@ namespace frontend\controllers;
 use common\models\Categoria;
 use common\models\Produto;
 use frontend\models\ProdutoSearch;
+use common\models\Favorito;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -92,6 +94,11 @@ class ProdutoController extends Controller
                 ->count();
         }
 
+        $userProfile = Yii::$app->user->identity->userProfile;
+        $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id,])->with('produto')->all();
+        $userWishlistIds = ArrayHelper::getColumn($userWishlist, 'produto_id'); 
+
+
         $this->view->title = 'Product Shop';
         $this->view->params['breadcrumbs'] = [
             ['label' => 'Home', 'url' => ['site/index']],
@@ -104,6 +111,7 @@ class ProdutoController extends Controller
             'productDisplayCount' => $productDisplayCount,
             'categories' => $categories,
             'productsPerCategory' => $productsPerCategory,
+            'userWishlistIds' => $userWishlistIds,
         ]);
     }
 

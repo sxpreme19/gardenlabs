@@ -16,6 +16,7 @@ use Yii;
  *
  * @property Linhacarrinho[] $linhacarrinhos
  * @property Linhafatura[] $linhafaturas
+ * @property Review[] $reviews
  */
 class Servico extends \yii\db\ActiveRecord
 {
@@ -61,9 +62,9 @@ class Servico extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLinhacarrinhos()
+    public function getLinhacarrinhoprodutos()
     {
-        return $this->hasMany(Linhacarrinho::class, ['servico_id' => 'id']);
+        return $this->hasMany(Linhacarrinhoservico::class, ['servico_id' => 'id']);
     }
 
     /**
@@ -74,5 +75,15 @@ class Servico extends \yii\db\ActiveRecord
     public function getLinhafaturas()
     {
         return $this->hasMany(Linhafatura::class, ['servico_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Reviews]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReviews()
+    {
+        return $this->hasMany(Review::class, ['servico_id' => 'id']);
     }
 }

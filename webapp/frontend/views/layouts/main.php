@@ -178,7 +178,7 @@ if (!Yii::$app->user->isGuest) {
                                 ?>
                                     <li>
                                         <a href="<?= yii\helpers\Url::to(['produto/product-details', 'id' => $produto->id]) ?>" class="photo">
-                                            <?php if ($firstImage): ?>
+                                            <?php if (!empty($firstImage)): ?>
                                                 <img src="<?= yii\helpers\Url::to('../../backend/web/uploads/' . $firstImage->filename) ?>" class="cart-thumb" title="<?= $produto->nome ?>" />
                                             <?php endif; ?>
                                         </a>
