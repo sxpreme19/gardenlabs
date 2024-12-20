@@ -21,9 +21,7 @@ use yii\bootstrap5\ActiveForm;
                 <div class="my-1 mx-0" style="color:#999;">
                     Don´t have an account? <?= Html::a('Sign up', ['site/signup']) ?>.
                     <br>
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                    <br>
-                    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
+                    If you forgot your password you can <?= Html::a('reset it', ['site/reset-password']) ?>.
                 </div>
 
                 <div class="form-group">

@@ -33,10 +33,10 @@ class UserController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist','remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity','remove-cart-item', 'checkout', 'delete'],
+                    'only' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist','remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity','remove-cart-item', 'checkout','confirm-checkout', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist','remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity','remove-cart-item', 'checkout', 'delete'],
+                            'actions' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist','remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity','remove-cart-item', 'checkout','confirm-checkout', 'delete'],
                             'allow' => true,
                             'roles' => ['client'],
                         ],
@@ -336,6 +336,7 @@ class UserController extends Controller
         $shippingMethods = Metodoexpedicao::find()->all();
         $paymentMethods = Metodopagamento::find()->all();
         $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
+        $userProfile = Yii::$app->user->identity->userProfile;
 
         $this->view->title = 'Checkout';
         $this->view->params['breadcrumbs'] = [
@@ -346,7 +347,38 @@ class UserController extends Controller
         return $this->render('checkout', [
             'shippingMethods' => $shippingMethods,
             'paymentMethods' => $paymentMethods,
-            'userCart' => $userCart
+            'userCart' => $userCart,
+            'userProfile' => $userProfile
+        ]);
+    }
+
+    /**
+     * Displays confirm-checkout page.
+     *
+     * @return mixed
+     */
+    public function actionConfirmCheckout($checkoutSelectedPaymentMethod,$checkoutSelectedShippingMethod)
+    {
+        $shippingMethods = Metodoexpedicao::find()->all();
+        $paymentMethods = Metodopagamento::find()->all();
+        $selectedPaymentMethod = Metodopagamento::findOne($checkoutSelectedPaymentMethod);
+        $selectedShippingMethod = Metodoexpedicao::findOne($checkoutSelectedShippingMethod);
+        $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
+        $userProfile = Yii::$app->user->identity->userProfile;
+
+        $this->view->title = 'Confirm Checkout';
+        $this->view->params['breadcrumbs'] = [
+            ['label' => 'Cart', 'url' => ['user/cart']],
+            ['label' => $this->view->title],
+        ];
+
+        return $this->render('confirm-checkout', [
+            'shippingMethods' => $shippingMethods,
+            'paymentMethods' => $paymentMethods,
+            'userCart' => $userCart,
+            'userProfile' => $userProfile,
+            'selectedPaymentMethod' => $selectedPaymentMethod,
+            'selectedShippingMethod' => $selectedShippingMethod
         ]);
     }
 

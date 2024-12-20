@@ -260,6 +260,37 @@ $(document).ready(function() {
 	});	
 
 	/* ..............................................
+	   Checkout
+	   ................................................. */
+
+	   document.addEventListener('DOMContentLoaded', function () {
+		const placeOrderLink = document.querySelector('.btn-success'); // The "Place Order" button
+		const paymentInputs = document.querySelectorAll('input[name="paymentMethod"]');
+		const shippingInputs = document.querySelectorAll('input[name="shipping-option"]');
+		
+		// Function to update the href of the button
+		function updatePlaceOrderLink() {
+			const selectedPayment = [...paymentInputs].find(input => input.checked)?.value || '';
+			const selectedShipping = [...shippingInputs].find(input => input.checked)?.value || '';
+			const baseUrl = placeOrderLink.dataset.baseUrl; // Get the base URL from the data attribute
+	
+			if (selectedPayment && selectedShipping) {
+				// Update the href with selected values
+				placeOrderLink.href = `${baseUrl}?checkoutSelectedPaymentMethod=${selectedPayment}&checkoutSelectedShippingMethod=${selectedShipping}`;
+			}
+		}
+	
+		// Attach change events to update the button's link
+		[...paymentInputs, ...shippingInputs].forEach(input => {
+			input.addEventListener('change', updatePlaceOrderLink);
+		});
+	
+		// Initialize the link on page load
+		updatePlaceOrderLink();
+	});
+	
+	
+	/* ..............................................
 	   NiceScroll
 	   ................................................. */
 $(document).ready(function() {
