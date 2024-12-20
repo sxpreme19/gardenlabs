@@ -70,13 +70,13 @@
                         <div class="price-box-bar">
                             <div class="cart-and-bay-btn">
                                 <!--<a class="btn hvr-hover" data-fancybox-close="" href="#">Buy New</a>-->
-                                <a href=<?= yii\helpers\Url::to(['produto/add-to-cart', 'productId' => $product->id,'productQuantity' => 1])?> class="btn hvr-hover" data-fancybox-close="">Add to cart</a>
+                                <a href=<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $product->id,'productQuantity' => 1])?> class="btn hvr-hover" data-fancybox-close="">Add to cart</a>
                             </div>
                         </div>
 
                         <div class="add-to-btn">
                             <div class="add-comp">
-                                <a class="btn hvr-hover" href=<?= yii\helpers\Url::to(['produto/add-to-wishlist', 'productId' => $product->id]) ?>><i class="fas fa-heart"></i> Add to wishlist</a>
+                                <a class="btn hvr-hover" href=<?= yii\helpers\Url::to(['user/add-to-wishlist', 'productId' => $product->id]) ?>><i class="fas fa-heart"></i> Add to wishlist</a>
                                 <!--<a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Add to Compare</a>-->
                             </div>
                             <div class="category-container d-flex justify-content-end align-items-center">

@@ -351,6 +351,27 @@ class UserController extends Controller
     }
 
     /**
+     * Displays confirm-checkout page.
+     *
+     * @return mixed
+     */
+    public function actionConfirmCheckout()
+    {
+        $shippingMethods = Metodoexpedicao::find()->all();
+        $paymentMethods = Metodopagamento::find()->all();
+        $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
+
+        $this->view->title = 'Confirm Checkout';
+        $this->view->params['breadcrumbs'] = [
+            ['label' => 'Cart', 'url' => ['user/cart']],
+            ['label' => $this->view->title],
+        ];
+
+        return $this->render('confirm-checkout', [
+        ]);
+    }
+
+    /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id
