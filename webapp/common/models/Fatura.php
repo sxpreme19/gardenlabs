@@ -63,4 +63,24 @@ class Fatura extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Linhafatura::class, ['fatura_id' => 'id']);
     }
+
+    /**
+     * Gets query for [[Metodoexpedicao]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMetodoexpedicao()
+    {
+        return $this->hasOne(Metodoexpedicao::class, ['id' => 'metodoexpedicao_id']);
+    }
+
+    /**
+     * Gets query for [[Metodopagamento]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMetodopagamento()
+    {
+        return $this->hasOne(Metodopagamento::class, ['id' => 'metodopagamento_id']);
+    }
 }

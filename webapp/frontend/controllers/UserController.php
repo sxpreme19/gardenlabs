@@ -17,6 +17,8 @@ use common\models\Linhacarrinhoproduto;
 use common\models\Carrinhoproduto;
 use common\models\User;
 use common\models\Produto;
+use common\models\Fatura;
+use common\models\Linhafatura;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -33,10 +35,10 @@ class UserController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist','remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity','remove-cart-item', 'checkout','confirm-checkout', 'delete'],
+                    'only' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist', 'remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity', 'remove-cart-item', 'checkout', 'confirm-checkout', 'confirm-order', 'order-confirmed', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist','remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity','remove-cart-item', 'checkout','confirm-checkout', 'delete'],
+                            'actions' => ['index', 'my-account', 'account-details', 'wishlist', 'add-to-wishlist', 'remove-wishlist-item', 'cart', 'add-to-cart', 'update-quantity', 'remove-cart-item', 'checkout', 'confirm-checkout', 'confirm-order', 'order-confirmed', 'delete'],
                             'allow' => true,
                             'roles' => ['client'],
                         ],
@@ -189,7 +191,7 @@ class UserController extends Controller
             $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id])->with('produto')->all();
             Yii::$app->session->setFlash('success', 'Item removed from wishlist successfully.');
             return $this->render('wishlist', ['userWishlist' => $userWishlist]);
-        }else {
+        } else {
             Yii::$app->session->setFlash('error', 'Failed to remove item from wishlist.');
             return $this->redirect(['wishlist']);
         }
@@ -320,7 +322,7 @@ class UserController extends Controller
             $userCart->save();
             Yii::$app->session->setFlash('success', 'Item removed from cart successfully.');
             return $this->render('cart', ['userCart' => $userCart]);
-        }else {
+        } else {
             Yii::$app->session->setFlash('error', 'Failed to remove item from cart.');
             return $this->redirect(['cart']);
         }
@@ -348,7 +350,7 @@ class UserController extends Controller
             'shippingMethods' => $shippingMethods,
             'paymentMethods' => $paymentMethods,
             'userCart' => $userCart,
-            'userProfile' => $userProfile
+            'userProfile' => $userProfile,
         ]);
     }
 
@@ -357,14 +359,25 @@ class UserController extends Controller
      *
      * @return mixed
      */
-    public function actionConfirmCheckout($checkoutSelectedPaymentMethod,$checkoutSelectedShippingMethod)
+    public function actionConfirmCheckout()
     {
-        $shippingMethods = Metodoexpedicao::find()->all();
-        $paymentMethods = Metodopagamento::find()->all();
-        $selectedPaymentMethod = Metodopagamento::findOne($checkoutSelectedPaymentMethod);
-        $selectedShippingMethod = Metodoexpedicao::findOne($checkoutSelectedShippingMethod);
-        $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
         $userProfile = Yii::$app->user->identity->userProfile;
+        $userCart = Carrinhoproduto::findOne(['userprofile_id' => $userProfile->id]);
+        if (!$userCart) {
+            Yii::$app->session->setFlash('error', 'No items found in your cart.');
+            return $this->redirect(['user/cart']);
+        }
+
+        $selectedShippingMethodId = Yii::$app->request->post('shippingMethod');
+        $selectedShippingMethod = Metodoexpedicao::findOne($selectedShippingMethodId);
+
+        $selectedPaymentMethodId = Yii::$app->request->post('paymentMethod');
+        $selectedPaymentMethod = Metodopagamento::findOne($selectedPaymentMethodId);
+
+        if (!$selectedShippingMethod || !$selectedPaymentMethod) {
+            Yii::$app->session->setFlash('error', 'Please select payment and shipping methods.');
+            return $this->redirect(['user/checkout']);
+        }
 
         $this->view->title = 'Confirm Checkout';
         $this->view->params['breadcrumbs'] = [
@@ -373,12 +386,80 @@ class UserController extends Controller
         ];
 
         return $this->render('confirm-checkout', [
-            'shippingMethods' => $shippingMethods,
-            'paymentMethods' => $paymentMethods,
             'userCart' => $userCart,
+            'shippingMethod' => $selectedShippingMethod,
+            'paymentMethod' => $selectedPaymentMethod,
             'userProfile' => $userProfile,
-            'selectedPaymentMethod' => $selectedPaymentMethod,
-            'selectedShippingMethod' => $selectedShippingMethod
+        ]);
+    }
+
+
+    /**
+     * Confirms order.
+     *
+     * @return mixed
+     */
+    public function actionConfirmOrder($shippingMethodId, $paymentMethodId)
+    {
+
+        $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
+        $userProfile = Yii::$app->user->identity->userProfile;
+
+        $shippingMethod = Metodoexpedicao::findOne($shippingMethodId);
+        $paymentMethod = Metodopagamento::findOne($paymentMethodId);
+
+        $invoice = new Fatura();
+        $invoice->userprofile_id = $userProfile->id;
+        $invoice->metodopagamento_id = $paymentMethod->id;
+        $invoice->metodoexpedicao_id = $shippingMethod->id;
+        $invoice->total = $userCart->total + $shippingMethod->preco;
+        $invoice->datahora = date('Y-m-d H:i:s');
+
+        if ($invoice->save()) {
+            foreach ($userCart->linhacarrinhoprodutos as $cartItem) {
+                $invoiceDetail = new Linhafatura();
+                $invoiceDetail->fatura_id = $invoice->id;
+                $invoiceDetail->produto_id = $cartItem->produto_id;
+                $invoiceDetail->quantidade = $cartItem->quantidade;
+                $invoiceDetail->precounitario = $cartItem->precounitario;
+                $invoiceDetail->save();
+            }
+
+            Linhacarrinhoproduto::deleteAll(['carrinhoproduto_id' => $userProfile->carrinhoproduto->id]);
+            $userCart->total = 0;
+            $userCart->save();
+
+            Yii::$app->session->setFlash('success', 'Your order has been confirmed!');
+            return $this->redirect(['user/order-confirmed', 'invoiceID' => $invoice->id]);
+        } else {
+            Yii::$app->session->setFlash('error', 'There was an issue processing your order.');
+            return $this->redirect(['user/cart']);
+        }
+    }
+
+    /**
+     * Displays order-confirmed page.
+     *
+     * @return mixed
+     */
+    public function actionOrderConfirmed($invoiceID)
+    {
+        $invoice = Fatura::findOne($invoiceID);
+        $shippingMethod = $invoice->metodoexpedicao;
+        $paymentMethod = $invoice->metodopagamento;
+        $userProfile = Yii::$app->user->identity->userProfile;
+
+        $this->view->title = 'Order Confirmed';
+        $this->view->params['breadcrumbs'] = [
+            ['label' => 'Cart', 'url' => ['user/cart']],
+            ['label' => $this->view->title],
+        ];
+
+        return $this->render('order-confirmation', [
+            'shippingMethod' => $shippingMethod,
+            'paymentMethod' => $paymentMethod,
+            'userProfile' => $userProfile,
+            'invoice' => $invoice,
         ]);
     }
 

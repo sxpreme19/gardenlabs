@@ -1,88 +1,82 @@
-<?php
-    $selectedPaymentMethod = $_POST['selectedPaymentMethod'];
-    $selectedShippingMethod = $_POST['selectedShippingMethod'];
-?>
 <!DOCTYPE html>
 <html lang="en">
 <body>
+
     <div class="container py-5">
-        <!-- Page Header -->
         <div class="text-center mb-4">
             <h1 class="display-5">Confirm Your Order</h1>
             <p class="text-muted">Review your details before proceeding to payment</p>
         </div>
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-dark text-white">Order Summary</div>
+                    <div class="card-body">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr class="text-muted">
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($userCart->linhacarrinhoprodutos as $cartItem): ?>
+                                    <tr>
+                                        <td><?= $cartItem->produto->nome?></td>
+                                        <td><?= $cartItem->quantidade ?></td>
+                                        <td><?= $cartItem->precounitario ?>€</td>
+                                        <td class="text-end"><?= $cartItem->precounitario * $cartItem->quantidade ?>€</td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <strong>Subtotal</strong>
+                            <p><?= $userCart->total ?>€</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <strong>Shipping Cost</strong>
+                            <p><?= $shippingMethod->preco == 0 ? 'Free' : $shippingMethod->preco . '€' ?></p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <strong class="grand-total">Grand Total</strong>
+                            <strong class="grand-total"><?= $userCart->total + $shippingMethod->preco ?>€</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Order Details Card -->
-        <div class="card shadow-lg mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Order Summary</h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Product 1</span>
-                        <span>$50.00</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Product 2</span>
-                        <span>$30.00</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Shipping</span>
-                        <span>$10.00</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between fw-bold">
-                        <span>Total</span>
-                        <span>$90.00</span>
-                    </li>
-                </ul>
+            <!-- Billing and Payment Info Section -->
+            <div class="col-lg-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-info text-white">Billing Information</div>
+                    <div class="card-body">
+                        <p><strong>Name:</strong> <?=$userProfile->nome?></p>
+                        <p><strong>Email:</strong> <?=Yii::$app->user->identity->email?></p>
+                        <p><strong>Address:</strong> <?=$userProfile->morada?></p>
+                        <p><strong>Phone:</strong> <?=$userProfile->telefone?></p>
+                        <p><strong>Nif:</strong> <?=$userProfile->nif?></p>
+                    </div>
+                </div>
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">Payment & Shipping</div>
+                    <div class="card-body">
+                        <p><strong>Payment Method:</strong> <?=$paymentMethod->descricao?></p>
+                        <p><strong>Shipping Method:</strong> <?=$shippingMethod->descricao?> (<?=$shippingMethod->duracao?>)</p>
+                        <p><strong>Shipping Cost:</strong> <?= $shippingMethod->preco == 0 ? 'Free' : $shippingMethod->preco . '€' ?></p>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- User Details Form -->
-        <div class="card shadow-lg mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Shipping Details</h5>
-                <form action="process-checkout.php" method="post">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Shipping Address</label>
-                        <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="shipping-method" class="form-label">Shipping Method</label>
-                        <select class="form-select" id="shipping-method" name="shipping_method" required>
-                            <?php foreach ($shippingMethods as $shippingMethod): ?>
-                                <option value="<?=$shippingMethod->id?>"><?=$shippingMethod->descricao?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="payment-method" class="form-label">Payment Method</label>
-                        <select class="form-select" id="payment-method" name="payment_method" required>
-                            <?php foreach ($paymentMethods as $paymentMethod): ?>
-                                <option value="<?=$paymentMethod->id?>"><?=$paymentMethod->descricao?></option>
-                            <?php endforeach; ?> 
-                        </select>
-                    </div>
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-success btn-lg">
-                            <i class="fas fa-credit-card"></i> Confirm & Pay
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- Back to Shopping -->
-        <div class="text-center">
-            <a href="<?= yii\helpers\Url::to(['user/checkout']) ?>" class="btn btn-secondary">
+        <div class="text-center mt-4">
+            <a href="<?= yii\helpers\Url::to(['user/checkout']) ?>" class="btn btn-outline-secondary me-3">
                 <i class="fas fa-arrow-left"></i> Back to Checkout
+            </a>
+            <a href="<?= yii\helpers\Url::to(['user/confirm-order','shippingMethodId' => $shippingMethod->id,'paymentMethodId' => $paymentMethod->id]) ?>" class="btn btn-success">
+                <i class="fas fa-check"></i> Confirm and Pay
             </a>
         </div>
     </div>
