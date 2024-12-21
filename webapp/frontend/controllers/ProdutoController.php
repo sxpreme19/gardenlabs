@@ -90,6 +90,7 @@ class ProdutoController extends Controller
                 ->joinWith('imagems')
                 ->where(['not', ['imagem.id' => null]])
                 ->andWhere(['categoria_id' => $category->id])
+                ->andWhere(['>', 'quantidade', 0])
                 ->groupBy(['produto.id'])
                 ->count();
         }

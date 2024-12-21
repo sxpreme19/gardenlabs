@@ -72,10 +72,10 @@
             </div>
         </div>
         <div class="text-center mt-4">
-            <a href="<?= yii\helpers\Url::to(['user/checkout']) ?>" class="btn btn-outline-secondary me-3">
+            <a href="<?= yii\helpers\Url::to(['fatura/index']) ?>" class="btn btn-outline-secondary me-3">
                 <i class="fas fa-arrow-left"></i> Back to Checkout
             </a>
-            <a href="<?= yii\helpers\Url::to(['user/confirm-order','shippingMethodId' => $shippingMethod->id,'paymentMethodId' => $paymentMethod->id]) ?>" class="btn btn-success">
+            <a href="<?= yii\helpers\Url::to(['fatura/confirm-order','shippingMethodId' => $shippingMethod->id,'paymentMethodId' => $paymentMethod->id]) ?>" class="btn btn-success">
                 <i class="fas fa-check"></i> Confirm and Pay
             </a>
         </div>

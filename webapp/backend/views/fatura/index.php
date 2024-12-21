@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'datahora',
             'metodopagamento_id',
             'metodoexpedicao_id',
-            //'userprofile_id',
+            'userprofile_id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {

@@ -1,5 +1,4 @@
 <?php
-
 use yii\widgets\LinkPager;
 ?>
 <!DOCTYPE html>
@@ -58,12 +57,12 @@ use yii\widgets\LinkPager;
                                                             <ul>
                                                                 <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                                 <?php if (in_array($product->id, $userWishlistIds)): ?>
-                                                                    <li><a href="<?= yii\helpers\Url::to(['user/remove-from-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                                    <li><a href="<?= yii\helpers\Url::to(['favorito/delete', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
                                                                 <?php else: ?>
-                                                                    <li><a href="<?= yii\helpers\Url::to(['user/add-to-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                    <li><a href="<?= yii\helpers\Url::to(['favorito/add-to-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                                 <?php endif; ?>
                                                             </ul>
-                                                            <a class="cart" href="<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
+                                                            <a class="cart" href="<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
                                                         </div>
                                                     </div>
                                                     <div class="why-text">
@@ -93,12 +92,12 @@ use yii\widgets\LinkPager;
                                                                 <ul>
                                                                     <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                                     <?php if (in_array($product->id, $userWishlistIds)): ?>
-                                                                        <li><a href="<?= yii\helpers\Url::to(['user/remove-from-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                                        <li><a href="<?= yii\helpers\Url::to(['favorito/delete', 'wishlistItemId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
                                                                     <?php else: ?>
-                                                                        <li><a href="<?= yii\helpers\Url::to(['user/add-to-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                        <li><a href="<?= yii\helpers\Url::to(['favorito/add-to-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                                     <?php endif; ?>
                                                                 </ul>
-                                                                <a class="cart" href="<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
+                                                                <a class="cart" href="<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -108,7 +107,7 @@ use yii\widgets\LinkPager;
                                                         <h4><?= $product->nome ?></h4>
                                                         <h5><?= $product->preco ?>€</h5>
                                                         <p><?= $product->descricao ?></p>
-                                                        <a href="<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>" class="btn hvr-hover">Add to Cart</a>
+                                                        <a href="<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>" class="btn hvr-hover">Add to Cart</a>
                                                     </div>
                                                 </div>
                                             <?php endforeach; ?>

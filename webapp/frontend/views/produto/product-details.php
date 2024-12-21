@@ -55,28 +55,20 @@
                         <h2><?= $product->nome ?></h2>
                         <h5> <del></del><?= $product->preco ?>€</h5>
                         <p class="available-stock"><span><?= $product->quantidade ?> available<a href="#"></a></span>
-                        <p>
-                        <h4>Short Description:</h4>
-                        <p><?= $product->descricao ?></p>
-                        <ul>
-                            <li>
-                                <div class="form-group quantity-box">
-                                    <label class="control-label">Quantity</label>
-                                    <input class="form-control" value="0" min="0" max="20" type="number">
-                                </div>
-                            </li>
-                        </ul>
-
+                        <h5>Short Description</h5>
+                        <div class="border p-4 rounded bg-light">
+                            <p class="text-dark"><?= $product->descricao ?></p>
+                        </div>
+                        <br>
                         <div class="price-box-bar">
                             <div class="cart-and-bay-btn">
                                 <!--<a class="btn hvr-hover" data-fancybox-close="" href="#">Buy New</a>-->
-                                <a href=<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $product->id,'productQuantity' => 1])?> class="btn hvr-hover" data-fancybox-close="">Add to cart</a>
+                                <a href=<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?> class="btn hvr-hover" data-fancybox-close="">Add to cart</a>
                             </div>
                         </div>
-
                         <div class="add-to-btn">
                             <div class="add-comp">
-                                <a class="btn hvr-hover" href=<?= yii\helpers\Url::to(['user/add-to-wishlist', 'productId' => $product->id]) ?>><i class="fas fa-heart"></i> Add to wishlist</a>
+                                <a class="btn hvr-hover" href=<?= yii\helpers\Url::to(['favorito/add-to-wishlist', 'productId' => $product->id]) ?>><i class="fas fa-heart"></i> Add to wishlist</a>
                                 <!--<a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Add to Compare</a>-->
                             </div>
                             <div class="category-container d-flex justify-content-end align-items-center">

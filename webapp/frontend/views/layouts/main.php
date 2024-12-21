@@ -132,9 +132,9 @@ if (!Yii::$app->user->isGuest) {
                                 ],
                                 'items' => [
                                     ['label' => 'Product Shop', 'url' => ['/produto/index']],
-                                    ['label' => 'Cart', 'url' => ['/user/cart']],
+                                    ['label' => 'Cart', 'url' => ['/carrinhoproduto/index']],
                                     ['label' => 'My Account', 'url' => ['/user/index']],
-                                    ['label' => 'Wishlist', 'url' => ['/user/wishlist']],
+                                    ['label' => 'Wishlist', 'url' => ['/favorito/index']],
                                 ],
                             ],
                             ['label' => 'Gallery', 'url' => ['/produto/gallery'], 'options' => ['class' => 'nav-item']],

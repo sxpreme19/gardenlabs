@@ -10,7 +10,7 @@
                         <div class="title-left">
                             <h3>Billing Address</h3>
                         </div>
-                        <form action="<?= yii\helpers\Url::to(['user/confirm-checkout']) ?>" method="post" novalidate>
+                        <form action="<?= yii\helpers\Url::to(['fatura/confirm-checkout']) ?>" method="post" novalidate>
                             <input type="hidden" name="<?= Yii::$app->request->csrfParam ?>" value="<?= Yii::$app->request->csrfToken ?>">
 
                             <div class="mb-3">
