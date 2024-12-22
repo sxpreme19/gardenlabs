@@ -13,9 +13,11 @@ use Yii;
  * @property float $avaliacao
  * @property int|null $servico_id
  * @property int|null $produto_id
+ * @property int $userprofile_id
  *
  * @property Produto $produto
  * @property Servico $servico
+ * @property Userprofile $userprofile
  */
 class Review extends \yii\db\ActiveRecord
 {
@@ -33,14 +35,15 @@ class Review extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'conteudo', 'datahora', 'avaliacao'], 'required'],
-            [['id', 'servico_id', 'produto_id'], 'integer'],
+            [['id', 'conteudo', 'datahora', 'avaliacao', 'userprofile_id'], 'required'],
+            [['id', 'servico_id', 'produto_id', 'userprofile_id'], 'integer'],
             [['datahora'], 'safe'],
             [['avaliacao'], 'number'],
             [['conteudo'], 'string', 'max' => 100],
             [['id'], 'unique'],
             [['produto_id'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::class, 'targetAttribute' => ['produto_id' => 'id']],
             [['servico_id'], 'exist', 'skipOnError' => true, 'targetClass' => Servico::class, 'targetAttribute' => ['servico_id' => 'id']],
+            [['userprofile_id'], 'exist', 'skipOnError' => true, 'targetClass' => Userprofile::class, 'targetAttribute' => ['userprofile_id' => 'id']],
         ];
     }
 
@@ -56,6 +59,7 @@ class Review extends \yii\db\ActiveRecord
             'avaliacao' => 'Avaliacao',
             'servico_id' => 'Servico ID',
             'produto_id' => 'Produto ID',
+            'userprofile_id' => 'Userprofile ID',
         ];
     }
 
@@ -77,5 +81,15 @@ class Review extends \yii\db\ActiveRecord
     public function getServico()
     {
         return $this->hasOne(Servico::class, ['id' => 'servico_id']);
+    }
+
+    /**
+     * Gets query for [[Userprofile]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserprofile()
+    {
+        return $this->hasOne(Userprofile::class, ['id' => 'userprofile_id']);
     }
 }
