@@ -41,7 +41,7 @@ class ProdutoSearch extends Produto
      */
     public function search($params)
     {
-        $query = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]]);
+        $query = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->andWhere(['>', 'quantidade', 0]);
 
         if (!empty($params['categoria_id'])) {
             $query->andWhere(['categoria_id' => $params['categoria_id']]);

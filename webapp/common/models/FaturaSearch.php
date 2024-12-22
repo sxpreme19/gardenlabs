@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -47,6 +47,9 @@ class FaturaSearch extends Fatura
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 9,
+            ],
         ]);
 
         $this->load($params);

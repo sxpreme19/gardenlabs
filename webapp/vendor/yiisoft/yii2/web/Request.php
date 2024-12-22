@@ -372,7 +372,7 @@ class Request extends \yii\base\Request
                     $this->_headers->add($name, $value);
                 }
             } elseif (function_exists('http_get_request_headers')) {
-                $headers = http_get_request_headers();
+                $headers = Yii::$app->request->headers;
                 foreach ($headers as $name => $value) {
                     $this->_headers->add($name, $value);
                 }

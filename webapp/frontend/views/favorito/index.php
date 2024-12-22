@@ -55,10 +55,10 @@
                                             </td>
                                             <td class="quantity-box"><?= $wishlistItem->produto->quantidade ?> available</td>
                                             <td class="add-pr">
-                                                <a class="btn hvr-hover" style="color:white" href="<?= yii\helpers\Url::to(['user/add-to-cart', 'productId' => $wishlistItem->produto->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
+                                                <a class="btn hvr-hover" style="color:white" href="<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $wishlistItem->produto->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
                                             </td>
                                             <td class="remove-pr">
-                                                <a href="<?= yii\helpers\Url::to(['user/remove-wishlist-item', 'wishlistItemId' => $wishlistItem->id]) ?>">
+                                                <a href="<?= yii\helpers\Url::to(['favorito/delete', 'productId' => $wishlistItem->produto->id]) ?>">
                                                     <i class="fas fa-times"></i>
                                                 </a>
                                             </td>
