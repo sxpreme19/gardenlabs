@@ -97,8 +97,7 @@ class ProdutoController extends Controller
 
         $userProfile = Yii::$app->user->identity->userProfile;
         $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id,])->with('produto')->all();
-        $userWishlistIds = ArrayHelper::getColumn($userWishlist, 'produto_id'); 
-
+        $userWishlistIds = ArrayHelper::getColumn($userWishlist, 'produto_id');
 
         $this->view->title = 'Product Shop';
         $this->view->params['breadcrumbs'] = [
@@ -128,6 +127,9 @@ class ProdutoController extends Controller
         $product = Produto::findOne($id);
         $productImages = $product->imagems;
 
+        $reviews = $product->reviews;
+        $rating = count($reviews) > 0 ? array_sum(array_column($reviews, 'avaliacao')) / count($reviews) : 0;
+
         $this->view->title = $product->nome;
         $this->view->params['breadcrumbs'] = [
             ['label' => 'Shop', 'url' => ['produto/index']],
@@ -137,6 +139,8 @@ class ProdutoController extends Controller
         return $this->render('product-details', [
             'product' => $product,
             'productImages' => $productImages,
+            'reviews' => $reviews,
+            'rating' => $rating,
         ]);
     }
 
