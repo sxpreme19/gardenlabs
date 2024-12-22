@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-
     <div class="container py-5">
         <div class="text-center mb-4">
             <h1 class="display-5">Confirm Your Order</h1>
@@ -54,11 +53,10 @@
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header bg-info text-white">Billing Information</div>
                     <div class="card-body">
-                        <p><strong>Name:</strong> <?=$userProfile->nome?></p>
-                        <p><strong>Email:</strong> <?=Yii::$app->user->identity->email?></p>
-                        <p><strong>Address:</strong> <?=$userProfile->morada?></p>
-                        <p><strong>Phone:</strong> <?=$userProfile->telefone?></p>
-                        <p><strong>Nif:</strong> <?=$userProfile->nif?></p>
+                        <p><strong>Name:</strong> <?=$nome?></p>
+                        <p><strong>Address:</strong> <?=$morada?></p>
+                        <p><strong>Phone:</strong> <?=$phone?></p>
+                        <p><strong>Nif:</strong> <?=$nif?></p>
                     </div>
                 </div>
                 <div class="card shadow-sm">
@@ -75,7 +73,7 @@
             <a href="<?= yii\helpers\Url::to(['fatura/index']) ?>" class="btn btn-outline-secondary me-3">
                 <i class="fas fa-arrow-left"></i> Back to Checkout
             </a>
-            <a href="<?= yii\helpers\Url::to(['fatura/confirm-order','shippingMethodId' => $shippingMethod->id,'paymentMethodId' => $paymentMethod->id]) ?>" class="btn btn-success">
+            <a href="<?= yii\helpers\Url::to(['fatura/confirm-order','shippingMethodId' => $shippingMethod->id,'paymentMethodId' => $paymentMethod->id,'fullName' => $nome,'address' => $morada, 'phone' => $phone, 'nif' => $nif]) ?>" class="btn btn-success">
                 <i class="fas fa-check"></i> Confirm and Pay
             </a>
         </div>

@@ -10,28 +10,23 @@
                         <div class="title-left">
                             <h3>Billing Address</h3>
                         </div>
-                        <form action="<?= yii\helpers\Url::to(['fatura/confirm-checkout']) ?>" method="post" novalidate>
-                            <input type="hidden" name="<?= Yii::$app->request->csrfParam ?>" value="<?= Yii::$app->request->csrfToken ?>">
-
+                        <form action="<?= yii\helpers\Url::to(['fatura/confirm-checkout']) ?>" method="post">
+                        <input type="hidden" name="<?= Yii::$app->request->csrfParam ?>" value="<?= Yii::$app->request->csrfToken ?>">
                             <div class="mb-3">
-                                <label for="firstName">Full Name *</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" value="<?= isset($userProfile->nome) ? $userProfile->nome : ''?>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email">Email Address *</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?= isset(Yii::$app->user->identity->email) ? Yii::$app->user->identity->email :''?>" required>
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" class="form-control" id="fullName" name="fullName" value="<?= isset($userProfile->nome) ? $userProfile->nome : null?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="address">Address *</label>
-                                <input type="text" class="form-control" id="address" name="address" value="<?= isset($userProfile->morada) ? $userProfile->morada : ''?>" required>
+                                <input type="text" class="form-control" id="address" name="address" value="<?= isset($userProfile->morada) ? $userProfile->morada : null?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="phone">Phone Number *</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" value="<?= isset($userProfile->telefone) ? $userProfile->telefone : ''?>" required>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="<?= isset($userProfile->telefone) ? $userProfile->telefone : null ?>" pattern="^\d{9}$" title="Phone number must be exactly 9 digits" required>
                             </div>
                             <div class="mb-3">
                                 <label for="nif">NIF *</label>
-                                <input type="text" class="form-control" id="nif" name="nif" value="<?= isset($userProfile->nif) ? $userProfile->nif : ''?>" required>
+                                <input type="text" class="form-control" id="nif" name="nif" value="<?= isset($userProfile->nif) ? $userProfile->nif : null?>" pattern="^\d{9}$" title="NIF number must be exactly 9 digits" required>
                             </div>
                             <div class="title-left">
                                 <h3>Payment Methods</h3>
@@ -99,5 +94,4 @@
         </div>
     </div>
 </body>
-
 </html>

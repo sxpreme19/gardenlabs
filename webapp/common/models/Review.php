@@ -35,7 +35,7 @@ class Review extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'conteudo', 'datahora', 'avaliacao', 'userprofile_id'], 'required'],
+            [['conteudo', 'datahora', 'avaliacao', 'userprofile_id'], 'required'],
             [['id', 'servico_id', 'produto_id', 'userprofile_id'], 'integer'],
             [['datahora'], 'safe'],
             [['avaliacao'], 'number'],

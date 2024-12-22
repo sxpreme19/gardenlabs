@@ -105,6 +105,18 @@ class FaturaController extends Controller
         $selectedPaymentMethodId = Yii::$app->request->post('paymentMethod');
         $selectedPaymentMethod = Metodopagamento::findOne($selectedPaymentMethodId);
 
+        $nome = Yii::$app->request->post('fullName');
+        $morada = Yii::$app->request->post('address');
+        $phone = Yii::$app->request->post('phone');
+        $nif = Yii::$app->request->post('nif');
+
+        if (
+            $nome != $userProfile->nome ||
+            $morada != $userProfile->morada ||
+            $phone != $userProfile->telefone ||
+            $nif != $userProfile->nif
+        ) Yii::$app->session->setFlash('info', 'The billing information you provided is different from your profile data. Please confirm if everything is correct before proceeding. (All your user profile data will be updated!)');
+
         if (!$selectedShippingMethod || !$selectedPaymentMethod) {
             Yii::$app->session->setFlash('error', 'Please select payment and shipping methods.');
             return $this->redirect(['index']);
@@ -120,7 +132,10 @@ class FaturaController extends Controller
             'userCart' => $userCart,
             'shippingMethod' => $selectedShippingMethod,
             'paymentMethod' => $selectedPaymentMethod,
-            'userProfile' => $userProfile,
+            'nome' => $nome,
+            'morada' => $morada,
+            'phone' => $phone,
+            'nif' => $nif,
         ]);
     }
 
@@ -130,7 +145,7 @@ class FaturaController extends Controller
      *
      * @return mixed
      */
-    public function actionConfirmOrder($shippingMethodId, $paymentMethodId)
+    public function actionConfirmOrder($shippingMethodId, $paymentMethodId, $fullName, $address, $phone, $nif)
     {
 
         $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
@@ -138,6 +153,16 @@ class FaturaController extends Controller
 
         $shippingMethod = Metodoexpedicao::findOne($shippingMethodId);
         $paymentMethod = Metodopagamento::findOne($paymentMethodId);
+
+        $userProfile->nome = $fullName;
+        $userProfile->morada = $address;
+        $userProfile->telefone = $phone;
+        $userProfile->nif = $nif;
+
+        if (!$userProfile->save()) {
+            Yii::$app->session->setFlash('error', 'There was an issue regarding your profile.');
+            return $this->redirect(['fatura/confirm-checkout']);
+        }
 
         $invoice = new Fatura();
         $invoice->userprofile_id = $userProfile->id;

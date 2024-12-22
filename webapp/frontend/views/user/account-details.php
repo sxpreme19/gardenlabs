@@ -38,10 +38,12 @@ use yii\bootstrap5\ActiveForm;
                             'value' => isset($userProfile->nome) ? $userProfile->nome : '',
                         ]) ?>
                         <?= $form->field($model, 'telefone')->textInput([
+                            'minlength' => 9,
                             'maxlength' => 9,
                             'value' => isset($userProfile->telefone) ? $userProfile->telefone : '',
                         ]) ?>
                         <?= $form->field($model, 'nif')->textInput([
+                            'minlength' => 9,
                             'maxlength' => 9,
                             'value' => isset($userProfile->nif) ? $userProfile->nif : '',
                         ]) ?>

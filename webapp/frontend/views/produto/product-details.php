@@ -1,6 +1,19 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- Basic -->
+
+<head>
+    <style type="text/css">
+        #review-form:target {
+            display: block !important;
+        }
+    </style>
+</head>
 
 <body>
     <!-- Start Shop Detail  -->
@@ -103,19 +116,33 @@
                         <h2>Product Reviews</h2>
                     </div>
                     <div class="card-body">
-                        <?php if (isset($reviews)): ?>
-                            <?php foreach ($reviews as $review): ?>
-                                <div class="media mb-3">
-                                    <div class="mr-2">
-                                        <img class="rounded-circle border p-1" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image">
+                        <?php if (!empty($reviews)): ?>
+                            <div class="reviews-scrollable overflow-auto" style="max-height: 200px;">
+                                <?php foreach ($reviews as $review): ?>
+                                    <div class="media mb-3">
+                                        <div class="mr-2">
+                                            <i class="fas fa-user-circle" style="font-size: 64px; color: #007bff;"></i>
+                                        </div>
+                                        <div class="media-body">
+                                            <p><?= $review->conteudo ?></p>
+                                            <div class="rating">
+                                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                    <i class="fas fa-star" style="color: <?= ($i <= $review->avaliacao) ? 'gold' : '#ddd' ?>;"></i>
+                                                <?php endfor; ?>
+                                            </div>
+                                            <small class="text-muted">Posted by <?= $review->userprofile->nome ?> on <?= $review->datahora ?></small>
+                                            <?php if ($review->userprofile_id == Yii::$app->user->identity->userProfile->id): ?>
+                                                <a href="<?= yii\helpers\Url::to(['produto/delete-review', 'id' => $review->id]) ?>"
+                                                    class="text-danger ml-3"
+                                                    onclick="return confirm('Are you sure you want to delete this review?');">
+                                                    <i class="fas fa-trash-alt" style="font-size: 20px;"></i>
+                                                </a>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
-                                    <div class="media-body">
-                                        <p><?=$review->conteudo?></p>
-                                        <small class="text-muted">Posted by <?=$review->userProfile->nome?> on <?=$review->datahora?></small>
-                                    </div>
-                                </div>
-                                <hr>
-                            <?php endforeach; ?>
+                                    <hr>
+                                <?php endforeach; ?>
+                            </div>
                         <?php else: ?>
                             <div class="media mb-3">
                                 <div class="media-body">
@@ -124,7 +151,24 @@
                             </div>
                             <hr>
                         <?php endif; ?>
-                        <a href="#" class="btn hvr-hover">Leave a Review</a>
+                        <a href="#review-form" class="btn hvr-hover" id="leave-review-btn">Leave a Review</a>
+                        <div id="review-form" style="display: none; margin-top: 20px;">
+                            <?php $form = ActiveForm::begin(); ?>
+
+                            <?= $form->field($model, 'conteudo')->textarea(['rows' => 4])->label('Your Review') ?>
+                            <?= $form->field($model, 'avaliacao')->dropDownList([
+                                1 => '1 - Poor',
+                                2 => '2 - Fair',
+                                3 => '3 - Good',
+                                4 => '4 - Very Good',
+                                5 => '5 - Excellent',
+                            ])->label('Your Rating') ?>
+                            <div class="form-group">
+                                <?= Html::submitButton('Submit Review', ['class' => 'btn hvr-hover']) ?>
+                            </div>
+
+                            <?php ActiveForm::end(); ?>
+                        </div>
                     </div>
                 </div>
             </div>

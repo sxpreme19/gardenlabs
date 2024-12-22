@@ -34,7 +34,6 @@ class UpdateUserForm extends Model
                 'unique', 
                 'targetClass' => '\common\models\User', 
                 'filter' => function ($query) {
-                    // Exclude the current user's ID to avoid conflicts during updates
                     $query->andWhere(['not', ['id' => Yii::$app->user->id]]);
                 }, 
                 'message' => 'This username has already been taken.',

@@ -6,6 +6,8 @@ use common\models\Categoria;
 use common\models\Produto;
 use frontend\models\ProdutoSearch;
 use common\models\Favorito;
+use common\models\Review;
+use frontend\models\ReviewForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,10 +30,10 @@ class ProdutoController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'product-details', 'gallery'],
+                    'only' => ['index', 'product-details', 'delete-review', 'gallery'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'product-details', 'gallery'],
+                            'actions' => ['index', 'product-details', 'delete-review', 'gallery'],
                             'allow' => true,
                             'roles' => ['?', 'client'],
                         ],
@@ -95,14 +97,14 @@ class ProdutoController extends Controller
                 ->count();
         }
 
-        if(isset(Yii::$app->user->identity->userProfile)){
+        if (isset(Yii::$app->user->identity->userProfile)) {
             $userProfile = Yii::$app->user->identity->userProfile;
             $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id,])->with('produto')->all();
             $userWishlistIds = ArrayHelper::getColumn($userWishlist, 'produto_id');
-        }else{
+        } else {
             $userWishlistIds = null;
         }
-       
+
 
         $this->view->title = 'Product Shop';
         $this->view->params['breadcrumbs'] = [
@@ -135,6 +137,24 @@ class ProdutoController extends Controller
         $reviews = $product->reviews;
         $rating = count($reviews) > 0 ? array_sum(array_column($reviews, 'avaliacao')) / count($reviews) : 0;
 
+
+        $model = new ReviewForm();
+        $model->produto_id = $id;
+        $model->userprofile_id = Yii::$app->user->identity->userProfile->id;
+        if ($model->load(Yii::$app->request->post())) {
+            if (isset(Yii::$app->user->identity->userProfile->nome)) {
+                if ($model->validate() && $model->saveReview()) {
+                    Yii::$app->session->setFlash('success', 'Your review has been submitted.');
+                    return $this->refresh();
+                } else {
+                    Yii::$app->session->setFlash('error', 'There was an error submitting your review.');
+                }
+            } else {
+                Yii::$app->session->setFlash('error', 'You need to have a profile name to submit a review.');
+            }
+        }
+
+
         $this->view->title = $product->nome;
         $this->view->params['breadcrumbs'] = [
             ['label' => 'Shop', 'url' => ['produto/index']],
@@ -146,8 +166,29 @@ class ProdutoController extends Controller
             'productImages' => $productImages,
             'reviews' => $reviews,
             'rating' => $rating,
+            'model' => $model,
         ]);
     }
+
+    public function actionDeleteReview($id)
+    {
+        $review = Review::findOne($id);
+
+        // Check if the review exists and belongs to the current user
+        if (!$review || $review->userprofile_id != Yii::$app->user->identity->userProfile->id) {
+            Yii::$app->session->setFlash('error', 'You are not allowed to delete this review.');
+            return $this->redirect(['product-details', 'id' => $review->produto_id]);
+        }
+
+        if ($review->delete()) {
+            Yii::$app->session->setFlash('success', 'Your review has been deleted.');
+        } else {
+            Yii::$app->session->setFlash('error', 'There was an error deleting your review.');
+        }
+
+        return $this->redirect(['product-details', 'id' => $review->produto_id]);
+    }
+
 
     /**
      * Displays the Produto gallery.

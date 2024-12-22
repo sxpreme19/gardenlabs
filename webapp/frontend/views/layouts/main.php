@@ -190,7 +190,7 @@ if (!Yii::$app->user->isGuest) {
                                 <?php endif; ?>
                             <?php endforeach; ?>
                             <li class="total">
-                                <a href="<?= yii\helpers\Url::to(['user/cart']) ?>" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
+                                <a href="<?= yii\helpers\Url::to(['carrinhoproduto/index']) ?>" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
                                 <span class="float-right"><strong>Total</strong>: <?= $userCart->total ?>€</span>
                             </li>
                         <?php else: ?>
