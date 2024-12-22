@@ -95,9 +95,14 @@ class ProdutoController extends Controller
                 ->count();
         }
 
-        $userProfile = Yii::$app->user->identity->userProfile;
-        $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id,])->with('produto')->all();
-        $userWishlistIds = ArrayHelper::getColumn($userWishlist, 'produto_id');
+        if(isset(Yii::$app->user->identity->userProfile)){
+            $userProfile = Yii::$app->user->identity->userProfile;
+            $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id,])->with('produto')->all();
+            $userWishlistIds = ArrayHelper::getColumn($userWishlist, 'produto_id');
+        }else{
+            $userWishlistIds = null;
+        }
+       
 
         $this->view->title = 'Product Shop';
         $this->view->params['breadcrumbs'] = [
