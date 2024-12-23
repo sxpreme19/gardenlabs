@@ -72,20 +72,22 @@ use yii\widgets\ActiveForm;
                         <div class="border p-4 rounded bg-light">
                             <p class="text-dark"><?= $product->descricao ?></p>
                         </div>
-                        <div class="rating" style="font-family: Arial, sans-serif; font-size: 1.5rem; color: #ffc107; display: flex; align-items: center;">
-                            <div class="stars" style="display: flex;">
-                                <?php
-                                for ($i = 1; $i <= 5; $i++):
-                                ?>
-                                    <span style="margin-right: 0.2rem;">
-                                        <?= $i <= floor($rating) ? '★' : ($i - $rating < 1 && $i > $rating ? '☆' : '☆') ?>
-                                    </span>
-                                <?php endfor; ?>
+                        <?php if (!empty($reviews)): ?>
+                            <div class="rating" style="font-family: Arial, sans-serif; font-size: 1.5rem; color: #ffc107; display: flex; align-items: center;">
+                                <div class="stars" style="display: flex;">
+                                    <?php
+                                    for ($i = 1; $i <= 5; $i++):
+                                    ?>
+                                        <span style="margin-right: 0.2rem;">
+                                            <?= $i <= floor($rating) ? '★' : ($i - $rating < 1 && $i > $rating ? '☆' : '☆') ?>
+                                        </span>
+                                    <?php endfor; ?>
+                                </div>
+                                <div class="rating-value" style="margin-left: 0.5rem; font-size: 1.2rem; color: #555;">
+                                    (<?= number_format($rating, 1) ?>)
+                                </div>
                             </div>
-                            <div class="rating-value" style="margin-left: 0.5rem; font-size: 1.2rem; color: #555;">
-                                (<?= number_format($rating, 1) ?>)
-                            </div>
-                        </div>
+                        <?php endif; ?>
 
                         <br>
                         <div class="price-box-bar">
@@ -131,12 +133,14 @@ use yii\widgets\ActiveForm;
                                                 <?php endfor; ?>
                                             </div>
                                             <small class="text-muted">Posted by <?= $review->userprofile->nome ?> on <?= $review->datahora ?></small>
-                                            <?php if ($review->userprofile_id == Yii::$app->user->identity->userProfile->id): ?>
-                                                <a href="<?= yii\helpers\Url::to(['produto/delete-review', 'id' => $review->id]) ?>"
-                                                    class="text-danger ml-3"
-                                                    onclick="return confirm('Are you sure you want to delete this review?');">
-                                                    <i class="fas fa-trash-alt" style="font-size: 20px;"></i>
-                                                </a>
+                                            <?php if (!Yii::$app->user->isGuest): ?>
+                                                <?php if ($review->userprofile_id == Yii::$app->user->identity->userProfile->id): ?>
+                                                    <a href="<?= yii\helpers\Url::to(['produto/delete-review', 'id' => $review->id]) ?>"
+                                                        class="text-danger ml-3"
+                                                        onclick="return confirm('Are you sure you want to delete this review?');">
+                                                        <i class="fas fa-trash-alt" style="font-size: 20px;"></i>
+                                                    </a>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         </div>
                                     </div>
@@ -151,191 +155,29 @@ use yii\widgets\ActiveForm;
                             </div>
                             <hr>
                         <?php endif; ?>
-                        <a href="#review-form" class="btn hvr-hover" id="leave-review-btn">Leave a Review</a>
-                        <div id="review-form" style="display: none; margin-top: 20px;">
-                            <?php $form = ActiveForm::begin(); ?>
+                        <?php if (!Yii::$app->user->isGuest): ?>
+                            <a href="#review-form" class="btn hvr-hover" id="leave-review-btn">Leave a Review</a>
+                            <div id="review-form" style="display: none; margin-top: 20px;">
+                                <?php $form = ActiveForm::begin(); ?>
 
-                            <?= $form->field($model, 'conteudo')->textarea(['rows' => 4])->label('Your Review') ?>
-                            <?= $form->field($model, 'avaliacao')->dropDownList([
-                                1 => '1 - Poor',
-                                2 => '2 - Fair',
-                                3 => '3 - Good',
-                                4 => '4 - Very Good',
-                                5 => '5 - Excellent',
-                            ])->label('Your Rating') ?>
-                            <div class="form-group">
-                                <?= Html::submitButton('Submit Review', ['class' => 'btn hvr-hover']) ?>
+                                <?= $form->field($model, 'conteudo')->textarea(['rows' => 4])->label('Your Review') ?>
+                                <?= $form->field($model, 'avaliacao')->dropDownList([
+                                    1 => '1 - Poor',
+                                    2 => '2 - Fair',
+                                    3 => '3 - Good',
+                                    4 => '4 - Very Good',
+                                    5 => '5 - Excellent',
+                                ])->label('Your Rating') ?>
+                                <div class="form-group">
+                                    <?= Html::submitButton('Submit Review', ['class' => 'btn hvr-hover']) ?>
+                                </div>
+
+                                <?php ActiveForm::end(); ?>
                             </div>
-
-                            <?php ActiveForm::end(); ?>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
-
-            <div class="row my-5">
-                <div class="col-lg-12">
-                    <div class="title-all text-center">
-                        <h1>Featured Products</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
-                    </div>
-                    <div class="featured-products-box owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="images/img-pro-04.jpg" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="products-single fix">
-                                <div class="box-img-hover">
-                                    <img src="images/img-pro-04.jpg" class="img-fluid" alt="Image">
-                                    <div class="mask-icon">
-                                        <ul>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                        </ul>
-                                        <a class="cart" href="#">Add to Cart</a>
-                                    </div>
-                                </div>
-                                <div class="why-text">
-                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                    <h5> $9.79</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <!-- End Cart -->

@@ -2,16 +2,16 @@
 
 namespace frontend\controllers;
 
-use frontend\models\ResendVerificationEmailForm;
-use frontend\models\VerifyEmailForm;
 use Yii;
-use yii\base\InvalidArgumentException;
+use yii\helpers\ArrayHelper;
+use common\models\Favorito;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
-use common\models\User;
+use common\models\Produto;
+use common\models\Categoria;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
@@ -91,8 +91,37 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (isset(Yii::$app->user->identity->userProfile)) {
+            $userProfile = Yii::$app->user->identity->userProfile;
+            $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id,])->with('produto')->all();
+            $userWishlistIds = ArrayHelper::getColumn($userWishlist, 'produto_id');
+        } else {
+            $userWishlistIds = null;
+        }
+
+        $categories = Categoria::find()->limit(3)->all();
+
+        $categoryImages = [
+            'images/category1.jpg',
+            'images/categories_img_03.jpg',
+            'images/categories_img_2.jpg'
+        ];
+
+        $bestSellers = Produto::find()
+        ->joinWith('linhafaturas')  
+        ->select(['produto.id', 'produto.nome','produto.preco', 'COUNT(linhafatura.id) AS sales_count'])
+        ->groupBy('produto.id')
+        ->orderBy(['sales_count' => SORT_DESC]) 
+        ->limit(4)
+        ->all();
+
         $this->view->title = 'Home';
-        return $this->render('index');
+        return $this->render('index',[
+            'bestSellers' => $bestSellers,
+            'userWishlistIds' => $userWishlistIds,
+            'categories' => $categories,
+            'categoryImages' => $categoryImages,
+        ]);
     }
 
     /**

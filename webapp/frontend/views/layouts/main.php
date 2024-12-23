@@ -7,10 +7,8 @@ use common\models\Carrinhoproduto;
 use yii\helpers\Url;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
-use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
 
@@ -62,7 +60,6 @@ if (!Yii::$app->user->isGuest) {
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="custom-select-box">
                         <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-                            <option>$ USD</option>
                             <option>€ EUR</option>
                         </select>
                     </div>
@@ -71,8 +68,8 @@ if (!Yii::$app->user->isGuest) {
                     </div>
                     <div class="our-link">
                         <ul>
+                            <li><a href="<?= \yii\helpers\Url::to(['produto/gallery']) ?>"><i class="fas fa-image"></i> Gallery</a></li>
                             <li><a href="<?= \yii\helpers\Url::to(['user/index']) ?>"><i class="fa fa-user s_color"></i> My Account</a></li>
-                            <li><a href="<?= \yii\helpers\Url::to(['site/about']) ?>"><i class="fas fa-location-arrow"></i> Our location</a></li>
                             <li><a href="<?= \yii\helpers\Url::to(['site/contact']) ?>"><i class="fas fa-headset"></i> Contact Us</a></li>
                         </ul>
                     </div>
@@ -88,10 +85,10 @@ if (!Yii::$app->user->isGuest) {
                     <div class="text-slid-box">
                         <div id="offer-box" class="carouselTicker">
                             <ul class="offer-box">
-                                <li><i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT80</li>
-                                <li><i class="fab fa-opencart"></i> 50% - 80% off on Vegetables</li>
-                                <li><i class="fab fa-opencart"></i> Off 10%! Shop Vegetables</li>
-                                <li><i class="fab fa-opencart"></i> Off 50%! Shop Now</li>
+                                <li><i class="fas fa-certificate" ></i> New Arrivals! Check out our latest products!</li>
+                                <li><i class="fas fa-comment-dots"></i> See Why Our Customers Love Our Products!</li>
+                                <li><i class="fas fa-sync-alt"></i> Our Best-Sellers Are Back in Stock – Shop Now!</li>
+                                <li><i class="fas fa-credit-card"></i> Pay Easily with Multiple Payment Options!</li>
                             </ul>
                         </div>
                     </div>
@@ -261,8 +258,7 @@ if (!Yii::$app->user->isGuest) {
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-widget">
                             <h4>About GardenLabs</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                            <p>GardenLabs is a leading company in the field of sustainable gardening and landscaping. Our team of experts is committed to providing innovative solutions that help our clients create beautiful and eco-friendly outdoor spaces. We combine cutting-edge technology with natural designs to bring the best of nature into your home.</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
@@ -270,13 +266,13 @@ if (!Yii::$app->user->isGuest) {
                             <h4>Contact Us</h4>
                             <ul>
                                 <li>
-                                    <p><i class="fas fa-map-marker-alt"></i>Address: Michael I. Days 3756 <br>Preston Street Wichita,<br> KS 67213 </p>
+                                    <p><i class="fas fa-map-marker-alt"></i>Address: Av. Combatentes da Grande Guerra<br>Leiria<br> 2400-122 </p>
                                 </li>
                                 <li>
-                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+1-888705770">+1-888 705 770</a></p>
+                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+1-888705770">+351 223 126 221</a></p>
                                 </li>
                                 <li>
-                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:contactinfo@gmail.com">contactinfo@gmail.com</a></p>
+                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:gardenlabs.info@gmail.com">gardenlabs.info@gmail.com</a></p>
                                 </li>
                             </ul>
                         </div>

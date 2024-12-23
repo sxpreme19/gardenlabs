@@ -7,6 +7,7 @@ use common\models\Produto;
 use frontend\models\ProdutoSearch;
 use common\models\Favorito;
 use common\models\Review;
+use common\models\Userprofile;
 use frontend\models\ReviewForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -137,20 +138,21 @@ class ProdutoController extends Controller
         $reviews = $product->reviews;
         $rating = count($reviews) > 0 ? array_sum(array_column($reviews, 'avaliacao')) / count($reviews) : 0;
 
-
-        $model = new ReviewForm();
-        $model->produto_id = $id;
-        $model->userprofile_id = Yii::$app->user->identity->userProfile->id;
-        if ($model->load(Yii::$app->request->post())) {
-            if (isset(Yii::$app->user->identity->userProfile->nome)) {
-                if ($model->validate() && $model->saveReview()) {
-                    Yii::$app->session->setFlash('success', 'Your review has been submitted.');
-                    return $this->refresh();
+        if (!Yii::$app->user->isGuest) {
+            $model = new ReviewForm();
+            $model->produto_id = $id;
+            $model->userprofile_id = Yii::$app->user->identity->userProfile->id;
+            if ($model->load(Yii::$app->request->post())) {
+                if (isset(Yii::$app->user->identity->userProfile->nome)) {
+                    if ($model->validate() && $model->saveReview()) {
+                        Yii::$app->session->setFlash('success', 'Your review has been submitted.');
+                        return $this->refresh();
+                    } else {
+                        Yii::$app->session->setFlash('error', 'There was an error submitting your review.');
+                    }
                 } else {
-                    Yii::$app->session->setFlash('error', 'There was an error submitting your review.');
+                    Yii::$app->session->setFlash('error', 'You need to have a profile name to submit a review.');
                 }
-            } else {
-                Yii::$app->session->setFlash('error', 'You need to have a profile name to submit a review.');
             }
         }
 
@@ -166,7 +168,7 @@ class ProdutoController extends Controller
             'productImages' => $productImages,
             'reviews' => $reviews,
             'rating' => $rating,
-            'model' => $model,
+            'model' => isset($model) ? $model : null,
         ]);
     }
 
