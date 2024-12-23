@@ -2,66 +2,67 @@
 
 namespace frontend\models;
 
-use yii\base\InvalidArgumentException;
-use yii\base\Model;
 use Yii;
+use yii\base\Model;
 use common\models\User;
 
-/**
- * Password reset form
- */
 class ResetPasswordForm extends Model
 {
+    public $email;
     public $password;
+    public $confirmPassword;
+    public $oldPassword;
 
     /**
      * @var \common\models\User
      */
     private $_user;
 
-
     /**
-     * Creates a form model given a token.
-     *
-     * @param string $token
-     * @param array $config name-value pairs that will be used to initialize the object properties
-     * @throws InvalidArgumentException if token is empty or not valid
+     * ResetPasswordForm constructor.
+     * @param array $config
      */
-    public function __construct($token, $config = [])
+    public function __construct(array $config = [])
     {
-        if (empty($token) || !is_string($token)) {
-            throw new InvalidArgumentException('Password reset token cannot be blank.');
-        }
-        $this->_user = User::findByPasswordResetToken($token);
-        if (!$this->_user) {
-            throw new InvalidArgumentException('Wrong password reset token.');
-        }
         parent::__construct($config);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
-            ['password', 'required'],
+            [['email', 'password', 'confirmPassword', 'oldPassword'], 'required'],
+            ['email', 'email'],
+            ['email', 'exist', 'targetClass' => '\common\models\User', 'message' => 'No user with that email found.'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['confirmPassword', 'compare', 'compareAttribute' => 'password', 'message' => 'Passwords do not match.'],
+            ['oldPassword', 'validateOldPassword'],
         ];
     }
 
     /**
-     * Resets password.
+     * Custom validation for the old password.
+     */
+    public function validateOldPassword($attribute, $params, $validator)
+    {
+        $this->_user = User::findOne(['email' => $this->email]);
+        if (!$this->_user || !$this->_user->validatePassword($this->oldPassword)) {
+            $this->addError($attribute, 'Incorrect old password.');
+        }
+    }
+
+    /**
+     * Resets the password for the user.
      *
-     * @return bool if password was reset.
+     * @return bool
      */
     public function resetPassword()
     {
-        $user = $this->_user;
-        $user->setPassword($this->password);
-        $user->removePasswordResetToken();
-        $user->generateAuthKey();
+        if ($this->_user) {
+            $this->_user->setPassword($this->password);
+            $this->_user->generateAuthKey();
+            return $this->_user->save(false);
+        }
 
-        return $user->save(false);
+        return false;
     }
 }
