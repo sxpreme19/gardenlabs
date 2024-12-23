@@ -6,6 +6,7 @@ use common\models\LoginForm;
 use common\models\User;
 use common\models\Produto;
 use common\models\Servico;
+use common\models\Fatura;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -89,11 +90,18 @@ class SiteController extends Controller
         $registeredUsers = User::find()->count();
         $existingProducts = Produto::find()->count();
         $existingServices = Servico::find()->count();
+
+        $totalIncome = 0;
+        $invoices = Fatura::find()->all();
+        foreach($invoices as $invoice) {
+            $totalIncome += $invoice->total;
+        }
         return $this->render('index',[
              'registeredUsers' => $registeredUsers,
              'roleData' => $roleData,
              'existingProducts' => $existingProducts,
-             'existingServices' => $existingServices
+             'existingServices' => $existingServices,
+             'totalIncome' => $totalIncome,
             ]);
     }
 

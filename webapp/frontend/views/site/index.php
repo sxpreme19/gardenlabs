@@ -133,14 +133,14 @@
     </div>
     <!-- End Products  -->
 
-    <!-- Start Blog  -->
+    <!-- Start Blog -->
     <div class="latest-blog">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="title-all text-center">
-                        <h1>latest blog</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
+                        <h1>3 Common Gardening Myths You Should Stop Believing</h1>
+                        <p>There are many gardening myths out there. Let's debunk some of the most common ones!</p>
                     </div>
                 </div>
             </div>
@@ -148,61 +148,47 @@
                 <div class="col-md-6 col-lg-4 col-xl-4">
                     <div class="blog-box">
                         <div class="blog-img">
-                            <img class="img-fluid" src="images/blog-img.jpg" alt="" />
+                            <img class="img-fluid" src="images/blog-img.jpg" alt="Watering Plants at Night">
                         </div>
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>Fusce in augue non nisi fringilla</h3>
-                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                                <h3>Myth #1: Watering Plants at Night Causes Root Rot</h3>
+                                <p>Many gardeners believe that watering at night leads to root rot because water doesn't evaporate quickly. It's fine as long as you avoid over-watering and ensure proper drainage.</p>
                             </div>
-                            <ul class="option-blog">
-                                <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#"><i class="far fa-comments"></i></a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 col-xl-4">
                     <div class="blog-box">
                         <div class="blog-img">
-                            <img class="img-fluid" src="images/blog-img-01.jpg" alt="" />
+                            <img class="img-fluid" src="images/blog-img-01.jpg" alt="Fertilizing Every Week">
                         </div>
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>Fusce in augue non nisi fringilla</h3>
-                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                                <h3>Myth #2: You Need to Fertilize Every Week</h3>
+                                <p>Over-fertilizing can harm your plants! It's best to fertilize based on plant needs, usually once a month during the growing season. Avoid weekly feedings to protect your plants from root damage.</p>
                             </div>
-                            <ul class="option-blog">
-                                <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#"><i class="far fa-comments"></i></a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 col-xl-4">
                     <div class="blog-box">
                         <div class="blog-img">
-                            <img class="img-fluid" src="images/blog-img-02.jpg" alt="" />
+                            <img class="img-fluid" src="images/blog-img-02.jpg" alt="Soil Myth">
                         </div>
                         <div class="blog-content">
                             <div class="title-blog">
-                                <h3>Fusce in augue non nisi fringilla</h3>
-                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                                <h3>Myth #3: You Can Grow Anything in Any Soil</h3>
+                                <p>Soil quality matters! Plants thrive in specific soil types. Amending your soil with organic matter will improve its fertility and structure, ensuring a healthier garden.</p>
                             </div>
-                            <ul class="option-blog">
-                                <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                                <li><a href="#"><i class="far fa-comments"></i></a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Blog  -->
+    <!-- End Blog -->
+
 </body>
 
 </html>

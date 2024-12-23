@@ -41,7 +41,29 @@ class ProdutoSearch extends Produto
      */
     public function search($params)
     {
-        $query = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->andWhere(['>', 'quantidade', 0]);
+        $query = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->andWhere(['>', 'produto.quantidade', 0]);
+
+        if (!empty($params['sort'])) {
+            switch ($params['sort']) {
+                case '1':
+                    $query->orderBy(['preco' => SORT_DESC]);
+                    break;
+                case '2':
+                    $query->orderBy(['preco' => SORT_ASC]);
+                    break;
+                case '3':
+                    $query->joinWith('linhafaturas')
+                      ->select([
+                          'produto.*',
+                          'COALESCE(COUNT(linhafatura.id), 0) AS sales_count'
+                      ])
+                      ->orderBy(['sales_count' => SORT_DESC]);
+                    break;
+                default:
+                    $query->orderBy(['nome' => SORT_ASC]);
+                    break;
+            }
+        }
 
         if (!empty($params['categoria_id'])) {
             $query->andWhere(['categoria_id' => $params['categoria_id']]);

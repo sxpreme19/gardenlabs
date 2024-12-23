@@ -48,16 +48,16 @@
                             </div>
                             <ul class="social">
                                 <li>
-                                    <a href="https://www.facebook.com/diogo" class="fab fa-facebook"></a>
+                                    <a href="#" class="fab fa-facebook"></a>
                                 </li>
                                 <li>
-                                    <a href="https://twitter.com/diogo" class="fab fa-twitter"></a>
+                                    <a href="#" class="fab fa-twitter"></a>
                                 </li>
                                 <li>
-                                    <a href="https://plus.google.com/diogo" class="fab fa-google-plus"></a>
+                                    <a href="#" class="fab fa-google-plus"></a>
                                 </li>
                                 <li>
-                                    <a href="https://www.youtube.com/channel/diogo" class="fab fa-youtube"></a>
+                                    <a href="#" class="fab fa-youtube"></a>
                                 </li>
                             </ul>
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
@@ -76,16 +76,16 @@
                             </div>
                             <ul class="social">
                                 <li>
-                                    <a href="https://www.facebook.com/duarte" class="fab fa-facebook"></a>
+                                    <a href="#" class="fab fa-facebook"></a>
                                 </li>
                                 <li>
-                                    <a href="https://twitter.com/duarte" class="fab fa-twitter"></a>
+                                    <a href="#" class="fab fa-twitter"></a>
                                 </li>
                                 <li>
-                                    <a href="https://plus.google.com/duarte" class="fab fa-google-plus"></a>
+                                    <a href="#" class="fab fa-google-plus"></a>
                                 </li>
                                 <li>
-                                    <a href="https://www.youtube.com/channel/duarte" class="fab fa-youtube"></a>
+                                    <a href="#" class="fab fa-youtube"></a>
                                 </li>
                             </ul>
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
@@ -104,16 +104,16 @@
                             </div>
                             <ul class="social">
                                 <li>
-                                    <a href="https://www.facebook.com/tomas" class="fab fa-facebook"></a>
+                                    <a href="#" class="fab fa-facebook"></a>
                                 </li>
                                 <li>
-                                    <a href="https://twitter.com/tomas" class="fab fa-twitter"></a>
+                                    <a href="#" class="fab fa-twitter"></a>
                                 </li>
                                 <li>
-                                    <a href="https://plus.google.com/tomas" class="fab fa-google-plus"></a>
+                                    <a href="#" class="fab fa-google-plus"></a>
                                 </li>
                                 <li>
-                                    <a href="https://www.youtube.com/channel/tomas" class="fab fa-youtube"></a>
+                                    <a href="#" class="fab fa-youtube"></a>
                                 </li>
                             </ul>
                             <div class="icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>

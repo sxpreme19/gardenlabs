@@ -66,7 +66,7 @@ class ProdutoController extends Controller
      *
      * @return string
      */
-    public function actionIndex($categoria_id = null, $minPrice = null, $maxPrice = null)
+    public function actionIndex($sort = null,$categoria_id = null, $minPrice = null, $maxPrice = null)
     {
         $searchModel = new ProdutoSearch();
         $queryParams = $this->request->queryParams;
@@ -81,6 +81,10 @@ class ProdutoController extends Controller
 
         if ($maxPrice !== null) {
             $queryParams['maxPrice'] = $maxPrice;
+        }
+        
+        if (isset($queryParams['sort'])) {
+            $queryParams['sort'] = $sort; 
         }
 
         $dataProvider = $searchModel->search($queryParams);
@@ -120,6 +124,7 @@ class ProdutoController extends Controller
             'categories' => $categories,
             'productsPerCategory' => $productsPerCategory,
             'userWishlistIds' => $userWishlistIds,
+            'queryParams' => $queryParams
         ]);
     }
 

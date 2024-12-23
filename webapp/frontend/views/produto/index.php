@@ -1,4 +1,5 @@
 <?php
+
 use yii\widgets\LinkPager;
 ?>
 <!DOCTYPE html>
@@ -16,12 +17,11 @@ use yii\widgets\LinkPager;
                             <div class="col-12 col-sm-8 text-center text-sm-left">
                                 <div class="toolbar-sorter-right">
                                     <span>Sort by </span>
-                                    <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-                                        <option data-display="Select">Nothing</option>
-                                        <option value="1">Popularity</option>
-                                        <option value="2">High Price → High Price</option>
-                                        <option value="3">Low Price → High Price</option>
-                                        <option value="4">Best Selling</option>
+                                    <select id="sort" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+                                        <option value="0" <?= isset($_GET['sort']) && $_GET['sort'] == '0' ? 'selected' : '' ?>>Nothing</option>
+                                        <option value="1" <?= isset($_GET['sort']) && $_GET['sort'] == '1' ? 'selected' : '' ?>>High Price → High Price</option>
+                                        <option value="2" <?= isset($_GET['sort']) && $_GET['sort'] == '2' ? 'selected' : '' ?>>Low Price → High Price</option>
+                                        <option value="3" <?= isset($_GET['sort']) && $_GET['sort'] == '3' ? 'selected' : '' ?>>Best Selling</option>
                                     </select>
                                 </div>
                                 <p>Showing all <?= $productDisplayCount ?> results</p>
@@ -186,4 +186,17 @@ use yii\widgets\LinkPager;
 <script>
     var minPrice = <?= isset($minPrice) ? json_encode($minPrice) : '0' ?>;
     var maxPrice = <?= isset($maxPrice) ? json_encode($maxPrice) : '1000' ?>;
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var sortElement = document.getElementById("sort");
+        if (sortElement !== null) {
+            sortElement.addEventListener("change", function() {
+                var sortValue = this.value;
+                var url = new URL(window.location.href);
+
+                url.searchParams.set('sort', sortValue);
+                window.location.href = url.toString();
+            });
+        }
+    });
 </script>
