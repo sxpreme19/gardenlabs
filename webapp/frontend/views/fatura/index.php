@@ -22,11 +22,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="phone">Phone Number *</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" value="<?= isset($userProfile->telefone) ? $userProfile->telefone : null ?>" pattern="^\d{9}$" title="Phone number must be exactly 9 digits" required>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="<?= isset($userProfile->telefone) ? $userProfile->telefone : null ?>" pattern="^\d{9}$" title="Phone number must be exactly 9 digits">
                             </div>
                             <div class="mb-3">
                                 <label for="nif">NIF *</label>
-                                <input type="text" class="form-control" id="nif" name="nif" value="<?= isset($userProfile->nif) ? $userProfile->nif : null?>" pattern="^\d{9}$" title="NIF number must be exactly 9 digits" required>
+                                <input type="text" class="form-control" id="nif" name="nif" value="<?= isset($userProfile->nif) ? $userProfile->nif : null?>" pattern="^\d{9}$" title="NIF number must be exactly 9 digits">
                             </div>
                             <div class="title-left">
                                 <h3>Payment Methods</h3>

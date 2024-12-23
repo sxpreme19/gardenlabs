@@ -14,11 +14,15 @@
                 <div class="row mb-4">
                     <div class="col-6">
                         <h4><strong>Billing Address</strong></h4>
-                        <p><strong>Name:</strong> <?= $userProfile->nome ?></p>
+                        <p><strong>Name:</strong> <?= $invoice->nome_destinatario ?></p>
                         <p><strong>Email:</strong> <?= Yii::$app->user->identity->email ?></p>
-                        <p><strong>Address:</strong> <?= $userProfile->morada ?></p>
-                        <p><strong>Phone:</strong> <?= $userProfile->telefone ?></p>
-                        <p><strong>Nif:</strong> <?= $userProfile->nif ?></p>
+                        <p><strong>Address:</strong> <?= $invoice->morada_destinatario ?></p>
+                        <?php if ($invoice->telefone_destinatario != null): ?>
+                        <p><strong>Phone:</strong> <?= $invoice->telefone_destinatario ?></p>
+                        <?php endif; ?>
+                        <?php if ($invoice->nif_destinatario != null): ?>
+                        <p><strong>Nif:</strong> <?= $invoice->nif_destinatario ?></p>
+                        <?php endif; ?>
                     </div>
                     <div class="col-6 text-end">
                         <h4><strong>Invoice Date</strong></h4>

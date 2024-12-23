@@ -10,8 +10,12 @@ use Yii;
  * @property int $id
  * @property float $total
  * @property string $datahora
+ * @property string $nome_destinatario
+ * @property string $morada_destinatario
+ * @property int|null $telefone_destinatario
+ * @property int|null $nif_destinatario
  * @property int $metodopagamento_id
- * @property int|null $metodoexpedicao_id
+ * @property int $metodoexpedicao_id
  * @property int $userprofile_id
  *
  * @property Linhafatura[] $linhafaturas
@@ -32,10 +36,11 @@ class Fatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['total', 'datahora', 'metodopagamento_id', 'userprofile_id'], 'required'],
+            [['total', 'datahora', 'nome_destinatario', 'morada_destinatario', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'required'],
             [['total'], 'number'],
             [['datahora'], 'safe'],
-            [['metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'integer'],
+            [['telefone_destinatario', 'nif_destinatario', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'integer'],
+            [['nome_destinatario', 'morada_destinatario'], 'string', 'max' => 80],
         ];
     }
 
@@ -48,6 +53,10 @@ class Fatura extends \yii\db\ActiveRecord
             'id' => 'ID',
             'total' => 'Total',
             'datahora' => 'Datahora',
+            'nome_destinatario' => 'Nome Destinatario',
+            'morada_destinatario' => 'Morada Destinatario',
+            'telefone_destinatario' => 'Telefone Destinatario',
+            'nif_destinatario' => 'Nif Destinatario',
             'metodopagamento_id' => 'Metodopagamento ID',
             'metodoexpedicao_id' => 'Metodoexpedicao ID',
             'userprofile_id' => 'Userprofile ID',

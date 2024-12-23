@@ -115,7 +115,7 @@ class FaturaController extends Controller
             $morada != $userProfile->morada ||
             $phone != $userProfile->telefone ||
             $nif != $userProfile->nif
-        ) Yii::$app->session->setFlash('info', 'The billing information you provided is different from your profile data. Please confirm if everything is correct before proceeding. (All your user profile data will be updated!)');
+        ) Yii::$app->session->setFlash('info', 'The billing information you provided is different from your profile data. Please confirm if everything is correct before proceeding.');
 
         if (!$selectedShippingMethod || !$selectedPaymentMethod) {
             Yii::$app->session->setFlash('error', 'Please select payment and shipping methods.');
@@ -132,6 +132,7 @@ class FaturaController extends Controller
             'userCart' => $userCart,
             'shippingMethod' => $selectedShippingMethod,
             'paymentMethod' => $selectedPaymentMethod,
+            'userProfile' => $userProfile,
             'nome' => $nome,
             'morada' => $morada,
             'phone' => $phone,
@@ -154,22 +155,16 @@ class FaturaController extends Controller
         $shippingMethod = Metodoexpedicao::findOne($shippingMethodId);
         $paymentMethod = Metodopagamento::findOne($paymentMethodId);
 
-        $userProfile->nome = $fullName;
-        $userProfile->morada = $address;
-        $userProfile->telefone = $phone;
-        $userProfile->nif = $nif;
-
-        if (!$userProfile->save()) {
-            Yii::$app->session->setFlash('error', 'There was an issue regarding your profile.');
-            return $this->redirect(['fatura/confirm-checkout']);
-        }
-
         $invoice = new Fatura();
         $invoice->userprofile_id = $userProfile->id;
         $invoice->metodopagamento_id = $paymentMethod->id;
         $invoice->metodoexpedicao_id = $shippingMethod->id;
         $invoice->total = $userCart->total + $shippingMethod->preco;
         $invoice->datahora = date('Y-m-d H:i:s');
+        $invoice->nome_destinatario = $fullName; 
+        $invoice->morada_destinatario = $address;
+        $invoice->telefone_destinatario = $phone;
+        $invoice->nif_destinatario = $nif;
 
         if ($invoice->save()) {
             foreach ($userCart->linhacarrinhoprodutos as $cartItem) {
