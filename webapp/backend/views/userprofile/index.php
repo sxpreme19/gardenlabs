@@ -1,24 +1,24 @@
 <?php
 
-use common\models\Review;
+use common\models\Userprofile;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\ReviewSearch $searchModel */
+/** @var backend\models\UserprofileSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Reviews';
+$this->title = 'User Profiles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="review-index">
+<div class="userprofile-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Review', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Userprofile', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,15 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'conteudo',
-            'datahora',
-            'avaliacao',
-            'servico_id',
-            'produto_id',
-            'userprofile_id',
+            'morada',
+            'nif',
+            'telefone',
+            'nome',
+            'user_id',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Review $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Userprofile $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

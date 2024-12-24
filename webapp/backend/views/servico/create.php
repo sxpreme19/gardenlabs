@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\Servico $model */
 
-$this->title = 'Create Servico';
+$this->title = 'Create Service';
 $this->params['breadcrumbs'][] = ['label' => 'Servicos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

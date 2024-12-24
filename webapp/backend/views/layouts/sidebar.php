@@ -46,7 +46,15 @@
                             ['label' => 'Inactive Page', 'iconStyle' => 'far'],
                         ]*/
                     ],
-                    ['label' => 'User Control','url' => ['user/index'], 'icon' => 'user', 'badge' => '<span class="right badge badge-danger">Admin</span>'],
+                    [
+                        'label' => 'User Control',
+                        'icon' => 'user', 
+                        'badge' => '<span class="right badge badge-danger">Admin</span>',
+                        'items' => [
+                            ['label' => 'Users', 'icon' => 'fas fa-user','url' => ['user/index']],
+                            ['label' => 'User Profiles', 'icon' => 'fas fa-user','url' => ['userprofile/index']],
+                        ],
+                    ],
                     ['label' => 'Shopping Management', 'header' => true],
                     [
                         'label' => 'Shopping',

@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\ServicoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Servicos';
+$this->title = 'Services';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="servico-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Servico', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Service', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'descricao',
             'preco',
             'duracao', 
-            //'prestador_id',
+            'prestador_id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Servico $model, $key, $index, $column) {

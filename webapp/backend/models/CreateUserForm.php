@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use common\models\User;
 use common\models\Userprofile;
+use common\models\Carrinhoproduto;
+use common\models\Carrinhoservico;
 
 /**
  * CreateUserForm form
@@ -41,7 +43,7 @@ class CreateUserForm extends Model
     /**
      * Signs user up.
      *
-     * @return bool whether the creating new account was successful and email was sent
+     * 
      */
     public function create()
     {
@@ -57,16 +59,27 @@ class CreateUserForm extends Model
         $user->generateEmailVerificationToken();
         $user->status = 10;
 
-        if($user->save()) {
+        if ($user->save()) {
             $auth = Yii::$app->authManager;
-            $role = $auth->getRole(Yii::$app->request->post('roleDropDown'));
-            $auth->assign($role, $user->id);    
-            
+            $roleName = Yii::$app->request->post('roleDropDown');
+            $role = $auth->getRole($roleName);
+            $auth->assign($role, $user->id);
+
             $userprofile = new UserProfile();
             $userprofile->user_id = $user->id;
 
-            if($userprofile->save()) {
-                $this->sendEmail($user);
+            if ($userprofile->save()) {
+                if ($roleName == 'client') {
+                    $userProductCart = new Carrinhoproduto();
+                    $userProductCart->userprofile_id = $userprofile->id;
+                    if ($userProductCart->save()) {
+                        $userServiceCart = new Carrinhoservico();
+                        $userServiceCart->userprofile_id = $userprofile->id;
+                        if ($userServiceCart->save()) {
+                            return $user;
+                        }
+                    }
+                }
                 return $user;
             }
 
@@ -74,24 +87,5 @@ class CreateUserForm extends Model
         }
 
         return null;
-    }
-
-    /**
-     * Sends confirmation email to user
-     * @param User $user user model to with email should be send
-     * @return bool whether the email was sent
-     */
-    protected function sendEmail($user)
-    {
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();
     }
 }

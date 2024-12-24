@@ -10,7 +10,7 @@
     /** @var backend\models\ImagemSearch $searchModel */
     /** @var yii\data\ActiveDataProvider $dataProvider */
 
-    $this->title = 'Imagems';
+    $this->title = 'Images';
     $this->params['breadcrumbs'][] = $this->title;
     ?>
     <div class="imagem-index">

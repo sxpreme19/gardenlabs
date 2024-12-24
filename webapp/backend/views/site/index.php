@@ -9,7 +9,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'title' => $registeredUsers,
                 'text' => 'User Registrations',
                 'icon' => 'fas fa-user-plus',
-                'theme' => 'gradient-success',
+                'theme' => 'info',
             ]) ?>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'title' => $totalIncome . '€',
                 'text' => 'Total Income',
                 'icon' => 'fas fa-euro-sign',
-                'theme' => 'info',
+                'theme' => 'gradient-success',
             ]) ?>
         </div>
     </div>

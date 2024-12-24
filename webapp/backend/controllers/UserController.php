@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use backend\models\CreateUserForm;
+use backend\models\UpdateUserForm;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -25,19 +26,19 @@ class UserController extends Controller
             parent::behaviors(),
             [
                 'access' => [
-                'class' => AccessControl::class,
-                'only' => ['index','view','create','update','delete'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin'],
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'view', 'create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin'],
+                        ],
+                        [
+                            'denyCallback' => function ($rule, $action) {
+                                throw new \yii\web\ForbiddenHttpException('You are not allowed to acess this page.');
+                            },
+                        ],
                     ],
-                    [
-                        'denyCallback' => function ($rule, $action) {
-                            throw new \yii\web\ForbiddenHttpException('You are not allowed to acess this page.');
-                        },
-                    ],
-                ],
                 ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
@@ -87,15 +88,14 @@ class UserController extends Controller
     {
         $model = new CreateUserForm();
 
-            if ($model->load(Yii::$app->request->post())) {
-                $user = $model->create();
-                return $this->redirect(['view', 'id' => $this->$user->id]);
-            }
+        if ($model->load(Yii::$app->request->post())) {
+            $user = $model->create();
+            return $this->redirect(['view', 'id' => $user->id]);
+        }
 
         return $this->render('create', [
             'model' => $model,
         ]);
-        
     }
 
     /**
@@ -107,30 +107,36 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $user = User::findOne($id);
+        if (!$user) {
+            throw new \yii\web\NotFoundHttpException("User not found.");
+        }
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        $model = new UpdateUserForm($user);
+
+        if ($model->load(Yii::$app->request->post()) && $model->update()) {
             $postData = $this->request->post();
 
             if (isset($postData['roleDropDown'])) {
                 $selectedRole = $postData['roleDropDown'];
-    
+
                 $authManager = Yii::$app->authManager;
                 $authManager->revokeAll($model->id);
-    
-                $role = $authManager->getRole($selectedRole); 
+
+                $role = $authManager->getRole($selectedRole);
                 if ($role) {
                     $authManager->assign($role, $model->id);
                 }
             }
- 
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', 'User updated successfully.');
+            return $this->redirect(['view', 'id' => $user->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
     }
+
 
     /**
      * Deletes an existing User model.
@@ -142,21 +148,24 @@ class UserController extends Controller
     public function actionDelete($id)
     {
         $user = $this->findModel($id);
-        $userProfile = $user->userProfile; 
+        $userProfile = $user->userProfile;
 
         if ($userProfile) {
-            if ($userProfile->carrinho) {
-                $userProfile->carrinho->delete();
+            if ($userProfile->carrinhoproduto) {
+                $userProfile->carrinhoproduto->delete();
             }
-            if ($userProfile->favorito) {
-                $userProfile->favorito->delete();
+            if ($userProfile->carrinhoservico) {
+                $userProfile->carrinhoservico->delete();
+            }
+            if ($userProfile->favoritos) {
+                $userProfile->favoritos->delete();
             }
             $userProfile->delete();
         }
 
         \Yii::$app->db->createCommand()
-        ->delete('auth_assignment', ['user_id' => $user->id])
-        ->execute();
+            ->delete('auth_assignment', ['user_id' => $user->id])
+            ->execute();
 
         $user->delete();
 

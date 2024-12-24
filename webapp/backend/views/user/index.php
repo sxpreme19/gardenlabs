@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -42,8 +43,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, User $model, $key, $index, $column) {
+                    if ($action === 'userprofile') {
+                        return Url::toRoute(['userprofile/index', 'id' => $model->id]);
+                    }
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'template' => '{view} {update} {delete} {userprofile} ',
+                'buttons' => [
+                    'userprofile' => function ($url, $model) {
+                        return Html::a('<i class="fas fa-user"></i>', $url, [
+                            'title' => 'User Profile',
+                            'style' => 'padding: 0; margin: 0; line-height: 2;',
+                            'data-toggle' => 'tooltip',
+                        ]);
+                    },
+                ],
             ],
         ],
     ]); ?>
