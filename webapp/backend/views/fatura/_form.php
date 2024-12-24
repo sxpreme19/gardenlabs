@@ -16,6 +16,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'datahora')->textInput() ?>
 
+    <?= $form->field($model, 'nome_destinatario')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'morada_destinatario')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'telefone_destinatario')->textInput() ?>
+
+    <?= $form->field($model, 'nif_destinatario')->textInput() ?>
+
     <?= $form->field($model, 'metodopagamento_id')->textInput() ?>
 
     <?= $form->field($model, 'metodoexpedicao_id')->textInput() ?>

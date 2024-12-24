@@ -52,10 +52,16 @@ use yii\bootstrap4\Breadcrumbs;
                             Image Management
                         <?php elseif ($this->title == "Product Carts"): ?>
                             Product Cart Management
+                        <?php elseif ($this->title == "Product Cart Lines"): ?>
+                            Product Carts Line Management
                         <?php elseif ($this->title == "Service Carts"): ?>
                             Service Cart Management
+                        <?php elseif ($this->title == "Service Carts Lines"): ?>
+                            Service Carts Line Management
                         <?php elseif ($this->title == "Invoices"): ?>
                             Invoice Management
+                        <?php elseif ($this->title == "Invoice Lines"): ?>
+                            Invoice Line Management
                         <?php elseif ($this->title == "Expedition Methods"): ?>
                             Expedition Method Management
                         <?php elseif ($this->title == "Payment Methods"): ?>

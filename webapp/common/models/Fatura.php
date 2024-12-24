@@ -17,8 +17,6 @@ use Yii;
  * @property int $metodopagamento_id
  * @property int $metodoexpedicao_id
  * @property int $userprofile_id
- *
- * @property Linhafatura[] $linhafaturas
  */
 class Fatura extends \yii\db\ActiveRecord
 {
@@ -63,7 +61,7 @@ class Fatura extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
+     /**
      * Gets query for [[Linhafaturas]].
      *
      * @return \yii\db\ActiveQuery

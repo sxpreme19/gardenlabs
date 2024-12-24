@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var backend\models\FaturaSearch $model */
+/** @var common\models\FaturaSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -21,9 +21,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'datahora') ?>
 
-    <?= $form->field($model, 'metodopagamento_id') ?>
+    <?= $form->field($model, 'nome_destinatario') ?>
 
-    <?= $form->field($model, 'metodoexpedicao_id') ?>
+    <?= $form->field($model, 'morada_destinatario') ?>
+
+    <?php // echo $form->field($model, 'telefone_destinatario') ?>
+
+    <?php // echo $form->field($model, 'nif_destinatario') ?>
+
+    <?php // echo $form->field($model, 'metodopagamento_id') ?>
+
+    <?php // echo $form->field($model, 'metodoexpedicao_id') ?>
 
     <?php // echo $form->field($model, 'userprofile_id') ?>
 

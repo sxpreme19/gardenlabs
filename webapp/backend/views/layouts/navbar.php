@@ -41,36 +41,38 @@ use yii\helpers\Html;
                         <li><a href="<?= \yii\helpers\Url::to(['imagem/index']) ?>" class="dropdown-item">Images</a></li>
                     </ul>
                 </li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Cart Management</a>
+            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                 <li class="dropdown-submenu dropdown-hover">
                     <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Carts</a>
                     <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                         <li><a href="<?= \yii\helpers\Url::to(['carrinhoproduto/index']) ?>" class="dropdown-item">Product Carts</a></li>
                         <li><a href="<?= \yii\helpers\Url::to(['carrinhoservico/index']) ?>" class="dropdown-item">Service Carts</a></li>
+
                     </ul>
                 </li>
                 <li class="dropdown-submenu dropdown-hover">
-                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Order Details</a>
+                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Cart Lines</a>
                     <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                        <li><a href="<?= \yii\helpers\Url::to(['fatura/index']) ?>" class="dropdown-item">Invoices</a></li>
-                        <li><a href="<?= \yii\helpers\Url::to(['metodoexpedicao/index']) ?>" class="dropdown-item">Expedition Methods</a></li>
-                        <li><a href="<?= \yii\helpers\Url::to(['metodopagamento/index']) ?>" class="dropdown-item">Payment Methods</a></li>
+                        <li><a href="<?= \yii\helpers\Url::to(['linhacarrinhoproduto/index']) ?>" class="dropdown-item">Product Cart Lines</a></li>
+                        <li><a href="<?= \yii\helpers\Url::to(['linhacarrinhoservico/index']) ?>" class="dropdown-item">Service Cart Lines</a></li>
                     </ul>
                 </li>
             </ul>
         </li>
+        <li class="nav-item dropdown">
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Order Management</a>
+            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                <li><a href="<?= \yii\helpers\Url::to(['fatura/index']) ?>" class="dropdown-item">Invoices</a></li>
+                <li><a href="<?= \yii\helpers\Url::to(['linhafatura/index']) ?>" class="dropdown-item">Invoice Lines</a></li>
+                <li><a href="<?= \yii\helpers\Url::to(['metodoexpedicao/index']) ?>" class="dropdown-item">Expedition Methods</a></li>
+                <li><a href="<?= \yii\helpers\Url::to(['metodopagamento/index']) ?>" class="dropdown-item">Payment Methods</a></li>
+            </ul>
+        </li>
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">

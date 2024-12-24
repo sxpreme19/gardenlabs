@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\LinhafaturaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Linhafaturas';
+$this->title = 'Invoice Lines';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="linhafatura-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Linhafatura', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Invoice Line', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'quantidade',
             'precounitario',
             'fatura_id',
-            'produto_id',
+            //'produto_id',
             //'servico_id',
             [
                 'class' => ActionColumn::className(),

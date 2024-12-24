@@ -36,9 +36,10 @@ class LinhafaturaController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
         $searchModel = new LinhafaturaSearch();
+        $searchModel->fatura_id = $id;
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
