@@ -7,6 +7,7 @@ use backend\models\UserprofileSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * UserprofileController implements the CRUD actions for Userprofile model.
@@ -71,8 +72,14 @@ class UserprofileController extends Controller
         $model = new Userprofile();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $existingProfile = Userprofile::findOne(['user_id' => $model->user_id]);
+
+                if ($existingProfile) {
+                    Yii::$app->session->setFlash('error', 'This user already has a profile.');
+                } else if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -82,6 +89,7 @@ class UserprofileController extends Controller
             'model' => $model,
         ]);
     }
+
 
     /**
      * Updates an existing Userprofile model.

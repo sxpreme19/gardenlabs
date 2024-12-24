@@ -48,11 +48,11 @@
                     ],
                     [
                         'label' => 'User Control',
-                        'icon' => 'user', 
+                        'icon' => 'user-cog', 
                         'badge' => '<span class="right badge badge-danger">Admin</span>',
                         'items' => [
-                            ['label' => 'Users', 'icon' => 'fas fa-user','url' => ['user/index']],
-                            ['label' => 'User Profiles', 'icon' => 'fas fa-user','url' => ['userprofile/index']],
+                            ['label' => 'Users', 'icon' => 'fas fa-users','url' => ['user/index']],
+                            ['label' => 'User Profiles', 'icon' => 'fas fa-id-badge','url' => ['userprofile/index']],
                         ],
                     ],
                     ['label' => 'Shopping Management', 'header' => true],

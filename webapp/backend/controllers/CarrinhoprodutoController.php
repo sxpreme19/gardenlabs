@@ -7,6 +7,7 @@ use backend\models\CarrinhoprodutoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * CarrinhoprodutoController implements the CRUD actions for Carrinhoproduto model.
@@ -70,8 +71,14 @@ class CarrinhoprodutoController extends Controller
         $model = new Carrinhoproduto();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $existingCart = Carrinhoproduto::findOne(['userprofile_id' => $model->userprofile_id]);
+
+                if ($existingCart) {
+                    Yii::$app->session->setFlash('error', 'This user already has a cart.');
+                } else if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         } else {
             $model->loadDefaultValues();

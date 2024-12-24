@@ -2,17 +2,16 @@
 
 namespace backend\controllers;
 
-use common\models\Carrinhoservico;
-use backend\models\CarrinhoservicoSearch;
+use common\models\Linhafatura;
+use backend\models\LinhafaturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use Yii;
 
 /**
- * CarrinhoservicoController implements the CRUD actions for Carrinhoservico model.
+ * LinhafaturaController implements the CRUD actions for Linhafatura model.
  */
-class CarrinhoservicoController extends Controller
+class LinhafaturaController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +32,13 @@ class CarrinhoservicoController extends Controller
     }
 
     /**
-     * Lists all Carrinhoservico models.
+     * Lists all Linhafatura models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new CarrinhoservicoSearch();
+        $searchModel = new LinhafaturaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +48,7 @@ class CarrinhoservicoController extends Controller
     }
 
     /**
-     * Displays a single Carrinhoservico model.
+     * Displays a single Linhafatura model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,23 +61,17 @@ class CarrinhoservicoController extends Controller
     }
 
     /**
-     * Creates a new Carrinhoservico model.
+     * Creates a new Linhafatura model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Carrinhoservico();
+        $model = new Linhafatura();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                $existingCart = Carrinhoservico::findOne(['userprofile_id' => $model->userprofile_id]);
-
-                if ($existingCart) {
-                    Yii::$app->session->setFlash('error', 'This user already has a cart.');
-                } else if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -90,7 +83,7 @@ class CarrinhoservicoController extends Controller
     }
 
     /**
-     * Updates an existing Carrinhoservico model.
+     * Updates an existing Linhafatura model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -110,7 +103,7 @@ class CarrinhoservicoController extends Controller
     }
 
     /**
-     * Deletes an existing Carrinhoservico model.
+     * Deletes an existing Linhafatura model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -124,15 +117,15 @@ class CarrinhoservicoController extends Controller
     }
 
     /**
-     * Finds the Carrinhoservico model based on its primary key value.
+     * Finds the Linhafatura model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Carrinhoservico the loaded model
+     * @return Linhafatura the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Carrinhoservico::findOne(['id' => $id])) !== null) {
+        if (($model = Linhafatura::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
