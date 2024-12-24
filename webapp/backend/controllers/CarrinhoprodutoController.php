@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Carrinhoproduto;
 use backend\models\CarrinhoprodutoSearch;
+use common\models\Userprofile;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -72,12 +73,19 @@ class CarrinhoprodutoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $existingCart = Carrinhoproduto::findOne(['userprofile_id' => $model->userprofile_id]);
-
-                if ($existingCart) {
-                    Yii::$app->session->setFlash('error', 'This user already has a cart.');
-                } else if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                $userProfile = Userprofile::findOne($model->userprofile_id);
+                if ($userProfile) {
+                    if ($model->total === null || $model->total === '') {
+                        $model->total = 0;
+                    }
+                    $existingCart = Carrinhoproduto::findOne(['userprofile_id' => $model->userprofile_id]);
+                    if ($existingCart) {
+                        Yii::$app->session->setFlash('error', 'This user already has a cart.');
+                    } else if ($model->save()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', 'User Profile not found.');
                 }
             }
         } else {

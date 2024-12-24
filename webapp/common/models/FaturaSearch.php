@@ -17,9 +17,9 @@ class FaturaSearch extends Fatura
     public function rules()
     {
         return [
-            [['id', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'integer'],
+            [['id', 'telefone_destinatario', 'nif_destinatario', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'integer'],
             [['total'], 'number'],
-            [['datahora'], 'safe'],
+            [['datahora', 'nome_destinatario', 'morada_destinatario'], 'safe'],
         ];
     }
 
@@ -47,9 +47,6 @@ class FaturaSearch extends Fatura
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'pageSize' => 9,
-            ],
         ]);
 
         $this->load($params);
@@ -65,10 +62,15 @@ class FaturaSearch extends Fatura
             'id' => $this->id,
             'total' => $this->total,
             'datahora' => $this->datahora,
+            'telefone_destinatario' => $this->telefone_destinatario,
+            'nif_destinatario' => $this->nif_destinatario,
             'metodopagamento_id' => $this->metodopagamento_id,
             'metodoexpedicao_id' => $this->metodoexpedicao_id,
             'userprofile_id' => $this->userprofile_id,
         ]);
+
+        $query->andFilterWhere(['like', 'nome_destinatario', $this->nome_destinatario])
+            ->andFilterWhere(['like', 'morada_destinatario', $this->morada_destinatario]);
 
         return $dataProvider;
     }

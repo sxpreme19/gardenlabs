@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Invoice', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -36,14 +37,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'morada_destinatario',
             'telefone_destinatario',
             'nif_destinatario',
-            'metodopagamento_id',
-            'metodoexpedicao_id',
-            'userprofile_id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Fatura $model, $key, $index, $column) {
+                    if ($action === 'invoiceLines') {
+                        return Url::toRoute(['linhafatura/index', 'id' => $model->id]); 
+                    }
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'template' => '{view} {update} {delete} {invoiceLines} ',
+                'buttons' => [
+                    'invoiceLines' => function ($url, $model) {
+                        return Html::a('<i class="fas fa-file-invoice"></i>', $url, [
+                            'title' => 'InvoiceLines',
+                            'style' => 'padding: 0; margin: 0; line-height: 2;',
+                            'data-toggle' => 'tooltip',
+                        ]);
+                    },
+                ],
             ],
         ],
     ]); ?>

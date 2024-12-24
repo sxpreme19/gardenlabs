@@ -56,4 +56,17 @@ class Carrinhoproduto extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Linhacarrinhoproduto::class, ['carrinhoproduto_id' => 'id']);
     }
+
+    public function calculateTotal()
+    {
+        $total = 0;
+        foreach ($this->linhacarrinhoprodutos as $line) {
+            $total += $line->precounitario * $line->quantidade;
+        }
+
+        $this->total = $total;
+        $this->save(false, ['total']);
+
+        return $total;
+    }
 }

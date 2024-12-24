@@ -4,6 +4,10 @@ namespace backend\controllers;
 
 use common\models\Servico;
 use backend\models\ServicoSearch;
+use common\models\Carrinhoservico;
+use common\models\Linhacarrinhoservico;
+use common\models\Linhafatura;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -94,6 +98,18 @@ class ServicoController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $userCartLines = Linhacarrinhoservico::findAll(['servico_id' => $model->id]);
+
+            foreach ($userCartLines as $line) {
+                $line->preco = $model->preco;
+                $line->save();
+                $userCart = Carrinhoservico::findOne($line->carrinhoservico_id);
+                if ($userCart) {
+                    $userCart->total = $userCart->calculateTotal();
+                    $userCart->save();
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -111,6 +127,30 @@ class ServicoController extends Controller
      */
     public function actionDelete($id)
     {
+       $hasInvoices = Linhafatura::find()->where(['servico_id' => $id])->exists();
+        if ($hasInvoices) {
+            Yii::$app->session->setFlash('error', 'This product cannot be deleted because it is associated with invoices.');
+            return $this->redirect(['index']);
+        }
+
+        $userCartLines = Linhacarrinhoservico::findAll(['servico_id' => $id]);
+        $affectedCarts = [];
+
+        foreach ($userCartLines as $line) {
+            $cartId = $line->carrinhoproduto_id;
+            if (!in_array($cartId, $affectedCarts)) {
+                $affectedCarts[] = $cartId;
+            }
+            $line->delete();
+        }
+
+        foreach ($affectedCarts as $cartId) {
+            $cart = Carrinhoservico::findOne($cartId);
+            if ($cart) {
+                $cart->calculateTotal();
+            }
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

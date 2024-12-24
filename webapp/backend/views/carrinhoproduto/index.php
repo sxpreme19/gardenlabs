@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Product Cart', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -35,8 +36,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Carrinhoproduto $model, $key, $index, $column) {
+                    if ($action === 'linhacarrinhoproduto') {
+                        return Url::toRoute(['linhacarrinhoproduto/index', 'id' => $model->id]);
+                    }
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'template' => '{view} {update} {delete} {linhacarrinhoproduto} ',
+                'buttons' => [
+                    'linhacarrinhoproduto' => function ($url, $model) {
+                        return Html::a('<i class="fas fa-box-open"></i>', $url, [
+                            'title' => 'LinhasCarrinho',
+                            'style' => 'padding: 0; margin: 0; line-height: 2;',
+                            'data-toggle' => 'tooltip',
+                        ]);
+                    },
+                ],
             ],
         ],
     ]); ?>

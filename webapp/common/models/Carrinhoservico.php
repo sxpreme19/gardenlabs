@@ -56,4 +56,17 @@ class Carrinhoservico extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Linhacarrinhoservico::class, ['carrinhoservico_id' => 'id']);
     }
+
+    public function calculateTotal()
+    {
+        $total = 0;
+        foreach ($this->linhacarrinhoservicos as $line) {
+            $total += $line->preco;
+        }
+
+        $this->total = $total;
+        $this->save(false, ['total']);
+
+        return $total;
+    }
 }

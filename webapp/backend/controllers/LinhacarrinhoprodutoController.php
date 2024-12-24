@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Linhacarrinhoproduto;
 use backend\models\LinhacarrinhoprodutoSearch;
+use common\models\Carrinhoproduto;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,9 +37,10 @@ class LinhacarrinhoprodutoController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
         $searchModel = new LinhacarrinhoprodutoSearch();
+        $searchModel->carrinhoproduto_id = $id;
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -71,6 +73,9 @@ class LinhacarrinhoprodutoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $userCart = Carrinhoproduto::findOne(['id' => $model->carrinhoproduto_id]);
+                $userCart->total += $model->precounitario * $model->quantidade;
+                $userCart->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -94,6 +99,11 @@ class LinhacarrinhoprodutoController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $userCart = Carrinhoproduto::findOne($model->carrinhoproduto_id);
+                if ($userCart) {
+                    $userCart->total = $userCart->calculateTotal();
+                    $userCart->save();
+                }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -111,8 +121,14 @@ class LinhacarrinhoprodutoController extends Controller
      */
     public function actionDelete($id)
     {
+        
+        $cartLine = Linhacarrinhoproduto::findOne($id);
+        $userCart = Carrinhoproduto::findOne(['id' => $cartLine->carrinhoproduto_id]);
+                if ($userCart) {
+                    $userCart->total -= $cartLine->precounitario * $cartLine->quantidade; 
+                    $userCart->save();
+                }
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

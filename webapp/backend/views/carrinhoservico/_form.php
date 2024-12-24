@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'total')->textInput() ?>
+    <?= $form->field($model, 'total')->textInput(['type' => 'number', 'min' => 0]) ?>
 
     <?= $form->field($model, 'userprofile_id')->textInput() ?>
 

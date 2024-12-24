@@ -35,8 +35,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Carrinhoservico $model, $key, $index, $column) {
+                    if ($action === 'linhacarrinhoservico') {
+                        return Url::toRoute(['linhacarrinhoservico/index', 'id' => $model->id]);
+                    }
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                 },
+                 'template' => '{view} {update} {delete} {linhacarrinhoservico} ',
+                 'buttons' => [
+                     'linhacarrinhoservico' => function ($url, $model) {
+                         return Html::a('<i class="fas fa-box-open"></i>', $url, [
+                             'title' => 'LinhasCarrinho',
+                             'style' => 'padding: 0; margin: 0; line-height: 2;',
+                             'data-toggle' => 'tooltip',
+                         ]);
+                     },
+                 ],
             ],
         ],
     ]); ?>

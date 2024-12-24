@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Linhacarrinhoservico;
 use backend\models\LinhacarrinhoservicoSearch;
+use common\models\Carrinhoservico;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,6 +72,9 @@ class LinhacarrinhoservicoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $userCart = Carrinhoservico::findOne(['id' => $model->carrinhoservico_id]);
+                $userCart->total += $model->preco;
+                $userCart->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -94,6 +98,11 @@ class LinhacarrinhoservicoController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $userCart = Carrinhoservico::findOne($model->carrinhoproduto_id);
+                if ($userCart) {
+                    $userCart->total = $userCart->calculateTotal();
+                    $userCart->save();
+                }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -111,8 +120,13 @@ class LinhacarrinhoservicoController extends Controller
      */
     public function actionDelete($id)
     {
+        $cartLine = Linhacarrinhoservico::findOne($id);
+        $userCart = Carrinhoservico::findOne(['id' => $cartLine->carrinhoservico_id]);
+                if ($userCart) {
+                    $userCart->total -= $cartLine->preco; 
+                    $userCart->save();
+                }
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

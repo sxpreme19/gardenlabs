@@ -3,9 +3,11 @@
 namespace backend\controllers;
 
 use common\models\Produto;
-use common\models\Imagem;
 use backend\models\ImagemSearch;
 use backend\models\ProdutoSearch;
+use common\models\Carrinhoproduto;
+use common\models\Linhacarrinhoproduto;
+use common\models\Linhafatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -108,6 +110,18 @@ class ProdutoController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $userCartLines = Linhacarrinhoproduto::findAll(['produto_id' => $model->id]);
+
+            foreach ($userCartLines as $line) {
+                $line->precounitario = $model->preco;
+                $line->save();
+                $userCart = Carrinhoproduto::findOne($line->carrinhoproduto_id);
+                if ($userCart) {
+                    $userCart->total = $userCart->calculateTotal();
+                    $userCart->save();
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -115,6 +129,7 @@ class ProdutoController extends Controller
             'model' => $model,
         ]);
     }
+
 
     /**
      * Deletes an existing Produto model.
@@ -125,10 +140,37 @@ class ProdutoController extends Controller
      */
     public function actionDelete($id)
     {
+
+        $hasInvoices = Linhafatura::find()->where(['product_id' => $id])->exists();
+        if ($hasInvoices) {
+            Yii::$app->session->setFlash('error', 'This product cannot be deleted because it isssssssssssssssssssssssssssssssssssssssssss associated with invoices.');
+            return $this->redirect(['index']);
+        }
+
+        $userCartLines = Linhacarrinhoproduto::findAll(['produto_id' => $id]);
+        $affectedCarts = [];
+
+        foreach ($userCartLines as $line) {
+            $cartId = $line->carrinhoproduto_id;
+            if (!in_array($cartId, $affectedCarts)) {
+                $affectedCarts[] = $cartId;
+            }
+            $line->delete();
+        }
+
+        foreach ($affectedCarts as $cartId) {
+            $cart = Carrinhoproduto::findOne($cartId);
+            if ($cart) {
+                $cart->calculateTotal();
+            }
+        }
+
         $this->findModel($id)->delete();
+        Yii::$app->session->setFlash('success', 'Product deleted successfully.');
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Managing images of an existing Produto model.
@@ -141,7 +183,7 @@ class ProdutoController extends Controller
         $searchModel = new ImagemSearch();
 
         $dataProvider = $searchModel->search([
-            'produto_id' => $id, 
+            'produto_id' => $id,
         ]);
 
         $this->view->title = 'Manage Images';
@@ -149,7 +191,7 @@ class ProdutoController extends Controller
             ['label' => 'Products', 'url' => ['produto/index']],
             ['label' => $this->view->title],
         ];
-    
+
         return $this->render('manage-images', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
