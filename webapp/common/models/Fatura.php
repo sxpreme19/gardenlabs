@@ -35,8 +35,8 @@ class Fatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['total', 'datahora', 'nome_destinatario', 'morada_destinatario','preco_envio', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'required'],
-            [['total','preco_envio'], 'number'],
+            [['total', 'datahora', 'nome_destinatario', 'morada_destinatario', 'preco_envio', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'required'],
+            [['total', 'preco_envio'], 'number'],
             [['datahora'], 'safe'],
             [['telefone_destinatario', 'nif_destinatario', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'integer'],
             [['nome_destinatario', 'morada_destinatario'], 'string', 'max' => 80],
@@ -63,7 +63,7 @@ class Fatura extends \yii\db\ActiveRecord
         ];
     }
 
-     /**
+    /**
      * Gets query for [[Linhafaturas]].
      *
      * @return \yii\db\ActiveQuery
@@ -91,5 +91,15 @@ class Fatura extends \yii\db\ActiveRecord
     public function getMetodopagamento()
     {
         return $this->hasOne(Metodopagamento::class, ['id' => 'metodopagamento_id']);
+    }
+    
+    public function calculateTotal()
+    {
+        $total = 0;
+        foreach ($this->linhafaturas as $linha) {
+            $total += $linha->precounitario * $linha->quantidade;
+        }
+        $this->total = $total;
+        $this->save();
     }
 }

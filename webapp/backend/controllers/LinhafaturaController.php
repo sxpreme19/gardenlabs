@@ -74,8 +74,10 @@ class LinhafaturaController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 $invoice = Fatura::findOne(['id' => $model->fatura_id]);
-                $invoice->total += $model->precounitario * $model->quantidade;
-                $invoice->save();
+                if($invoice){
+                    $invoice->calculateTotal();
+                    $invoice->save();
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -100,8 +102,10 @@ class LinhafaturaController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             $invoice = Fatura::findOne(['id' => $model->fatura_id]);
-                $invoice->total += $model->precounitario * $model->quantidade;
+            if($invoice){
+                $invoice->calculateTotal();
                 $invoice->save();
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
