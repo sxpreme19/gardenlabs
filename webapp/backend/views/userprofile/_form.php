@@ -8,24 +8,24 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="userprofile-form">
+<div class="row">
+    <div class="col-lg-5">
+        <?php $form = ActiveForm::begin(); ?>
 
-    <?php $form = ActiveForm::begin(); ?>
+        <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'morada')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'morada')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nif')->textInput() ?>
+        <?= $form->field($model, 'nif')->textInput() ?>
 
-    <?= $form->field($model, 'telefone')->textInput() ?>
+        <?= $form->field($model, 'telefone')->textInput() ?>
 
-    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'user_id')->textInput() ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?php ActiveForm::end(); ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

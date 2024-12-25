@@ -74,8 +74,10 @@ class LinhacarrinhoprodutoController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 $userCart = Carrinhoproduto::findOne(['id' => $model->carrinhoproduto_id]);
-                $userCart->total += $model->precounitario * $model->quantidade;
-                $userCart->save();
+                if ($userCart) {
+                    $userCart->total = $userCart->calculateTotal();
+                    $userCart->save();
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {

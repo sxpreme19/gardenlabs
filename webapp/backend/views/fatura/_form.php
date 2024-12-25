@@ -8,32 +8,32 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="fatura-form">
+<div class="row">
+    <div class="col-lg-5">
+        <?php $form = ActiveForm::begin(); ?>
 
-    <?php $form = ActiveForm::begin(); ?>
+        <?= $form->field($model, 'total')->textInput() ?>
 
-    <?= $form->field($model, 'total')->textInput() ?>
+        <?= $form->field($model, 'datahora')->textInput() ?>
 
-    <?= $form->field($model, 'datahora')->textInput() ?>
+        <?= $form->field($model, 'nome_destinatario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nome_destinatario')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'morada_destinatario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'morada_destinatario')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'telefone_destinatario')->textInput() ?>
 
-    <?= $form->field($model, 'telefone_destinatario')->textInput() ?>
+        <?= $form->field($model, 'nif_destinatario')->textInput() ?>
 
-    <?= $form->field($model, 'nif_destinatario')->textInput() ?>
+        <?= $form->field($model, 'metodopagamento_id')->textInput() ?>
 
-    <?= $form->field($model, 'metodopagamento_id')->textInput() ?>
+        <?= $form->field($model, 'metodoexpedicao_id')->textInput() ?>
 
-    <?= $form->field($model, 'metodoexpedicao_id')->textInput() ?>
+        <?= $form->field($model, 'userprofile_id')->textInput() ?>
 
-    <?= $form->field($model, 'userprofile_id')->textInput() ?>
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?php ActiveForm::end(); ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

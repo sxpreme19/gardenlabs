@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Linhafatura;
 use backend\models\LinhafaturaSearch;
+use common\models\Fatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -72,6 +73,9 @@ class LinhafaturaController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $invoice = Fatura::findOne(['id' => $model->fatura_id]);
+                $invoice->total += $model->precounitario * $model->quantidade;
+                $invoice->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -95,6 +99,9 @@ class LinhafaturaController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $invoice = Fatura::findOne(['id' => $model->fatura_id]);
+                $invoice->total += $model->precounitario * $model->quantidade;
+                $invoice->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -112,6 +119,13 @@ class LinhafaturaController extends Controller
      */
     public function actionDelete($id)
     {
+
+        $invoiceLine = Linhafatura::findOne($id);
+        $invoice = Fatura::findOne(['id' => $invoiceLine->fatura_id]);
+                if ($invoice) {
+                    $invoice->total -= $invoiceLine->precounitario * $invoiceLine->quantidade; 
+                    $invoice->save();
+                }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

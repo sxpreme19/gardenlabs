@@ -37,6 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
             //'password_reset_token',
             'email:email',
             'status',
+            [
+                'label' => 'Role', 
+                'value' => function ($model) {
+                    $roles = Yii::$app->authManager->getRolesByUser($model->id);
+                    return implode(', ', array_keys($roles));
+                },
+            ],
             //'created_at',
             //'updated_at',
             //'verification_token',

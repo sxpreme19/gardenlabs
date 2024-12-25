@@ -8,28 +8,29 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="review-form">
+<div class="row">
+    <div class="col-lg-5">
+        <?php $form = ActiveForm::begin(); ?>
 
-    <?php $form = ActiveForm::begin(); ?>
+        <?= $form->field($model, 'id')->textInput() ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
+        <?= $form->field($model, 'conteudo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'conteudo')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'datahora')->textInput() ?>
 
-    <?= $form->field($model, 'datahora')->textInput() ?>
+        <?= $form->field($model, 'avaliacao')->textInput() ?>
 
-    <?= $form->field($model, 'avaliacao')->textInput() ?>
+        <?= $form->field($model, 'servico_id')->textInput() ?>
 
-    <?= $form->field($model, 'servico_id')->textInput() ?>
+        <?= $form->field($model, 'produto_id')->textInput() ?>
 
-    <?= $form->field($model, 'produto_id')->textInput() ?>
+        <?= $form->field($model, 'userprofile_id')->textInput() ?>
 
-    <?= $form->field($model, 'userprofile_id')->textInput() ?>
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?php ActiveForm::end(); ?>
+
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
