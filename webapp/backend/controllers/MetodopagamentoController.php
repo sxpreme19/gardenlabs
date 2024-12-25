@@ -4,9 +4,11 @@ namespace backend\controllers;
 
 use common\models\Metodopagamento;
 use backend\models\MetodopagamentoSearch;
+use common\models\Fatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * MetodopagamentoController implements the CRUD actions for Metodopagamento model.
@@ -111,6 +113,12 @@ class MetodopagamentoController extends Controller
      */
     public function actionDelete($id)
     {
+        $hasInvoices = Fatura::find()->where(['metodopagamento_id' => $id])->exists();
+        if ($hasInvoices) {
+            Yii::$app->session->setFlash('error', 'This product cannot be deleted because it is associated with invoices.');
+            return $this->redirect(['index']);
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

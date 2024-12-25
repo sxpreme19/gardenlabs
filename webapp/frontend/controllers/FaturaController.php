@@ -66,8 +66,8 @@ class FaturaController extends Controller
      */
     public function actionIndex()
     {
-        $shippingMethods = Metodoexpedicao::find()->all();
-        $paymentMethods = Metodopagamento::find()->all();
+        $shippingMethods = Metodoexpedicao::find()->where(['disponivel' => 1])->all();
+        $paymentMethods = Metodopagamento::find()->where(['disponivel' => 1])->all();
         $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
         $userProfile = Yii::$app->user->identity->userProfile;
 
@@ -155,16 +155,20 @@ class FaturaController extends Controller
         $shippingMethod = Metodoexpedicao::findOne($shippingMethodId);
         $paymentMethod = Metodopagamento::findOne($paymentMethodId);
 
+        $shippingPrice = $shippingMethod->preco;
+        $invoiceTotal = $userCart->total + $shippingPrice;
+
         $invoice = new Fatura();
         $invoice->userprofile_id = $userProfile->id;
         $invoice->metodopagamento_id = $paymentMethod->id;
         $invoice->metodoexpedicao_id = $shippingMethod->id;
-        $invoice->total = $userCart->total + $shippingMethod->preco;
+        $invoice->total = $invoiceTotal;
         $invoice->datahora = date('Y-m-d H:i:s');
-        $invoice->nome_destinatario = $fullName; 
+        $invoice->nome_destinatario = $fullName;
         $invoice->morada_destinatario = $address;
         $invoice->telefone_destinatario = $phone;
         $invoice->nif_destinatario = $nif;
+        $invoice->preco_envio = $shippingPrice;
 
         if ($invoice->save()) {
             foreach ($userCart->linhacarrinhoprodutos as $cartItem) {

@@ -4,9 +4,11 @@ namespace backend\controllers;
 
 use common\models\Metodoexpedicao;
 use backend\models\MetodoexpedicaoSearch;
+use common\models\Fatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * MetodoexpedicaoController implements the CRUD actions for Metodoexpedicao model.
@@ -111,6 +113,12 @@ class MetodoexpedicaoController extends Controller
      */
     public function actionDelete($id)
     {
+        $hasInvoices = Fatura::find()->where(['metodoexpedicao_id' => $id])->exists();
+        if ($hasInvoices) {
+            Yii::$app->session->setFlash('error', 'This product cannot be deleted because it is associated with invoices.');
+            return $this->redirect(['index']);
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

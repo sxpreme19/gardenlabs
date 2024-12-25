@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'morada_destinatario',
             'telefone_destinatario',
             'nif_destinatario',
+            'preco_envio',
             'metodopagamento_id',
             'metodoexpedicao_id',
             'userprofile_id',

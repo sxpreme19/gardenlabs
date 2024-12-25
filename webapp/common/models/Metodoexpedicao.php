@@ -11,6 +11,7 @@ use Yii;
  * @property string $descricao
  * @property float $preco
  * @property string $duracao
+ * @property int $disponivel
  */
 class Metodoexpedicao extends \yii\db\ActiveRecord
 {
@@ -28,8 +29,9 @@ class Metodoexpedicao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'preco', 'duracao'], 'required'],
+            [['descricao', 'preco', 'duracao', 'disponivel'], 'required'],
             [['preco'], 'number'],
+            [['disponivel'], 'boolean'],
             [['descricao'], 'string', 'max' => 45],
             [['duracao'], 'string', 'max' => 60],
         ];
@@ -45,6 +47,7 @@ class Metodoexpedicao extends \yii\db\ActiveRecord
             'descricao' => 'Descricao',
             'preco' => 'Preco',
             'duracao' => 'Duracao',
+            'disponivel' => 'Disponivel',
         ];
     }
 }

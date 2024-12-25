@@ -7,7 +7,6 @@ use common\models\Produto;
 use frontend\models\ProdutoSearch;
 use common\models\Favorito;
 use common\models\Review;
-use common\models\Userprofile;
 use frontend\models\ReviewForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -15,6 +14,8 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -66,7 +67,7 @@ class ProdutoController extends Controller
      *
      * @return string
      */
-    public function actionIndex($sort = null,$categoria_id = null, $minPrice = null, $maxPrice = null)
+    public function actionIndex($sort = null, $categoria_id = null, $minPrice = null, $maxPrice = null)
     {
         $searchModel = new ProdutoSearch();
         $queryParams = $this->request->queryParams;
@@ -82,9 +83,9 @@ class ProdutoController extends Controller
         if ($maxPrice !== null) {
             $queryParams['maxPrice'] = $maxPrice;
         }
-        
+
         if (isset($queryParams['sort'])) {
-            $queryParams['sort'] = $sort; 
+            $queryParams['sort'] = $sort;
         }
 
         $dataProvider = $searchModel->search($queryParams);
@@ -225,6 +226,22 @@ class ProdutoController extends Controller
             'productTotalCount' => $productTotalCount,
         ]);
     }
+
+    public function actionSearch($q)
+    {
+        $products = Produto::find()->where(['like', 'nome', $q])->all();
+        $result = [];
+        foreach ($products as $product) {
+            $result[] = [
+                'nome' => $product->nome,
+                'url' => Url::to(['produto/product-details', 'id' => $product->id]),
+            ];
+        }
+
+        return $this->asJson($result);
+    }
+
+
 
     /**
      * Finds the Produto model based on its primary key value.

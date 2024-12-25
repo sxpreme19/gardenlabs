@@ -9,8 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $descricao
- * @property float $preco
- * @property string $duracao
+ * @property int $disponivel
  */
 class Metodopagamento extends \yii\db\ActiveRecord
 {
@@ -28,7 +27,8 @@ class Metodopagamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao'], 'required'],
+            [['descricao', 'disponivel'], 'required'],
+            [['disponivel'], 'boolean'],
             [['descricao'], 'string', 'max' => 45],
         ];
     }
@@ -41,8 +41,7 @@ class Metodopagamento extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'descricao' => 'Descricao',
-            'preco' => 'Preco',
-            'duracao' => 'Duracao',
+            'disponivel' => 'Disponivel',
         ];
     }
 }

@@ -68,7 +68,7 @@
                         <p><strong>Subtotal:</strong></p>
                     </div>
                     <div class="col-6 text-end">
-                        <p><?= number_format($invoice->total - $shippingMethod->preco, 2) ?>€</p>
+                        <p><?= number_format($invoice->total - $invoice->preco_envio, 2) ?>€</p>
                     </div>
                 </div>
                 <div class="row mb-4">
@@ -76,7 +76,7 @@
                         <p><strong>Shipping Cost:</strong></p>
                     </div>
                     <div class="col-6 text-end">
-                        <p><?= $shippingMethod->preco == 0 ? 'Free' : number_format($shippingMethod->preco, 2) . '€' ?></p>
+                        <p><?= $invoice->preco_envio == 0 ? 'Free' : number_format($invoice->preco_envio, 2) . '€' ?></p>
                     </div>
                 </div>
                 <div class="row">

@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Fatura;
 use common\models\FaturaSearch;
+use common\models\Linhafatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -114,8 +115,9 @@ class FaturaController extends Controller
      */
     public function actionDelete($id, $userprofile_id)
     {
-        $this->findModel($id, $userprofile_id)->delete();
-
+        $model = $this->findModel($id, $userprofile_id);
+        Linhafatura::deleteAll(['fatura_id' => $model->id]);
+        $model->delete();
         return $this->redirect(['index']);
     }
 

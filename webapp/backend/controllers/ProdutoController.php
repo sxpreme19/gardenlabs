@@ -143,7 +143,7 @@ class ProdutoController extends Controller
 
         $hasInvoices = Linhafatura::find()->where(['product_id' => $id])->exists();
         if ($hasInvoices) {
-            Yii::$app->session->setFlash('error', 'This product cannot be deleted because it isssssssssssssssssssssssssssssssssssssssssss associated with invoices.');
+            Yii::$app->session->setFlash('error', 'This product cannot be deleted because it is associated with invoices.');
             return $this->redirect(['index']);
         }
 

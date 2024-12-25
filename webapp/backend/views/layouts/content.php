@@ -64,8 +64,12 @@ use yii\bootstrap4\Breadcrumbs;
                             Invoice Line Management
                         <?php elseif ($this->title == "Expedition Methods"): ?>
                             Expedition Method Management
+                        <?php elseif ($this->title == "Create Expedition Method"): ?>
+                            <h5>Non available Expedition Methods <strong>wont</strong> be displayed in the shop</h5>
                         <?php elseif ($this->title == "Payment Methods"): ?>
                             Payment Method Management
+                        <?php elseif ($this->title == "Create Payment Method"): ?>
+                            <h5>Non available Payment Methods <strong>wont</strong> be displayed in the shop</h5>
                         <?php endif; ?>
                     </h1>
                 </div><!-- /.col -->

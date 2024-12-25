@@ -48,6 +48,28 @@ if (!Yii::$app->user->isGuest) {
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
+    <style>
+        #search-results {
+            position: absolute;
+            z-index: 1000;
+            max-height: 300px;
+            display: block !important;
+            overflow-y: auto;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #search-results li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #search-results li a {
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -85,7 +107,7 @@ if (!Yii::$app->user->isGuest) {
                     <div class="text-slid-box">
                         <div id="offer-box" class="carouselTicker">
                             <ul class="offer-box">
-                                <li><i class="fas fa-certificate" ></i> New Arrivals! Check out our latest products!</li>
+                                <li><i class="fas fa-certificate"></i> New Arrivals! Check out our latest products!</li>
                                 <li><i class="fas fa-comment-dots"></i> See Why Our Customers Love Our Products!</li>
                                 <li><i class="fas fa-sync-alt"></i> Our Best-Sellers Are Back in Stock – Shop Now!</li>
                                 <li><i class="fas fa-credit-card"></i> Pay Easily with Multiple Payment Options!</li>
@@ -208,9 +230,10 @@ if (!Yii::$app->user->isGuest) {
         <div class="container">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                <input type="text" class="form-control" placeholder="Search">
+                <input type="text" id="search-input" class="form-control" placeholder="Search" onkeyup="searchProducts(this.value)">
                 <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
             </div>
+            <ul class="dropdown-menu" id="search-results" style="display: none; position: absolute; width: 100%;"></ul>
         </div>
     </div>
     <!-- End Top Search -->
@@ -305,6 +328,54 @@ if (!Yii::$app->user->isGuest) {
 
     <?php $this->endBody() ?>
 </body>
+<script>
+    let debounceTimeout;
+
+    function searchProducts(query) {
+        clearTimeout(debounceTimeout);
+
+        if (!query.trim()) {
+            const resultContainer = document.getElementById("search-results");
+            resultContainer.style.display = "none";
+            return;
+        }
+
+        debounceTimeout = setTimeout(() => {
+            const newUrl = `/gardenlabs/webapp/frontend/web/index.php?r=produto/search&q=${encodeURIComponent(query)}`;
+            window.history.pushState({
+                path: newUrl
+            }, '', newUrl);
+
+            fetch(newUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Search results:", data); // Log the response data
+
+                    const resultContainer = document.getElementById("search-results");
+                    resultContainer.innerHTML = "";
+
+                    if (data.length > 0) {
+                        resultContainer.style.display = "block";
+                        data.forEach(product => {
+                            const item = document.createElement("li");
+                            item.innerHTML = `<a href="${product.url}">${product.nome}</a>`;
+                            resultContainer.appendChild(item);
+                        });
+                    } else {
+                        resultContainer.innerHTML = "<li>No results found.</li>";
+                        resultContainer.style.display = "block";
+                    }
+                })
+
+                .catch(error => {
+                    console.error("Error fetching products:", error);
+                    const resultContainer = document.getElementById("search-results");
+                    resultContainer.innerHTML = "<li>Unable to fetch results. Please try again later.</li>";
+                    resultContainer.style.display = "block";
+                });
+        }, 300);
+    }
+</script>
 
 </html>
 <?php $this->endPage();
