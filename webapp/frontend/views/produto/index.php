@@ -140,11 +140,8 @@ use yii\widgets\LinkPager;
                 </div>
                 <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
                     <div class="product-categoria">
-                        <div class="search-product">
-                            <form action="#">
-                                <input class="form-control" placeholder="Search here..." type="text">
-                                <button type="submit"> <i class="fa fa-search"></i> </button>
-                            </form>
+                        <div class="bg-black text-center py-2 mb-4 ">
+                            <h2 class="text-white" style="font-size: 1.5rem;">Filters</h2>
                         </div>
                         <div class="filter-sidebar-left">
                             <div class="title-left">

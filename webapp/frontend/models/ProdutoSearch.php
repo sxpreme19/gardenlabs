@@ -75,6 +75,11 @@ class ProdutoSearch extends Produto
             $query->andWhere(['between', 'preco', $minPrice, $maxPrice]);
         }
 
+        if (!empty($params['search'])) {
+            $search = $params['search'];
+            $query->andWhere(['like', 'nome', $search]);
+        }
+
         $query->groupBy(['produto.id']);
 
         $dataProvider = new ActiveDataProvider([

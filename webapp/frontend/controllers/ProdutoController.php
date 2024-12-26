@@ -67,10 +67,14 @@ class ProdutoController extends Controller
      *
      * @return string
      */
-    public function actionIndex($sort = null, $categoria_id = null, $minPrice = null, $maxPrice = null)
+    public function actionIndex($sort = null, $categoria_id = null, $minPrice = null, $maxPrice = null,$search = null)
     {
         $searchModel = new ProdutoSearch();
         $queryParams = $this->request->queryParams;
+
+        if ($search !== null) {
+            $queryParams['search'] = $search;
+        }
 
         if ($categoria_id !== null) {
             $queryParams['categoria_id'] = $categoria_id;
@@ -232,9 +236,14 @@ class ProdutoController extends Controller
         $products = Produto::find()->where(['like', 'nome', $q])->all();
         $result = [];
         foreach ($products as $product) {
+            $firstImage = null;
+            if (!empty($product->imagems)) {
+                $firstImage = $product->imagems[0];
+            }
             $result[] = [
                 'nome' => $product->nome,
                 'url' => Url::to(['produto/product-details', 'id' => $product->id]),
+                'image_url' => $firstImage ? Url::to('../../backend/web/uploads/' . $firstImage->filename) : Url::to('@web/images/no-image-available.png'),
             ];
         }
 

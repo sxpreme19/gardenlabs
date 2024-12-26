@@ -12,7 +12,6 @@ use yii\bootstrap5\Nav;
 
 AppAsset::register($this);
 
-
 if (!Yii::$app->user->isGuest) {
     $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
     $totalUserCartLines = count($userCart->linhacarrinhoprodutos);
@@ -51,25 +50,88 @@ if (!Yii::$app->user->isGuest) {
 
     <style>
         #search-results {
-            position: absolute;
-            z-index: 1000;
+            display: none;
             max-height: 300px;
-            display: block !important;
             overflow-y: auto;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: absolute;
+            width: 60%;
+            z-index: 1000;
+            padding: 10px;
+            margin-top: 5px;
+            transition: all 0.3s ease;
         }
-
         #search-results li {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border-radius: 8px;
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
         }
-
-        #search-results li a {
-            color: #000;
+        #search-results li:hover {
+            background-color: #f0f0f0;
+            transform: translateX(5px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        #search-results a {
             text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        #search-results img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+        }
+        #search-results span {
+            font-size: 16px;
+            color: #555;
+        }
+        #search-results li::after {
+            content: "→";
+            margin-left: 10px;
+            font-size: 18px;
+            color: #888;
+            transition: transform 0.3s ease;
+        }
+        #search-results li:hover::after {
+            transform: translateX(8px);
+        }
+        #search-results li.no-results {
+            color: #888;
+            font-style: italic;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            #search-results {
+                max-height: 250px;
+                padding: 8px;
+            }
+
+            #search-results li {
+                padding: 12px 15px;
+            }
+
+            #search-results a {
+                font-size: 14px;
+            }
         }
     </style>
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -230,10 +292,10 @@ if (!Yii::$app->user->isGuest) {
         <div class="container">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                <input type="text" id="search-input" class="form-control" placeholder="Search" onkeyup="searchProducts(this.value)">
+                <input type="text" id="search-input" class="form-control" placeholder="Search products..." onkeyup="searchProducts(this.value)">
                 <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
             </div>
-            <ul class="dropdown-menu" id="search-results" style="display: none; position: absolute; width: 100%;"></ul>
+            <ul id="search-results" style="display: none;"></ul>
         </div>
     </div>
     <!-- End Top Search -->
@@ -336,7 +398,9 @@ if (!Yii::$app->user->isGuest) {
 
         if (!query.trim()) {
             const resultContainer = document.getElementById("search-results");
-            resultContainer.style.display = "none";
+            if (resultContainer) {
+                resultContainer.style.display = "none";
+            }
             return;
         }
 
@@ -349,30 +413,46 @@ if (!Yii::$app->user->isGuest) {
             fetch(newUrl)
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Search results:", data); // Log the response data
-
                     const resultContainer = document.getElementById("search-results");
+
+                    if (!resultContainer) {
+                        console.error("Search results container not found.");
+                        return;
+                    }
+
                     resultContainer.innerHTML = "";
 
                     if (data.length > 0) {
-                        resultContainer.style.display = "block";
                         data.forEach(product => {
                             const item = document.createElement("li");
-                            item.innerHTML = `<a href="${product.url}">${product.nome}</a>`;
+                            item.innerHTML = `
+                                <a href="${product.url}">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <img src="${product.image_url}" alt="${product.nome}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                                        <span>${product.nome}</span>
+                                    </div>
+                                </a>
+                            `;
                             resultContainer.appendChild(item);
                         });
+
+                        resultContainer.style.display = "block";
                     } else {
                         resultContainer.innerHTML = "<li>No results found.</li>";
                         resultContainer.style.display = "block";
                     }
-                })
 
+                    console.log("Updated search results:", resultContainer.innerHTML);
+                })
                 .catch(error => {
                     console.error("Error fetching products:", error);
                     const resultContainer = document.getElementById("search-results");
-                    resultContainer.innerHTML = "<li>Unable to fetch results. Please try again later.</li>";
-                    resultContainer.style.display = "block";
+                    if (resultContainer) {
+                        resultContainer.innerHTML = "<li>Unable to fetch results. Please try again later.</li>";
+                        resultContainer.style.display = "block";
+                    }
                 });
+
         }, 300);
     }
 </script>

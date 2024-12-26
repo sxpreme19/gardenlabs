@@ -131,17 +131,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays user control page.
-     *
-     * @return string
-     */
-    public function actionUserControl()
-    {
-        $registeredUsers = User::find()->count();
-        return $this->render('user-control',['registeredUsers' => $registeredUsers]);
-    }
-
-    /**
      * Logout action.
      *
      * @return Response

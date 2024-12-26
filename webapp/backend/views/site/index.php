@@ -22,6 +22,39 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         </div>
     </div>
     <div class="row">
+        <?php foreach ($roleData as $role => $userCount): ?>
+            <?php if ($role == 'admin'): ?>
+                <div class="col-12 col-sm-6 col-md-2">
+                    <?= \hail812\adminlte\widgets\InfoBox::widget([
+                        'text' => $role,
+                        'number' => $userCount,
+                        'icon' => 'fas fa-user',
+                        'theme' => 'gradient-danger',
+                    ]) ?>
+                </div>
+                <?php elseif($role == 'manager' || $role == 'provider'): ?>
+                    <div class="col-12 col-sm-6 col-md-2">
+                    <?= \hail812\adminlte\widgets\InfoBox::widget([
+                        'text' => $role,
+                        'number' => $userCount,
+                        'icon' => 'fas fa-user',
+                        'theme' => 'gradient-warning',
+                    ]) ?>
+                </div>
+                <?php else: ?>
+                    <div class="col-12 col-sm-6 col-md-2">
+                    <?= \hail812\adminlte\widgets\InfoBox::widget([
+                        'text' => $role,
+                        'number' => $userCount,
+                        'icon' => 'fas fa-user',
+                        'theme' => 'gradient-info',
+                    ]) ?>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+    </div>
+    <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
             <?= \hail812\adminlte\widgets\InfoBox::widget([
                 'text' => 'Total Products',
