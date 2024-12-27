@@ -10,9 +10,9 @@ use yii\web\ForbiddenHttpException;
 /**
  * Default controller for the `api` module
  */
-class LinhacarrinhoservicoController extends ActiveController
+class ReviewController extends ActiveController
 {
-    public $modelClass = 'common\models\Linhacarrinhoservico';
+    public $modelClass = 'common\models\Review';
 
     public function behaviors()
     {
