@@ -83,7 +83,7 @@ class FavoritoController extends Controller
         if (!$existingWishlistItem) {
             $wishlistItem->save();
             Yii::$app->session->setFlash('success', 'Product added to your wishlist.');
-            return $this->redirect(['produto/index']);
+            return $this->redirect(['favorito/index']);
         } else {
             Yii::$app->session->setFlash('info', 'This product is already in your wishlist.');
             return $this->redirect(['produto/product-details','id'=>$productId]);

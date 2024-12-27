@@ -110,12 +110,10 @@
                                 <div class="mask-icon">
                                     <ul>
                                         <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $bestseller->id]) ?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                        <?php if ($userWishlistIds != null): ?>
-                                            <?php if (in_array($bestseller->id, $userWishlistIds)): ?>
-                                                <li><a href="<?= yii\helpers\Url::to(['favorito/delete', 'productId' => $bestseller->id]) ?>" data-toggle="tooltip" data-placement="right" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
-                                            <?php else: ?>
-                                                <li><a href="<?= yii\helpers\Url::to(['favorito/add-to-wishlist', 'productId' => $bestseller->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                            <?php endif; ?>
+                                        <?php if ($userWishlistIds != null && in_array($bestseller->id, $userWishlistIds)): ?>
+                                            <li><a href="<?= yii\helpers\Url::to(['favorito/delete', 'productId' => $bestseller->id]) ?>" data-toggle="tooltip" data-placement="right" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                        <?php else: ?>
+                                            <li><a href="<?= yii\helpers\Url::to(['favorito/add-to-wishlist', 'productId' => $bestseller->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                         <?php endif; ?>
                                     </ul>
                                     <a class="cart" href="<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $bestseller->id, 'productQuantity' => 1]) ?>">Add to Cart</a>

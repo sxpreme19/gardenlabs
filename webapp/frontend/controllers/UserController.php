@@ -201,6 +201,11 @@ class UserController extends Controller
                     $favorito->delete();
                 }
             }
+            if($userProfile->reviews) {
+                foreach($userProfile->reviews as $review) {
+                    $review->delete();
+                }
+            }
             $userProfile->delete();
         }
 

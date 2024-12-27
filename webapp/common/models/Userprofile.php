@@ -78,4 +78,9 @@ class Userprofile extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Favorito::class, ['userprofile_id' => 'id']);
     }
+
+    public function getReviews()
+    {
+        return $this->hasMany(Review::class, ['userprofile_id' => 'id']);
+    }
 }

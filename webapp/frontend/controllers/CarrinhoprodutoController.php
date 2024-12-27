@@ -116,7 +116,7 @@ class CarrinhoprodutoController extends Controller
         $userCart->total = $cartTotal;
         $userCart->save();
 
-        return $this->redirect(['produto/index']);
+        return $this->redirect(['carrinhoproduto/index']);
     }
 
     public function actionUpdateQuantity()
