@@ -35,23 +35,37 @@ $this->params['breadcrumbs'][] = $this->title;
             'descricao',
             'preco',
             'quantidade',
-            'categoria_id',
-            'fornecedor_id',
+            [
+                'attribute' => 'categoria_id',
+                'value' => function ($model) {
+                    return $model->categoria ? $model->categoria->nome : null; 
+                },
+                'label' => 'Category',
+                'filter' => \yii\helpers\ArrayHelper::map(\common\models\Categoria::find()->all(), 'id', 'nome'),
+            ],
+            [
+                'attribute' => 'fornecedor_id',
+                'value' => function ($model) {
+                    return $model->fornecedor ? $model->fornecedor->nome : null;
+                },
+                'label' => 'Supplier',
+                'filter' => \yii\helpers\ArrayHelper::map(\common\models\Fornecedor::find()->all(), 'id', 'nome'),
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Produto $model, $key, $index, $column) {
                     if ($action === 'images') {
-                        return Url::toRoute(['produto/manage-images', 'id' => $model->id]); 
+                        return Url::toRoute(['produto/manage-images', 'id' => $model->id]);
                     }
                     return Url::toRoute([$action, 'id' => $model->id]);
                 },
-                'template' => '{view} {update} {delete} {images} ', 
+                'template' => '{view} {update} {delete} {images} ',
                 'buttons' => [
                     'images' => function ($url, $model) {
                         return Html::a('<i class="fas fa-images"></i>', $url, [
-                            'title' => 'Manage Images', 
-                            'style' => 'padding: 0; margin: 0; line-height: 2;', 
-                            'data-toggle' => 'tooltip', 
+                            'title' => 'Manage Images',
+                            'style' => 'padding: 0; margin: 0; line-height: 2;',
+                            'data-toggle' => 'tooltip',
                         ]);
                     },
                 ],

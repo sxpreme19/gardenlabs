@@ -18,7 +18,10 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'carrinhoproduto_id')->textInput() ?>
 
-        <?= $form->field($model, 'produto_id')->textInput() ?>
+        <?= $form->field($model, 'produto_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(\common\models\Produto::find()->all(), 'id', 'nome'),
+            ['prompt' => 'Select a Product']
+        ) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

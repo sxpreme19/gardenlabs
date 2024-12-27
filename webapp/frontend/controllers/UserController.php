@@ -184,11 +184,22 @@ class UserController extends Controller
         $userProfile = $user->userProfile;
 
         if ($userProfile) {
-            if ($userProfile->carrinho) {
-                $userProfile->carrinho->delete();
+            if ($userProfile->carrinhoproduto) {
+                $userProfile->carrinhoproduto->delete();
+                foreach ($userProfile->carrinhoproduto->linhacarrinhoprodutos as $linha) {
+                    $linha->delete();
+                }
             }
-            if ($userProfile->favorito) {
-                $userProfile->favorito->delete();
+            if ($userProfile->carrinhoservico) {
+                $userProfile->carrinhoservico->delete();
+                foreach ($userProfile->carrinhoservico->linhacarrinhoservicos as $linha) {
+                    $linha->delete();
+                }
+            }
+            if ($userProfile->favoritos) {
+                foreach ($userProfile->favoritos as $favorito) {
+                    $favorito->delete();
+                }
             }
             $userProfile->delete();
         }

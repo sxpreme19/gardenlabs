@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Service Carts Line', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Service Cart Line', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -32,7 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'preco',
             'carrinhoservico_id',
-            'servico_id',
+            [
+                'attribute' => 'servico_id', 
+                'value' => function ($model) {
+                    return $model->servico ? $model->servico->nome : 'No service';
+                },
+                'label' => 'Service', 
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Linhacarrinhoservico $model, $key, $index, $column) {

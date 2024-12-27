@@ -14,7 +14,10 @@ AppAsset::register($this);
 
 if (!Yii::$app->user->isGuest) {
     $userCart = Carrinhoproduto::findOne(['userprofile_id' => Yii::$app->user->identity->userProfile->id]);
-    $totalUserCartLines = count($userCart->linhacarrinhoprodutos);
+    if(isset($userCart->linhacarrinhoprodutos))
+        $totalUserCartLines = count($userCart->linhacarrinhoprodutos);
+    else 
+        $totalUserCartLines = 0;
 }
 ?>
 <?php $this->beginPage() ?>
@@ -224,11 +227,12 @@ if (!Yii::$app->user->isGuest) {
                     ]);
                     ?>
                 </div>
-                <?php if (!Yii::$app->user->isGuest): ?>
+                
                     <!-- Start Atribute Navigation -->
                     <div class="attr-nav">
                         <ul>
                             <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                            <?php if (!Yii::$app->user->isGuest): ?>
                             <li class="side-menu">
                                 <a href="#">
                                     <i class="fa fa-shopping-bag"></i>
@@ -236,11 +240,13 @@ if (!Yii::$app->user->isGuest) {
                                     <p>My Cart</p>
                                 </a>
                             </li>
+                            <?php endif;?>
                         </ul>
                     </div>
                     <!-- End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
+        <?php if (!Yii::$app->user->isGuest): ?>
             <div class="side">
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">

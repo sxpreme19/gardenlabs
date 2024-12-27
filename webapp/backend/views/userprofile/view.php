@@ -34,7 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'morada',
             'nif',
             'telefone',
-            'user_id',
+            [
+                'attribute' => 'user_id',
+                'label' => 'User', 
+                'value' => $model->user ? $model->user->username : 'N/A',
+            ],
         ],
     ]) ?>
 

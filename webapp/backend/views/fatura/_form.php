@@ -24,9 +24,16 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'nif_destinatario')->textInput() ?>
 
-        <?= $form->field($model, 'metodopagamento_id')->textInput() ?>
+        <?= $form->field($model, 'metodopagamento_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(\common\models\Metodopagamento::find()->all(), 'id', 'descricao'),
+            ['prompt' => 'Select Payment Method']
+        ) ?>
 
-        <?= $form->field($model, 'metodoexpedicao_id')->textInput() ?>
+        <?= $form->field($model, 'metodoexpedicao_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(\common\models\Metodoexpedicao::find()->all(), 'id', 'descricao'),
+            ['prompt' => 'Select Shipping Method']
+        ) ?>
+
 
         <?= $form->field($model, 'userprofile_id')->textInput() ?>
 

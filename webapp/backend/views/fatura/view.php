@@ -37,8 +37,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'telefone_destinatario',
             'nif_destinatario',
             'preco_envio',
-            'metodopagamento_id',
-            'metodoexpedicao_id',
+            [
+                'attribute' => 'metodopagamento_id',
+                'value' => $model->metodopagamento ? $model->metodopagamento->descricao : null,
+                'label' => 'Payment Method',
+            ],
+            [
+                'attribute' => 'metodoexpedicao_id',
+                'value' => $model->metodoexpedicao ? $model->metodoexpedicao->descricao : null, 
+                'label' => 'Shipping Method',
+            ],
             'userprofile_id',
         ],
     ]) ?>

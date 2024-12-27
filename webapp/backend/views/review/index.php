@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'conteudo',
             'datahora',
             'avaliacao',
-            'servico_id',
-            'produto_id',
+            //'servico_id',
+            //'produto_id',
             'userprofile_id',
             [
                 'class' => ActionColumn::className(),

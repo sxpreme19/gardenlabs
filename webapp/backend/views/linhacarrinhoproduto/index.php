@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Product Cart Line', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,12 +34,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'quantidade',
             'precounitario',
             'carrinhoproduto_id',
-            'produto_id',
+            [
+                'attribute' => 'produto_id', 
+                'value' => function ($model) {
+                    return $model->produto ? $model->produto->nome : 'No product';
+                },
+                'label' => 'Product', 
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Linhacarrinhoproduto $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

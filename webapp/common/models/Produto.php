@@ -71,6 +71,16 @@ class Produto extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for Fornecedor.
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFornecedor()
+    {
+        return $this->hasOne(Fornecedor::class, ['id' => 'fornecedor_id']);
+    }
+
+    /**
      * Gets query for [[Imagems]].
      *
      * @return \yii\db\ActiveQuery

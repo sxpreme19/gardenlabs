@@ -27,7 +27,13 @@
 
                 'id',
                 'filename',
-                'produto_id',
+                [
+                    'attribute' => 'produto_id',
+                    'value' => function ($model) { 
+                        return $model->produto ? $model->produto->nome : null;
+                    },
+                    'label' => 'Product',
+                ],
                 [
                     'class' => ActionColumn::className(),
                     'urlCreator' => function ($action, Imagem $model, $key, $index, $column) {

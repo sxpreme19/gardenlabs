@@ -34,7 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'morada',
             'nif',
             'telefone',
-            'user_id',
+            [
+                'attribute' => 'user_id',
+                'label' => 'User', 
+                'value' => function ($model) {
+                    return $model->user ? $model->user->username : null; 
+                },
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Userprofile $model, $key, $index, $column) {
