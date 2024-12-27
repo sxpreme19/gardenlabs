@@ -8,6 +8,7 @@ use common\models\Fatura;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * LinhafaturaController implements the CRUD actions for Linhafatura model.
@@ -22,6 +23,21 @@ class LinhafaturaController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'view', 'create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin'],
+                        ],
+                        [
+                            'denyCallback' => function ($rule, $action) {
+                                throw new \yii\web\ForbiddenHttpException('You are not allowed to acess this page.');
+                            },
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

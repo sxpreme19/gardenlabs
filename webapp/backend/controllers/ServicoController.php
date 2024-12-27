@@ -8,6 +8,7 @@ use common\models\Carrinhoservico;
 use common\models\Linhacarrinhoservico;
 use common\models\Linhafatura;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +26,25 @@ class ServicoController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'view', 'create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'actions' => ['delete'],
+                            'allow' => true,
+                            'roles' => ['admin'],
+                        ],
+                        [
+                            'actions' => ['index', 'view', 'create', 'update'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                    'denyCallback' => function ($rule, $action) {
+                        throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
+                    },
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -127,7 +147,7 @@ class ServicoController extends Controller
      */
     public function actionDelete($id)
     {
-       $hasInvoices = Linhafatura::find()->where(['servico_id' => $id])->exists();
+        $hasInvoices = Linhafatura::find()->where(['servico_id' => $id])->exists();
         if ($hasInvoices) {
             Yii::$app->session->setFlash('error', 'This product cannot be deleted because it is associated with invoices.');
             return $this->redirect(['index']);

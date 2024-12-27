@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use backend\models\UploadForm;
 use yii\web\UploadedFile;
 use Yii;
+use yii\filters\AccessControl;
 
 /**
  * ImagemController implements the CRUD actions for Imagem model.
@@ -25,6 +26,25 @@ class ImagemController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'view', 'upload', 'delete'],
+                    'rules' => [
+                        [
+                            'actions' => ['delete'],
+                            'allow' => true,
+                            'roles' => ['admin'],
+                        ],
+                        [
+                            'actions' => ['index', 'view', 'upload', 'update'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                    'denyCallback' => function ($rule, $action) {
+                        throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
+                    },
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

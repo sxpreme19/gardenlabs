@@ -26,7 +26,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['login','error','index','logout'],
+                'only' => ['login', 'error', 'index', 'logout'],
                 'rules' => [
                     [
                         'allow' => false,
@@ -77,10 +77,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $roleCounts = (new \yii\db\Query())
-        ->select(['item_name AS role', 'COUNT(*) AS user_count'])
-        ->from('auth_assignment')  
-        ->groupBy('item_name')     
-        ->all();
+            ->select(['item_name AS role', 'COUNT(*) AS user_count'])
+            ->from('auth_assignment')
+            ->groupBy('item_name')
+            ->all();
 
         $roleData = [];
         foreach ($roleCounts as $role) {
@@ -93,16 +93,42 @@ class SiteController extends Controller
 
         $totalIncome = 0;
         $invoices = Fatura::find()->all();
-        foreach($invoices as $invoice) {
+        foreach ($invoices as $invoice) {
             $totalIncome += $invoice->total;
         }
-        return $this->render('index',[
-             'registeredUsers' => $registeredUsers,
-             'roleData' => $roleData,
-             'existingProducts' => $existingProducts,
-             'existingServices' => $existingServices,
-             'totalIncome' => $totalIncome,
-            ]);
+
+        $query = (new \yii\db\Query())
+            ->select(['produto_id', 'SUM(quantidade) AS total_quantity_sold'])
+            ->from('linhafatura') 
+            ->groupBy('produto_id')
+            ->orderBy(['total_quantity_sold' => SORT_DESC]) 
+            ->limit(10); 
+
+        $salesData = $query->all();
+
+        $productIds = array_column($salesData, 'produto_id');
+        $products = Produto::find()->where(['id' => $productIds])->all();
+
+        $labels = [];
+        $data = [];
+        foreach ($salesData as $sale) {
+            foreach ($products as $product) {
+                if ($product->id == $sale['produto_id']) {
+                    $labels[] = $product->nome; 
+                    $data[] = (int) $sale['total_quantity_sold'];
+                }
+            }
+        }
+
+        return $this->render('index', [
+            'registeredUsers' => $registeredUsers,
+            'roleData' => $roleData,
+            'existingProducts' => $existingProducts,
+            'existingServices' => $existingServices,
+            'totalIncome' => $totalIncome,
+            'labels' => $labels,
+            'data' => $data,
+        ]);
     }
 
     /**
@@ -122,7 +148,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
-        
+
         $model->password = '';
 
         return $this->render('login', [
