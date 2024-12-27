@@ -31,7 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'filename',
-            'produto_id',
+            [
+                'attribute' => 'produto_id',
+                'value' => $model->produto ? $model->produto->nome : null, 
+                'label' => 'Product',
+            ],
         ],
     ]) ?>
 

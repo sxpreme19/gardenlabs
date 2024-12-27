@@ -33,8 +33,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'conteudo',
             'datahora',
             'avaliacao',
-            'servico_id',
-            'produto_id',
+            [
+                'attribute' => 'servico_id',
+                'value' => $model->servico ? $model->servico->nome : null, 
+                'label' => 'Service',
+            ],
+            [
+                'attribute' => 'produto_id',
+                'value' => $model->produto ? $model->produto->nome : null, 
+                'label' => 'Product',
+            ],
         ],
     ]) ?>
 

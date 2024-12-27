@@ -32,7 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'preco',
             'carrinhoservico_id',
-            'servico_id',
+            [
+                'attribute' => 'servico_id',
+                'value' => function ($model) {
+                    return $model->servico ? $model->servico->nome : 'No service';
+                },
+                'label' => 'Service',
+            ],
         ],
     ]) ?>
 

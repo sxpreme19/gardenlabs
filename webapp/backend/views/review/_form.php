@@ -20,9 +20,15 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'avaliacao')->textInput() ?>
 
-        <?= $form->field($model, 'servico_id')->textInput() ?>
+        <?= $form->field($model, 'servico_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(\common\models\Servico::find()->all(), 'id', 'nome'), 
+            ['prompt' => 'Select Service']
+        ) ?>
 
-        <?= $form->field($model, 'produto_id')->textInput() ?>
+        <?= $form->field($model, 'produto_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(\common\models\Produto::find()->all(), 'id', 'nome'),
+            ['prompt' => 'Select Product']
+        ) ?>
 
         <?= $form->field($model, 'userprofile_id')->textInput() ?>
 

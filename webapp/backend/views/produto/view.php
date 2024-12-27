@@ -34,8 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'descricao',
             'preco',
             'quantidade',
-            'categoria_id',
-            'fornecedor_id',
+            [
+                'attribute' => 'categoria_id',
+                'value' => $model->categoria ? $model->categoria->nome : null, 
+                'label' => 'Category',
+            ],
+            [
+                'attribute' => 'fornecedor_id',
+                'value' => $model->fornecedor ? $model->fornecedor->nome : null, 
+                'label' => 'Supplier',
+            ],
         ],
     ]) ?>
 

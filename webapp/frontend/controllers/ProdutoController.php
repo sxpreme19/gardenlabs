@@ -210,13 +210,18 @@ class ProdutoController extends Controller
      */
     public function actionGallery()
     {
-        $products = Produto::find()
-            ->joinWith('imagems')
-            ->where(['not', ['imagem.id' => null]])
-            ->all();
+        $products = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->andWhere(['>', 'produto.quantidade', 0])->all();
 
         $categories = Categoria::find()->all();
-        $productTotalCount = Produto::find()->count();
+        $productTotalCount = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->andWhere(['>', 'produto.quantidade', 0])->count();
+
+        if (isset(Yii::$app->user->identity->userProfile)) {
+            $userProfile = Yii::$app->user->identity->userProfile;
+            $userWishlist = Favorito::find()->where(['userprofile_id' => $userProfile->user_id,])->with('produto')->all();
+            $userWishlistIds = ArrayHelper::getColumn($userWishlist, 'produto_id');
+        } else {
+            $userWishlistIds = null;
+        }
 
         $this->view->title = 'Gallery';
         $this->view->params['breadcrumbs'] = [
@@ -228,12 +233,13 @@ class ProdutoController extends Controller
             'products' => $products,
             'categories' => $categories,
             'productTotalCount' => $productTotalCount,
+            'userWishlistIds' => $userWishlistIds,
         ]);
     }
 
     public function actionSearch($q)
     {
-        $products = Produto::find()->where(['like', 'nome', $q])->all();
+        $products = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->andWhere(['>', 'produto.quantidade', 0])->andWhere(['like', 'nome', $q])->all();
         $result = [];
         foreach ($products as $product) {
             $firstImage = null;

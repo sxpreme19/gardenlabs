@@ -16,7 +16,10 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'carrinhoservico_id')->textInput() ?>
 
-        <?= $form->field($model, 'servico_id')->textInput() ?>
+        <?= $form->field($model, 'servico_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(\common\models\Servico::find()->all(), 'id', 'nome'),
+            ['prompt' => 'Select a Service']
+        ) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

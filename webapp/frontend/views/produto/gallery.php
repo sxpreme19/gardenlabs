@@ -45,9 +45,13 @@
                                 <div class="mask-icon">
                                     <ul>
                                         <li><a href=<?= yii\helpers\Url::to(['produto/product-details', 'id' => $product->id]) ?> data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                        <?php if ($userWishlistIds != null && in_array($product->id, $userWishlistIds)): ?>
+                                            <li><a href="<?= yii\helpers\Url::to(['favorito/delete', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                        <?php else: ?>
+                                            <li><a href="<?= yii\helpers\Url::to(['favorito/add-to-wishlist', 'productId' => $product->id]) ?>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                        <?php endif; ?>
                                     </ul>
-                                    <a class="cart" href="#">Add to Cart</a>
+                                    <a class="cart" href="<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
                                 </div>
                             </div>
                         </div>

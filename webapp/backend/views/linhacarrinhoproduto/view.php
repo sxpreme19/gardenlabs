@@ -33,7 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'quantidade',
             'precounitario',
             'carrinhoproduto_id',
-            'produto_id',
+            [
+                'attribute' => 'produto_id',
+                'value' => function ($model) {
+                    return $model->produto ? $model->produto->nome : 'No product';
+                },
+                'label' => 'Product',
+            ],
         ],
     ]) ?>
 

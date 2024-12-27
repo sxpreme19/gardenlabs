@@ -20,7 +20,10 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'telefone')->textInput() ?>
 
-        <?= $form->field($model, 'user_id')->textInput() ?>
+        <?= $form->field($model, 'user_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(\common\models\User::find()->all(), 'id', 'username'),
+            ['prompt' => 'Select User']
+        ) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
