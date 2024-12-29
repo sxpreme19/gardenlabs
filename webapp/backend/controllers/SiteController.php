@@ -102,7 +102,7 @@ class SiteController extends Controller
             ->from('linhafatura') 
             ->groupBy('produto_id')
             ->orderBy(['total_quantity_sold' => SORT_DESC]) 
-            ->limit(10); 
+            ->limit(5); 
 
         $salesData = $query->all();
 

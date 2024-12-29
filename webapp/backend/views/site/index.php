@@ -94,6 +94,8 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             }]
         };
 
+        const labelCount = chartData.labels.length;
+
         new Chart(ctx, {
             type: 'bar',
             data: chartData,
@@ -107,7 +109,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Top 10 Most Sold Products', 
+                        text: `Top ${labelCount} Most Sold Products`, 
                         font: {
                             size: 18, 
                             weight: 'bold' 
