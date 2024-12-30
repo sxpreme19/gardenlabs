@@ -1,5 +1,5 @@
-psi_project.gardenlabs.test.app-core-1.6.1-0 C:\Users\bdsbo\.gradle\caches\transforms-4\6830a08a238b54d0dac17148d16fdb04\transformed\core-1.6.1\res
-psi_project.gardenlabs.test.app-androidTest-1 C:\projeto\gardenlabs\mobileapp\app\build\generated\res\resValues\androidTest\debug
-psi_project.gardenlabs.test.app-mergeDebugAndroidTestResources-2 C:\projeto\gardenlabs\mobileapp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-psi_project.gardenlabs.test.app-mergeDebugAndroidTestResources-3 C:\projeto\gardenlabs\mobileapp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-psi_project.gardenlabs.test.app-debugAndroidTest-4 C:\projeto\gardenlabs\mobileapp\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
+com.example.amsi_project.test.app-core-1.6.1-0 C:\Users\tomas\.gradle\caches\transforms-4\6830a08a238b54d0dac17148d16fdb04\transformed\core-1.6.1\res
+com.example.amsi_project.test.app-androidTest-1 C:\wamp64\www\gardenlabs\mobileapp\app\build\generated\res\resValues\androidTest\debug
+com.example.amsi_project.test.app-mergeDebugAndroidTestResources-2 C:\wamp64\www\gardenlabs\mobileapp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.example.amsi_project.test.app-mergeDebugAndroidTestResources-3 C:\wamp64\www\gardenlabs\mobileapp\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.example.amsi_project.test.app-debugAndroidTest-4 C:\wamp64\www\gardenlabs\mobileapp\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

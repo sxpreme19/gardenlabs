@@ -1,2 +1,2 @@
-psi_project.gardenlabs.test:style/WhiteBackgroundTheme = 0x7f010001
-psi_project.gardenlabs.test:style/WhiteBackgroundDialogTheme = 0x7f010000
+amsi.project.test:style/WhiteBackgroundTheme = 0x7f010001
+amsi.project.test:style/WhiteBackgroundDialogTheme = 0x7f010000

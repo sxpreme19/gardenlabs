@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="psi_project.gardenlabs"
+    package="amsi.project"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -8,11 +8,14 @@
         android:minSdkVersion="24"
         android:targetSdkVersion="34" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <permission
-        android:name="psi_project.gardenlabs.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="amsi.project.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="psi_project.gardenlabs.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="amsi.project.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:allowBackup="true"
@@ -21,20 +24,36 @@
         android:debuggable="true"
         android:extractNativeLibs="false"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/miat"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/miat"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/Theme.Gardenlabs" >
+        android:theme="@style/Base.Theme.GardenLabs"
+        android:usesCleartextTraffic="true" >
         <activity
-            android:name="psi_project.gardenlabs.MainActivity"
-            android:exported="false" />
+            android:name="com.example.amsi_project.DetalhesLivroActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.amsi_project.MainActivity" />
         <activity
-            android:name="psi_project.gardenlabs.RegisterActivity"
-            android:exported="false" />
+            android:name="com.example.amsi_project.MenuMainActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.GardenLabs.NoActionBar" />
         <activity
-            android:name="psi_project.gardenlabs.LoginActivity"
+            android:name="com.example.amsi_project.DetalhesDinamicoActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.amsi_project.MainActivity" />
+        <activity
+            android:name="com.example.amsi_project.DetalhesEstaticoActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.amsi_project.MainActivity" />
+        <activity
+            android:name="com.example.amsi_project.MainActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.example.amsi_project.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +64,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="psi_project.gardenlabs.androidx-startup"
+            android:authorities="amsi.project.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

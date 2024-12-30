@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "psi_project.gardenlabs",
+  "applicationId": "amsi.project",
   "variantName": "debug",
   "elements": []
 }

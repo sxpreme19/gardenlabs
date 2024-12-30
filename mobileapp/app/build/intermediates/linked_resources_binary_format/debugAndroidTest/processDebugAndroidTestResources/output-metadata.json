@@ -4,7 +4,7 @@
     "type": "LINKED_RESOURCES_BINARY_FORMAT",
     "kind": "Directory"
   },
-  "applicationId": "psi_project.gardenlabs.test",
+  "applicationId": "amsi.project.test",
   "variantName": "debugAndroidTest",
   "elements": [
     {

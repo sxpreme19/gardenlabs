@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "psi_project.gardenlabs.test.app-mergeDebugAndroidTestResources-2:/values-v21/values-v21.xml",
+            "outputFile": "com.example.amsi_project.test.app-mergeDebugAndroidTestResources-2:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\bdsbo\\.gradle\\caches\\transforms-4\\6830a08a238b54d0dac17148d16fdb04\\transformed\\core-1.6.1\\res\\values-v21\\values.xml",
+                    "source": "C:\\Users\\tomas\\.gradle\\caches\\transforms-4\\6830a08a238b54d0dac17148d16fdb04\\transformed\\core-1.6.1\\res\\values-v21\\values.xml",
                     "from": {
                         "startLines": "4,13",
                         "startColumns": "0,0",

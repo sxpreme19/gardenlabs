@@ -4,7 +4,7 @@
     "type": "PACKAGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "psi_project.gardenlabs.test",
+  "applicationId": "amsi.project.test",
   "variantName": "debugAndroidTest",
   "elements": [
     {

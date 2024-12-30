@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "psi_project.gardenlabs.app-mergeDebugResources-29:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
+            "outputFile": "com.example.amsi_project.app-mergeDebugResources-30:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\bdsbo\\.gradle\\caches\\8.9\\transforms\\1ad575f43947b03a783ce6261c36d507\\transformed\\material-1.12.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
+                    "source": "C:\\Users\\tomas\\.gradle\\caches\\transforms-4\\462e02600b56a66f8051426fdb1abe8f\\transformed\\material-1.12.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

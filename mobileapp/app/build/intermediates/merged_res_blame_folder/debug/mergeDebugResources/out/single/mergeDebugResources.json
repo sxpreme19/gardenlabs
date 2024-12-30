@@ -1,106 +1,286 @@
 [
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/layout_activity_main.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/layout/activity_main.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_add.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_add.png"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_search.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_search.png"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_email.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_email.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_ic_launcher_background.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/drawable/ic_launcher_background.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_menu_main.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/activity_menu_main.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_baseline_account_circle_24.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/drawable/baseline_account_circle_24.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_dinamico.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/fragment_dinamico.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_lista.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_lista.png"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable_logoipl.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable/logoipl.png"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_main.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/menu/menu_main.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/layout_activity_login.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/layout/activity_login.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_estatico.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/fragment_estatico.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_baseline_home_24.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/drawable/baseline_home_24.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_lista.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_lista.png"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/xml_backup_rules.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/xml/backup_rules.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/layout_activity_register.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/layout/activity_register.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_save.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_save.png"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_save.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_save.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/layout_fragment_services.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/layout/fragment_services.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_delete.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_delete.png"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/layout_fragment_home.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/layout/fragment_home.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_main.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/activity_main.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_baseline_art_track_24.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/drawable/baseline_art_track_24.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_email.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_email.png"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/xml_data_extraction_rules.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/xml/data_extraction_rules.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/layout_nav_header_main.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/nav_header_main.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_detalhes_livro.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/activity_detalhes_livro.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/menu_bottom_nav_menu.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/menu/bottom_nav_menu.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_search.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_search.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/layout_fragment_profile.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/layout/fragment_profile.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_save.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_save.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_email.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_email.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_detalhes_dinamico.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/activity_detalhes_dinamico.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_email.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_email.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_pesquisa.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/menu/menu_pesquisa.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_remover.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/menu/menu_remover.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_lista.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_lista.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_grelha.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_grelha.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_search.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_search.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/xml_backup_rules.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_detalhes_estatico.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/activity_detalhes_estatico.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_grelha.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_grelha.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_grelha.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_grelha.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/layout_app_bar_main.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/app_bar_main.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_grelha.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_grelha.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_search.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_search.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_delete.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_delete.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_lista.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_lista.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_search.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_search.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable_miat.jpg.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable/miat.jpg"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable_programarandroid2.jpg.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable/programarandroid2.jpg"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_login.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_delete.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_delete.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_delete.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_delete.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_save.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_save.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_add.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_add.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_email.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_email.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_lista.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_lista.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_add.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_add.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/layout_item_lista_livro.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/item_lista_livro.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable_eminem.jpg.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable/eminem.jpg"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_lista_livros.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/fragment_lista_livros.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_add.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_add.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_save.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_save.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_add.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_add.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_grelha.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_grelha.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_delete.png.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_delete.png"
+    },
+    {
+        "merged": "com.example.amsi_project.app-debug-32:/drawable_programarandroid1.jpg.flat",
+        "source": "com.example.amsi_project.app-main-34:/drawable/programarandroid1.jpg"
     }
 ]

@@ -1,14 +1,28 @@
 <resources>
-    <string name="app_name">gardenlabs</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="register">Register</string>
-    <string name="login">Login</string>
-    <string name="confirmar_password">Confirmar password</string>
-    <string name="e_mail">E-mail</string>
-    <string name="home">Home</string>
-    <string name="services">Services</string>
-    <string name="profile">Profile</string>
+    <string name="app_name">Books</string>
+    <string name="txt_password">Introduza a password</string>
+    <string name="txt_email">Introduza email</string>
+    <string name="txt_btn_login">Login</string>
+    <string name="txt_welcome">Bem-vindo</string>
+    <string name="txt_btnEstatico">Ver detalhes livro estático</string>
+    <string name="txt_btnDinamico">Ver detalhes livro dinâmico</string>
+    <string name="txt_btnEmail">Enviar email</string>
+    <string name="txt_email_inval">Formato de email inválido</string>
+    <string name="txt_ncaracteres_insuf">Número de caracteres insuficiente</string>
+    <string name="txt_login_sucess">Login efetuado com sucesso</string>
+    <string name="txt_no_email">Sem email</string>
+    <string name="txt_dadinamico">Dados Dinâmicos</string>
+    <string name="txt_daestaticos">Dados Estáticos</string>
+    <string name="txt_title">Título: </string>
+    <string name="txt_serie">Série: </string>
+    <string name="txt_autor">Autor: </string>
+    <string name="txt_year">Ano: </string>
+    <string name="txt_menu_estatico">Livro estático</string>
+    <string name="txt_menu_dinamico">Livro dinâmico</string>
+    <string name="txt_menu_comunicar">Comunicar</string>
+    <string name="txt_menu_email">Enviar Email</string>
+    <string name="ndOpen">ndOpem</string>
+    <string name="ndClose">ndClose\n</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
