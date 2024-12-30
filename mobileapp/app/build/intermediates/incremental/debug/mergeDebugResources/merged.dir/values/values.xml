@@ -2011,6 +2011,8 @@
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string description="Content description for an icon that appears in the title area of a dialog" name="icon_content_description">Dialog Icon</string>
     <string name="item_view_role_description">Tab</string>
+    <string name="link_login">Already have an account? Login here</string>
+    <string name="link_register">Don\'t have an account? Register here</string>
     <string name="m3_exceed_max_badge_text_suffix" translatable="false"><ns2:g example="Some te" id="part of a long text">%1$s</ns2:g><ns2:g example="…" id="suffix">%2$s</ns2:g></string>
     <string name="m3_ref_typeface_brand_medium" translatable="false">sans-serif-medium</string>
     <string name="m3_ref_typeface_brand_regular" translatable="false">sans-serif</string>
@@ -2138,6 +2140,7 @@
     <string name="txt_btnEmail">Enviar email</string>
     <string name="txt_btnEstatico">Ver detalhes livro estático</string>
     <string name="txt_btn_login">Login</string>
+    <string name="txt_btn_register">Register</string>
     <string name="txt_dadinamico">Dados Dinâmicos</string>
     <string name="txt_daestaticos">Dados Estáticos</string>
     <string name="txt_email">Introduza email</string>
@@ -2152,6 +2155,8 @@
     <string name="txt_password">Introduza a password</string>
     <string name="txt_serie">Série: </string>
     <string name="txt_title">Título: </string>
+    <string name="txt_username">Introduza username</string>
+    <string name="txt_username_inval">Username inválido!</string>
     <string name="txt_welcome">Bem-vindo</string>
     <string name="txt_year">Ano: </string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>

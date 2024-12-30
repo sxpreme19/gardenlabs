@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.amsi_project.adaptadores.ListaLivrosAdaptador;
 import com.example.amsi_project.listeners.LivrosListener;
 import com.example.amsi_project.modelo.Book;
-import com.example.amsi_project.modelo.SingletonBookManager;
+import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -70,8 +70,8 @@ public class ListaLivrosFragment extends Fragment implements LivrosListener {
                 startActivityForResult(intent, ADD);
             }
         });
-        SingletonBookManager.getInstance(getContext()).setLivrosListener(this);
-        SingletonBookManager.getInstance(getContext()).getAllLivrosAPI(getContext());
+        SingletonGardenLabsManager.getInstance(getContext()).setLivrosListener(this);
+        SingletonGardenLabsManager.getInstance(getContext()).getAllLivrosAPI(getContext());
 
         return view;
     }
@@ -84,7 +84,7 @@ public class ListaLivrosFragment extends Fragment implements LivrosListener {
         if(resultCode==Activity.RESULT_OK) {
            // books = SingletonBookManager.getInstance(getContext()).getBooksBD();
             // lvLivros.setAdapter(new ListaLivrosAdaptador(books, getContext()));
-            SingletonBookManager.getInstance(getContext()).getAllLivrosAPI(getContext());
+            SingletonGardenLabsManager.getInstance(getContext()).getAllLivrosAPI(getContext());
             switch (requestCode) {
                 case ADD:
                     Toast.makeText(getContext(), "Livro adicionado com sucesso", Toast.LENGTH_LONG).show();
@@ -114,7 +114,7 @@ public class ListaLivrosFragment extends Fragment implements LivrosListener {
             @Override
             public boolean onQueryTextChange(String s) {
                 ArrayList<Book> tempLivros = new ArrayList<>();
-                for (Book l: SingletonBookManager.getInstance(getContext()).getBooksBD()){
+                for (Book l: SingletonGardenLabsManager.getInstance(getContext()).getBooksBD()){
                     if (l.getTitulo().toLowerCase().contains(s.toLowerCase()))
                         tempLivros.add(l);
                 }

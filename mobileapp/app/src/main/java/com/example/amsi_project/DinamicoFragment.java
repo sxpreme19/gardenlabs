@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.amsi_project.modelo.Book;
-import com.example.amsi_project.modelo.SingletonBookManager;
+import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ public class DinamicoFragment extends Fragment {
     }
 
     private void carregarLivro() {
-        ArrayList<Book> books = SingletonBookManager.getInstance(getContext()).getBooksBD();
+        ArrayList<Book> books = SingletonGardenLabsManager.getInstance(getContext()).getBooksBD();
         if(books.size()>0) {
             Book book = books.get(0);
             tvTitulo.setText(book.getTitulo());

@@ -3918,6 +3918,8 @@ string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string item_view_role_description
+string link_login
+string link_register
 string m3_exceed_max_badge_text_suffix
 string m3_ref_typeface_brand_medium
 string m3_ref_typeface_brand_regular
@@ -4037,6 +4039,7 @@ string txt_btnDinamico
 string txt_btnEmail
 string txt_btnEstatico
 string txt_btn_login
+string txt_btn_register
 string txt_dadinamico
 string txt_daestaticos
 string txt_email
@@ -4051,6 +4054,8 @@ string txt_no_email
 string txt_password
 string txt_serie
 string txt_title
+string txt_username
+string txt_username_inval
 string txt_welcome
 string txt_year
 style AlertDialog_AppCompat

@@ -35,22 +35,10 @@
             android:name="com.example.amsi_project.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.amsi_project.DetalhesLivroActivity"
-            android:exported="false"
-            android:parentActivityName="com.example.amsi_project.MainActivity" />
-        <activity
             android:name="com.example.amsi_project.MenuMainActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@style/Theme.GardenLabs.NoActionBar" />
-        <activity
-            android:name="com.example.amsi_project.DetalhesDinamicoActivity"
-            android:exported="false"
-            android:parentActivityName="com.example.amsi_project.MainActivity" />
-        <activity
-            android:name="com.example.amsi_project.DetalhesEstaticoActivity"
-            android:exported="false"
-            android:parentActivityName="com.example.amsi_project.MainActivity" />
         <activity
             android:name="com.example.amsi_project.MainActivity"
             android:exported="false"

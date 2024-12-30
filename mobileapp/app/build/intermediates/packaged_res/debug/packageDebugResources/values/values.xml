@@ -7,6 +7,8 @@
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">GardenLabs</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="link_login">Already have an account? Login here</string>
+    <string name="link_register">Don\'t have an account? Register here</string>
     <string name="ndClose">ndClose\n</string>
     <string name="ndOpen">ndOpem</string>
     <string name="txt_autor">Autor: </string>
@@ -14,6 +16,7 @@
     <string name="txt_btnEmail">Enviar email</string>
     <string name="txt_btnEstatico">Ver detalhes livro estático</string>
     <string name="txt_btn_login">Login</string>
+    <string name="txt_btn_register">Register</string>
     <string name="txt_dadinamico">Dados Dinâmicos</string>
     <string name="txt_daestaticos">Dados Estáticos</string>
     <string name="txt_email">Introduza email</string>
@@ -28,6 +31,8 @@
     <string name="txt_password">Introduza a password</string>
     <string name="txt_serie">Série: </string>
     <string name="txt_title">Título: </string>
+    <string name="txt_username">Introduza username</string>
+    <string name="txt_username_inval">Username inválido!</string>
     <string name="txt_welcome">Bem-vindo</string>
     <string name="txt_year">Ano: </string>
     <style name="Base.Theme.GardenLabs" parent="Theme.MaterialComponents.DayNight.DarkActionBar">

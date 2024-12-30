@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.amsi_project.listeners.LivroListener;
 import com.example.amsi_project.modelo.Book;
-import com.example.amsi_project.modelo.SingletonBookManager;
+import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DetalhesLivroActivity extends AppCompatActivity implements LivroListener {
@@ -34,7 +34,7 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
         setContentView(R.layout.activity_detalhes_livro);
 
         int id=getIntent().getIntExtra("ID", 0);
-        book = SingletonBookManager.getInstance(getApplicationContext()).getBook(id);
+        book = SingletonGardenLabsManager.getInstance(getApplicationContext()).getBook(id);
         etTitulo=findViewById(R.id.etTitulo);
         etSerie=findViewById(R.id.etSerie);
         etAutor=findViewById(R.id.etAutor);
@@ -45,7 +45,7 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
             carregarLivros();
         else setTitle("Novo livro");
 
-        SingletonBookManager.getInstance(getApplicationContext()).setLivroListener(this);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).setLivroListener(this);
 
         fabDetalhes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,7 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
                         finish();*/
-                        SingletonBookManager.getInstance(getApplicationContext()).editarLivroAPI(book, getApplicationContext());
+                        SingletonGardenLabsManager.getInstance(getApplicationContext()).editarLivroAPI(book, getApplicationContext());
                     }
                     else {
                         book = new Book(0,DEFAULT_IMG, Integer.parseInt(etAno.getText().toString()),
@@ -70,7 +70,7 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
                         finish();*/
-                        SingletonBookManager.getInstance(getApplicationContext()).adicionarLivroAPI(book, getApplicationContext());
+                        SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarLivroAPI(book, getApplicationContext());
                     }
                 }
             }
@@ -147,7 +147,7 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
                         finish();*/
-                        SingletonBookManager.getInstance(getApplicationContext()).removerLivroAPI(book, getApplicationContext());
+                        SingletonGardenLabsManager.getInstance(getApplicationContext()).removerLivroAPI(book, getApplicationContext());
                     }
                 })
                 .setNegativeButton("não :/", new DialogInterface.OnClickListener() {

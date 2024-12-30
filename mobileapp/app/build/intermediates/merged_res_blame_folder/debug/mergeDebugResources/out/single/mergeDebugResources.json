@@ -228,6 +228,10 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_lista.png"
     },
     {
+        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_login.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/activity_login.xml"
+    },
+    {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_delete.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_delete.png"
     },

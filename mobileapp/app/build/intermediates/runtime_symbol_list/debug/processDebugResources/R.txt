@@ -3917,6 +3917,8 @@ int string hello_blank_fragment 0x7f100034
 int string hide_bottom_view_on_scroll_behavior 0x7f100035
 int string icon_content_description 0x7f100036
 int string item_view_role_description 0x7f100037
+int string link_login 0x7f1000bf
+int string link_register 0x7f1000c0
 int string m3_exceed_max_badge_text_suffix 0x7f100038
 int string m3_ref_typeface_brand_medium 0x7f100039
 int string m3_ref_typeface_brand_regular 0x7f10003a
@@ -4036,6 +4038,7 @@ int string txt_btnDinamico 0x7f1000ab
 int string txt_btnEmail 0x7f1000ac
 int string txt_btnEstatico 0x7f1000ad
 int string txt_btn_login 0x7f1000ae
+int string txt_btn_register 0x7f1000c1
 int string txt_dadinamico 0x7f1000af
 int string txt_daestaticos 0x7f1000b0
 int string txt_email 0x7f1000b1
@@ -4050,6 +4053,8 @@ int string txt_no_email 0x7f1000b9
 int string txt_password 0x7f1000ba
 int string txt_serie 0x7f1000bb
 int string txt_title 0x7f1000bc
+int string txt_username 0x7f1000c2
+int string txt_username_inval 0x7f1000c3
 int string txt_welcome 0x7f1000bd
 int string txt_year 0x7f1000be
 int style AlertDialog_AppCompat 0x7f110000

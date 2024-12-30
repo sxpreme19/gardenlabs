@@ -30,12 +30,13 @@ class UserController extends ActiveController
         $password = Yii::$app->request->post('password');
         $email = Yii::$app->request->post('email');
 
-        $model = new $this->modelClass();
+        $model = new User();
         $model->username = $username;
         $model->email = $email;
         $model->setPassword($password);
         $model->status = 10;
         $model->generateAuthKey();
+        $model->generateEmailVerificationToken();
 
         if ($model->save()) {
             $auth = Yii::$app->authManager;
@@ -54,7 +55,6 @@ class UserController extends ActiveController
                     if ($userServiceCart->save()) {
                         return [
                             'message' => 'User registered successfully.',
-                            'user' => $model,
                         ];
                     }
                 }
@@ -72,8 +72,17 @@ class UserController extends ActiveController
     public function actionLogin()
     {
 
-        $username = Yii::$app->request->post('username');
-        $password = Yii::$app->request->post('password');
+        $requestData = Yii::$app->request->post();
+
+        $username = $requestData['username'] ?? null;
+        $password = $requestData['password'] ?? null;
+
+        if (!$username || !$password) {
+            return [
+                'message' => 'Login failed.',
+                'errors' => 'Missing username or password in POST data.',
+            ];
+        }
 
         $user = User::findOne(['username' => $username]);
 
@@ -96,7 +105,7 @@ class UserController extends ActiveController
 
         return [
             'message' => 'Login failed.',
-            'errors' => 'Invalid username or password.',
+            'errors' => $user->errors,
         ];
     }
 }

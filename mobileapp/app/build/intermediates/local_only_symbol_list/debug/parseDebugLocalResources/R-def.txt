@@ -77,6 +77,8 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name
 string hello_blank_fragment
+string link_login
+string link_register
 string ndClose
 string ndOpen
 string txt_autor
@@ -84,6 +86,7 @@ string txt_btnDinamico
 string txt_btnEmail
 string txt_btnEstatico
 string txt_btn_login
+string txt_btn_register
 string txt_dadinamico
 string txt_daestaticos
 string txt_email
@@ -98,6 +101,8 @@ string txt_no_email
 string txt_password
 string txt_serie
 string txt_title
+string txt_username
+string txt_username_inval
 string txt_welcome
 string txt_year
 style Base.Theme.GardenLabs

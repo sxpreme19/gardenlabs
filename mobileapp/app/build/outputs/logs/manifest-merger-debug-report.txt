@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:2:1-54:12
+ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:2:1-42:12
+INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:2:1-42:12
+INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:2:1-42:12
+INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:2:1-42:12
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\tomas\.gradle\caches\transforms-4\462e02600b56a66f8051426fdb1abe8f\transformed\material-1.12.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\tomas\.gradle\caches\transforms-4\0b64d0d661db4c8b67d2f58fbab394ae\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.7.0] C:\Users\tomas\.gradle\caches\transforms-4\dba2e01a8c76622737e536e03a8c294e\transformed\appcompat-resources-1.7.0\AndroidManifest.xml:2:1-7:12
@@ -68,8 +68,8 @@ ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:6
 	android:name
 		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:6:22-64
 application
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:8:5-52:19
-INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:8:5-52:19
+ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:8:5-40:19
+INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:8:5-40:19
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\tomas\.gradle\caches\transforms-4\462e02600b56a66f8051426fdb1abe8f\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\tomas\.gradle\caches\transforms-4\462e02600b56a66f8051426fdb1abe8f\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\tomas\.gradle\caches\transforms-4\0b64d0d661db4c8b67d2f58fbab394ae\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -116,64 +116,40 @@ ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:1
 		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:21:13-37
 	android:name
 		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:20:13-45
-activity#com.example.amsi_project.DetalhesLivroActivity
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:22:9-25:58
-	android:parentActivityName
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:25:13-55
+activity#com.example.amsi_project.MenuMainActivity
+ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:22:9-26:67
+	android:launchMode
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:25:13-43
 	android:exported
 		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:24:13-37
-	android:name
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:23:13-50
-activity#com.example.amsi_project.MenuMainActivity
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:26:9-30:67
-	android:launchMode
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:29:13-43
-	android:exported
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:28:13-37
 	android:theme
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:30:13-64
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:26:13-64
 	android:name
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:27:13-45
-activity#com.example.amsi_project.DetalhesDinamicoActivity
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:31:9-34:58
-	android:parentActivityName
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:34:13-55
-	android:exported
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:33:13-37
-	android:name
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:32:13-53
-activity#com.example.amsi_project.DetalhesEstaticoActivity
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:35:9-38:58
-	android:parentActivityName
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:38:13-55
-	android:exported
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:37:13-37
-	android:name
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:36:13-53
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:23:13-45
 activity#com.example.amsi_project.MainActivity
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:39:9-42:46
+ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:27:9-30:46
 	android:launchMode
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:42:13-43
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:30:13-43
 	android:exported
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:41:13-37
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:29:13-37
 	android:name
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:40:13-41
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:28:13-41
 activity#com.example.amsi_project.LoginActivity
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:43:9-51:20
+ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:31:9-39:20
 	android:exported
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:45:13-36
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:33:13-36
 	android:name
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:44:13-42
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:32:13-42
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:46:13-50:29
+ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:34:13-38:29
 action#android.intent.action.MAIN
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:47:17-69
+ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:35:17-69
 	android:name
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:47:25-66
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:35:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:49:17-77
+ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:37:17-77
 	android:name
-		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:49:27-74
+		ADDED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml:37:27-74
 uses-sdk
 INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\wamp64\www\gardenlabs\mobileapp\app\src\main\AndroidManifest.xml

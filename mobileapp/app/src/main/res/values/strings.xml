@@ -25,4 +25,9 @@
     <string name="ndClose">ndClose\n</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_username">Introduza username</string>
+    <string name="link_register">Don\'t have an account? Register here</string>
+    <string name="txt_btn_register">Register</string>
+    <string name="link_login">Already have an account? Login here</string>
+    <string name="txt_username_inval">Username inválido!</string>
 </resources>

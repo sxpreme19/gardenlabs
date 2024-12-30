@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,7 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.amsi_project.listeners.LoginListener;
-import com.example.amsi_project.modelo.SingletonBookManager;
+import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
 
@@ -35,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             return insets;
         });
 
-        SingletonBookManager.getInstance(getApplicationContext()).setLoginListener(this);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).setLoginListener(this);
 
         etEmail=findViewById(R.id.etEmail);
         etPassword=findViewById(R.id.etPassword);
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             return;
         }
 
-        SingletonBookManager.getInstance(getApplicationContext()).loginAPI(getApplicationContext(),email, passwrd);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).loginAPI(getApplicationContext(),email, passwrd);
         //Toast.makeText(this, getString(R.string.txt_login_sucess), Toast.LENGTH_SHORT).show();
         //Intent intent = new Intent(this, MainActivity.class);
         //Intent intent = new Intent(this, MenuMainActivity.class);
@@ -58,13 +57,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         //startActivity(intent);
         //finish();
     }
-
-    /*public boolean isEmailValid(String email) {
-        if (email==null)
-            return false;
-        return Patterns..matcher(email).matches();
-    }*/
-
 
     public boolean isPasswrdValid(String passwrd) {
         if (passwrd==null)

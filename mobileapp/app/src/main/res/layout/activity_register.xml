@@ -28,7 +28,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.15"
         android:ems="10"
-        android:hint="Username"
+        android:hint="@string/txt_username"
         android:inputType="textPersonName" />
 
     <EditText
@@ -60,7 +60,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.2"
         android:onClick="onClickRegister"
-        android:text="Register" />
+        android:text="@string/txt_btn_register" />
 
     <Space
         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:text="Already have an account? Login here"
+        android:text="@string/link_login"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="16sp"
         android:clickable="true"

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.amsi_project.modelo.Book;
-import com.example.amsi_project.modelo.SingletonBookManager;
+import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class DetalhesDinamicoActivity extends AppCompatActivity {
     }
 
     private void carregarLivro() {
-        ArrayList<Book> books = SingletonBookManager.getInstance(getApplicationContext()).getBooksBD();
+        ArrayList<Book> books = SingletonGardenLabsManager.getInstance(getApplicationContext()).getBooksBD();
         if(books.size()>0) {
             Book book = books.get(0);
             tvTitulo.setText(book.getTitulo());

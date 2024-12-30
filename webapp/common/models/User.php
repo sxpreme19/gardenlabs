@@ -225,18 +225,14 @@ class User extends ActiveRecord implements IdentityInterface
     {
         parent::afterSave($insert, $changedAttributes);
         $id = $this->id;
-        $titulo = $this->titulo;
-        $preco = $this->preco;
-        $descricao = $this->descricao;
-        $duracao = $this->duracao;
-        $prestador_id = $this->prestador_id;
+        $username = $this->username;
+        $email = $this->email;
+
         $myObj = new \stdClass();
         $myObj->id = $id;
-        $myObj->titulo = $titulo;
-        $myObj->descricao = $descricao;
-        $myObj->preco = $preco;
-        $myObj->duracao = $duracao;
-        $myObj->prestador_id = $prestador_id;
+        $myObj->username = $username;
+        $myObj->email = $email;
+
         
         $myJSON = json_encode($myObj);
         if ($insert)
