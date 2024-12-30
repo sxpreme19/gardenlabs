@@ -29,6 +29,12 @@
         android:theme="@style/Theme.Gardenlabs" >
         <activity
             android:name="psi_project.gardenlabs.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name="psi_project.gardenlabs.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name="psi_project.gardenlabs.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

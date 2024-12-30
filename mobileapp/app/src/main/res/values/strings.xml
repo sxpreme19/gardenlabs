@@ -6,4 +6,9 @@
     <string name="login">Login</string>
     <string name="confirmar_password">Confirmar password</string>
     <string name="e_mail">E-mail</string>
+    <string name="home">Home</string>
+    <string name="services">Services</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
