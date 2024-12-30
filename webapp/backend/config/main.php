@@ -18,6 +18,9 @@ return [
     ],
     'components' => [
         'request' => [
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
@@ -45,10 +48,18 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule','controller' => 'api/user'],
-                ['class' => 'yii\rest\UrlRule','controller' => 'api/userprofile'],
                 [
-                    'class' => 'yii\rest\UrlRule','controller' => 'api/servico',
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/user',
+                    'extraPatterns' => [
+                        'POST register' => 'register',
+                        'POST login' => 'login',
+                    ],
+                ],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/userprofile'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/servico',
                     'extraPatterns' => [
                         'GET count' => 'count',
                         'GET nomes' => 'nomes',
@@ -63,16 +74,17 @@ return [
                         '{id}' => '<id:\\d+>',
                         '{nomeproduto}' => '<nomeproduto:[\\w ]+>',
                         '{data_criacao}' => '<data_criacao:\\d{4}-\d{2}-\d{2}+>'
-                    ],    
+                    ],
                 ],
-                ['class' => 'yii\rest\UrlRule','controller' => 'api/carrinhoservico'],
-                ['class' => 'yii\rest\UrlRule','controller' => 'api/linhacarrinhoservico'],
-                ['class' => 'yii\rest\UrlRule','controller' => 'api/fatura'],
-                ['class' => 'yii\rest\UrlRule','controller' => 'api/linhafatura'],
-                ['class' => 'yii\rest\UrlRule','controller' => 'api/review'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/carrinhoservico'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/linhacarrinhoservico'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/favorito'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/fatura'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/linhafatura'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/review'],
             ],
         ],
-        
+
     ],
     'params' => $params,
 ];

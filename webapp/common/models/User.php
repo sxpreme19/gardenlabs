@@ -221,5 +221,43 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(UserProfile::class, ['user_id' => 'id']);
     }
 
-    
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $id = $this->id;
+        $titulo = $this->titulo;
+        $preco = $this->preco;
+        $descricao = $this->descricao;
+        $duracao = $this->duracao;
+        $prestador_id = $this->prestador_id;
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->titulo = $titulo;
+        $myObj->descricao = $descricao;
+        $myObj->preco = $preco;
+        $myObj->duracao = $duracao;
+        $myObj->prestador_id = $prestador_id;
+        
+        $myJSON = json_encode($myObj);
+        if ($insert)
+            $this->FazPublishNoMosquitto("UserCreate", $myJSON);
+        else
+            $this->FazPublishNoMosquitto("UserUpdate", $myJSON);
+    }
+
+    public function FazPublishNoMosquitto($canal,$msg)
+    {
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = ""; 
+        $password = ""; 
+        $client_id = "phpMQTT-publisher"; 
+        $mqtt = new \backend\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password)){
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        }else { 
+            file_put_contents("debug.output","Time out!"); 
+        }
+    }
 }

@@ -71,7 +71,6 @@ class SignupForm extends Model
             if ($userprofile->save()) {
                 $userProductCart = new Carrinhoproduto();
                 $userProductCart->userprofile_id = $userprofile->id;
-                var_dump($userProductCart);
                 if ($userProductCart->save()) {
                     $userServiceCart = new Carrinhoservico();
                     $userServiceCart->userprofile_id = $userprofile->id;
