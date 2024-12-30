@@ -3,6 +3,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">gardenlabs</string>
+    <string name="confirmar_password">Confirmar password</string>
+    <string name="e_mail">E-mail</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="profile">Profile</string>
+    <string name="register">Register</string>
+    <string name="services">Services</string>
+    <string name="username">Username</string>
     <style name="Base.Theme.Gardenlabs" parent="Theme.Material3.DayNight.NoActionBar">
         
         

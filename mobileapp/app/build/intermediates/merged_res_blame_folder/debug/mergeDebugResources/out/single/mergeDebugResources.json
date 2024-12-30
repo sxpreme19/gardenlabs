@@ -1,9 +1,5 @@
 [
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xxxhdpi/ic_launcher_round.webp"
-    },
-    {
         "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxhdpi_ic_launcher.webp.flat",
         "source": "psi_project.gardenlabs.app-main-33:/mipmap-xxhdpi/ic_launcher.webp"
     },
@@ -12,16 +8,12 @@
         "source": "psi_project.gardenlabs.app-main-33:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xhdpi/ic_launcher_round.webp"
-    },
-    {
         "merged": "psi_project.gardenlabs.app-debug-31:/layout_activity_main.xml.flat",
         "source": "psi_project.gardenlabs.app-main-33:/layout/activity_main.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
         "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxxhdpi_ic_launcher.webp.flat",
@@ -32,20 +24,16 @@
         "source": "psi_project.gardenlabs.app-main-33:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-mdpi/ic_launcher.webp"
-    },
-    {
         "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-mdpi_ic_launcher_round.webp.flat",
         "source": "psi_project.gardenlabs.app-main-33:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/drawable/ic_launcher_foreground.xml"
+        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_baseline_account_circle_24.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/drawable/baseline_account_circle_24.xml"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/xml_data_extraction_rules.xml.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/xml/data_extraction_rules.xml"
+        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/drawable/ic_launcher_foreground.xml"
     },
     {
         "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xhdpi_ic_launcher.webp.flat",
@@ -56,15 +44,63 @@
         "source": "psi_project.gardenlabs.app-main-33:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "psi_project.gardenlabs.app-debug-31:/layout_activity_login.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/layout/activity_login.xml"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_baseline_home_24.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/drawable/baseline_home_24.xml"
     },
     {
         "merged": "psi_project.gardenlabs.app-debug-31:/xml_backup_rules.xml.flat",
         "source": "psi_project.gardenlabs.app-main-33:/xml/backup_rules.xml"
     },
     {
+        "merged": "psi_project.gardenlabs.app-debug-31:/layout_activity_register.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/layout/activity_register.xml"
+    },
+    {
         "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "psi_project.gardenlabs.app-main-33:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/layout_fragment_services.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/layout/fragment_services.xml"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/layout_fragment_home.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/drawable_baseline_art_track_24.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/drawable/baseline_art_track_24.xml"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/xml_data_extraction_rules.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/menu_bottom_nav_menu.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "psi_project.gardenlabs.app-debug-31:/layout_fragment_profile.xml.flat",
+        "source": "psi_project.gardenlabs.app-main-33:/layout/fragment_profile.xml"
     }
 ]
