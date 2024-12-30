@@ -72,17 +72,8 @@ class UserController extends ActiveController
     public function actionLogin()
     {
 
-        $requestData = Yii::$app->request->post();
-
-        $username = $requestData['username'] ?? null;
-        $password = $requestData['password'] ?? null;
-
-        if (!$username || !$password) {
-            return [
-                'message' => 'Login failed.',
-                'errors' => 'Missing username or password in POST data.',
-            ];
-        }
+        $username = Yii::$app->request->post('username');
+        $password = Yii::$app->request->post('password');
 
         $user = User::findOne(['username' => $username]);
 
