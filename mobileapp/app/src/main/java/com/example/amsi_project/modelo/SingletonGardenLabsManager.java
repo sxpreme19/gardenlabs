@@ -2,6 +2,7 @@ package com.example.amsi_project.modelo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -36,9 +37,8 @@ public class SingletonGardenLabsManager {
 
     //fora da escola -> Uso da VPN(usar o ip em vez do nome)
     public static final String mUrlAPILivros = "http://172.22.21.41/api/livros";
-    public static final String mUrlAPILogin = "http://10.0.2.2:80/gardenlabs/webapp/backend/web/api/user/login";
-    public static final String mUrlAPIRegister = "http://10.0.2.2:80/gardenlabs/webapp/backend/web/api/user/register";
-
+    public static final String mUrlAPILogin = "http://10.0.2.2/gardenlabs/webapp/backend/web/api/user/login";
+    public static final String mUrlAPIRegister = "http://10.0.2.2/gardenlabs/webapp/backend/web/api/user/register";
 
     private LivrosListener livrosListener;
     private LivroListener livroListener;
@@ -68,6 +68,10 @@ public class SingletonGardenLabsManager {
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
+    }
+
+    public void setRegisterListener(RegisterListener registerListener) {
+        this.registerListener = registerListener;
     }
 
     /*
@@ -289,6 +293,7 @@ public class SingletonGardenLabsManager {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    Log.d("LoginAPI", "Sending parameters: username=" + username + ", password=" + password);
                     Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }) {

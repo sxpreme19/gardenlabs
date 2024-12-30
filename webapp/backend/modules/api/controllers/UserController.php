@@ -26,6 +26,7 @@ class UserController extends ActiveController
 
     public function actionRegister()
     {
+
         $username = Yii::$app->request->post('username');
         $password = Yii::$app->request->post('password');
         $email = Yii::$app->request->post('email');
@@ -74,7 +75,7 @@ class UserController extends ActiveController
 
         $username = Yii::$app->request->post('username');
         $password = Yii::$app->request->post('password');
-
+       
         $user = User::findOne(['username' => $username]);
 
         if ($user && $user->validatePassword($password)) {

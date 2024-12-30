@@ -59,7 +59,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterListe
 
     @Override
     public void onUpdateRegister() {
-        // Redirecionar para MenuMainActivity
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

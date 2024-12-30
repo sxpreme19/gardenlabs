@@ -2,10 +2,10 @@
 
 namespace backend\modules\api\controllers;
 
-use common\models\User;
+use common\models\Servico;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
-use yii\web\ForbiddenHttpException;
+use Yii;
 
 /**
  * Default controller for the `api` module
