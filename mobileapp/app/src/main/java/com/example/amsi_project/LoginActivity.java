@@ -19,9 +19,8 @@ import com.example.amsi_project.modelo.SingletonBookManager;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
 
-    public static final String EMAIL = "EMAIL";
     private EditText etEmail, etPassword;
-    public static final  int MIN_PASS=4;
+    public static final  int MIN_PASS=8;
 
 
 
@@ -46,10 +45,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         String email = etEmail.getText().toString();
         String passwrd = etPassword.getText().toString();
 
-        if (!isEmailValid(email)) {
-            etEmail.setError(getString(R.string.txt_email_inval));
-            return;
-        }
         if (!isPasswrdValid(passwrd)) {
             etPassword.setError(getString(R.string.txt_ncaracteres_insuf));
             return;
@@ -64,11 +59,11 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         //finish();
     }
 
-    public boolean isEmailValid(String email) {
+    /*public boolean isEmailValid(String email) {
         if (email==null)
             return false;
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
+        return Patterns..matcher(email).matches();
+    }*/
 
 
     public boolean isPasswrdValid(String passwrd) {
@@ -79,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     }
 
     @Override
-    public void onUpdateLogin(String token) {
+    public void onUpdateLogin(String token,String username) {
         //Guardar o token da shared preferences
         //Intent para o MenuMainActivity
 
@@ -88,11 +83,17 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         // Guardar o token
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
+        editor.putString("username", username);
         editor.apply(); // Salvar as mudanças
 
         // Redirecionar para MenuMainActivity
         Intent intent = new Intent(this, MenuMainActivity.class);
         startActivity(intent);
 
+    }
+
+    public void onClickRegisterLink(View view) {
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
     }
 }

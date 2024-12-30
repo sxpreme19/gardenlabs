@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
         tvEmail = findViewById(R.id.tvEmail);
         Intent intent = getIntent();
-        email = intent.getStringExtra(LoginActivity.EMAIL);
         if (email!=null)
             tvEmail.setText(email);
         else

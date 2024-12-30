@@ -23,7 +23,7 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
-    private String email;
+    private String username;
     private FragmentManager fragmentManager;
 
     @Override
@@ -59,21 +59,13 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
 
     private void carregarCabecalho() {
 
-        email=getIntent().getStringExtra(LoginActivity.EMAIL);
+        SharedPreferences sharedPrefUser = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
 
-        SharedPreferences sharedPrefUser = getSharedPreferences("DADOS_USER", Context.MODE_PRIVATE);
-        if( email != null)
-        {
-            SharedPreferences.Editor editUser = sharedPrefUser.edit();
-            editUser.putString("EMAIL", email);
-            editUser.apply();
-        }else{
-            email = sharedPrefUser.getString("EMAIL", "Sem email");
-        }
+        username = sharedPrefUser.getString("username", "");
 
         View hView = navigationView.getHeaderView(0);
         TextView tvEmail = hView.findViewById(R.id.tvEmail);
-        tvEmail.setText(email);
+        tvEmail.setText(username);
 
     }
 

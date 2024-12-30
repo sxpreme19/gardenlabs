@@ -2,39 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/miat"
+        android:icon="@drawable/logoonlyleaf"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/miat"
+        android:roundIcon="@drawable/logoonlyleaf"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.GardenLabs"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".DetalhesLivroActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:name=".RegisterActivity"
+            android:exported="false" />
         <activity
             android:name=".MenuMainActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@style/Theme.GardenLabs.NoActionBar" />
-        <activity
-            android:name=".DetalhesDinamicoActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".DetalhesEstaticoActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="false"

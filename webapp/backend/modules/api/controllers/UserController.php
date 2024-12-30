@@ -24,8 +24,12 @@ class UserController extends ActiveController
         return $behaviors;
     }
 
-    public function actionRegister($username, $password, $email)
+    public function actionRegister()
     {
+        $username = Yii::$app->request->post('username');
+        $password = Yii::$app->request->post('password');
+        $email = Yii::$app->request->post('email');
+
         $model = new $this->modelClass();
         $model->username = $username;
         $model->email = $email;
@@ -65,8 +69,12 @@ class UserController extends ActiveController
         ];
     }
 
-    public function actionLogin($username, $password)
+    public function actionLogin()
     {
+
+        $username = Yii::$app->request->post('username');
+        $password = Yii::$app->request->post('password');
+
         $user = User::findOne(['username' => $username]);
 
         if ($user && $user->validatePassword($password)) {
@@ -76,11 +84,7 @@ class UserController extends ActiveController
                 }
 
                 return [
-                    'access_token' => $user->auth_key,
-                    'user' => [
-                        'id' => $user->id,
-                        'username' => $user->username,
-                    ],
+                    'token' => $user->auth_key,
                 ];
             } else {
                 return [

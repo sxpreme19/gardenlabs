@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Books</string>
+    <string name="app_name">GardenLabs</string>
     <string name="txt_password">Introduza a password</string>
     <string name="txt_email">Introduza email</string>
     <string name="txt_btn_login">Login</string>

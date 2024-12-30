@@ -5,7 +5,6 @@ color gl_green
 color purple_500
 color red_500
 color white
-drawable eminem
 drawable ic_action_add
 drawable ic_action_delete
 drawable ic_action_email
@@ -16,6 +15,8 @@ drawable ic_action_search
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable logoipl
+drawable logonobackground
+drawable logoonlyleaf
 drawable miat
 drawable programarandroid1
 drawable programarandroid2
@@ -24,6 +25,7 @@ id btnDinamico
 id btnEmail
 id btnEstatico
 id btnLogin
+id btnRegister
 id contentFragment
 id drawerLayout
 id etAno
@@ -32,6 +34,7 @@ id etEmail
 id etPassword
 id etSerie
 id etTitulo
+id etUsername
 id fabDetalhes
 id fabLista
 id imageView
@@ -50,6 +53,8 @@ id toolbar
 id tvAno
 id tvAutor
 id tvEmail
+id tvLoginLink
+id tvRegisterLink
 id tvSerie
 id tvTitulo
 layout activity_detalhes_dinamico
@@ -58,6 +63,7 @@ layout activity_detalhes_livro
 layout activity_login
 layout activity_main
 layout activity_menu_main
+layout activity_register
 layout app_bar_main
 layout fragment_dinamico
 layout fragment_estatico

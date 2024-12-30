@@ -3003,7 +3003,6 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
-drawable eminem
 drawable ic_action_add
 drawable ic_action_delete
 drawable ic_action_email
@@ -3033,6 +3032,8 @@ drawable ic_mtrl_chip_close_circle
 drawable ic_search_black_24
 drawable indeterminate_static
 drawable logoipl
+drawable logonobackground
+drawable logoonlyleaf
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
 drawable m3_bottom_sheet_drag_handle
@@ -3214,6 +3215,7 @@ id btnDinamico
 id btnEmail
 id btnEstatico
 id btnLogin
+id btnRegister
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3304,6 +3306,7 @@ id etEmail
 id etPassword
 id etSerie
 id etTitulo
+id etUsername
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3620,6 +3623,8 @@ id triangle
 id tvAno
 id tvAutor
 id tvEmail
+id tvLoginLink
+id tvRegisterLink
 id tvSerie
 id tvTitulo
 id unchecked
@@ -3765,6 +3770,7 @@ layout activity_detalhes_livro
 layout activity_login
 layout activity_main
 layout activity_menu_main
+layout activity_register
 layout app_bar_main
 layout custom_dialog
 layout design_bottom_navigation_item

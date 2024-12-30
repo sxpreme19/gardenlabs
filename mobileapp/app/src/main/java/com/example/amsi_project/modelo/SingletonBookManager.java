@@ -39,7 +39,8 @@ public class SingletonBookManager {
 
     //fora da escola -> Uso da VPN(usar o ip em vez do nome)
     public static final String mUrlAPILivros = "http://172.22.21.41/api/livros";
-    public static final String mUrlAPILogin = "http://172.22.21.41/api/auth/login";
+    public static final String mUrlAPILogin = "http://10.0.2.2:80/gardenlabs/webapp/backend/web/api/user/login";
+    public static final String mUrlAPIRegister = "http://10.0.2.2:80/gardenlabs/webapp/backend/web/api/user/register";
 
 
     private LivrosListener livrosListener;
@@ -272,7 +273,7 @@ public class SingletonBookManager {
 
     //region Acceso do login da API
 
-    public void loginAPI(final Context context, final String email, final String password) {
+    public void loginAPI(final Context context, final String username, final String password) {
         if (!LivroJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem Ligação á internet", Toast.LENGTH_LONG).show();
         } else {
@@ -283,7 +284,7 @@ public class SingletonBookManager {
                     String token = LivroJsonParser.parserJsonLogin(response);
                     //informar a vista- descomentar quando tier o login listener
                     if (loginListener != null) {
-                        loginListener.onUpdateLogin(token);
+                        loginListener.onUpdateLogin(token,username);
                     }
                 }
             }, new Response.ErrorListener() {
@@ -296,8 +297,42 @@ public class SingletonBookManager {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("email", email);
+                    params.put("username", username);
                     params.put("password", password);
+                    return params;
+                }
+            };
+            volleyQueue.add(reqLogin);
+        }
+    }
+
+    public void registerAPI(final Context context, final String username, final String password,final String email) {
+        if (!LivroJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Não tem Ligação á internet", Toast.LENGTH_LONG).show();
+        } else {
+            StringRequest reqLogin = new StringRequest(Request.Method.POST, mUrlAPILogin, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //parse da response para obter o token
+                    String token = LivroJsonParser.parserJsonLogin(response);
+                    //informar a vista- descomentar quando tier o login listener
+                    if (loginListener != null) {
+                        loginListener.onUpdateLogin(token,username);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }) {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("username", username);
+                    params.put("password", password);
+                    params.put("email", email);
                     return params;
                 }
             };
