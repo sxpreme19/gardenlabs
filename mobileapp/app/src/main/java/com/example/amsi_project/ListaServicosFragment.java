@@ -20,20 +20,22 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.amsi_project.adaptadores.ListaLivrosAdaptador;
-import com.example.amsi_project.listeners.LivrosListener;
+import com.example.amsi_project.adaptadores.ListaServicosAdaptador;
+import com.example.amsi_project.listeners.ServicosListener;
 import com.example.amsi_project.modelo.Book;
+import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 
-public class ListaLivrosFragment extends Fragment implements LivrosListener {
+public class ListaLivrosFragment extends Fragment implements ServicosListener {
 
     public static final int ADD = 100,EDIT = 200, DELETE = 300;
     private ListView lvLivros;
     private FloatingActionButton fabLista;
-    private ArrayList<Book> books;
+    private ArrayList<Servico> servicos;
 
     public ListaLivrosFragment() {
         // Required empty public constructor
@@ -70,8 +72,8 @@ public class ListaLivrosFragment extends Fragment implements LivrosListener {
                 startActivityForResult(intent, ADD);
             }
         });
-        SingletonGardenLabsManager.getInstance(getContext()).setLivrosListener(this);
-        SingletonGardenLabsManager.getInstance(getContext()).getAllLivrosAPI(getContext());
+        SingletonGardenLabsManager.getInstance(getContext()).setServicosListener(this);
+        SingletonGardenLabsManager.getInstance(getContext()).getAllServicesAPI(getContext());
 
         return view;
     }
@@ -82,9 +84,7 @@ public class ListaLivrosFragment extends Fragment implements LivrosListener {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==Activity.RESULT_OK) {
-           // books = SingletonBookManager.getInstance(getContext()).getBooksBD();
-            // lvLivros.setAdapter(new ListaLivrosAdaptador(books, getContext()));
-            SingletonGardenLabsManager.getInstance(getContext()).getAllLivrosAPI(getContext());
+            SingletonGardenLabsManager.getInstance(getContext()).getAllServicesAPI(getContext());
             switch (requestCode) {
                 case ADD:
                     Toast.makeText(getContext(), "Livro adicionado com sucesso", Toast.LENGTH_LONG).show();
@@ -125,9 +125,9 @@ public class ListaLivrosFragment extends Fragment implements LivrosListener {
     }
 
     @Override
-    public void onRefreshListaLivros(ArrayList<Book> listaLivros) {
-        if(listaLivros != null){
-            lvLivros.setAdapter(new ListaLivrosAdaptador(listaLivros,getContext()));
+    public void onRefreshListaServicos(ArrayList<Servico> listaServicos) {
+        if(listaServicos != null){
+            lvLivros.setAdapter(new ListaServicosAdaptador(listaServicos,getContext()));
         }
     }
 }
