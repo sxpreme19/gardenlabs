@@ -32,6 +32,9 @@
         android:theme="@style/Base.Theme.GardenLabs"
         android:usesCleartextTraffic="true" >
         <activity
+            android:name="com.example.amsi_project.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.amsi_project.RegisterActivity"
             android:exported="false" />
         <activity
@@ -39,10 +42,6 @@
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@style/Theme.GardenLabs.NoActionBar" />
-        <activity
-            android:name="com.example.amsi_project.MainActivity"
-            android:exported="false"
-            android:launchMode="singleTop" />
         <activity
             android:name="com.example.amsi_project.LoginActivity"
             android:exported="true" >

@@ -24,6 +24,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterListe
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).setRegisterListener(this);
+
         etEmail=findViewById(R.id.etEmail);
         etPassword=findViewById(R.id.etPassword);
         etUsername=findViewById(R.id.etUsername);

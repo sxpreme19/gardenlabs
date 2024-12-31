@@ -30,14 +30,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 
-public class ListaLivrosFragment extends Fragment implements ServicosListener {
+public class ListaServicosFragment extends Fragment implements ServicosListener {
 
     public static final int ADD = 100,EDIT = 200, DELETE = 300;
     private ListView lvLivros;
     private FloatingActionButton fabLista;
     private ArrayList<Servico> servicos;
 
-    public ListaLivrosFragment() {
+    public ListaServicosFragment() {
         // Required empty public constructor
     }
 
@@ -45,7 +45,7 @@ public class ListaLivrosFragment extends Fragment implements ServicosListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_lista_livros, container, false);
+        View view = inflater.inflate(R.layout.fragment_lista_servicos, container, false);
         setHasOptionsMenu(true);
 
 

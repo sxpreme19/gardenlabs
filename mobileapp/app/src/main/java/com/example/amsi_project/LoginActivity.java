@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.amsi_project.listeners.LoginListener;
+import com.example.amsi_project.listeners.ResetPasswordListener;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
@@ -83,7 +84,12 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     }
 
     public void onClickRegisterLink(View view) {
-        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickResetPassword(View view) {
+        Intent intent = new Intent(this, ResetPasswordActivity.class);
         startActivity(intent);
     }
 

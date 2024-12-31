@@ -72,9 +72,9 @@ public class ListaLivrosAdaptador extends BaseAdapter {
 
         public ViewHolderLista(View view){
            tvTitulo = view.findViewById(R.id.tvTitulo);
-           tvSerie = view.findViewById(R.id.tvSerie);
-           tvAno = view.findViewById(R.id.tvAno);
-           tvAutor = view.findViewById(R.id.tvAutor);
+           tvSerie = view.findViewById(R.id.tvDuracao);
+           tvAno = view.findViewById(R.id.tvPreco);
+           tvAutor = view.findViewById(R.id.tvTitulo);
            imgCapa = view.findViewById(R.id.imgCapa);
         }
 

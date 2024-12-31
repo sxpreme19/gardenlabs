@@ -1,21 +1,20 @@
 package com.example.amsi_project.modelo;
 
-public class Servico {
-    private int id,duracao, prestador_id;
-    private String titulo, descricao;
-    private double preco;
+public class Book {
+    private int id, ano;
+    private String titulo, serie, autor, capa;
+   // private static int autoIncrement=1;
 
-
-    public Servico(int id, String titulo, String descricao, int duracao,double preco, int prestador_id) {
+    public Book(int id,String capa, int ano, String titulo, String serie, String autor) {
         this.id = id;
+        //this.id=autoIncrement++;
+        this.ano = ano;
+        this.capa = capa;
         this.titulo = titulo;
-        this.descricao = descricao;
-        this.duracao = duracao;
-        this.prestador_id = prestador_id;
-        this.preco = preco;
+        this.serie = serie;
+        this.autor = autor;
     }
 
-    // Getters and Setters for the fields
 
     public int getId() {
         return id;
@@ -25,20 +24,20 @@ public class Servico {
         this.id = id;
     }
 
-    public int getDuracao() {
-        return duracao;
+    public int getAno() {
+        return ano;
     }
 
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
+    public void setAno(int ano) {
+        this.ano = ano;
     }
 
-    public int getPrestador_id() {
-        return prestador_id;
+    public String getCapa() {
+        return capa;
     }
 
-    public void setPrestador_id(int prestador_id) {
-        this.prestador_id = prestador_id;
+    public void setCapa(String capa) {
+        this.capa = capa;
     }
 
     public String getTitulo() {
@@ -49,19 +48,19 @@ public class Servico {
         this.titulo = titulo;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getSerie() {
+        return serie;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setSerie(String serie) {
+        this.serie = serie;
     }
 
-    public double getPreco() {
-        return preco;
+    public String getAutor() {
+        return autor;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 }
