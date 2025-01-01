@@ -76,7 +76,7 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
             setTitle(item.getTitle());
             fragment = new ListaServicosFragment();
         }
-        else if (item.getItemId()==R.id.navGrelha) {
+        else if (item.getItemId()==R.id.navCarrinho) {
             setTitle(item.getTitle());
         }
         else {

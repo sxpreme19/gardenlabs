@@ -16,7 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php if (Yii::$app->user->can('updateUserProfile')): ?>
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if (Yii::$app->user->can('deleteUserProfile')): ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -24,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?php endif; ?>
     </p>
 
     <?= DetailView::widget([
@@ -36,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'telefone',
             [
                 'attribute' => 'user_id',
-                'label' => 'User', 
+                'label' => 'User',
                 'value' => $model->user ? $model->user->username : 'N/A',
             ],
         ],

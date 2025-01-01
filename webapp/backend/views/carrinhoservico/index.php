@@ -17,9 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if (Yii::$app->user->can('serviceCartCreate')): ?>
     <p>
         <?= Html::a('Create Service Cart', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php endif;?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -50,6 +52,20 @@ $this->params['breadcrumbs'][] = $this->title;
                          ]);
                      },
                  ],
+                 'visibleButtons' => [
+                    'view' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('serviceCartView');
+                    },
+                    'update' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('serviceCartUpdate');
+                    },
+                    'delete' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('serviceCartDelete');
+                    },
+                    'linhacarrinhoproduto' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('serviceCartLinesIndex');
+                    },
+                ],
             ],
         ],
     ]); ?>

@@ -40,6 +40,10 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_save.png"
     },
     {
+        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_main.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/menu/menu_main.xml"
+    },
+    {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_save.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_save.png"
     },
@@ -228,6 +232,10 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_lista.png"
     },
     {
+        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_lista_servicos.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/fragment_lista_servicos.xml"
+    },
+    {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_delete.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_delete.png"
     },
@@ -282,10 +290,6 @@
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_ic_launcher_background.xml.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\ic_launcher_background.xml"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_item_lista_livro.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/item_lista_livro.xml"
     },
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\xml_data_extraction_rules.xml.flat",

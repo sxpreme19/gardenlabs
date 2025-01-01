@@ -16,14 +16,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if (Yii::$app->user->can('createReview')): ?>
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if (Yii::$app->user->can('editReview')): ?>
+            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php endif; ?>
     </p>
 
     <?= DetailView::widget([
@@ -35,12 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'avaliacao',
             [
                 'attribute' => 'servico_id',
-                'value' => $model->servico ? $model->servico->nome : null, 
+                'value' => $model->servico ? $model->servico->nome : null,
                 'label' => 'Service',
             ],
             [
                 'attribute' => 'produto_id',
-                'value' => $model->produto ? $model->produto->nome : null, 
+                'value' => $model->produto ? $model->produto->nome : null,
                 'label' => 'Product',
             ],
         ],

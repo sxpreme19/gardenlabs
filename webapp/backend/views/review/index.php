@@ -17,11 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Review', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php if (Yii::$app->user->can('createReview')): ?>
+        <p>
+            <?= Html::a('Create Review', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php endif; ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -40,7 +43,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Review $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'visibleButtons' => [
+                    'view' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('viewReview');
+                    },
+                    'update' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('editReview');
+                    },
+                    'delete' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('deleteReview');
+                    },
+                ],
             ],
         ],
     ]); ?>
