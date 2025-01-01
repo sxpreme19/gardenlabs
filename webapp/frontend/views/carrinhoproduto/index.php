@@ -56,22 +56,26 @@
                                             <td class="price-pr">
                                                 <?= $produto->preco ?>€
                                             </td>
-                                            <td class="quantity-box">
-                                                <form method="POST" action="<?= yii\helpers\Url::to(['carrinhoproduto/update-quantity']) ?>">
-                                                    <input type="hidden" name="<?= Yii::$app->request->csrfParam ?>" value="<?= Yii::$app->request->csrfToken ?>" />
-                                                    <input type="hidden" name="itemId" value="<?= $linhacarrinho->id ?>" />
-                                                    <input type="number" name="quantity" value="<?= $linhacarrinho->quantidade ?>" min="1" step="1" class="c-input-text qty text form-control form-control-sm" style="max-width: 80px;">
-                                                    <button type="submit" style="display:none;">Update</button>
-                                                </form>
-                                            </td>
+                                            <?php if (Yii::$app->user->can('updateQuantity')): ?>
+                                                <td class="quantity-box">
+                                                    <form method="POST" action="<?= yii\helpers\Url::to(['carrinhoproduto/update-quantity']) ?>">
+                                                        <input type="hidden" name="<?= Yii::$app->request->csrfParam ?>" value="<?= Yii::$app->request->csrfToken ?>" />
+                                                        <input type="hidden" name="itemId" value="<?= $linhacarrinho->id ?>" />
+                                                        <input type="number" name="quantity" value="<?= $linhacarrinho->quantidade ?>" min="1" step="1" class="c-input-text qty text form-control form-control-sm" style="max-width: 80px;">
+                                                        <button type="submit" style="display:none;">Update</button>
+                                                    </form>
+                                                </td>
+                                            <?php endif; ?>
                                             <td class="total-pr">
                                                 <p><?= $produto->preco * $linhacarrinho->quantidade ?>€</p>
                                             </td>
-                                            <td class="remove-pr">
-                                                <a href="<?= yii\helpers\Url::to(['carrinhoproduto/delete', 'cartItemId' => $linhacarrinho->id]) ?>">
-                                                    <i class="fas fa-times"></i>
-                                                </a>
-                                            </td>
+                                            <?php if (Yii::$app->user->can('removeFromCart')): ?>
+                                                <td class="remove-pr">
+                                                    <a href="<?= yii\helpers\Url::to(['carrinhoproduto/delete', 'cartItemId' => $linhacarrinho->id]) ?>">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                </td>
+                                            <?php endif; ?>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -91,9 +95,11 @@
                                     <h4 class="mb-0">Total</h4>
                                     <span class="font-weight-bold h5"><strong><?= $userCart->total ?>€</strong></span>
                                 </div>
-                                <a href="<?= yii\helpers\Url::to(['fatura/index']) ?>" class="btn btn-success btn-block mt-3">
-                                    <i class="fas fa-credit-card"></i> Checkout
-                                </a>
+                                <?php if (Yii::$app->user->can('cartCheckout')): ?>
+                                    <a href="<?= yii\helpers\Url::to(['fatura/index']) ?>" class="btn btn-success btn-block mt-3">
+                                        <i class="fas fa-credit-card"></i> Checkout
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@
         <div class="container">
             <div class="my-account-page">
                 <div class="row">
+                    <?php if(Yii::$app->user->can('ordersHistory')): ?>
                     <div class="col-lg-4 col-md-12">
                         <div class="account-box">
                             <div class="service-box">
@@ -20,6 +21,8 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
+                    <?php if(Yii::$app->user->can('accountDetails')): ?>
                     <div class="col-lg-4 col-md-12">
                         <div class="account-box">
                             <div class="service-box">
@@ -33,6 +36,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif;?>
                     <div class="col-lg-4 col-md-12">
                         <div class="account-box">
                             <div class="service-box">

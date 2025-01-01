@@ -5,6 +5,7 @@ use yii\widgets\LinkPager;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <body>
     <!-- Card Container -->
     <?php if (empty($dataProvider->models)): ?>
@@ -33,10 +34,12 @@ use yii\widgets\LinkPager;
                                 <?= $fatura->metodoexpedicao ? Html::encode($fatura->metodoexpedicao->descricao) : 'Não informado' ?>
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="<?= \yii\helpers\Url::to(['purchase-details', 'id' => $fatura->id]) ?>" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-eye"></i> Detalhes
-                                </a>
-                                <small class="text-muted"><?= Yii::$app->formatter->asDatetime($fatura->datahora, 'php:H:i') ?></small>
+                                <?php if (Yii::$app->user->can('orderDetails')): ?>
+                                    <a href="<?= \yii\helpers\Url::to(['purchase-details', 'id' => $fatura->id]) ?>" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye"></i> Detalhes
+                                    </a>
+                                    <small class="text-muted"><?= Yii::$app->formatter->asDatetime($fatura->datahora, 'php:H:i') ?></small>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

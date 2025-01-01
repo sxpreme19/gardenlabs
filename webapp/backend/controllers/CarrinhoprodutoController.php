@@ -128,14 +128,34 @@ class CarrinhoprodutoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $userProfile = Userprofile::findOne($model->userprofile_id);
+                if ($userProfile) {
+                    if ($model->total === null || $model->total === '') {
+                        $model->total = 0;
+                    }
+                    $existingCart = Carrinhoproduto::find()
+                        ->where(['userprofile_id' => $model->userprofile_id])
+                        ->andWhere(['<>', 'id', $model->id])
+                        ->one();
+
+                    if ($existingCart) {
+                        Yii::$app->session->setFlash('error', 'This user already has a cart.');
+                    } else if ($model->save()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', 'User Profile not found.');
+                }
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
     }
+
 
     /**
      * Deletes an existing Carrinhoproduto model.
