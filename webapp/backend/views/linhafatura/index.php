@@ -17,9 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if (Yii::$app->user->can('invoiceLineCreate')): ?>
     <p>
         <?= Html::a('Create Invoice Line', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php endif;?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -39,7 +41,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Linhafatura $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                 },
+                 'visibleButtons' => [
+                    'view' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('invoiceLineView');
+                    },
+                    'update' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('invoiceLineUpdate');
+                    },
+                    'delete' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('invoiceLineDelete');
+                    },
+                ],
             ],
         ],
     ]); ?>

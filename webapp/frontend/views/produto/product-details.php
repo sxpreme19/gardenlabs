@@ -92,14 +92,17 @@ use yii\widgets\ActiveForm;
                         <br>
                         <div class="price-box-bar">
                             <div class="cart-and-bay-btn">
-                                <!--<a class="btn hvr-hover" data-fancybox-close="" href="#">Buy New</a>-->
-                                <a href=<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?> class="btn hvr-hover" data-fancybox-close="">Add to cart</a>
+                                <?php if (Yii::$app->user->can('addToCart')) : ?>
+                                    <a href=<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $product->id, 'productQuantity' => 1]) ?> class="btn hvr-hover" data-fancybox-close="">Add to cart</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="add-to-btn">
                             <div class="add-comp">
-                                <a class="btn hvr-hover" href=<?= yii\helpers\Url::to(['favorito/add-to-wishlist', 'productId' => $product->id]) ?>><i class="fas fa-heart"></i> Add to wishlist</a>
-                                <!--<a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Add to Compare</a>-->
+                                <?php if (Yii::$app->user->can('addToWishlist')) : ?>
+                                    <a class="btn hvr-hover" href=<?= yii\helpers\Url::to(['favorito/add-to-wishlist', 'productId' => $product->id]) ?>><i class="fas fa-heart"></i> Add to wishlist</a>
+                                <?php endif; ?>
+
                             </div>
                             <div class="category-container d-flex justify-content-end align-items-center">
                                 <span class="badge bg-primary text-light px-4 py-2">
@@ -133,7 +136,7 @@ use yii\widgets\ActiveForm;
                                                 <?php endfor; ?>
                                             </div>
                                             <small class="text-muted">Posted by <?= $review->userprofile->nome ?> on <?= $review->datahora ?></small>
-                                            <?php if (!Yii::$app->user->isGuest): ?>
+                                            <?php if (Yii::$app->user->can('deleteOwnReview')): ?>
                                                 <?php if ($review->userprofile_id == Yii::$app->user->identity->userProfile->id): ?>
                                                     <a href="<?= yii\helpers\Url::to(['produto/delete-review', 'id' => $review->id]) ?>"
                                                         class="text-danger ml-3"
@@ -155,7 +158,7 @@ use yii\widgets\ActiveForm;
                             </div>
                             <hr>
                         <?php endif; ?>
-                        <?php if (!Yii::$app->user->isGuest): ?>
+                        <?php if (Yii::$app->user->can('leaveReview')): ?>
                             <a href="#review-form" class="btn hvr-hover" id="leave-review-btn">Leave a Review</a>
                             <div id="review-form" style="display: none; margin-top: 20px;">
                                 <?php $form = ActiveForm::begin(); ?>

@@ -17,9 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if (Yii::$app->user->can('productCartCreate')): ?>
     <p>
         <?= Html::a('Create Product Cart', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php endif;?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
@@ -49,6 +51,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             'style' => 'padding: 0; margin: 0; line-height: 2;',
                             'data-toggle' => 'tooltip',
                         ]);
+                    },
+                ],
+                'visibleButtons' => [
+                    'view' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('productCartView');
+                    },
+                    'update' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('productCartUpdate');
+                    },
+                    'delete' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('productCartDelete');
+                    },
+                    'linhacarrinhoproduto' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('productCartLinesIndex');
                     },
                 ],
             ],

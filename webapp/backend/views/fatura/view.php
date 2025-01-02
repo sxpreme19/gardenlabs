@@ -16,14 +16,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id, 'userprofile_id' => $model->userprofile_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id, 'userprofile_id' => $model->userprofile_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if (Yii::$app->user->can('invoiceUpdate')): ?>
+            <?= Html::a('Update', ['update', 'id' => $model->id, 'userprofile_id' => $model->userprofile_id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if (Yii::$app->user->can('invoiceDelete')): ?>
+            <?= Html::a('Delete', ['delete', 'id' => $model->id, 'userprofile_id' => $model->userprofile_id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php endif; ?>
     </p>
 
     <?= DetailView::widget([
@@ -44,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'metodoexpedicao_id',
-                'value' => $model->metodoexpedicao ? $model->metodoexpedicao->descricao : null, 
+                'value' => $model->metodoexpedicao ? $model->metodoexpedicao->descricao : null,
                 'label' => 'Shipping Method',
             ],
             'userprofile_id',

@@ -32,10 +32,10 @@ class ProdutoController extends Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'product-details', 'delete-review', 'gallery'],
+                    'only' => ['index', 'product-details', 'delete-review', 'gallery','search'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'product-details', 'delete-review', 'gallery'],
+                            'actions' => ['index', 'product-details', 'delete-review', 'gallery','search'],
                             'allow' => true,
                             'roles' => ['?', 'client'],
                         ],

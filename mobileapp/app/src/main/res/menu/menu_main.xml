@@ -8,13 +8,13 @@
             android:title="Shopping">
             <menu>
                 <item
-                    android:id="@+id/navLista"
+                    android:id="@+id/navServices"
                     android:icon="@drawable/ic_action_lista"
-                    android:title="@string/txt_menu_estatico" />
+                    android:title="@string/nav_services" />
                 <item
-                    android:id="@+id/navGrelha"
+                    android:id="@+id/navCarrinho"
                     android:icon="@drawable/ic_action_grelha"
-                    android:title="@string/txt_menu_dinamico" />
+                    android:title="@string/navCarrinho" />
             </menu>
         </item>
 

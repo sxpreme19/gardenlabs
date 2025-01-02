@@ -5,12 +5,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.example.amsi_project.modelo.Book;
+import com.example.amsi_project.modelo.Servico;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LivroJsonParser {
 
@@ -57,18 +60,44 @@ public class LivroJsonParser {
         return livros;
     }
 
+    public static ArrayList<Servico> parserJsonServices(JSONArray response) {
+        ArrayList<Servico> services = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject service = null;
+            try {
+                service = (JSONObject) response.get(i);
+                int id = service.getInt("id");
+                String titulo = service.getString("titulo");
+                String descricao = service.getString("descricao");
+                int duracao = service.getInt("duracao");
+                Double preco = service.getDouble("preco");
+                int prestador_id = service.getInt("prestador_id");
+                services.add(new Servico(id,titulo,descricao,duracao,preco,prestador_id));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        return services;
+    }
+
 
 
     //Método parserJsonLogin(), que efetuará o login na API;
-    public static String parserJsonLogin(String response){
+    public static Map<String, Object> parserJsonLogin(String response) {
         String token = null;
+        int id;
+        Map<String, Object> result = new HashMap<>();
         try {
             JSONObject login = new JSONObject(response);
             token = login.getString("token");
+            id = login.getInt("id");
+            result.put("token", token);
+            result.put("id", id);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        return token;
+        return result;
     }
 
     //Método isConnectionInternet(), que verifica se existe acesso à internet;

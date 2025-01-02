@@ -72,13 +72,12 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
-        if (item.getItemId()==R.id.navLista) {
+        if (item.getItemId()==R.id.navServices) {
             setTitle(item.getTitle());
-            fragment = new ListaLivrosFragment();
+            fragment = new ListaServicosFragment();
         }
-        else if (item.getItemId()==R.id.navGrelha) {
+        else if (item.getItemId()==R.id.navCarrinho) {
             setTitle(item.getTitle());
-            fragment = new DinamicoFragment();
         }
         else {
             enviarEmail();

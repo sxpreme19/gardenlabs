@@ -17,9 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if (Yii::$app->user->can('invoiceCreate')): ?>
     <p>
         <?= Html::a('Create Invoice', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php endif;?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -56,6 +58,20 @@ $this->params['breadcrumbs'][] = $this->title;
                              'style' => 'padding: 0; margin: 0; line-height: 2;', 
                              'data-toggle' => 'tooltip', 
                          ]);
+                     },
+                 ],
+                 'visibleButtons' => [
+                     'view' => function ($model, $key, $index) {
+                         return Yii::$app->user->can('invoiceView');
+                     },
+                     'update' => function ($model, $key, $index) {
+                         return Yii::$app->user->can('invoiceUpdate');
+                     },
+                     'delete' => function ($model, $key, $index) {
+                         return Yii::$app->user->can('invoiceDelete');
+                     },
+                     'images' => function ($model, $key, $index) {
+                         return Yii::$app->user->can('invoiceLinesIndex');
                      },
                  ],
             ],

@@ -17,7 +17,8 @@
 
         <h1><?= Html::encode($this->title) ?></h1>
 
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        <?php // echo $this->render('_search', ['model' => $searchModel]); 
+        ?>
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
@@ -29,7 +30,7 @@
                 'filename',
                 [
                     'attribute' => 'produto_id',
-                    'value' => function ($model) { 
+                    'value' => function ($model) {
                         return $model->produto ? $model->produto->nome : null;
                     },
                     'label' => 'Product',
@@ -39,16 +40,15 @@
                     'urlCreator' => function ($action, Imagem $model, $key, $index, $column) {
                         return Url::toRoute([$action, 'id' => $model->id]);
                     },
-                    'template' => '{view} {delete}', 
-                    'buttons' => [
-                        'images' => function ($url, $model) {
-                            return Html::a('<i class="fas fa-images"></i>', $url, [
-                                'title' => 'Manage Images', 
-                                'style' => 'padding: 0; margin: 0; line-height: 2;', 
-                                'data-toggle' => 'tooltip', 
-                            ]);
+                    'template' => '{view} {delete}',
+                    'visibleButtons' => [
+                        'view' => function ($model, $key, $index) {
+                            return Yii::$app->user->can('viewImage');
                         },
-                    ],   
+                        'delete' => function ($model, $key, $index) {
+                            return Yii::$app->user->can('deleteImage');
+                        },
+                    ],
                 ],
             ],
         ]); ?>

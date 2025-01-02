@@ -17,9 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if (Yii::$app->user->can('paymentMethodCreate')): ?>
     <p>
         <?= Html::a('Create Payment Method', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php endif;?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -36,7 +38,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Metodopagamento $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                 },
+                 'visibleButtons' => [
+                    'view' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('paymentMethodView');
+                    },
+                    'update' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('paymentMethodUpdate');
+                    },
+                    'delete' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('paymentMethodDelete');
+                    },
+                ],
             ],
         ],
     ]); ?>

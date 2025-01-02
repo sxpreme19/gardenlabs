@@ -10,3 +10,13 @@ actor_suffix: Tester
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
+
+modules:
+    enabled:
+        - Db:
+            dsn: 'mysql:host=127.0.0.1;dbname=gardenlabstests'
+            user: 'root'
+            password: ''
+            dump: tests/Support/Data/dump.sql
+            populate: true
+            cleanup: true

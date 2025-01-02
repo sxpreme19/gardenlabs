@@ -62,10 +62,10 @@
                             <p><strong>Email:</strong> <?= Yii::$app->user->identity->email ?></p>
                             <p><strong>Address:</strong> <?= $morada ?></p>
                             <?php if ($phone != null): ?>
-                            <p><strong>Phone:</strong> <?= $phone ?></p>
+                                <p><strong>Phone:</strong> <?= $phone ?></p>
                             <?php endif; ?>
                             <?php if ($nif != null): ?>
-                            <p><strong>NIF:</strong> <?= $nif ?></p>
+                                <p><strong>NIF:</strong> <?= $nif ?></p>
                             <?php endif; ?>
                             <hr>
                             <p><strong>Payment Method:</strong> <?= $paymentMethod->descricao ?></p>
@@ -80,11 +80,11 @@
                             <p><strong>Name:</strong> <?= $nome ?></p>
                             <p><strong>Address:</strong> <?= $morada ?></p>
                             <?php if ($phone != null): ?>
-                            <p><strong>Phone:</strong> <?= $phone ?></p>
+                                <p><strong>Phone:</strong> <?= $phone ?></p>
                             <?php endif; ?>
                             <?php if ($nif != null): ?>
-                            <p><strong>NIF:</strong> <?= $nif ?></p>
-                            <?php endif;?>
+                                <p><strong>NIF:</strong> <?= $nif ?></p>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="card shadow-sm">
@@ -100,12 +100,16 @@
             </div>
         </div>
         <div class="text-center mt-4">
-            <a href="<?= yii\helpers\Url::to(['fatura/index']) ?>" class="btn btn-outline-secondary me-3">
-                <i class="fas fa-arrow-left"></i> Back to Checkout
-            </a>
+            <?php if (Yii::$app->user->can('cartCheckout')): ?>
+                <a href="<?= yii\helpers\Url::to(['fatura/index']) ?>" class="btn btn-outline-secondary me-3">
+                    <i class="fas fa-arrow-left"></i> Back to Checkout
+                </a>
+            <?php endif; ?>
+            <?php if (Yii::$app->user->can('orderConfirmed')): ?>
             <a href="<?= yii\helpers\Url::to(['fatura/confirm-order', 'shippingMethodId' => $shippingMethod->id, 'paymentMethodId' => $paymentMethod->id, 'fullName' => $nome, 'address' => $morada, 'phone' => $phone, 'nif' => $nif]) ?>" class="btn btn-success">
                 <i class="fas fa-check"></i> Confirm and Pay
             </a>
+            <?php endif;?>
         </div>
     </div>
 </body>

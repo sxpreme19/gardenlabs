@@ -17,9 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php if (Yii::$app->user->can('createUserProfile')): ?>
+        <p>
+            <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php endif; ?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
@@ -38,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'status',
             [
-                'label' => 'Role', 
+                'label' => 'Role',
                 'value' => function ($model) {
                     $roles = Yii::$app->authManager->getRolesByUser($model->id);
                     return implode(', ', array_keys($roles));
@@ -65,6 +67,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                     },
                 ],
+                'visibleButtons' => [
+                'view' => function ($model, $key, $index) {
+                    return Yii::$app->user->can('viewUser');
+                },
+                'update' => function ($model, $key, $index) {
+                    return Yii::$app->user->can('updateUser');
+                },
+                'delete' => function ($model, $key, $index) {
+                    return Yii::$app->user->can('deleteUser');
+                },
+                'userprofile' => function ($model, $key, $index) {
+                    return Yii::$app->user->can('usersProfilesIndex'); 
+                },
+            ],
             ],
         ],
     ]); ?>

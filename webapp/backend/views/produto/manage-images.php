@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\grid\GridView;
@@ -16,9 +17,11 @@ use yii\helpers\Url;
 
 <h3>Upload a New Image</h3>
 
-<div class="form-group">
-    <?= Html::a('Upload Image',['imagem/upload','id' => $produto_id], ['class' => 'btn btn-success']) ?>
-</div>
+<?php if (Yii::$app->user->can('uploadImages')): ?>
+    <div class="form-group">
+        <?= Html::a('Upload Image', ['imagem/upload', 'id' => $produto_id], ['class' => 'btn btn-success']) ?>
+    </div>
+<?php endif; ?>
 
 <h3>Existing Images</h3>
 
@@ -35,6 +38,14 @@ use yii\helpers\Url;
                 return Url::toRoute(['imagem/' . $action, 'id' => $model->id]);
             },
             'template' => '{view} {delete}',
+            'visibleButtons' => [
+                'view' => function ($model, $key, $index) {
+                    return Yii::$app->user->can('viewImage');
+                },
+                'delete' => function ($model, $key, $index) {
+                    return Yii::$app->user->can('deleteImage');
+                },
+            ],
         ],
     ],
 ]); ?>

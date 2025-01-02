@@ -21,10 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Produto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <?php endif;?>
+    
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
-    <?php endif;?>
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

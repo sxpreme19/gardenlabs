@@ -40,6 +40,10 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_save.png"
     },
     {
+        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_main.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/menu/menu_main.xml"
+    },
+    {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_save.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_save.png"
     },
@@ -58,6 +62,10 @@
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_add.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_add.png"
+    },
+    {
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_reset_password.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_reset_password.xml"
     },
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_grelha.xml.flat",
@@ -196,10 +204,6 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\eminem.jpg"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_register.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_register.xml"
-    },
-    {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-hdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
@@ -228,8 +232,8 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_lista.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_login.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_login.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_lista_servicos.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/fragment_lista_servicos.xml"
     },
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_delete.png.flat",

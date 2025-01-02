@@ -17,11 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Service', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php if (Yii::$app->user->can('deleteService')): ?>
+        <p>
+            <?= Html::a('Create Service', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php endif; ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,13 +36,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'titulo',
             'descricao',
             'preco',
-            'duracao', 
+            'duracao',
             'prestador_id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Servico $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'visibleButtons' => [
+                    'view' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('viewService');
+                    },
+                    'update' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('editService');
+                    },
+                    'delete' => function ($model, $key, $index) {
+                        return Yii::$app->user->can('deleteService');
+                    },
+                ],
             ],
         ],
     ]); ?>

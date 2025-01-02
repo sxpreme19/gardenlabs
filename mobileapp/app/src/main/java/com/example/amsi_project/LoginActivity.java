@@ -14,11 +14,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.amsi_project.listeners.LoginListener;
+import com.example.amsi_project.listeners.ResetPasswordListener;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
 
-    private EditText etEmail, etPassword;
+    private EditText etUsername, etPassword;
     public static final  int MIN_PASS=8;
 
 
@@ -36,20 +37,25 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setLoginListener(this);
 
-        etEmail=findViewById(R.id.etEmail);
+        etUsername=findViewById(R.id.etUsername);
         etPassword=findViewById(R.id.etPassword);
     }
 
     public void onClickLogin(View view) {
-        String email = etEmail.getText().toString();
+        String username = etUsername.getText().toString();
         String passwrd = etPassword.getText().toString();
+
+        if(!isUsernameValid(username)){
+            etUsername.setError(getString(R.string.txt_username_inval));
+            return;
+        }
 
         if (!isPasswrdValid(passwrd)) {
             etPassword.setError(getString(R.string.txt_ncaracteres_insuf));
             return;
         }
 
-        SingletonGardenLabsManager.getInstance(getApplicationContext()).loginAPI(getApplicationContext(),email, passwrd);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).loginAPI(getApplicationContext(),username, passwrd);
         //Toast.makeText(this, getString(R.string.txt_login_sucess), Toast.LENGTH_SHORT).show();
         //Intent intent = new Intent(this, MainActivity.class);
         //Intent intent = new Intent(this, MenuMainActivity.class);
@@ -58,15 +64,8 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         //finish();
     }
 
-    public boolean isPasswrdValid(String passwrd) {
-        if (passwrd==null)
-            return false;
-
-        return passwrd.length()>=MIN_PASS;
-    }
-
     @Override
-    public void onUpdateLogin(String token,String username) {
+    public void onUpdateLogin(int id,String token,String username) {
         //Guardar o token da shared preferences
         //Intent para o MenuMainActivity
 
@@ -74,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
         // Guardar o token
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("id", id);
         editor.putString("token", token);
         editor.putString("username", username);
         editor.apply(); // Salvar as mudanças
@@ -85,7 +85,25 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     }
 
     public void onClickRegisterLink(View view) {
-        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    public void onClickResetPassword(View view) {
+        Intent intent = new Intent(this, ResetPasswordActivity.class);
+        startActivity(intent);
+    }
+
+    public boolean isUsernameValid(String username) {
+        if (username==null)
+            return false;
+        return !username.isEmpty();
+    }
+
+    public boolean isPasswrdValid(String passwrd) {
+        if (passwrd==null)
+            return false;
+
+        return passwrd.length()>=MIN_PASS;
     }
 }

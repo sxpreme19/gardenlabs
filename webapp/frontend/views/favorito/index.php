@@ -58,9 +58,11 @@
                                                 <a class="btn hvr-hover" style="color:white" href="<?= yii\helpers\Url::to(['carrinhoproduto/add-to-cart', 'productId' => $wishlistItem->produto->id, 'productQuantity' => 1]) ?>">Add to Cart</a>
                                             </td>
                                             <td class="remove-pr">
+                                                <?php if (Yii::$app->user->can('removeFromWishlist')): ?>
                                                 <a href="<?= yii\helpers\Url::to(['favorito/delete', 'productId' => $wishlistItem->produto->id]) ?>">
                                                     <i class="fas fa-times"></i>
                                                 </a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

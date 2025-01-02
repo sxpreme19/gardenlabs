@@ -19,13 +19,14 @@ class UserController extends ActiveController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => QueryParamAuth::className(),
-            'except' => ['register', 'login'],
+            'except' => ['register', 'login', 'reset-password'],
         ];
         return $behaviors;
     }
 
     public function actionRegister()
     {
+
         $username = Yii::$app->request->post('username');
         $password = Yii::$app->request->post('password');
         $email = Yii::$app->request->post('email');
@@ -85,6 +86,7 @@ class UserController extends ActiveController
 
                 return [
                     'token' => $user->auth_key,
+                    'id' => $user->id
                 ];
             } else {
                 return [
@@ -99,4 +101,60 @@ class UserController extends ActiveController
             'errors' => $user->errors,
         ];
     }
+
+    public function actionResetPassword()
+    {
+        $email = Yii::$app->request->post('email');
+        $oldPassword = Yii::$app->request->post('oldpassword');
+        $newPassword = Yii::$app->request->post('newpassword');
+
+        $user = User::findOne(['email' => $email]);
+
+        if (!$user || !$user->validatePassword($oldPassword)) {
+            return [
+                'message' => 'Reset password failed.',
+                'errors' => 'Invalid username or old password.',
+            ];
+        }
+
+        $user->setPassword($newPassword);
+        $user->generateAuthKey();
+
+        if ($user->save()) {
+            return [
+                'message' => 'Password reset successfully.',
+            ];
+        }
+
+        return [
+            'message' => 'Password reset failed.',
+            'errors' => $user->errors,
+        ];
+    }
+
+    public function delete()
+{
+    $transaction = Yii::$app->db->beginTransaction();
+    try {
+        // Custom deletion logic
+        $userProfile = $this->userProfile;
+        if ($userProfile) {
+            $userProfile->delete();
+        }
+
+        // Perform other deletions or actions as needed
+
+        // Delete the user
+        parent::delete();
+
+        // Commit transaction
+        $transaction->commit();
+        return true;
+    } catch (\Exception $e) {
+        // Rollback transaction in case of error
+        $transaction->rollBack();
+        throw $e;
+    }
+}
+
 }
