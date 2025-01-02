@@ -30,6 +30,10 @@ use yii\helpers\Html;
                 <?= Html::submitButton('Sign In', ['class' => 'btn btn-primary btn-block']) ?>
             </div>
         </div>
+        <br>
+        <p class="mb-1">
+            <a href="<?= yii\helpers\Url::to(['site/reset-password']) ?>">I forgot my password</a>
+        </p>
 
         <?php \yii\bootstrap4\ActiveForm::end(); ?>
     </div>

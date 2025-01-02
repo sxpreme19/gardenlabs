@@ -12,7 +12,7 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\Produto;
 use common\models\Categoria;
-use frontend\models\ResetPasswordForm;
+use common\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 

@@ -1,6 +1,6 @@
 <?php
 /** @var yii\bootstrap5\ActiveForm $form */
-/** @var \frontend\models\ResetPasswordForm $model */
+/** @var \common\models\ResetPasswordForm $model */
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 ?>

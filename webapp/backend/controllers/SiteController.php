@@ -7,6 +7,7 @@ use common\models\User;
 use common\models\Produto;
 use common\models\Servico;
 use common\models\Fatura;
+use common\models\ResetPasswordForm;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -26,19 +27,19 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['login', 'error', 'index', 'logout'],
+                'only' => ['login', 'reset-password', 'error', 'index', 'logout'],
                 'rules' => [
                     [
                         'allow' => false,
                         'roles' => ['client'],
                         'denyCallback' => function ($rule, $action) {
-                            Yii::$app->session->setFlash('warning', 'You must have backend access.');
                             Yii::$app->user->logout();
+                            Yii::$app->session->setFlash('warning', 'You must have backend access.');
                             return $this->redirect(['login']);
                         },
                     ],
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error', 'reset-password'],
                         'allow' => true,
                     ],
                     [
@@ -215,6 +216,24 @@ class SiteController extends Controller
         $model->password = '';
 
         return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionResetPassword()
+    {
+        $this->layout = 'main-login';
+
+        $model = new ResetPasswordForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->resetPassword()) {
+                Yii::$app->session->setFlash('success', 'Your password has been reset successfully.');
+                return $this->goHome();
+            }
+        }
+
+        return $this->render('reset-password', [
             'model' => $model,
         ]);
     }
