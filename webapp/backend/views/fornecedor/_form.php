@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'telefone')->textInput(['maxlength' => 9]) ?>
+        <?= $form->field($model, 'telefone')->textInput(['type' => 'number','maxlength' => 9]) ?>
 
         <?= $form->field($model, 'localizacao')->textInput(['maxlength' => true]) ?>
 

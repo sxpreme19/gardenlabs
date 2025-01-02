@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class ListaServicosFragment extends Fragment implements ServicosListener {
 
     public static final int ADD = 100,EDIT = 200, DELETE = 300;
-    private ListView lvLivros;
+    private ListView lvServicos;
     private FloatingActionButton fabLista;
     private ArrayList<Servico> servicos;
 
@@ -44,16 +44,15 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lista_servicos, container, false);
         setHasOptionsMenu(true);
 
 
-        lvLivros = view.findViewById(R.id.lvLivros);
+        lvServicos = view.findViewById(R.id.lvServicos);
         //books = SingletonBookManager.getInstance(getContext()).getBooksBD();
-        //lvLivros.setAdapter(new ListaLivrosAdaptador(books,getContext()));
+        //lvServicos.setAdapter(new ListaLivrosAdaptador(books,getContext()));
 
-        lvLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvServicos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //Toast.makeText(getContext(),books.get(i).getTitulo(),Toast.LENGTH_LONG).show();
@@ -113,12 +112,12 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
 
             @Override
             public boolean onQueryTextChange(String s) {
-                ArrayList<Book> tempLivros = new ArrayList<>();
-                for (Book l: SingletonGardenLabsManager.getInstance(getContext()).getBooksBD()){
+                ArrayList<Servico> tempServicos = new ArrayList<>();
+                for (Servico l: SingletonGardenLabsManager.getInstance(getContext()).getServicosBD()){
                     if (l.getTitulo().toLowerCase().contains(s.toLowerCase()))
-                        tempLivros.add(l);
+                        tempServicos.add(l);
                 }
-                lvLivros.setAdapter(new ListaLivrosAdaptador(tempLivros,getContext()));
+                lvServicos.setAdapter(new ListaServicosAdaptador(tempServicos,getContext()));
                 return true;
             }
         });
@@ -127,7 +126,7 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
     @Override
     public void onRefreshListaServicos(ArrayList<Servico> listaServicos) {
         if(listaServicos != null){
-            lvLivros.setAdapter(new ListaServicosAdaptador(listaServicos,getContext()));
+            lvServicos.setAdapter(new ListaServicosAdaptador(listaServicos,getContext()));
         }
     }
 }

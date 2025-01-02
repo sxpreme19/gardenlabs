@@ -12,11 +12,11 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'quantidade')->textInput() ?>
+        <?= $form->field($model, 'quantidade')->textInput(['type' => 'number', 'step' => '1','min' => '1']) ?>
 
-        <?= $form->field($model, 'precounitario')->textInput() ?>
+        <?= $form->field($model, 'precounitario')->textInput(['type' => 'number', 'step' => '0.01','min' => '0']) ?>
 
-        <?= $form->field($model, 'carrinhoproduto_id')->textInput() ?>
+        <?= $form->field($model, 'carrinhoproduto_id')->textInput(['type' => 'number', 'step' => '1','min' => '1']) ?>
 
         <?= $form->field($model, 'produto_id')->dropDownList(
             \yii\helpers\ArrayHelper::map(\common\models\Produto::find()->all(), 'id', 'nome'),

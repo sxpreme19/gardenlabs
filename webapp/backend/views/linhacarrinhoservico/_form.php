@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'preco')->textInput() ?>
+        <?= $form->field($model, 'preco')->textInput(['type' => 'number', 'step' => '0.01','min' => '0']) ?>
 
-        <?= $form->field($model, 'carrinhoservico_id')->textInput() ?>
+        <?= $form->field($model, 'carrinhoservico_id')->textInput(['type' => 'number', 'step' => '1','min' => '1']) ?>
 
         <?= $form->field($model, 'servico_id')->dropDownList(
             \yii\helpers\ArrayHelper::map(\common\models\Servico::find()->all(), 'id', 'nome'),

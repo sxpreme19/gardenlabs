@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use common\models\Servico;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 
@@ -19,5 +20,14 @@ class ReviewController extends ActiveController
             'class' => QueryParamAuth::className(),
         ];
         return $behaviors;
+    }
+
+    public function actionGetbyservicoid($id)
+    {
+        $reviews = Servico::find()
+            ->where(['userprofile_id' => $id])
+            ->all();
+
+        return $reviews;
     }
 }

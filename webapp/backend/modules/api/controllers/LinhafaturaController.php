@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use common\models\Linhafatura;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 
@@ -19,6 +20,15 @@ class LinhafaturaController extends ActiveController
             'class' => QueryParamAuth::className(),
         ];
         return $behaviors;
+    }
+
+    public function actionGetbyfaturaid($id)
+    {
+        $invoiceLines = Linhafatura::find()
+            ->where(['userprofile_id' => $id])
+            ->all();
+
+        return $invoiceLines;
     }
 
 }

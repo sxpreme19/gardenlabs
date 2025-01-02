@@ -15,51 +15,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LivroJsonParser {
+public class JsonParser {
 
-    //Método parserJsonLivro(), que devolve apenas um livro;
-    public static Book parserJsonLivro(String response){
-        Book auxLivro = null;
+    //Método parserJsonServico(), que devolve apenas um servico;
+    public static Servico parserJsonServico(String response){
+        Servico auxServico = null;
 
         try {
-            JSONObject livro = new JSONObject(response);
-            int id = livro.getInt("id");
-            String titulo = livro.getString("titulo");
-            String serie = livro.getString("serie");
-            String autor = livro.getString("autor");
-            int ano = livro.getInt("ano");
-            String capa = livro.getString("capa");
+            JSONObject servico = new JSONObject(response);
+            int id = servico.getInt("id");
+            String titulo = servico.getString("titulo");
+            String descricao = servico.getString("descricao");
+            int duracao = servico.getInt("duracao");
+            double preco = servico.getDouble("preco");
+            int prestador_id = servico.getInt("prestador_id");
 
-            auxLivro = new Book(id,capa,ano,titulo,serie,autor);
+            auxServico = new Servico(id,titulo,descricao,duracao,preco,prestador_id);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        return auxLivro;
+        return auxServico;
     }
 
-
-    //Método parserJsonLivros(), que devolve a lista de livros;
-    public static ArrayList<Book> parserJsonLivros(JSONArray response) {
-        ArrayList<Book> livros = new ArrayList<>();
-        for (int i = 0; i < response.length(); i++) {
-            JSONObject livro = null;
-            try {
-                livro = (JSONObject) response.get(i);
-                int id = livro.getInt("id");
-                String titulo = livro.getString("titulo");
-                String serie = livro.getString("serie");
-                String autor = livro.getString("autor");
-                int ano = livro.getInt("ano");
-                String capa = livro.getString("capa");
-                livros.add(new Book(id, capa, ano, titulo, serie, autor));
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-        return livros;
-    }
-
+    //Método parserJsonServicos(), que devolve a lista de Servicos;
     public static ArrayList<Servico> parserJsonServices(JSONArray response) {
         ArrayList<Servico> services = new ArrayList<>();
         for (int i = 0; i < response.length(); i++) {

@@ -2,6 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
+use common\models\Linhacarrinhoservico;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 
@@ -19,5 +20,14 @@ class LinhacarrinhoservicoController extends ActiveController
             'class' => QueryParamAuth::className(),
         ];
         return $behaviors;
+    }
+
+    public function actionGetbycarrinhoservicoid($id)
+    {
+        $serviceCartLines = Linhacarrinhoservico::find()
+            ->where(['carrinhoservico_id' => $id])
+            ->all();
+
+        return $serviceCartLines;
     }
 }

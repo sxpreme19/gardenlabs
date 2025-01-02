@@ -12,13 +12,11 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'id')->textInput() ?>
-
         <?= $form->field($model, 'conteudo')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'datahora')->textInput() ?>
+        <?= $form->field($model, 'datahora')->textInput(['type' => 'datetime-local']) ?>
 
-        <?= $form->field($model, 'avaliacao')->textInput() ?>
+        <?= $form->field($model, 'avaliacao')->textInput(['type' => 'number', 'step' => '0.01','min' => '0']) ?>
 
         <?= $form->field($model, 'servico_id')->dropDownList(
             \yii\helpers\ArrayHelper::map(\common\models\Servico::find()->all(), 'id', 'nome'), 
@@ -30,7 +28,7 @@ use yii\widgets\ActiveForm;
             ['prompt' => 'Select Product']
         ) ?>
 
-        <?= $form->field($model, 'userprofile_id')->textInput() ?>
+        <?= $form->field($model, 'userprofile_id')->textInput(['type' => 'number', 'step' => '1','min' => '1']) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

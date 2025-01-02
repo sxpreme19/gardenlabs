@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.amsi_project.listeners.LivroListener;
 import com.example.amsi_project.modelo.Book;
+import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -25,7 +26,7 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
     private EditText etTitulo, etSerie, etAutor, etAno;
     private ImageView imgCapa;
     private FloatingActionButton fabDetalhes;
-    private Book book;
+    private Servico servico;
     public static final int MIN_CHAR=3, MIN_NUMBER=4;
 
     @Override
@@ -34,14 +35,14 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
         setContentView(R.layout.activity_detalhes_livro);
 
         int id=getIntent().getIntExtra("ID", 0);
-        book = SingletonGardenLabsManager.getInstance(getApplicationContext()).getBook(id);
+        servico = SingletonGardenLabsManager.getInstance(getApplicationContext()).getServico(id);
         etTitulo=findViewById(R.id.etTitulo);
         etSerie=findViewById(R.id.etSerie);
         etAutor=findViewById(R.id.etAutor);
         etAno=findViewById(R.id.etAno);
         imgCapa=findViewById(R.id.imgCapa);
         fabDetalhes=findViewById(R.id.fabDetalhes);
-        if (book != null)
+        if (servico != null)
             carregarLivros();
         else setTitle("Novo livro");
 
@@ -70,7 +71,7 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
                         finish();*/
-                        SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarLivroAPI(book, getApplicationContext());
+                        SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarServicoAPI(book, getApplicationContext());
                     }
                 }
             }

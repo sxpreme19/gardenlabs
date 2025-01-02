@@ -72,6 +72,8 @@ use yii\widgets\ActiveForm;
                         <div class="border p-4 rounded bg-light">
                             <p class="text-dark"><?= $product->descricao ?></p>
                         </div>
+                        <br>
+                        <h5>Supplier: <span style="color: #555555;"><?= $product->fornecedor->nome ?></span></h5>
                         <?php if (!empty($reviews)): ?>
                             <div class="rating" style="font-family: Arial, sans-serif; font-size: 1.5rem; color: #ffc107; display: flex; align-items: center;">
                                 <div class="stars" style="display: flex;">

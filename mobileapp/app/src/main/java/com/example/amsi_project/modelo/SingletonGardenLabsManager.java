@@ -1,6 +1,6 @@
 package com.example.amsi_project.modelo;
 
-import static com.example.amsi_project.utils.LivroJsonParser.parserJsonLogin;
+import static com.example.amsi_project.utils.JsonParser.parserJsonLogin;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,7 +24,7 @@ import com.example.amsi_project.listeners.LoginListener;
 import com.example.amsi_project.listeners.RegisterListener;
 import com.example.amsi_project.listeners.ResetPasswordListener;
 import com.example.amsi_project.listeners.ServicosListener;
-import com.example.amsi_project.utils.LivroJsonParser;
+import com.example.amsi_project.utils.JsonParser;
 
 import org.json.JSONArray;
 
@@ -34,8 +34,7 @@ import java.util.Map;
 
 public class SingletonGardenLabsManager {
 
-    public LivroBDHelper LivrosBD = null;
-    private ArrayList<Book> books;
+    public BDHelper BD = null;
     private ArrayList<Servico> services;
     private static SingletonGardenLabsManager instance = null;
     private static RequestQueue volleyQueue = null;
@@ -88,48 +87,48 @@ public class SingletonGardenLabsManager {
     //region Acesso á BD
 
     private SingletonGardenLabsManager(Context context) {
-        books = new ArrayList<>();
-        LivrosBD = new LivroBDHelper(context);
+        services = new ArrayList<>();
+        BD = new BDHelper(context);
     }
 
-    public ArrayList<Book> getBooksBD() {
-        books = LivrosBD.getAllLivrosBD();
-        return new ArrayList<>(books);
+    public ArrayList<Servico> getServicosBD() {
+        services = BD.getAllServicosBD();
+        return new ArrayList<>(services);
     }
 
-    public Book getBook(int id) {
-        for (Book l : books) {
+    public Servico getServico(int id) {
+        for (Servico l : services) {
             if (l.getId() == id)
                 return l;
         }
         return null;
     }
 
-    public void addBookBD(Book book) {
-        LivrosBD.adicionarLivroBD(book);
+    public void addServicoBD(Servico servico) {
+        BD.adicionarServicoBD(servico);
         //books.add(auxLivro);
     }
 
-    public void deleteBookBD(int id) {
-        Book l = getBook(id);
+    public void deleteServicoBD(int id) {
+        Servico l = getServico(id);
         if (l != null) {
-            if (LivrosBD.removerLivroBD(id))
-                books.remove(l);
+            if (BD.removerServicoBD(id))
+                services.remove(l);
         }
     }
 
-    public void editBookBD(Book book) {
-        Book l = getBook(book.getId());
+    public void editServicoBD(Servico servico) {
+        Servico l = getServico(servico.getId());
         if (l != null) {
-            LivrosBD.editarLivroBD(book);
+            BD.editarServicoBD(servico);
         }
     }
 
-    public void adicionarLivrosBD(ArrayList<Book> livros) {
+    public void adicionarServicosBD(ArrayList<Servico> servicos) {
         //apagar os livros tds e adicionar os livros atuais da api
-        LivrosBD.removerAllLivrosBD();
-        for (Book l : livros) {
-            LivrosBD.adicionarLivroBD(l);
+        BD.removerAllServicosBD();
+        for (Servico l : servicos) {
+            BD.adicionarServicoBD(l);
         }
     }
     //endregion
@@ -137,22 +136,22 @@ public class SingletonGardenLabsManager {
     //region Acesso á API
 
     public void getAllServicesAPI(final Context context) {
-        if (!LivroJsonParser.isConnectionInternet(context)) {
+        if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
 
             //Se não tem internet vai buscar todos os livros á bd local
             //Insert, delete and PUT n tem funcionalidades offline
-            books = LivrosBD.getAllLivrosBD();
+            services = BD.getAllServicosBD();
 
-            if (livrosListener != null) {
-                livrosListener.onRefreshListaLivros(books);
+            if (servicosListener != null) {
+                servicosListener.onRefreshListaServicos(services);
             }
         } else {
             JsonArrayRequest reqServices = new JsonArrayRequest(Request.Method.GET, baseURL+"servico?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-                    services = LivroJsonParser.parserJsonServices(response);
-                    adicionarLivrosBD(books);
+                    services = JsonParser.parserJsonServices(response);
+                    adicionarServicosBD(services);
 
                     if (servicosListener != null) {
                         servicosListener.onRefreshListaServicos(services);
@@ -169,14 +168,14 @@ public class SingletonGardenLabsManager {
         }
     }
 
-    public void adicionarLivroAPI(final Book livro, final Context context) {
-        if (!LivroJsonParser.isConnectionInternet(context)) {
+    public void adicionarServicoAPI(final Book livro, final Context context) {
+        if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
             StringRequest reqAdicionarLivro = new StringRequest(Request.Method.POST, mUrlAPILivros, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    LivrosBD.adicionarLivroBD(LivroJsonParser.parserJsonLivro(response));
+                    BD.adicionarServicoBD(JsonParser.parserJsonServico(response));
 
                     if (livroListener != null) {
                         livroListener.onRefreshDetalhes(ListaServicosFragment.ADD);
@@ -208,13 +207,13 @@ public class SingletonGardenLabsManager {
     }
 
     public void removerLivroAPI(final Book livro, final Context context) {
-        if (!LivroJsonParser.isConnectionInternet(context)) {
+        if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
             StringRequest reqRemoverLivro = new StringRequest(Request.Method.DELETE, mUrlAPILivros + '/' + livro.getId(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    LivrosBD.removerLivroBD(livro.getId());
+                    BD.removerServicoBD(livro.getId());
 
                     if (livroListener != null) {
                         livroListener.onRefreshDetalhes(ListaServicosFragment.DELETE);
@@ -230,14 +229,14 @@ public class SingletonGardenLabsManager {
         }
     }
 
-    public void editarLivroAPI(final Book livro, final Context context) {
-        if (!LivroJsonParser.isConnectionInternet(context)) {
+    public void editarServicoAPI(final Book livro, final Context context) {
+        if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
             StringRequest reqEditarLivro = new StringRequest(Request.Method.PUT, mUrlAPILivros + '/' + livro.getId(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    LivrosBD.editarLivroBD(livro);
+                    BD.editarServicoBD(livro);
 
                     if (livroListener != null) {
                         livroListener.onRefreshDetalhes(ListaServicosFragment.EDIT);
@@ -272,10 +271,10 @@ public class SingletonGardenLabsManager {
     //endregion
 
 
-    //region Acceso do login e register da API
+    //region Acesso do login e register da API
 
     public void loginAPI(final Context context, final String username, final String password) {
-        if (!LivroJsonParser.isConnectionInternet(context)) {
+        if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem Ligação á internet", Toast.LENGTH_LONG).show();
         } else {
             StringRequest reqLogin = new StringRequest(Request.Method.POST, baseURL+"user/login", new Response.Listener<String>() {
@@ -308,7 +307,7 @@ public class SingletonGardenLabsManager {
     }
 
     public void registerAPI(final Context context, final String username, final String password,final String email) {
-        if (!LivroJsonParser.isConnectionInternet(context)) {
+        if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem Ligação á internet", Toast.LENGTH_LONG).show();
         } else {
             StringRequest reqLogin = new StringRequest(Request.Method.POST, baseURL+"user/register", new Response.Listener<String>() {
@@ -340,7 +339,7 @@ public class SingletonGardenLabsManager {
     }
 
     public void resetpasswordAPI(final Context context, final String email,final String oldpassword,final String newpassword) {
-        if (!LivroJsonParser.isConnectionInternet(context)) {
+        if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem Ligação á internet", Toast.LENGTH_LONG).show();
         } else {
             StringRequest reqLogin = new StringRequest(Request.Method.POST, baseURL+"user/reset-password", new Response.Listener<String>() {

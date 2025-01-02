@@ -12,17 +12,19 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'total')->textInput() ?>
+        <?= $form->field($model, 'total')->textInput(['type' => 'number','step' => '0.01','min' => '0']) ?>
 
-        <?= $form->field($model, 'datahora')->textInput() ?>
+        <?= $form->field($model, 'datahora')->textInput(['type' => 'datetime-local']) ?>
 
         <?= $form->field($model, 'nome_destinatario')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'morada_destinatario')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'telefone_destinatario')->textInput() ?>
+        <?= $form->field($model, 'telefone_destinatario')->textInput(['type' => 'number']) ?>
 
-        <?= $form->field($model, 'nif_destinatario')->textInput() ?>
+        <?= $form->field($model, 'nif_destinatario')->textInput(['type' => 'number']) ?>
+
+        <?= $form->field($model, 'preco_envio')->textInput(['type' => 'number','step' => '0.01','min' => '0.01']) ?>
 
         <?= $form->field($model, 'metodopagamento_id')->dropDownList(
             \yii\helpers\ArrayHelper::map(\common\models\Metodopagamento::find()->all(), 'id', 'descricao'),
@@ -35,7 +37,7 @@ use yii\widgets\ActiveForm;
         ) ?>
 
 
-        <?= $form->field($model, 'userprofile_id')->textInput() ?>
+        <?= $form->field($model, 'userprofile_id')->textInput(['type' => 'number','step' => '0.01','min' => '1']) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

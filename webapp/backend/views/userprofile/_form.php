@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'morada')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'nif')->textInput() ?>
+        <?= $form->field($model, 'nif')->textInput(['type' => 'number']) ?>
 
-        <?= $form->field($model, 'telefone')->textInput() ?>
+        <?= $form->field($model, 'telefone')->textInput(['type' => 'number']) ?>
 
         <?= $form->field($model, 'user_id')->dropDownList(
             \yii\helpers\ArrayHelper::map(\common\models\User::find()->all(), 'id', 'username'),

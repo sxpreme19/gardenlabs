@@ -86,11 +86,50 @@ return [
                     'extraPatterns' => [
                         'GET carrinhoservico_id/{id}' => 'getbycarrinhoservicoid',
                     ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/favorito'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/fatura'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/linhafatura'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/review'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/favorito',
+                    'extraPatterns' => [
+                        'GET userprofile_id/{id}' => 'getbyuserprofileid',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/fatura',
+                    'extraPatterns' => [
+                        'GET userprofile_id/{id}' => 'getbyuserprofileid',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/linhafatura',
+                    'extraPatterns' => [
+                        'GET fatura_id/{id}' => 'getbyfaturaid',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/review',
+                    'extraPatterns' => [
+                        'GET servico_id/{id}' => 'servicoid',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
+                ],
             ],
         ],
 

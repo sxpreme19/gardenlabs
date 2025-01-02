@@ -3,6 +3,7 @@
 namespace backend\modules\api\controllers;
 
 use yii\rest\ActiveController;
+use common\models\Fatura;
 use yii\filters\auth\QueryParamAuth;
 
 /**
@@ -19,5 +20,14 @@ class FaturaController extends ActiveController
             'class' => QueryParamAuth::className(),
         ];
         return $behaviors;
+    }
+
+    public function actionGetbyuserprofileid($id)
+    {
+        $invoices = Fatura::find()
+            ->where(['userprofile_id' => $id])
+            ->all();
+
+        return $invoices;
     }
 }
