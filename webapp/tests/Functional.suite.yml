@@ -9,4 +9,5 @@ actor: FunctionalTester
 modules:
     enabled:
         - Db
+        - \Helper\Functional
 step_decorators: ~
