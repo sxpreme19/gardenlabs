@@ -7,9 +7,6 @@ use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 use Yii;
 
-/**
- * Default controller for the `api` module
- */
 class ServicoController extends ActiveController
 {
     public $modelClass = 'common\models\Servico';

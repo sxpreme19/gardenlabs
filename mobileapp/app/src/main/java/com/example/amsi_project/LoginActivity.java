@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     }
 
     @Override
-    public void onUpdateLogin(String token,String username) {
+    public void onUpdateLogin(int id,String token,String username) {
         //Guardar o token da shared preferences
         //Intent para o MenuMainActivity
 
@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
         // Guardar o token
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("id", id);
         editor.putString("token", token);
         editor.putString("username", username);
         editor.apply(); // Salvar as mudanças

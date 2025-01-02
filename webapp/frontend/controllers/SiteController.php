@@ -97,7 +97,7 @@ class SiteController extends Controller
             $userWishlistIds = ArrayHelper::getColumn($userWishlist, 'produto_id');
         } else {
             $userWishlistIds = null;
-            Yii::$app->session->setFlash('info', 'Create account to get access to all the features! (Cart,Wishlist,Reviews... And much more!)');
+            Yii::$app->session->setFlash('info', 'Login to get access to all the features! (Cart,Wishlist,Reviews... And much more!)');
         }
 
         $categories = Categoria::find()->limit(3)->all();
@@ -163,7 +163,7 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Login to get access to all the features!');
+            Yii::$app->session->setFlash('success', 'Thank you for registration!');
             return $this->goHome();
         }
 

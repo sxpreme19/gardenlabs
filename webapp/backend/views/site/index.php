@@ -75,13 +75,28 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         <div class="col-12 col-sm-6 col-md-3">
             <canvas id="mostSoldProductsChart" width="1.3" height="1.3"></canvas>
         </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <canvas id="bestRatedProductsChart" width="1.3" height="1.3"></canvas>
+        </div>
     </div>
+
+    <div class="row mt-4">
+        <div class="col-12 col-sm-6 col-md-3">
+            <canvas id="mostSoldServicesChart" width="1.3" height="1.3"></canvas>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <canvas id="bestRatedServicesChart" width="1.3" height="1.3"></canvas>
+        </div>
+    </div>
+
+
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const ctx = document.getElementById('mostSoldProductsChart').getContext('2d');
+        const bestRatedCtx = document.getElementById('bestRatedProductsChart').getContext('2d');
 
         const chartData = {
             labels: <?= json_encode($labels) ?>,
@@ -94,7 +109,16 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             }]
         };
 
-        const labelCount = chartData.labels.length;
+        const ratingData = {
+            labels: <?= json_encode($ratingLabels) ?>,
+            datasets: [{
+                label: 'Average Rating',
+                data: <?= json_encode($ratingData) ?>,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        };
 
         new Chart(ctx, {
             type: 'bar',
@@ -109,14 +133,122 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 plugins: {
                     title: {
                         display: true,
-                        text: `Top ${labelCount} Most Sold Products`, 
+                        text: `Top ${chartData.labels.length} Most Sold Products`,
                         font: {
-                            size: 18, 
-                            weight: 'bold' 
+                            size: 18,
+                            weight: 'bold'
                         },
                         padding: {
                             top: 20,
-                            bottom: 20 
+                            bottom: 20
+                        }
+                    }
+                }
+            },
+        });
+
+        new Chart(bestRatedCtx, {
+            type: 'bar',
+            data: ratingData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 5
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Top ${ratingData.labels.length} Best Rated Products`,
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                        padding: {
+                            top: 20,
+                            bottom: 20
+                        }
+                    }
+                }
+            },
+        });
+
+        const ctxMostSold = document.getElementById('mostSoldServicesChart').getContext('2d');
+        const ctxBestRated = document.getElementById('bestRatedServicesChart').getContext('2d');
+
+        const mostSoldData = {
+            labels: <?= json_encode($mostSoldLabels) ?>,
+            datasets: [{
+                label: 'Total Quantity Sold',
+                data: <?= json_encode($mostSoldDataValues) ?>,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        const ratingDataServices = {
+            labels: <?= json_encode($ratingLabelsServices) ?>,
+            datasets: [{
+                label: 'Average Rating',
+                data: <?= json_encode($ratingDataValuesServices) ?>,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(ctxMostSold, {
+            type: 'bar',
+            data: mostSoldData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Top ${mostSoldData.labels.length} Most Sold Services`,
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                        padding: {
+                            top: 20,
+                            bottom: 20
+                        }
+                    }
+                }
+            },
+        });
+
+        new Chart(ctxBestRated, {
+            type: 'bar',
+            data: ratingDataServices,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 5
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Top ${ratingDataServices.labels.length} Best Rated Services`,
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                        padding: {
+                            top: 20,
+                            bottom: 20
                         }
                     }
                 }

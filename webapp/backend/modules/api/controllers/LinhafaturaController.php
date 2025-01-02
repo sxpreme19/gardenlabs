@@ -20,4 +20,5 @@ class LinhafaturaController extends ActiveController
         ];
         return $behaviors;
     }
+
 }

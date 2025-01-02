@@ -86,6 +86,7 @@ class UserController extends ActiveController
 
                 return [
                     'token' => $user->auth_key,
+                    'id' => $user->id
                 ];
             } else {
                 return [
@@ -130,4 +131,30 @@ class UserController extends ActiveController
             'errors' => $user->errors,
         ];
     }
+
+    public function delete()
+{
+    $transaction = Yii::$app->db->beginTransaction();
+    try {
+        // Custom deletion logic
+        $userProfile = $this->userProfile;
+        if ($userProfile) {
+            $userProfile->delete();
+        }
+
+        // Perform other deletions or actions as needed
+
+        // Delete the user
+        parent::delete();
+
+        // Commit transaction
+        $transaction->commit();
+        return true;
+    } catch (\Exception $e) {
+        // Rollback transaction in case of error
+        $transaction->rollBack();
+        throw $e;
+    }
+}
+
 }

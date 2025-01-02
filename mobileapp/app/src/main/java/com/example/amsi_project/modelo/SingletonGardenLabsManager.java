@@ -1,5 +1,7 @@
 package com.example.amsi_project.modelo;
 
+import static com.example.amsi_project.utils.LivroJsonParser.parserJsonLogin;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
@@ -279,9 +281,11 @@ public class SingletonGardenLabsManager {
             StringRequest reqLogin = new StringRequest(Request.Method.POST, baseURL+"user/login", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    String token = LivroJsonParser.parserJsonLogin(response);
+                    Map<String, Object> loginResponse = parserJsonLogin(response);
+                    String token = (String) loginResponse.get("token");
+                    int id = (int) loginResponse.get("id");
                     if (loginListener != null) {
-                        loginListener.onUpdateLogin(token,username);
+                        loginListener.onUpdateLogin(id,token,username);
                     }
                 }
             }, new Response.ErrorListener() {

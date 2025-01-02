@@ -2,6 +2,6 @@ package com.example.amsi_project.listeners;
 
 public interface LoginListener {
 
-    void onUpdateLogin(String token,String username);
+    void onUpdateLogin(int id,String token,String username);
 
 }

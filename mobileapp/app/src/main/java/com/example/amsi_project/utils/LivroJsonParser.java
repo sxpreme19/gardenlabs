@@ -12,6 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LivroJsonParser {
 
@@ -82,15 +84,20 @@ public class LivroJsonParser {
 
 
     //Método parserJsonLogin(), que efetuará o login na API;
-    public static String parserJsonLogin(String response){
+    public static Map<String, Object> parserJsonLogin(String response) {
         String token = null;
+        int id;
+        Map<String, Object> result = new HashMap<>();
         try {
             JSONObject login = new JSONObject(response);
             token = login.getString("token");
+            id = login.getInt("id");
+            result.put("token", token);
+            result.put("id", id);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        return token;
+        return result;
     }
 
     //Método isConnectionInternet(), que verifica se existe acesso à internet;
