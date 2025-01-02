@@ -1,11 +1,10 @@
 <?php
 
-
 namespace Tests\Functional;
 
 use Tests\Support\FunctionalTester;
 
-class MyNewScenarioCest6Cest
+class frontendCheckoutCest
 {
     public function _before(FunctionalTester $I)
     {

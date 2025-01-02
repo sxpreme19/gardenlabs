@@ -4,6 +4,7 @@ namespace backend\modules\api\controllers;
 
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
+use common\models\Carrinhoservico;
 
 /**
  * Default controller for the `api` module
@@ -19,5 +20,12 @@ class CarrinhoservicoController extends ActiveController
             'class' => QueryParamAuth::className(),
         ];
         return $behaviors;
+    }
+
+    public function actionGetbyuserprofileid($id)
+    {
+        $serviceCart = Carrinhoservico::findOne(['userprofile_id' => $id]);
+
+        return $serviceCart;
     }
 }

@@ -128,9 +128,12 @@ class UserController extends Controller
      */
     public function actionPurchaseHistory()
     {
+        $userProfile = Yii::$app->user->identity->userProfile->id;
+
         $query = Fatura::find()
             ->joinWith('linhafaturas')
             ->where(['linhafatura.servico_id' => null])
+            ->andWhere(['userprofile_id' => $userProfile])
             ->groupBy('fatura.id');
 
         $dataProvider = new \yii\data\ActiveDataProvider([
@@ -205,8 +208,8 @@ class UserController extends Controller
                     $favorito->delete();
                 }
             }
-            if ($userProfile->reviews) {
-                foreach ($userProfile->reviews as $review) {
+            if($userProfile->reviews) {
+                foreach($userProfile->reviews as $review) {
                     $review->delete();
                 }
             }

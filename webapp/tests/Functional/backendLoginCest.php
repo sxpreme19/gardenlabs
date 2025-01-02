@@ -5,7 +5,7 @@ namespace Tests\Functional;
 
 use Tests\Support\FunctionalTester;
 
-class MyNewScenarioCest4Cest
+class backendLoginCest
 {
     public function _before(FunctionalTester $I)
     {

@@ -5,7 +5,7 @@ namespace Tests\Unit;
 
 use Tests\Support\UnitTester;
 
-class Example4Test extends \Codeception\Test\Unit
+class ReviewTest extends \Codeception\Test\Unit
 {
 
     protected UnitTester $tester;

@@ -5,7 +5,7 @@ namespace Tests\Functional;
 
 use Tests\Support\FunctionalTester;
 
-class MyNewScenarioCest
+class frontendAddToCartCest
 {
     public function _before(FunctionalTester $I)
     {

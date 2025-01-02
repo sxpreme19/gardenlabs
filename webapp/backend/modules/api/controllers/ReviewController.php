@@ -25,7 +25,7 @@ class ReviewController extends ActiveController
     public function actionGetbyservicoid($id)
     {
         $reviews = Servico::find()
-            ->where(['userprofile_id' => $id])
+            ->where(['servico_id' => $id])
             ->all();
 
         return $reviews;

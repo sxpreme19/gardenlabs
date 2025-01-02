@@ -37,7 +37,7 @@ use yii\widgets\ActiveForm;
         ) ?>
 
 
-        <?= $form->field($model, 'userprofile_id')->textInput(['type' => 'number','step' => '0.01','min' => '1']) ?>
+        <?= $form->field($model, 'userprofile_id')->textInput(['type' => 'number','step' => '1','min' => '1']) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -79,7 +79,16 @@ return [
                         '{data_criacao}' => '<data_criacao:\\d{4}-\d{2}-\d{2}+>'
                     ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/carrinhoservico'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/carrinhoservico',
+                    'extraPatterns' => [
+                        'GET userprofile_id/{id}' => 'getbyuserprofileid',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
+                ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/linhacarrinhoservico',

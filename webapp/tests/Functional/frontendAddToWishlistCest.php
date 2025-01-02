@@ -5,7 +5,7 @@ namespace Tests\Functional;
 
 use Tests\Support\FunctionalTester;
 
-class MyNewScenarioCest3Cest
+class frontendAddToWishlistCest
 {
     public function _before(FunctionalTester $I)
     {

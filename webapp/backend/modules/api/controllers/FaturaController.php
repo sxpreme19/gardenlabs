@@ -25,8 +25,10 @@ class FaturaController extends ActiveController
     public function actionGetbyuserprofileid($id)
     {
         $invoices = Fatura::find()
-            ->where(['userprofile_id' => $id])
-            ->all();
+            ->joinWith('linhafaturas')
+            ->where(['linhafatura.produto_id' => null])
+            ->andWhere(['userprofile_id' => $id])
+            ->groupBy('fatura.id');
 
         return $invoices;
     }
