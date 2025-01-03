@@ -16,13 +16,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.amsi_project.DetalhesLivroActivity;
 import com.example.amsi_project.ListaServicosFragment;
-import com.example.amsi_project.listeners.LivroListener;
-import com.example.amsi_project.listeners.LivrosListener;
 import com.example.amsi_project.listeners.LoginListener;
 import com.example.amsi_project.listeners.RegisterListener;
 import com.example.amsi_project.listeners.ResetPasswordListener;
+import com.example.amsi_project.listeners.ServicoListener;
 import com.example.amsi_project.listeners.ServicosListener;
 import com.example.amsi_project.utils.JsonParser;
 
@@ -38,14 +36,12 @@ public class SingletonGardenLabsManager {
     private ArrayList<Servico> services;
     private static SingletonGardenLabsManager instance = null;
     private static RequestQueue volleyQueue = null;
-    public static final String mUrlAPILivros = "http://172.22.21.41/api/livros";
     public static final String baseURL = "http://10.0.2.2/gardenlabs/webapp/backend/web/api/";
 
     //region Listeners
 
     private ServicosListener servicosListener;
-    private LivrosListener livrosListener;
-    private LivroListener livroListener;
+    private ServicoListener servicoListener;
     private LoginListener loginListener;
     private RegisterListener registerListener;
     private ResetPasswordListener resetPasswordListener;
@@ -54,12 +50,9 @@ public class SingletonGardenLabsManager {
     public void setServicosListener(ServicosListener servicosListener) {
         this.servicosListener = servicosListener;
     }
-    public void setLivrosListener(LivrosListener livrosListener) {
-        this.livrosListener = livrosListener;
-    }
 
-    public void setLivroListener(LivroListener livroListener) {
-        this.livroListener = livroListener;
+    public void setServicoListener(ServicoListener servicoListener) {
+        this.servicoListener = servicoListener;
     }
 
     public void setLoginListener(LoginListener loginListener) {
@@ -106,7 +99,6 @@ public class SingletonGardenLabsManager {
 
     public void addServicoBD(Servico servico) {
         BD.adicionarServicoBD(servico);
-        //books.add(auxLivro);
     }
 
     public void deleteServicoBD(int id) {
@@ -168,17 +160,17 @@ public class SingletonGardenLabsManager {
         }
     }
 
-    public void adicionarServicoAPI(final Book livro, final Context context) {
+    public void adicionarServicoAPI(final Servico servico, final Context context) {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
-            StringRequest reqAdicionarLivro = new StringRequest(Request.Method.POST, mUrlAPILivros, new Response.Listener<String>() {
+            StringRequest reqAdicionarServico = new StringRequest(Request.Method.POST, baseURL+"servicos?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     BD.adicionarServicoBD(JsonParser.parserJsonServico(response));
 
-                    if (livroListener != null) {
-                        livroListener.onRefreshDetalhes(ListaServicosFragment.ADD);
+                    if (servicoListener != null) {
+                        servicoListener.onRefreshDetalhes(ListaServicosFragment.ADD);
                     }
 
                 }
@@ -194,29 +186,29 @@ public class SingletonGardenLabsManager {
                     Map<String, String> params = new HashMap<>();
 
                     params.put("token", getTokenFromSharedPreferences(context));
-                    params.put("titulo", livro.getTitulo());
-                    params.put("serie", livro.getSerie());
-                    params.put("autor", livro.getAutor());
-                    params.put("ano", livro.getAno() + "");
-                    params.put("capa", livro.getCapa() == null ? DetalhesLivroActivity.DEFAULT_IMG : livro.getCapa());
+                    params.put("titulo", servico.getTitulo());
+                    params.put("descricao", servico.getDescricao());
+                    params.put("duracao", servico.getDuracao()+ "");
+                    params.put("preco", servico.getPreco() + "");
+                    params.put("prestador_id", servico.getPrestador_id()+ "");
                     return params;
                 }
             };
-            volleyQueue.add(reqAdicionarLivro); //faz o pedido á API
+            volleyQueue.add(reqAdicionarServico); //faz o pedido á API
         }
     }
 
-    public void removerLivroAPI(final Book livro, final Context context) {
+    public void removerServicoAPI(final Servico servico, final Context context) {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
-            StringRequest reqRemoverLivro = new StringRequest(Request.Method.DELETE, mUrlAPILivros + '/' + livro.getId(), new Response.Listener<String>() {
+            StringRequest reqRemoverServico = new StringRequest(Request.Method.DELETE, baseURL + "servicos/" + servico.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    BD.removerServicoBD(livro.getId());
+                    BD.removerServicoBD(servico.getId());
 
-                    if (livroListener != null) {
-                        livroListener.onRefreshDetalhes(ListaServicosFragment.DELETE);
+                    if (servicoListener != null) {
+                        servicoListener.onRefreshDetalhes(ListaServicosFragment.DELETE);
                     }
                 }
             }, new Response.ErrorListener() {
@@ -225,21 +217,21 @@ public class SingletonGardenLabsManager {
                     Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-            volleyQueue.add(reqRemoverLivro); //faz o pedido á API
+            volleyQueue.add(reqRemoverServico); //faz o pedido á API
         }
     }
 
-    public void editarServicoAPI(final Book livro, final Context context) {
+    public void editarServicoAPI(final Servico servico, final Context context) {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
-            StringRequest reqEditarLivro = new StringRequest(Request.Method.PUT, mUrlAPILivros + '/' + livro.getId(), new Response.Listener<String>() {
+            StringRequest reqEditarServico = new StringRequest(Request.Method.PUT, baseURL + "servicos/" + servico.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    BD.editarServicoBD(livro);
+                    BD.editarServicoBD(servico);
 
-                    if (livroListener != null) {
-                        livroListener.onRefreshDetalhes(ListaServicosFragment.EDIT);
+                    if (servicoListener != null) {
+                        servicoListener.onRefreshDetalhes(ListaServicosFragment.EDIT);
                     }
 
                     //TODO: Informar a vista
@@ -255,15 +247,15 @@ public class SingletonGardenLabsManager {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
                     params.put("token", getTokenFromSharedPreferences(context));
-                    params.put("titulo", livro.getTitulo());
-                    params.put("serie", livro.getSerie());
-                    params.put("autor", livro.getAutor());
-                    params.put("ano", livro.getAno() + "");
-                    params.put("capa", livro.getCapa() == null ? DetalhesLivroActivity.DEFAULT_IMG : livro.getCapa());
+                    params.put("titulo", servico.getTitulo());
+                    params.put("descricao", servico.getDescricao());
+                    params.put("duracao", servico.getDuracao() + "");
+                    params.put("preco", servico.getPreco() + "");
+                    params.put("prestador_id", servico.getPrestador_id() + "");
                     return params;
                 }
             };
-            volleyQueue.add(reqEditarLivro); //faz o pedido á API
+            volleyQueue.add(reqEditarServico); //faz o pedido á API
         }
     }
 
@@ -283,8 +275,10 @@ public class SingletonGardenLabsManager {
                     Map<String, Object> loginResponse = parserJsonLogin(response);
                     String token = (String) loginResponse.get("token");
                     int id = (int) loginResponse.get("id");
+                    int profileid = (int) loginResponse.get("profileid");
+                    int servicecartid = (int) loginResponse.get("servicecartid");
                     if (loginListener != null) {
-                        loginListener.onUpdateLogin(id,token,username);
+                        loginListener.onUpdateLogin(id,token,username,profileid,servicecartid);
                     }
                 }
             }, new Response.ErrorListener() {

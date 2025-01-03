@@ -3298,14 +3298,15 @@ id endToStart
 id enterAlways
 id enterAlwaysCollapsed
 id escape
-id etAno
-id etAutor
 id etConfirmPassword
+id etDescricao
+id etDuracao
 id etEmail
 id etNewPassword
 id etOldPassword
 id etPassword
-id etSerie
+id etPreco
+id etPrestadorID
 id etTitulo
 id etUsername
 id exitUntilCollapsed
@@ -3765,7 +3766,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_detalhes_livro
+layout activity_detalhes_servico
 layout activity_login
 layout activity_menu_main
 layout activity_register

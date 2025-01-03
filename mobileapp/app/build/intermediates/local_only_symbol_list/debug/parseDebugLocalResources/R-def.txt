@@ -26,14 +26,15 @@ id btnRegister
 id btnResetPassword
 id contentFragment
 id drawerLayout
-id etAno
-id etAutor
 id etConfirmPassword
+id etDescricao
+id etDuracao
 id etEmail
 id etNewPassword
 id etOldPassword
 id etPassword
-id etSerie
+id etPreco
+id etPrestadorID
 id etTitulo
 id etUsername
 id fabDetalhes
@@ -58,7 +59,7 @@ id tvPreco
 id tvRegisterLink
 id tvResetPassword
 id tvTitulo
-layout activity_detalhes_livro
+layout activity_detalhes_servico
 layout activity_login
 layout activity_menu_main
 layout activity_register

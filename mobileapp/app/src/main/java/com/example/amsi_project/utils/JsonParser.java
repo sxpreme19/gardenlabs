@@ -64,14 +64,18 @@ public class JsonParser {
     //Método parserJsonLogin(), que efetuará o login na API;
     public static Map<String, Object> parserJsonLogin(String response) {
         String token = null;
-        int id;
+        int id,profileid,servicecartid;
         Map<String, Object> result = new HashMap<>();
         try {
             JSONObject login = new JSONObject(response);
             token = login.getString("token");
             id = login.getInt("id");
+            profileid = login.getInt("profileid");
+            servicecartid = login.getInt("servicecartid");
             result.put("token", token);
             result.put("id", id);
+            result.put("profileid",id);
+            result.put("servicecartid",id);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

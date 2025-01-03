@@ -2,6 +2,7 @@ package com.example.amsi_project;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,16 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.amsi_project.listeners.LivroListener;
-import com.example.amsi_project.modelo.Book;
+import com.example.amsi_project.listeners.ServicoListener;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class DetalhesLivroActivity extends AppCompatActivity implements LivroListener {
+public class DetalhesServicoActivity extends AppCompatActivity implements ServicoListener {
 
     public static final String DEFAULT_IMG = "http://amsi.dei.estg.ipleiria.pt/img/ipl_semfundo.png";
-    private EditText etTitulo, etSerie, etAutor, etAno;
+    private EditText etTitulo, etDescricao, etDuracao, etPreco,etPrestadorID;
     private ImageView imgCapa;
     private FloatingActionButton fabDetalhes;
     private Servico servico;
@@ -32,53 +32,49 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalhes_livro);
+        setContentView(R.layout.activity_detalhes_servico);
 
         int id=getIntent().getIntExtra("ID", 0);
         servico = SingletonGardenLabsManager.getInstance(getApplicationContext()).getServico(id);
         etTitulo=findViewById(R.id.etTitulo);
-        etSerie=findViewById(R.id.etSerie);
-        etAutor=findViewById(R.id.etAutor);
-        etAno=findViewById(R.id.etAno);
+        etDescricao=findViewById(R.id.etDescricao);
+        etDuracao=findViewById(R.id.etDuracao);
+        etPreco=findViewById(R.id.etPreco);
+        etPrestadorID=findViewById(R.id.etPrestadorID);
         imgCapa=findViewById(R.id.imgCapa);
         fabDetalhes=findViewById(R.id.fabDetalhes);
         if (servico != null)
-            carregarLivros();
+            carregarServicos();
         else setTitle("Novo livro");
 
-        SingletonGardenLabsManager.getInstance(getApplicationContext()).setLivroListener(this);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).setServicoListener(this);
 
         fabDetalhes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isLivroValid()) {
-                    if(book!=null) {
-                        book.setTitulo(etTitulo.getText().toString());
-                        book.setSerie(etSerie.getText().toString());
-                        book.setAutor(etAutor.getText().toString());
-                        book.setAno(Integer.parseInt(etAno.getText().toString()));
+
+                    if(servico!=null) {
+                        servico.setTitulo(etTitulo.getText().toString());
+                        servico.setDescricao(etDescricao.getText().toString());
+                        servico.setDuracao(Integer.parseInt(etDuracao.getText().toString()));
+                        servico.setPreco(Double.parseDouble(etPreco.getText().toString()));
+                        servico.setPrestador_id(Integer.parseInt(etPrestadorID.getText().toString()));
                         /*SingletonBookManager.getInstance(getApplicationContext()).editBookBD(book);
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
                         finish();*/
-                        SingletonGardenLabsManager.getInstance(getApplicationContext()).editarLivroAPI(book, getApplicationContext());
+                        SingletonGardenLabsManager.getInstance(getApplicationContext()).editarServicoAPI(servico, getApplicationContext());
                     }
                     else {
-                        book = new Book(0,DEFAULT_IMG, Integer.parseInt(etAno.getText().toString()),
-                                etTitulo.getText().toString(), etSerie.getText().toString(),
-                                etAutor.getText().toString());
-                        /*SingletonBookManager.getInstance(getApplicationContext()).addBookBD(book);
-                        Intent intent = new Intent();
-                        setResult(RESULT_OK, intent);
-                        finish();*/
-                        SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarServicoAPI(book, getApplicationContext());
+                        servico = new Servico(0, etTitulo.getText().toString(), etDescricao.getText().toString(),  Integer.parseInt(etDuracao.getText().toString()),Double.parseDouble(etPreco.getText().toString()),Integer.parseInt(etPrestadorID.getText().toString()));
+                        SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarServicoAPI(servico, getApplicationContext());
                     }
-                }
+                //if(isLivroValid()) {}
             }
         });
     }
 
-    private boolean isLivroValid() {
+    /*private boolean isLivroValid() {
         String titulo=etTitulo.getText().toString();
         String serie=etSerie.getText().toString();
         String autor=etAutor.getText().toString();
@@ -100,28 +96,27 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
             return false;
         }
         return true;
+    }*/
+
+    private void carregarServicos() {
+        if (servico != null) {
+            String titulo = servico.getTitulo();
+            etTitulo.setText(titulo);
+            etDescricao.setText(servico.getDescricao());
+            etDuracao.setText(String.valueOf(servico.getDuracao()));
+            etPreco.setText(String.valueOf(servico.getPreco()));
+            etPrestadorID.setText(String.valueOf(servico.getPrestador_id()));
+            Glide.with(getApplicationContext())
+                    .load(R.drawable.logoipl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imgCapa);
+        }
     }
 
-    private void carregarLivros() {
-//        ArrayList<Book> books = SingletonBookManager.getInstance().getBooks();
-//        if(books.size()>0) {
-//            Book book = books.get(0); 
-            etTitulo.setText(book.getTitulo());
-            etSerie.setText(book.getSerie());
-            etAutor.setText(book.getAutor());
-            etAno.setText(book.getAno() + "");
-            //imgCapa.setImageResource(book.getCapa());
-            Glide.with(getApplicationContext())
-                .load(book.getCapa())
-                .placeholder(R.drawable.logoipl)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imgCapa);
-        
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(book!=null) {
+        if(servico!=null) {
             getMenuInflater().inflate(R.menu.menu_remover,menu);
             return super.onCreateOptionsMenu(menu);
         }
@@ -148,7 +143,7 @@ public class DetalhesLivroActivity extends AppCompatActivity implements LivroLis
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
                         finish();*/
-                        SingletonGardenLabsManager.getInstance(getApplicationContext()).removerLivroAPI(book, getApplicationContext());
+                        SingletonGardenLabsManager.getInstance(getApplicationContext()).removerServicoAPI(servico, getApplicationContext());
                     }
                 })
                 .setNegativeButton("não :/", new DialogInterface.OnClickListener() {

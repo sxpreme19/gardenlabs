@@ -21,15 +21,4 @@ class UserprofileController extends ActiveController
         ];
         return $behaviors;
     }
-
-    public function actionGetbyuserid($id){
-        $userProfile = UserProfile::find()->where(['user_id' => $id])->one();
-    
-    if ($userProfile) {
-        return $userProfile;
-    } else {
-        return ['error' => 'User profile not found.'];
-    }
-    }
-
 }

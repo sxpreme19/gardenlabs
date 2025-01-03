@@ -32,6 +32,9 @@
         android:theme="@style/Base.Theme.GardenLabs"
         android:usesCleartextTraffic="true" >
         <activity
+            android:name="com.example.amsi_project.DetalhesServicoActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.amsi_project.ResetPasswordActivity"
             android:exported="false" />
         <activity

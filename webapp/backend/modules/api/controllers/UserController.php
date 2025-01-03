@@ -77,6 +77,8 @@ class UserController extends ActiveController
         $password = Yii::$app->request->post('password');
 
         $user = User::findOne(['username' => $username]);
+        $userProfile = $user->userProfile;
+        $userServiceCart = $userProfile->carrinhoservico;
 
         if ($user && $user->validatePassword($password)) {
             if (Yii::$app->authManager->checkAccess($user->id, 'client')) {
@@ -86,7 +88,9 @@ class UserController extends ActiveController
 
                 return [
                     'token' => $user->auth_key,
-                    'id' => $user->id
+                    'id' => $user->id,
+                    'profileid' => $userProfile->id,
+                    'servicecartid' => $userServiceCart->id,
                 ];
             } else {
                 return [

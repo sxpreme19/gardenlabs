@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetalhesLivroActivity">
+    tools:context=".DetalhesServicoActivity">
 
     <ImageView
         android:id="@+id/imgCapa"
@@ -30,7 +30,7 @@
             android:text="" />
 
         <EditText
-            android:id="@+id/etSerie"
+            android:id="@+id/etDescricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -38,7 +38,7 @@
             android:text="" />
 
         <EditText
-            android:id="@+id/etAutor"
+            android:id="@+id/etDuracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -46,7 +46,14 @@
             android:text="" />
 
         <EditText
-            android:id="@+id/etAno"
+            android:id="@+id/etPreco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etPrestadorID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

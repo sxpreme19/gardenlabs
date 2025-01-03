@@ -1,6 +1,5 @@
 package com.example.amsi_project.listeners;
 
-public interface LivroListener {
-
+public interface ServicoListener {
     void onRefreshDetalhes(int op);
 }

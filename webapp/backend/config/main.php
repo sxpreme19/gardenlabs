@@ -60,34 +60,24 @@ return [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/userprofile',
-                    'extraPatterns' => [
-                        'GET user_id/{id}' => 'getbyuserid',
-                    ],
-                    'tokens' => [
-                        '{id}' => '<id:\\d+>',
-                    ],
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/servico',
                     'extraPatterns' => [
                         'GET count' => 'count',
+                        'GET filter/{minPrice}/{maxPrice}/{minDuration}/{maxDuration}' => 'filter',
                     ],
                     'tokens' => [
-                        '{id}' => '<id:\\d+>',
-                        '{nomeproduto}' => '<nomeproduto:[\\w ]+>',
-                        '{data_criacao}' => '<data_criacao:\\d{4}-\d{2}-\d{2}+>'
+                        '{minPrice}' => '<minPrice:[^/]*>', 
+                        '{maxPrice}' => '<maxPrice:[^/]*>',
+                        '{minDuration}' => '<minDuration:[^/]*>',
+                        '{maxDuration}' => '<maxDuration:[^/]*>',
                     ],
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/carrinhoservico',
-                    'extraPatterns' => [
-                        'GET userprofile_id/{id}' => 'getbyuserprofileid',
-                    ],
-                    'tokens' => [
-                        '{id}' => '<id:\\d+>',
-                    ],
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',

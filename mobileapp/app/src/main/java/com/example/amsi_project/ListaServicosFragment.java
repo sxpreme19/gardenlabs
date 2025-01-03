@@ -19,10 +19,8 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.example.amsi_project.adaptadores.ListaLivrosAdaptador;
 import com.example.amsi_project.adaptadores.ListaServicosAdaptador;
 import com.example.amsi_project.listeners.ServicosListener;
-import com.example.amsi_project.modelo.Book;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -56,7 +54,7 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //Toast.makeText(getContext(),books.get(i).getTitulo(),Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getContext(), DetalhesLivroActivity.class);
+                Intent intent = new Intent(getContext(), DetalhesServicoActivity.class);
                 intent.putExtra("ID",(int) l);
                 //startActivity(intent);
                 startActivityForResult(intent, EDIT);
@@ -66,7 +64,7 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
         fabLista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(),DetalhesLivroActivity.class);
+                Intent intent = new Intent(getContext(), DetalhesServicoActivity.class);
                 //startActivity(intent);
                 startActivityForResult(intent, ADD);
             }

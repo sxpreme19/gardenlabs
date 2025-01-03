@@ -3297,14 +3297,15 @@ int id endToStart 0x7f0800b7
 int id enterAlways 0x7f0800b8
 int id enterAlwaysCollapsed 0x7f0800b9
 int id escape 0x7f0800ba
-int id etAno 0x7f0800bb
-int id etAutor 0x7f0800bc
 int id etConfirmPassword 0x7f08021b
+int id etDescricao 0x7f080225
+int id etDuracao 0x7f080226
 int id etEmail 0x7f0800bd
 int id etNewPassword 0x7f08021c
 int id etOldPassword 0x7f08021d
 int id etPassword 0x7f0800be
-int id etSerie 0x7f0800bf
+int id etPreco 0x7f080227
+int id etPrestadorID 0x7f080228
 int id etTitulo 0x7f0800c0
 int id etUsername 0x7f080217
 int id exitUntilCollapsed 0x7f0800c1
@@ -3764,7 +3765,7 @@ int layout abc_search_dropdown_item_icons_2line 0x7f0b0018
 int layout abc_search_view 0x7f0b0019
 int layout abc_select_dialog_material 0x7f0b001a
 int layout abc_tooltip 0x7f0b001b
-int layout activity_detalhes_livro 0x7f0b001e
+int layout activity_detalhes_servico 0x7f0b007a
 int layout activity_login 0x7f0b001f
 int layout activity_menu_main 0x7f0b0021
 int layout activity_register 0x7f0b0077

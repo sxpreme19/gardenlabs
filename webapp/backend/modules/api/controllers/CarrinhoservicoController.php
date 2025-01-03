@@ -21,11 +21,4 @@ class CarrinhoservicoController extends ActiveController
         ];
         return $behaviors;
     }
-
-    public function actionGetbyuserprofileid($id)
-    {
-        $serviceCart = Carrinhoservico::findOne(['userprofile_id' => $id]);
-
-        return $serviceCart;
-    }
 }

@@ -232,8 +232,8 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_lista.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_lista_servicos.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/fragment_lista_servicos.xml"
+        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_detalhes_servico.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/activity_detalhes_servico.xml"
     },
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_delete.png.flat",
