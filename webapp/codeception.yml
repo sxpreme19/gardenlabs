@@ -20,3 +20,6 @@ modules:
             dump: tests/Support/Data/dump.sql
             populate: true
             cleanup: true
+
+settings:
+    bootstrap: "../_bootstrap.php"

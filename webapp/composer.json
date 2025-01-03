@@ -41,17 +41,10 @@
         "codeception/module-phpbrowser": "*",
         "codeception/module-db": "^3.1"
     },
-    "autoload":{
-        "psr-4": {
-            "app\\": "frontend/web/",
-            "backend\\": "backend/web/",
-            "common\\": "common/models/",
-            "console\\": "console/controllers/",
-            "console\\migrations\\": "console/migrations/"
-    }
-    },
     "autoload-dev": {
         "psr-4": {
+            "Tests\\":"tests/",
+            "common\\":"common/",
             "common\\tests\\": [
                 "common/tests/",
                 "common/tests/_support"

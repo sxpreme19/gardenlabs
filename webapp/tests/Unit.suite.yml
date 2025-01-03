@@ -7,4 +7,6 @@ modules:
     enabled:
         - Asserts
         - Db
+        - Yii2:
+            configFile: 'config/test.php'
 step_decorators: ~

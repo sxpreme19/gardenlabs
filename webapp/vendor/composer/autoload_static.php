@@ -54,8 +54,6 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         ),
         'c' => 
         array (
-            'console\\migrations\\' => 19,
-            'console\\' => 8,
             'common\\tests\\' => 13,
             'common\\' => 7,
             'cebe\\markdown\\' => 14,
@@ -63,11 +61,10 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         'b' => 
         array (
             'backend\\tests\\' => 14,
-            'backend\\' => 8,
         ),
-        'a' => 
+        'T' => 
         array (
-            'app\\' => 4,
+            'Tests\\' => 6,
         ),
         'S' => 
         array (
@@ -189,14 +186,6 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
             0 => __DIR__ . '/../..' . '/frontend/tests',
             1 => __DIR__ . '/../..' . '/frontend/tests/_support',
         ),
-        'console\\migrations\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/console/migrations',
-        ),
-        'console\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/console/controllers',
-        ),
         'common\\tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/common/tests',
@@ -204,7 +193,7 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         ),
         'common\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/common/models',
+            0 => __DIR__ . '/../..' . '/common',
         ),
         'cebe\\markdown\\' => 
         array (
@@ -215,13 +204,9 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
             0 => __DIR__ . '/../..' . '/backend/tests',
             1 => __DIR__ . '/../..' . '/backend/tests/_support',
         ),
-        'backend\\' => 
+        'Tests\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/backend/web',
-        ),
-        'app\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/frontend/web',
+            0 => __DIR__ . '/../..' . '/tests',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
