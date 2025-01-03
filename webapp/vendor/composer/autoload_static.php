@@ -54,12 +54,20 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         ),
         'c' => 
         array (
+            'console\\migrations\\' => 19,
+            'console\\' => 8,
             'common\\tests\\' => 13,
+            'common\\' => 7,
             'cebe\\markdown\\' => 14,
         ),
         'b' => 
         array (
             'backend\\tests\\' => 14,
+            'backend\\' => 8,
+        ),
+        'a' => 
+        array (
+            'app\\' => 4,
         ),
         'S' => 
         array (
@@ -181,10 +189,22 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
             0 => __DIR__ . '/../..' . '/frontend/tests',
             1 => __DIR__ . '/../..' . '/frontend/tests/_support',
         ),
+        'console\\migrations\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/console/migrations',
+        ),
+        'console\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/console/controllers',
+        ),
         'common\\tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/common/tests',
             1 => __DIR__ . '/../..' . '/common/tests/_support',
+        ),
+        'common\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/common/models',
         ),
         'cebe\\markdown\\' => 
         array (
@@ -194,6 +214,14 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         array (
             0 => __DIR__ . '/../..' . '/backend/tests',
             1 => __DIR__ . '/../..' . '/backend/tests/_support',
+        ),
+        'backend\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/backend/web',
+        ),
+        'app\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/frontend/web',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
