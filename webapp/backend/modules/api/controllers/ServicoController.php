@@ -27,7 +27,7 @@ class ServicoController extends ActiveController
         return ['count' => count($recs)];
     }
 
-    public function actionFilter($minPrice, $maxPrice, $minDuration, $maxDuration)
+    public function actionFilter($minDuration, $maxDuration,$minPrice, $maxPrice)
     {
         $query = Servico::find();
 

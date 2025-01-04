@@ -73,10 +73,10 @@ return [
                         'GET filter/{minPrice}/{maxPrice}/{minDuration}/{maxDuration}' => 'filter',
                     ],
                     'tokens' => [
-                        '{minPrice}' => '<minPrice:[^/]*>', 
-                        '{maxPrice}' => '<maxPrice:[^/]*>',
                         '{minDuration}' => '<minDuration:[^/]*>',
                         '{maxDuration}' => '<maxDuration:[^/]*>',
+                        '{minPrice}' => '<minPrice:[^/]*>', 
+                        '{maxPrice}' => '<maxPrice:[^/]*>',
                     ],
                 ],
                 [
