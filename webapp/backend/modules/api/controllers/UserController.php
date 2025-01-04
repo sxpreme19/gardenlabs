@@ -136,29 +136,42 @@ class UserController extends ActiveController
         ];
     }
 
-    public function delete()
-{
-    $transaction = Yii::$app->db->beginTransaction();
-    try {
-        // Custom deletion logic
-        $userProfile = $this->userProfile;
+    //Deletes associated user,userprofile,carts,reviews and favorites
+    public function actionFulldelete($id)
+    {
+        $user = User::findOne($id);
+        $userProfile = $user->userProfile;
+
         if ($userProfile) {
+            if ($userProfile->carrinhoproduto) {
+                $userProfile->carrinhoproduto->delete();
+                foreach ($userProfile->carrinhoproduto->linhacarrinhoprodutos as $linha) {
+                    $linha->delete();
+                }
+            }
+            if ($userProfile->carrinhoservico) {
+                $userProfile->carrinhoservico->delete();
+                foreach ($userProfile->carrinhoservico->linhacarrinhoservicos as $linha) {
+                    $linha->delete();
+                }
+            }
+            if ($userProfile->favoritos) {
+                foreach ($userProfile->favoritos as $favorito) {
+                    $favorito->delete();
+                }
+            }
+            if ($userProfile->reviews) {
+                foreach ($userProfile->reviews as $review) {
+                    $review->delete();
+                }
+            }
             $userProfile->delete();
         }
 
-        // Perform other deletions or actions as needed
+        \Yii::$app->db->createCommand()
+            ->delete('auth_assignment', ['user_id' => $user->id])
+            ->execute();
 
-        // Delete the user
-        parent::delete();
-
-        // Commit transaction
-        $transaction->commit();
-        return true;
-    } catch (\Exception $e) {
-        // Rollback transaction in case of error
-        $transaction->rollBack();
-        throw $e;
+        $user->delete();
     }
-}
-
 }

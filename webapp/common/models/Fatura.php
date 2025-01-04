@@ -102,4 +102,53 @@ class Fatura extends \yii\db\ActiveRecord
         $this->total = $total;
         $this->save();
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $id = $this->id;
+        $total = $this->total;
+        $datahora = $this->datahora;
+        $nome_destinatario = $this->nome_destinatario;
+        $morada_destinatario = $this->morada_destinatario;
+        $telefone_destinatario = $this->telefone_destinatario;
+        $nif_destinatario = $this->nif_destinatario;
+        $preco_envio = $this->preco_envio;
+        $metodoexpedicao_id = $this->metodoexpedicao_id;
+        $metodopagamento_id = $this->metodopagamento_id;
+        $userprofile_id = $this->userprofile_id;
+
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->total = $total;
+        $myObj->datahora = $datahora;
+        $myObj->nome_destinatario = $nome_destinatario;
+        $myObj->morada_destinatario = $morada_destinatario;
+        $myObj->telefone_destinatario = $telefone_destinatario;
+        $myObj->nif_destinatario = $nif_destinatario;
+        $myObj->preco_envio = $preco_envio;
+        $myObj->metodoexpedicao_id = $metodoexpedicao_id;
+        $myObj->metodopagamento_id = $metodopagamento_id;
+        $myObj->userprofile_id = $userprofile_id;
+
+        $myJSON = json_encode($myObj);
+        if ($insert)
+            $this->FazPublishNoMosquitto("FaturaCreate", $myJSON);
+    }
+
+    public function FazPublishNoMosquitto($canal, $msg)
+    {
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
+        $mqtt = new \backend\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password)) {
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        } else {
+            file_put_contents("debug.output", "Time out!");
+        }
+    }
 }

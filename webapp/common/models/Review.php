@@ -92,4 +92,70 @@ class Review extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Userprofile::class, ['id' => 'userprofile_id']);
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $id = $this->id;
+        $conteudo = $this->conteudo;
+        $datahora = $this->datahora;
+        $avaliacao = $this->avaliacao;
+        $servico_id = $this->servico_id;
+        $produto_id = $this->produto_id;
+        $userprofile_id = $this->userprofile_id;
+
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->conteudo = $conteudo;
+        $myObj->datahora = $datahora;
+        $myObj->avaliacao = $avaliacao;
+        $myObj->servico_id = $servico_id;
+        $myObj->produto_id = $produto_id;
+        $myObj->userprofile_id = $userprofile_id;
+
+
+        $myJSON = json_encode($myObj);
+        if ($insert)
+            $this->FazPublishNoMosquitto("ReviewCreate", $myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id = $this->id;
+        $conteudo = $this->conteudo;
+        $datahora = $this->datahora;
+        $avaliacao = $this->avaliacao;
+        $servico_id = $this->servico_id;
+        $produto_id = $this->produto_id;
+        $userprofile_id = $this->userprofile_id;
+
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->conteudo = $conteudo;
+        $myObj->datahora = $datahora;
+        $myObj->avaliacao = $avaliacao;
+        $myObj->servico_id = $servico_id;
+        $myObj->produto_id = $produto_id;
+        $myObj->userprofile_id = $userprofile_id;
+
+        $myJSON = json_encode($myObj);
+        $this->FazPublishNoMosquitto("ReviewDelete", $myJSON);
+    }
+
+    public function FazPublishNoMosquitto($canal, $msg)
+    {
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
+        $mqtt = new \backend\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password)) {
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        } else {
+            file_put_contents("debug.output", "Time out!");
+        }
+    }
 }

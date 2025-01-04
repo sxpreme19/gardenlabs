@@ -55,6 +55,10 @@ return [
                         'POST register' => 'register',
                         'POST login' => 'login',
                         'POST reset-password' => 'reset-password',
+                        'DELETE fulldelete/{id}' => 'fulldelete'
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
                     ],
                 ],
                 [

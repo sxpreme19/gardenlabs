@@ -83,4 +83,64 @@ class Userprofile extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Review::class, ['userprofile_id' => 'id']);
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $id = $this->id;
+        $nome = $this->nome;
+        $morada = $this->morada;
+        $telefone = $this->telefone;
+        $nif = $this->nif;
+
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->nome = $nome;
+        $myObj->morada = $morada;
+        $myObj->telefone = $telefone;
+        $myObj->nif = $nif;
+
+
+        $myJSON = json_encode($myObj);
+        if ($insert)
+            $this->FazPublishNoMosquitto("UserProfileCreate", $myJSON);
+        else
+            $this->FazPublishNoMosquitto("UserProfileUpdate", $myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id = $this->id;
+        $nome = $this->nome;
+        $morada = $this->morada;
+        $telefone = $this->telefone;
+        $nif = $this->nif;
+
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->nome = $nome;
+        $myObj->morada = $morada;
+        $myObj->telefone = $telefone;
+        $myObj->nif = $nif;
+        
+        $myJSON = json_encode($myObj);
+        $this->FazPublishNoMosquitto("UserProfileDelete", $myJSON);
+    }
+
+    public function FazPublishNoMosquitto($canal, $msg)
+    {
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
+        $mqtt = new \backend\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password)) {
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        } else {
+            file_put_contents("debug.output", "Time out!");
+        }
+    }
 }

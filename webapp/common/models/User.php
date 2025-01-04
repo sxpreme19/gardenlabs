@@ -110,7 +110,8 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token verify email token
      * @return static|null
      */
-    public static function findByVerificationToken($token) {
+    public static function findByVerificationToken($token)
+    {
         return static::findOne([
             'verification_token' => $token,
             'status' => self::STATUS_INACTIVE
@@ -233,7 +234,7 @@ class User extends ActiveRecord implements IdentityInterface
         $myObj->username = $username;
         $myObj->email = $email;
 
-        
+
         $myJSON = json_encode($myObj);
         if ($insert)
             $this->FazPublishNoMosquitto("UserCreate", $myJSON);
@@ -241,19 +242,35 @@ class User extends ActiveRecord implements IdentityInterface
             $this->FazPublishNoMosquitto("UserUpdate", $myJSON);
     }
 
-    public function FazPublishNoMosquitto($canal,$msg)
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id = $this->id;
+        $username = $this->username;
+        $email = $this->email;
+
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->username = $username;
+        $myObj->email = $email;
+
+        $myJSON = json_encode($myObj);
+        $this->FazPublishNoMosquitto("UserDelete", $myJSON);
+    }
+
+    public function FazPublishNoMosquitto($canal, $msg)
     {
         $server = "127.0.0.1";
         $port = 1883;
-        $username = ""; 
-        $password = ""; 
-        $client_id = "phpMQTT-publisher"; 
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
         $mqtt = new \backend\mosquitto\phpMQTT($server, $port, $client_id);
-        if ($mqtt->connect(true, NULL, $username, $password)){
+        if ($mqtt->connect(true, NULL, $username, $password)) {
             $mqtt->publish($canal, $msg, 0);
             $mqtt->close();
-        }else { 
-            file_put_contents("debug.output","Time out!"); 
+        } else {
+            file_put_contents("debug.output", "Time out!");
         }
     }
 }

@@ -6,9 +6,12 @@
 actor: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser:
+        - WebDriver:
             url: http://localhost/gardenlabs/webapp
+            browser:firefox
         - Db
+        - Yii2:
+            configFile: 'config/test.php'
 # Add Codeception\Step\Retry trait to AcceptanceTester to enable retries
 step_decorators:
     - Codeception\Step\ConditionalAssertion
