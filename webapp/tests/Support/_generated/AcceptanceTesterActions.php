@@ -1,4 +1,4 @@
-<?php  //[STAMP] dab501b677eae1f2330bd335cf204081
+<?php  //[STAMP] 1f64f4137cd9b40dde6253f691c1664c
 // phpcs:ignoreFile
 namespace Tests\Support\_generated;
 
@@ -5025,5 +5025,198 @@ trait AcceptanceTesterActions
         $retryNum = isset($this->retryNum) ? $this->retryNum : 1;
         $retryInterval = isset($this->retryInterval) ? $this->retryInterval : 200;
         return $this->getScenario()->runStep(new \Codeception\Step\Retry('updateInDatabase', func_get_args(), $retryNum, $retryInterval));
+    }
+
+ 
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     * Inserts a record into the database.
+     *
+     * ``` php
+     * <?php
+     * $user_id = $I->haveRecord('app\models\User', array('name' => 'Davert'));
+     * ?>
+     * ```
+     * @template T of \yii\db\ActiveRecord
+     * @param class-string<T> $model
+     * @param array<string, mixed> $attributes
+     * @return mixed
+     * @part orm
+     * @see \Codeception\Module\Yii2::haveRecord()
+     */
+    public function haveRecord(string $model, $attributes = []): mixed {
+        return $this->getScenario()->runStep(new \Codeception\Step\Action('haveRecord', func_get_args()));
+    }
+
+ 
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     * Checks that a record exists in the database.
+     *
+     * ``` php
+     * $I->seeRecord('app\models\User', array('name' => 'davert'));
+     * ```
+     *
+     * @param class-string<\yii\db\ActiveRecord> $model
+     * @param array<string, mixed> $attributes
+     * @part orm
+     * @see \Codeception\Module\Yii2::seeRecord()
+     */
+    public function seeRecord(string $model, array $attributes = []): void {
+        $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeRecord', func_get_args()));
+    }
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     * [!] Conditional Assertion: Test won't be stopped on fail
+     * Checks that a record exists in the database.
+     *
+     * ``` php
+     * $I->seeRecord('app\models\User', array('name' => 'davert'));
+     * ```
+     *
+     * @param class-string<\yii\db\ActiveRecord> $model
+     * @param array<string, mixed> $attributes
+     * @part orm
+     * @see \Codeception\Module\Yii2::seeRecord()
+     */
+    public function canSeeRecord(string $model, array $attributes = []): void {
+        $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeRecord', func_get_args()));
+    }
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     * [!] Test won't be stopped on fail. Error won't be logged 
+     * Checks that a record exists in the database.
+     *
+     * ``` php
+     * $I->seeRecord('app\models\User', array('name' => 'davert'));
+     * ```
+     *
+     * @param class-string<\yii\db\ActiveRecord> $model
+     * @param array<string, mixed> $attributes
+     * @part orm
+     * @see \Codeception\Module\Yii2::seeRecord()
+     */
+    public function tryToSeeRecord(string $model, array $attributes = []): bool {
+        return $this->getScenario()->runStep(new \Codeception\Step\TryTo('seeRecord', func_get_args()));
+    }
+    /**
+     * [!] Method is generated.
+     * 
+     * * Executes seeRecord and retries on failure.
+     * 
+     * Retry number and interval set by $I->retry();
+     *
+     * @see \Codeception\Module\Yii2::seeRecord()
+     */
+    public function retrySeeRecord(string $model, array $attributes = []) {
+        $retryNum = isset($this->retryNum) ? $this->retryNum : 1;
+        $retryInterval = isset($this->retryInterval) ? $this->retryInterval : 200;
+        return $this->getScenario()->runStep(new \Codeception\Step\Retry('seeRecord', func_get_args(), $retryNum, $retryInterval));
+    }
+
+ 
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     * Checks that a record does not exist in the database.
+     *
+     * ``` php
+     * $I->dontSeeRecord('app\models\User', array('name' => 'davert'));
+     * ```
+     *
+     * @param class-string<\yii\db\ActiveRecord> $model
+     * @param array<string, mixed> $attributes
+     * @part orm
+     * @see \Codeception\Module\Yii2::dontSeeRecord()
+     */
+    public function dontSeeRecord(string $model, array $attributes = []): void {
+        $this->getScenario()->runStep(new \Codeception\Step\Action('dontSeeRecord', func_get_args()));
+    }
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     * [!] Conditional Assertion: Test won't be stopped on fail
+     * Checks that a record does not exist in the database.
+     *
+     * ``` php
+     * $I->dontSeeRecord('app\models\User', array('name' => 'davert'));
+     * ```
+     *
+     * @param class-string<\yii\db\ActiveRecord> $model
+     * @param array<string, mixed> $attributes
+     * @part orm
+     * @see \Codeception\Module\Yii2::dontSeeRecord()
+     */
+    public function cantSeeRecord(string $model, array $attributes = []): void {
+        $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeRecord', func_get_args()));
+    }
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     * [!] Test won't be stopped on fail. Error won't be logged 
+     * Checks that a record does not exist in the database.
+     *
+     * ``` php
+     * $I->dontSeeRecord('app\models\User', array('name' => 'davert'));
+     * ```
+     *
+     * @param class-string<\yii\db\ActiveRecord> $model
+     * @param array<string, mixed> $attributes
+     * @part orm
+     * @see \Codeception\Module\Yii2::dontSeeRecord()
+     */
+    public function tryToDontSeeRecord(string $model, array $attributes = []): bool {
+        return $this->getScenario()->runStep(new \Codeception\Step\TryTo('dontSeeRecord', func_get_args()));
+    }
+    /**
+     * [!] Method is generated.
+     * 
+     * * Executes dontSeeRecord and retries on failure.
+     * 
+     * Retry number and interval set by $I->retry();
+     *
+     * @see \Codeception\Module\Yii2::dontSeeRecord()
+     */
+    public function retryDontSeeRecord(string $model, array $attributes = []) {
+        $retryNum = isset($this->retryNum) ? $this->retryNum : 1;
+        $retryInterval = isset($this->retryInterval) ? $this->retryInterval : 200;
+        return $this->getScenario()->runStep(new \Codeception\Step\Retry('dontSeeRecord', func_get_args(), $retryNum, $retryInterval));
+    }
+
+ 
+    /**
+     * [!] Method is generated. Documentation taken from corresponding module.
+     *
+     * Retrieves a record from the database
+     *
+     * ``` php
+     * $category = $I->grabRecord('app\models\User', array('name' => 'davert'));
+     * ```
+     *
+     * @param class-string<\yii\db\ActiveRecord> $model
+     * @param array<string, mixed> $attributes
+     * @part orm
+     * @see \Codeception\Module\Yii2::grabRecord()
+     */
+    public function grabRecord(string $model, array $attributes = []): \yii\db\ActiveRecord|array|null {
+        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabRecord', func_get_args()));
+    }
+    /**
+     * [!] Method is generated.
+     * 
+     * * Executes grabRecord and retries on failure.
+     * 
+     * Retry number and interval set by $I->retry();
+     *
+     * @see \Codeception\Module\Yii2::grabRecord()
+     */
+    public function retryGrabRecord(string $model, array $attributes = []) {
+        $retryNum = isset($this->retryNum) ? $this->retryNum : 1;
+        $retryInterval = isset($this->retryInterval) ? $this->retryInterval : 200;
+        return $this->getScenario()->runStep(new \Codeception\Step\Retry('grabRecord', func_get_args(), $retryNum, $retryInterval));
     }
 }

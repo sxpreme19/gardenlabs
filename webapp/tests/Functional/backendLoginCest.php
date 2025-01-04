@@ -10,10 +10,12 @@ class BackendLoginCest
 
     public function loginWithValidCredentials(FunctionalTester $I)
     {
-        $I->amOnPage('gardenlabs/webapp/backend/views/site/login');
+        $I->amOnPage('/backend/web/site/login');
+        $I->comment($I->grabPageSource());
+        $I->comment($I->grabFromCurrentUrl());
 
-        $I->fillField('input[name="LoginForm[username]"]', 'tomas'); 
-        $I->fillField('input[name="LoginForm[password]"]', 'tomas123');
+        $I->fillField(['id' => 'loginform-username'], 'tomas'); 
+        $I->fillField(['id' => 'loginform-password'], 'tomas123');
         $I->click('Sign In');
 
         $I->see('Dashboard');

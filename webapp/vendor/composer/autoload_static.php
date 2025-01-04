@@ -11,8 +11,8 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
@@ -22,6 +22,7 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '2a3c2110e8e0295330dc3d11a4cbc4cb' => __DIR__ . '/..' . '/php-webdriver/webdriver/lib/Exception/TimeoutException.php',
         '77e7c5c0b74965caa0fbb0a094b7713f' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/bootstrap.php',
     );
 
@@ -51,6 +52,7 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         'f' => 
         array (
             'frontend\\tests\\' => 15,
+            'frontend\\' => 9,
         ),
         'c' => 
         array (
@@ -61,6 +63,7 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         'b' => 
         array (
             'backend\\tests\\' => 14,
+            'backend\\' => 8,
         ),
         'T' => 
         array (
@@ -78,6 +81,7 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\String\\' => 25,
+            'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\Mime\\' => 23,
             'Symfony\\Component\\Mailer\\' => 25,
             'Symfony\\Component\\Finder\\' => 25,
@@ -101,6 +105,10 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         array (
             'Masterminds\\' => 12,
         ),
+        'J' => 
+        array (
+            'JsonSchema\\' => 11,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -109,7 +117,9 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         ),
         'F' => 
         array (
+            'Flow\\JSONPath\\' => 14,
             'Faker\\' => 6,
+            'Facebook\\WebDriver\\' => 19,
         ),
         'E' => 
         array (
@@ -186,6 +196,10 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
             0 => __DIR__ . '/../..' . '/frontend/tests',
             1 => __DIR__ . '/../..' . '/frontend/tests/_support',
         ),
+        'frontend\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/frontend',
+        ),
         'common\\tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/common/tests',
@@ -203,6 +217,10 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         array (
             0 => __DIR__ . '/../..' . '/backend/tests',
             1 => __DIR__ . '/../..' . '/backend/tests/_support',
+        ),
+        'backend\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/backend',
         ),
         'Tests\\' => 
         array (
@@ -247,6 +265,10 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         'Symfony\\Component\\String\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
+        ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
         ),
         'Symfony\\Component\\Mime\\' => 
         array (
@@ -313,6 +335,10 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         array (
             0 => __DIR__ . '/..' . '/masterminds/html5/src',
         ),
+        'JsonSchema\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
+        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
@@ -325,9 +351,17 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
+        'Flow\\JSONPath\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/softcreatr/jsonpath/src',
+        ),
         'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
+        ),
+        'Facebook\\WebDriver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-webdriver/webdriver/lib',
         ),
         'Egulias\\EmailValidator\\' => 
         array (
@@ -385,6 +419,9 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         'Codeception\\Constraint\\Crawler' => __DIR__ . '/..' . '/codeception/lib-innerbrowser/src/Codeception/Constraint/Crawler.php',
         'Codeception\\Constraint\\CrawlerNot' => __DIR__ . '/..' . '/codeception/lib-innerbrowser/src/Codeception/Constraint/CrawlerNot.php',
         'Codeception\\Constraint\\Page' => __DIR__ . '/..' . '/codeception/lib-web/src/Constraint/Page.php',
+        'Codeception\\Constraint\\WebDriver' => __DIR__ . '/..' . '/codeception/module-webdriver/src/Codeception/Constraint/WebDriver.php',
+        'Codeception\\Constraint\\WebDriverNot' => __DIR__ . '/..' . '/codeception/module-webdriver/src/Codeception/Constraint/WebDriverNot.php',
+        'Codeception\\Exception\\ConnectionException' => __DIR__ . '/..' . '/codeception/module-webdriver/src/Codeception/Exception/ConnectionException.php',
         'Codeception\\Exception\\ElementNotFound' => __DIR__ . '/..' . '/codeception/lib-web/src/Exception/ElementNotFound.php',
         'Codeception\\Exception\\ExternalUrlException' => __DIR__ . '/..' . '/codeception/lib-innerbrowser/src/Codeception/Exception/ExternalUrlException.php',
         'Codeception\\Exception\\MalformedLocatorException' => __DIR__ . '/..' . '/codeception/lib-web/src/Exception/MalformedLocatorException.php',
@@ -417,13 +454,25 @@ class ComposerStaticInit2158b2fbf2c2f964ea5d76c3986297c9
         'Codeception\\Module\\Db' => __DIR__ . '/..' . '/codeception/module-db/src/Codeception/Module/Db.php',
         'Codeception\\Module\\Filesystem' => __DIR__ . '/..' . '/codeception/module-filesystem/src/Codeception/Module/Filesystem.php',
         'Codeception\\Module\\PhpBrowser' => __DIR__ . '/..' . '/codeception/module-phpbrowser/src/Codeception/Module/PhpBrowser.php',
+        'Codeception\\Module\\REST' => __DIR__ . '/..' . '/codeception/module-rest/src/Codeception/Module/REST.php',
+        'Codeception\\Module\\WebDriver' => __DIR__ . '/..' . '/codeception/module-webdriver/src/Codeception/Module/WebDriver.php',
         'Codeception\\Module\\Yii2' => __DIR__ . '/..' . '/codeception/module-yii2/src/Codeception/Module/Yii2.php',
+        'Codeception\\PHPUnit\\Constraint\\JsonContains' => __DIR__ . '/..' . '/codeception/module-rest/src/Codeception/Constraint/JsonContains.php',
+        'Codeception\\PHPUnit\\Constraint\\JsonType' => __DIR__ . '/..' . '/codeception/module-rest/src/Codeception/Constraint/JsonType.php',
         'Codeception\\PHPUnit\\TestCase' => __DIR__ . '/..' . '/codeception/codeception/src/PHPUnit/TestCase.php',
+        'Codeception\\Step\\AsJson' => __DIR__ . '/..' . '/codeception/module-rest/src/Codeception/Step/AsJson.php',
+        'Codeception\\Util\\ArrayContainsComparator' => __DIR__ . '/..' . '/codeception/module-rest/src/Codeception/Util/ArrayContainsComparator.php',
         'Codeception\\Util\\HttpCode' => __DIR__ . '/..' . '/codeception/lib-innerbrowser/src/Codeception/Util/HttpCode.php',
+        'Codeception\\Util\\JsonArray' => __DIR__ . '/..' . '/codeception/module-rest/src/Codeception/Util/JsonArray.php',
+        'Codeception\\Util\\JsonType' => __DIR__ . '/..' . '/codeception/module-rest/src/Codeception/Util/JsonType.php',
         'Codeception\\Util\\Locator' => __DIR__ . '/..' . '/codeception/lib-web/src/Util/Locator.php',
         'Codeception\\Util\\Shared\\Asserts' => __DIR__ . '/..' . '/codeception/lib-asserts/src/Codeception/Util/Shared/Asserts.php',
         'Codeception\\Util\\Shared\\InheritedAsserts' => __DIR__ . '/..' . '/codeception/lib-asserts/src/Codeception/Util/Shared/InheritedAsserts.php',
+        'Codeception\\Util\\Soap' => __DIR__ . '/..' . '/codeception/lib-xml/src/Util/Soap.php',
         'Codeception\\Util\\Uri' => __DIR__ . '/..' . '/codeception/lib-web/src/Util/Uri.php',
+        'Codeception\\Util\\Xml' => __DIR__ . '/..' . '/codeception/lib-xml/src/Util/Xml.php',
+        'Codeception\\Util\\XmlBuilder' => __DIR__ . '/..' . '/codeception/lib-xml/src/Util/XmlBuilder.php',
+        'Codeception\\Util\\XmlStructure' => __DIR__ . '/..' . '/codeception/lib-xml/src/Util/XmlStructure.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
