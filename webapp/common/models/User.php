@@ -54,6 +54,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['username', 'email', 'status'], 'required'],
+            ['email', 'email'],
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
@@ -237,9 +239,9 @@ class User extends ActiveRecord implements IdentityInterface
 
         $myJSON = json_encode($myObj);
         if ($insert)
-            $this->FazPublishNoMosquitto("UserCreate", $myJSON);
+            $this->FazPublishNoMosquitto("Users", $myJSON);
         else
-            $this->FazPublishNoMosquitto("UserUpdate", $myJSON);
+            $this->FazPublishNoMosquitto("Users", $myJSON);
     }
 
     public function afterDelete()
@@ -255,7 +257,7 @@ class User extends ActiveRecord implements IdentityInterface
         $myObj->email = $email;
 
         $myJSON = json_encode($myObj);
-        $this->FazPublishNoMosquitto("UserDelete", $myJSON);
+        $this->FazPublishNoMosquitto("Users", $myJSON);
     }
 
     public function FazPublishNoMosquitto($canal, $msg)

@@ -28,6 +28,10 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_search.png"
     },
     {
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_detalhes_servico.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_detalhes_servico.xml"
+    },
+    {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_detalhes_estatico.xml.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_detalhes_estatico.xml"
     },
@@ -212,6 +216,10 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
+        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_account.xml.flat",
+        "source": "com.example.amsi_project.app-main-34:/layout/fragment_account.xml"
+    },
+    {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_add.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_add.png"
     },
@@ -230,10 +238,6 @@
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_lista.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_lista.png"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_detalhes_servico.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_detalhes_servico.xml"
     },
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_delete.png.flat",

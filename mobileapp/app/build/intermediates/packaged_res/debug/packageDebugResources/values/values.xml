@@ -8,6 +8,7 @@
     <string name="app_name">GardenLabs</string>
     <string name="backtologin">Go back to Login</string>
     <string name="btn_reset_password">Reset Password</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="link_login">Already have an account? Login here</string>
     <string name="link_register">Don\'t have an account? Register here</string>
     <string name="navCarrinho">Carrinho</string>

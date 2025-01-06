@@ -33,6 +33,7 @@ import java.util.Map;
 public class SingletonGardenLabsManager {
 
     public BDHelper BD = null;
+    private Userprofile userprofile;
     private ArrayList<Servico> services;
     private static SingletonGardenLabsManager instance = null;
     private static RequestQueue volleyQueue = null;
@@ -259,6 +260,29 @@ public class SingletonGardenLabsManager {
         }
     }
 
+    public void getUserProfileAPI(final Context context) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+        } else {
+            StringRequest reqUserprofile = new StringRequest(Request.Method.GET, baseURL+"userprofiles/"+getUserProfileIDFromSharedPreferences(context)+"?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    userprofile = JsonParser.parserJsonUserprofile(response);
+
+                    if (servicosListener != null) {
+                        servicosListener.onRefreshListaServicos(services);
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(reqUserprofile); //faz o pedido á API;
+        }
+    }
 
     //endregion
 
@@ -369,6 +393,11 @@ public class SingletonGardenLabsManager {
     public String getTokenFromSharedPreferences(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
         return sharedPref.getString("token", null);  // Return the token, or null if not found
+    }
+
+    public String getUserProfileIDFromSharedPreferences(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+        return sharedPref.getString("profileid", null);  // Return the token, or null if not found
     }
 
 }

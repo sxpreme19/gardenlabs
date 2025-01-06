@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'avaliacao',
             [
                 'attribute' => 'servico_id',
-                'value' => $model->servico ? $model->servico->nome : null,
+                'value' => $model->servico ? $model->servico->titulo : null,
                 'label' => 'Service',
             ],
             [

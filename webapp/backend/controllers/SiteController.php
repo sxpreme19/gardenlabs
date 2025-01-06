@@ -154,7 +154,7 @@ class SiteController extends Controller
         foreach ($mostSoldData as $sale) {
             $service = Servico::findOne($sale['servico_id']);
             if ($service) {
-                $mostSoldLabels[] = $service->nome;
+                $mostSoldLabels[] = $service->titulo;
                 $mostSoldDataValues[] = (int) $sale['total_quantity_sold'];
             }
         }
@@ -173,7 +173,7 @@ class SiteController extends Controller
         foreach ($ratingData as $rating) {
             $service = Servico::findOne($rating['servico_id']);
             if ($service) {
-                $ratingLabelsServices[] = $service->nome;
+                $ratingLabelsServices[] = $service->titulo;
                 $ratingDataValuesServices[] = (float) $rating['average_rating'];
             }
         }

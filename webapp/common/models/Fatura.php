@@ -35,7 +35,7 @@ class Fatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['total', 'datahora', 'nome_destinatario', 'morada_destinatario', 'preco_envio', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'required'],
+            [['total', 'datahora', 'nome_destinatario', 'morada_destinatario', 'metodopagamento_id', 'userprofile_id'], 'required'],
             [['total', 'preco_envio'], 'number'],
             [['datahora'], 'safe'],
             [['telefone_destinatario', 'nif_destinatario', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'integer'],
@@ -133,7 +133,7 @@ class Fatura extends \yii\db\ActiveRecord
 
         $myJSON = json_encode($myObj);
         if ($insert)
-            $this->FazPublishNoMosquitto("FaturaCreate", $myJSON);
+            $this->FazPublishNoMosquitto("Faturas", $myJSON);
     }
 
     public function FazPublishNoMosquitto($canal, $msg)

@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'carrinhoservico_id')->textInput(['type' => 'number', 'step' => '1','min' => '1']) ?>
 
         <?= $form->field($model, 'servico_id')->dropDownList(
-            \yii\helpers\ArrayHelper::map(\common\models\Servico::find()->all(), 'id', 'nome'),
+            \yii\helpers\ArrayHelper::map(\common\models\Servico::find()->all(), 'id', 'titulo'),
             ['prompt' => 'Select a Service']
         ) ?>
 

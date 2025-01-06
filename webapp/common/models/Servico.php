@@ -86,4 +86,68 @@ class Servico extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Review::class, ['servico_id' => 'id']);
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $id = $this->id;
+        $titulo = $this->titulo;
+        $descricao = $this->descricao;
+        $preco = $this->preco;
+        $duracao = $this->duracao;
+        $prestador_id = $this->prestador_id;
+
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->titulo = $titulo;
+        $myObj->descricao = $descricao;
+        $myObj->preco = $preco;
+        $myObj->duracao = $duracao;
+        $myObj->prestador_id = $prestador_id;
+
+
+        $myJSON = json_encode($myObj);
+        if ($insert)
+            $this->FazPublishNoMosquitto("Services", $myJSON);
+        else
+            $this->FazPublishNoMosquitto("Services", $myJSON);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $id = $this->id;
+        $titulo = $this->titulo;
+        $descricao = $this->descricao;
+        $preco = $this->preco;
+        $duracao = $this->duracao;
+        $prestador_id = $this->prestador_id;
+
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->titulo = $titulo;
+        $myObj->descricao = $descricao;
+        $myObj->preco = $preco;
+        $myObj->duracao = $duracao;
+        $myObj->prestador_id = $prestador_id;
+
+        $myJSON = json_encode($myObj);
+        $this->FazPublishNoMosquitto("Services", $myJSON);
+    }
+
+    public function FazPublishNoMosquitto($canal, $msg)
+    {
+        $server = "127.0.0.1";
+        $port = 1883;
+        $username = "";
+        $password = "";
+        $client_id = "phpMQTT-publisher";
+        $mqtt = new \backend\mosquitto\phpMQTT($server, $port, $client_id);
+        if ($mqtt->connect(true, NULL, $username, $password)) {
+            $mqtt->publish($canal, $msg, 0);
+            $mqtt->close();
+        } else {
+            file_put_contents("debug.output", "Time out!");
+        }
+    }
 }

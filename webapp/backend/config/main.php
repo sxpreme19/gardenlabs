@@ -87,7 +87,9 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/linhacarrinhoservico',
                     'extraPatterns' => [
+                        'POST addtocart' => 'addtocart',
                         'GET carrinhoservico_id/{id}' => 'getbycarrinhoservicoid',
+                        'DELETE removefromcart/{id}' => 'removefromcart',
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',

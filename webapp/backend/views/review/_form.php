@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'avaliacao')->textInput(['type' => 'number', 'step' => '0.01','min' => '0']) ?>
 
         <?= $form->field($model, 'servico_id')->dropDownList(
-            \yii\helpers\ArrayHelper::map(\common\models\Servico::find()->all(), 'id', 'nome'), 
+            \yii\helpers\ArrayHelper::map(\common\models\Servico::find()->all(), 'id', 'titulo'), 
             ['prompt' => 'Select Service']
         ) ?>
 

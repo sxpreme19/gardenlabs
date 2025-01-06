@@ -4,8 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.example.amsi_project.modelo.Book;
 import com.example.amsi_project.modelo.Servico;
+import com.example.amsi_project.modelo.Userprofile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +16,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JsonParser {
+
+    //Método parserJsonUserprofile(), que devolve o userprofile do user logado;
+    public static Userprofile parserJsonUserprofile(String response){
+        Userprofile auxUserprofile = null;
+
+        try {
+            JSONObject userprofile = new JSONObject(response);
+            int id = userprofile.getInt("id");
+            String nome = userprofile.getString("nome");
+            String morada = userprofile.getString("morada");
+            int telefone = userprofile.getInt("telefone");
+            int nif = userprofile.getInt("nif");
+            int user_id = userprofile.getInt("user_id");
+
+            auxUserprofile = new Userprofile(id,nome,morada,telefone,nif,user_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxUserprofile;
+    }
 
     //Método parserJsonServico(), que devolve apenas um servico;
     public static Servico parserJsonServico(String response){
@@ -74,8 +94,8 @@ public class JsonParser {
             servicecartid = login.getInt("servicecartid");
             result.put("token", token);
             result.put("id", id);
-            result.put("profileid",id);
-            result.put("servicecartid",id);
+            result.put("profileid",profileid);
+            result.put("servicecartid",servicecartid);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

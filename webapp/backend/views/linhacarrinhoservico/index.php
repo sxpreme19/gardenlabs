@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'servico_id', 
                 'value' => function ($model) {
-                    return $model->servico ? $model->servico->nome : 'No service';
+                    return $model->servico ? $model->servico->titulo : 'No service';
                 },
                 'label' => 'Service', 
             ],

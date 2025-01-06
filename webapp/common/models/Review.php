@@ -116,7 +116,7 @@ class Review extends \yii\db\ActiveRecord
 
         $myJSON = json_encode($myObj);
         if ($insert)
-            $this->FazPublishNoMosquitto("ReviewCreate", $myJSON);
+            $this->FazPublishNoMosquitto("Reviews", $myJSON);
     }
 
     public function afterDelete()
@@ -140,7 +140,7 @@ class Review extends \yii\db\ActiveRecord
         $myObj->userprofile_id = $userprofile_id;
 
         $myJSON = json_encode($myObj);
-        $this->FazPublishNoMosquitto("ReviewDelete", $myJSON);
+        $this->FazPublishNoMosquitto("Reviews", $myJSON);
     }
 
     public function FazPublishNoMosquitto($canal, $msg)

@@ -65,6 +65,7 @@ layout activity_menu_main
 layout activity_register
 layout activity_reset_password
 layout app_bar_main
+layout fragment_account
 layout fragment_lista_servicos
 layout item_lista_livro
 layout nav_header_main
@@ -76,6 +77,7 @@ mipmap ic_launcher_round
 string app_name
 string backtologin
 string btn_reset_password
+string hello_blank_fragment
 string link_login
 string link_register
 string navCarrinho

@@ -27,17 +27,21 @@ class ServicoController extends ActiveController
         return ['count' => count($recs)];
     }
 
-    public function actionFilter($minDuration, $maxDuration,$minPrice, $maxPrice)
+    public function actionFilter($minDuration = null, $maxDuration = null, $minPrice = null, $maxPrice = null)
     {
         $query = Servico::find();
 
-        if ($minPrice !== null && $maxPrice !== null) {
+        if ($minPrice !== null) {
             $query->andWhere(['>=', 'preco', $minPrice]);
+        }
+        if ($maxPrice !== null) {
             $query->andWhere(['<=', 'preco', $maxPrice]);
         }
 
-        if ($minDuration !== null && $maxDuration !== null) {
+        if ($minDuration !== null) {
             $query->andWhere(['>=', 'duracao', $minDuration]);
+        }
+        if ($maxDuration !== null) {
             $query->andWhere(['<=', 'duracao', $maxDuration]);
         }
 

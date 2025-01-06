@@ -10,7 +10,7 @@ class BackendLoginCest
 
     public function loginWithValidCredentials(FunctionalTester $I)
     {
-        $I->amOnPage('/backend/web/site/login');
+        $I->amOnPage('http://localhost/gardenlabs/webapp/backend/web/site/login');
         $I->comment($I->grabPageSource());
         $I->comment($I->grabFromCurrentUrl());
 

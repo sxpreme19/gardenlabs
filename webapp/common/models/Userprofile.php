@@ -36,6 +36,8 @@ class Userprofile extends \yii\db\ActiveRecord
             [['user_id'], 'required'],
             [['morada', 'nome'], 'string', 'max' => 80],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            ['nif', 'match', 'pattern' => '/^\d{9}$/', 'message' => 'NIF must be exactly 9 digits.'],
+            ['telefone', 'match', 'pattern' => '/^\d{9}$/', 'message' => 'Telefone must be exactly 9 digits.'],
         ];
     }
 
@@ -103,9 +105,9 @@ class Userprofile extends \yii\db\ActiveRecord
 
         $myJSON = json_encode($myObj);
         if ($insert)
-            $this->FazPublishNoMosquitto("UserProfileCreate", $myJSON);
+            $this->FazPublishNoMosquitto("UserProfiles", $myJSON);
         else
-            $this->FazPublishNoMosquitto("UserProfileUpdate", $myJSON);
+            $this->FazPublishNoMosquitto("UserProfiles", $myJSON);
     }
 
     public function afterDelete()
@@ -123,9 +125,9 @@ class Userprofile extends \yii\db\ActiveRecord
         $myObj->morada = $morada;
         $myObj->telefone = $telefone;
         $myObj->nif = $nif;
-        
+
         $myJSON = json_encode($myObj);
-        $this->FazPublishNoMosquitto("UserProfileDelete", $myJSON);
+        $this->FazPublishNoMosquitto("UserProfiles", $myJSON);
     }
 
     public function FazPublishNoMosquitto($canal, $msg)
