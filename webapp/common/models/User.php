@@ -239,9 +239,9 @@ class User extends ActiveRecord implements IdentityInterface
 
         $myJSON = json_encode($myObj);
         if ($insert)
-            $this->FazPublishNoMosquitto("Users", $myJSON);
+            $this->FazPublishNoMosquitto("Users","Utilizador criado!" . $myJSON);
         else
-            $this->FazPublishNoMosquitto("Users", $myJSON);
+            $this->FazPublishNoMosquitto("Users","Utilizador atualizado!" .  $myJSON);
     }
 
     public function afterDelete()
@@ -257,7 +257,7 @@ class User extends ActiveRecord implements IdentityInterface
         $myObj->email = $email;
 
         $myJSON = json_encode($myObj);
-        $this->FazPublishNoMosquitto("Users", $myJSON);
+        $this->FazPublishNoMosquitto("Users","Utilizador removido!" .  $myJSON);
     }
 
     public function FazPublishNoMosquitto($canal, $msg)

@@ -133,7 +133,7 @@ class Fatura extends \yii\db\ActiveRecord
 
         $myJSON = json_encode($myObj);
         if ($insert)
-            $this->FazPublishNoMosquitto("Faturas", $myJSON);
+            $this->FazPublishNoMosquitto("Faturas","Fatura criada!" . $myJSON);
     }
 
     public function FazPublishNoMosquitto($canal, $msg)

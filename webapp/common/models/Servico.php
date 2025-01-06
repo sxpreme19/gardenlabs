@@ -108,9 +108,9 @@ class Servico extends \yii\db\ActiveRecord
 
         $myJSON = json_encode($myObj);
         if ($insert)
-            $this->FazPublishNoMosquitto("Services", $myJSON);
+            $this->FazPublishNoMosquitto("Services","Serviço criado!" . $myJSON);
         else
-            $this->FazPublishNoMosquitto("Services", $myJSON);
+            $this->FazPublishNoMosquitto("Services","Serviço atualizado!" . $myJSON);
     }
 
     public function afterDelete()
@@ -132,7 +132,7 @@ class Servico extends \yii\db\ActiveRecord
         $myObj->prestador_id = $prestador_id;
 
         $myJSON = json_encode($myObj);
-        $this->FazPublishNoMosquitto("Services", $myJSON);
+        $this->FazPublishNoMosquitto("Services","Serviço removido!" . $myJSON);
     }
 
     public function FazPublishNoMosquitto($canal, $msg)

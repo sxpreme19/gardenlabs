@@ -105,9 +105,9 @@ class Userprofile extends \yii\db\ActiveRecord
 
         $myJSON = json_encode($myObj);
         if ($insert)
-            $this->FazPublishNoMosquitto("UserProfiles", $myJSON);
+            $this->FazPublishNoMosquitto("UserProfiles","Perfil de Utilizador criado!" .  $myJSON);
         else
-            $this->FazPublishNoMosquitto("UserProfiles", $myJSON);
+            $this->FazPublishNoMosquitto("UserProfiles","Perfil de Utilizador atualizado!" . $myJSON);
     }
 
     public function afterDelete()
@@ -127,7 +127,7 @@ class Userprofile extends \yii\db\ActiveRecord
         $myObj->nif = $nif;
 
         $myJSON = json_encode($myObj);
-        $this->FazPublishNoMosquitto("UserProfiles", $myJSON);
+        $this->FazPublishNoMosquitto("UserProfiles","Perfil de Utilizador removido!" . $myJSON);
     }
 
     public function FazPublishNoMosquitto($canal, $msg)
