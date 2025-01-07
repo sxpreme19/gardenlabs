@@ -16,8 +16,6 @@ use yii\bootstrap5\ActiveForm;
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
                 <div class="my-1 mx-0" style="color:#999;">
                     Don´t have an account? <?= Html::a('Sign up', ['site/signup']) ?>.
                     <br>

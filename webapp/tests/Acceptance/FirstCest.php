@@ -14,8 +14,8 @@ class FirstCest
     public function checkoutProcess(AcceptanceTester $I)
     {
         $I->amOnPage('/frontend/web/site/login');
-        $I->fillField(['id' => 'loginform-username'], 'diogo'); 
-        $I->fillField(['id' => 'loginform-password'], 'diogo123');
+        $I->fillField('#loginform-username', 'diogo'); 
+        $I->fillField('#loginform-username', 'diogo123');
         $I->click('Login');
         $I->see('Welcome');
 
@@ -35,7 +35,7 @@ class FirstCest
         $I->fillField(['id' => 'nif'], '123456789'); 
         $I->click(['id' => 'paymentMethod1']); 
         $I->click(['id' => 'shippingMethod1']);
-        $I->click('Proceed to Confirm Order'); 
+        $I->click(['link' => 'Proceed to Confirm Order']); 
 
         $I->see('Confirm Your Order');
         $I->see('Order Summary');
@@ -43,7 +43,7 @@ class FirstCest
         $I->see('Subtotal');
         $I->see('Shipping Cost');
         $I->see('Grand Total');
-        $I->click('Confirm and Pay'); 
+        $I->click(['link' => 'Confirm and Pay']); 
 
         $I->see('Invoice #');
         $I->see('Thank you for your order!');
