@@ -41,4 +41,9 @@ class Categoria extends \yii\db\ActiveRecord
             'nome' => 'Nome',
         ];
     }
+
+    public function getProdutos()
+    {
+        return $this->hasMany(Produto::class, ['categoria_id' => 'id']);
+    }
 }

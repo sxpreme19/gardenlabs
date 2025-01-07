@@ -46,7 +46,7 @@ class ProdutoTest extends \Codeception\Test\Unit
         $this->assertEquals(79.99, $updatedProduto->preco, 'Product price should be updated.');
         $this->assertEquals(20, $updatedProduto->quantidade, 'Product quantity should be updated.');
 
-        $this->assertTrue($updatedProduto->delete(), 'Product should be deleted successfully.');
+        $this->assertEquals(1, $updatedProduto->delete(), 'Produto should be deleted successfully.');
 
         $deletedProduto = Produto::findOne(['nome' => 'Product A']);
         $this->assertNull($deletedProduto, 'Product should no longer exist in the database after deletion.');

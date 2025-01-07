@@ -49,4 +49,9 @@ class Fornecedor extends \yii\db\ActiveRecord
             'localizacao' => 'Localizacao',
         ];
     }
+
+    public function getProdutos()
+    {
+        return $this->hasMany(Produto::class, ['fornecedor_id' => 'id']);
+    }
 }

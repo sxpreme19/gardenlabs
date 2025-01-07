@@ -131,8 +131,16 @@ class FornecedorController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 
+        if (!empty($model->produtos)) {
+            \Yii::$app->session->setFlash('error', 'Cannot delete Supplier because it has associated products.');
+            return $this->redirect(['index']);
+        }
+
+        $model->delete();
+
+        \Yii::$app->session->setFlash('success', 'Supplier deleted successfully.');
         return $this->redirect(['index']);
     }
 

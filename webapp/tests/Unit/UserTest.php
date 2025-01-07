@@ -42,7 +42,7 @@ class UserTest extends \Codeception\Test\Unit
         $this->assertNotNull($updatedUser, 'Updated user should still be found in the database.');
         $this->assertEquals('newemail@example.com', $updatedUser->email, 'User email should be updated.');
         
-        $this->assertTrue($updatedUser->delete(), 'User should be deleted successfully.');
+        $this->assertEquals(1, $updatedUser->delete(), 'User should be deleted successfully.');
         
         $deletedUser = User::findOne(['username' => 'validuser']);
         $this->assertNull($deletedUser, 'User should no longer exist in the database after deletion.');

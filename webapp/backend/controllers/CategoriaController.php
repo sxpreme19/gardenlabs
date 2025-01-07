@@ -131,8 +131,16 @@ class CategoriaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 
+        if (!empty($model->produtos)) {
+            \Yii::$app->session->setFlash('error', 'Cannot delete Category because it has associated products.');
+            return $this->redirect(['index']);
+        }
+
+        $model->delete();
+
+        \Yii::$app->session->setFlash('success', 'Category deleted successfully.');
         return $this->redirect(['index']);
     }
 

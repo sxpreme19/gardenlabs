@@ -48,7 +48,7 @@ class ServicoTest extends \Codeception\Test\Unit
             'duracao' => 90
         ]);
 
-        $this->assertTrue($servicoFromDb->delete(), 'Servico should be deleted.');
+        $this->assertEquals(1, $servicoFromDb->delete(), 'Servico should be deleted successfully.');
         $this->tester->dontSeeInDatabase('servico', ['descricao' => 'Serviço de Teste']);
     }
 }
