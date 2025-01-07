@@ -83,6 +83,10 @@ class CarrinhoprodutoController extends Controller
         if (!$product) {
             throw new NotFoundHttpException("Product not found.");
         }
+        if($product->quantidade == 0){
+            Yii::$app->session->setFlash('info', 'Product out of stock!');
+            return $this->redirect(['produto/index']);
+        }
 
         $userCart = $userProfile->carrinhoproduto;
         if (!$userCart) {

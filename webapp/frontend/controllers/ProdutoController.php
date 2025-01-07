@@ -102,7 +102,6 @@ class ProdutoController extends Controller
                 ->joinWith('imagems')
                 ->where(['not', ['imagem.id' => null]])
                 ->andWhere(['categoria_id' => $category->id])
-                ->andWhere(['>', 'quantidade', 0])
                 ->groupBy(['produto.id'])
                 ->count();
         }
@@ -213,7 +212,7 @@ class ProdutoController extends Controller
         $products = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->andWhere(['>', 'produto.quantidade', 0])->all();
 
         $categories = Categoria::find()->all();
-        $productTotalCount = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->andWhere(['>', 'produto.quantidade', 0])->count();
+        $productTotalCount = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->count();
 
         if (isset(Yii::$app->user->identity->userProfile)) {
             $userProfile = Yii::$app->user->identity->userProfile;
