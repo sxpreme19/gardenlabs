@@ -13,7 +13,7 @@ use common\models\Fornecedor;
 
 <div class="row">
     <div class="col-lg-5">
-        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+        <?php $form = ActiveForm::begin(['id' => 'product-form','options' => ['enctype' => 'multipart/form-data']]); ?>
 
         <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 

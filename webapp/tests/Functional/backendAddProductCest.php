@@ -10,26 +10,26 @@ class BackendAddProductCest
 
     public function addProductWithValidData(FunctionalTester $I)
     {
-        $I->amOnPage('gardenlabs/webapp/backend/views/site/login');
-        $I->fillField('LoginForm[username]', 'admin'); 
-        $I->fillField('LoginForm[password]', 'admin123');
+        $I->amOnPage('/backend/views/site/login');
+        $I->fillField(['id' => 'loginform-username'], 'admin'); 
+        $I->fillField(['id' => 'loginform-password'], 'admin123');
         $I->click('Sign In');
 
         $I->see('Dashboard');
         
-        $I->amOnPage('gardenlabs/webapp/backend/views/produto/index');
+        $I->amOnPage('/backend/views/produto/index');
         $I->see('Produtos');
         $I->see('Create Produto', 'a.btn-success');
 
         $I->click('Create Produto');
         $I->see('Create Produto');
 
-        $I->fillField('Produto[nome]', 'Test Product');
-        $I->fillField('Produto[descricao]', 'This is a test product description.');
-        $I->fillField('Produto[preco]', '100.00');
-        $I->fillField('Produto[quantidade]', '10');
-        $I->selectOption('Produto[categoria_id]', '1'); 
-        $I->selectOption('Produto[fornecedor_id]', '1');
+        $I->fillField(['id' => 'productform-nome'], 'Test Product');
+        $I->fillField(['id' => 'productform-descricao'], 'This is a test product description.');
+        $I->fillField(['id' => 'productform-preco'], '100.00');
+        $I->fillField(['id' => 'productform-quantidade'], '10');
+        $I->selectOption(['id' => 'productform-categoria_id'], '1'); 
+        $I->selectOption(['id' => 'productform-fornecedor_id'], '1');
         $I->click('Save');
 
         $I->see('Produto has been created.');
@@ -40,22 +40,22 @@ class BackendAddProductCest
 
     public function addProductWithInvalidData(FunctionalTester $I)
     {
-        $I->amOnPage('gardenlabs/webapp/backend/views/site/login');
-        $I->fillField('LoginForm[username]', 'admin'); 
-        $I->fillField('LoginForm[password]', 'admin123'); 
+        $I->amOnPage('/backend/views/site/login');
+        $I->fillField(['id' => 'loginform-username'], 'admin'); 
+        $I->fillField(['id' => 'loginform-password'], 'admin123');
         $I->click('Sign In');
 
         $I->see('Dashboard');
-        $I->amOnPage('gardenlabs/webapp/backend/views/produto/index');
+        $I->amOnPage('/backend/views/produto/index');
         $I->see('Produtos');
         $I->see('Create Produto', 'a.btn-success');
 
         $I->click('Create Produto');
         $I->see('Create Produto');
 
-        $I->fillField('Produto[nome]', ''); 
-        $I->fillField('Produto[preco]', '-50'); 
-        $I->fillField('Produto[quantidade]', '-10'); 
+        $I->fillField(['id' => 'productform-nome'], ''); 
+        $I->fillField(['id' => 'productform-preco'], '-50'); 
+        $I->fillField(['id' => 'productform-quantidade'], '-10'); 
         $I->click('Save');
 
         $I->see('Nome cannot be blank.');
