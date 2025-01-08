@@ -26,4 +26,10 @@
     <string name="navCarrinho">Carrinho</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navWishlist">Wishlist</string>
+    <string name="navAccount">Conta</string>
+    <string name="navLogout">Logout</string>
+    <string name="navShopping">Shopping</string>
+    <string name="navAccountHeader">Account</string>
+    <string name="navHome">Home</string>
 </resources>

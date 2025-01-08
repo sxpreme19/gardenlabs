@@ -4,6 +4,7 @@ import static com.example.amsi_project.utils.JsonParser.parserJsonLogin;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.amsi_project.ListaServicosFragment;
@@ -22,9 +24,12 @@ import com.example.amsi_project.listeners.RegisterListener;
 import com.example.amsi_project.listeners.ResetPasswordListener;
 import com.example.amsi_project.listeners.ServicoListener;
 import com.example.amsi_project.listeners.ServicosListener;
+import com.example.amsi_project.listeners.UserListener;
+import com.example.amsi_project.listeners.UserProfileListener;
 import com.example.amsi_project.utils.JsonParser;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,20 +38,34 @@ import java.util.Map;
 public class SingletonGardenLabsManager {
 
     public BDHelper BD = null;
-    private Userprofile userprofile;
-    private ArrayList<Servico> services;
     private static SingletonGardenLabsManager instance = null;
     private static RequestQueue volleyQueue = null;
     public static final String baseURL = "http://10.0.2.2/gardenlabs/webapp/backend/web/api/";
 
+    //region ModelVariables
+    private User user;
+    private Userprofile userprofile;
+    private ArrayList<Servico> services;
+    private ArrayList<User> users;
+    //endregion
+
     //region Listeners
 
+    private UserListener userListener;
+    private UserProfileListener userProfileListener;
     private ServicosListener servicosListener;
     private ServicoListener servicoListener;
     private LoginListener loginListener;
     private RegisterListener registerListener;
     private ResetPasswordListener resetPasswordListener;
 
+    public void setUserListener(UserListener userListener) {
+        this.userListener = userListener;
+    }
+
+    public void setUserProfileListener(UserProfileListener userProfileListener) {
+        this.userProfileListener = userProfileListener;
+    }
 
     public void setServicosListener(ServicosListener servicosListener) {
         this.servicosListener = servicosListener;
@@ -82,6 +101,7 @@ public class SingletonGardenLabsManager {
 
     private SingletonGardenLabsManager(Context context) {
         services = new ArrayList<>();
+        users = new ArrayList<>();
         BD = new BDHelper(context);
     }
 
@@ -118,174 +138,272 @@ public class SingletonGardenLabsManager {
     }
 
     public void adicionarServicosBD(ArrayList<Servico> servicos) {
-        //apagar os livros tds e adicionar os livros atuais da api
         BD.removerAllServicosBD();
         for (Servico l : servicos) {
             BD.adicionarServicoBD(l);
         }
     }
+
+    public User getUser(int id) {
+        for (User u : users) {
+            if (u.getId() == id)
+                return u;
+        }
+        return null;
+    }
+
     //endregion
 
     //region Acesso á API
+        //region API-Servicos
 
-    public void getAllServicesAPI(final Context context) {
-        if (!JsonParser.isConnectionInternet(context)) {
-            Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+        public void getAllServicesAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
 
-            //Se não tem internet vai buscar todos os livros á bd local
-            //Insert, delete and PUT n tem funcionalidades offline
-            services = BD.getAllServicosBD();
+                //Se não tem internet vai buscar todos os livros á bd local
+                //Insert, delete and PUT n tem funcionalidades offline
+                services = BD.getAllServicosBD();
 
-            if (servicosListener != null) {
-                servicosListener.onRefreshListaServicos(services);
+                if (servicosListener != null) {
+                    servicosListener.onRefreshListaServicos(services);
+                }
+            } else {
+                JsonArrayRequest reqServices = new JsonArrayRequest(Request.Method.GET, baseURL+"servico?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        services = JsonParser.parserJsonServices(response);
+                        adicionarServicosBD(services);
+
+                        if (servicosListener != null) {
+                            servicosListener.onRefreshListaServicos(services);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqServices); //faz o pedido á API;
             }
-        } else {
-            JsonArrayRequest reqServices = new JsonArrayRequest(Request.Method.GET, baseURL+"servico?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    services = JsonParser.parserJsonServices(response);
-                    adicionarServicosBD(services);
-
-                    if (servicosListener != null) {
-                        servicosListener.onRefreshListaServicos(services);
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-            volleyQueue.add(reqServices); //faz o pedido á API;
         }
-    }
 
-    public void adicionarServicoAPI(final Servico servico, final Context context) {
-        if (!JsonParser.isConnectionInternet(context)) {
-            Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-        } else {
-            StringRequest reqAdicionarServico = new StringRequest(Request.Method.POST, baseURL+"servicos?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    BD.adicionarServicoBD(JsonParser.parserJsonServico(response));
+        public void adicionarServicoAPI(final Servico servico, final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqAdicionarServico = new StringRequest(Request.Method.POST, baseURL+"servicos?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BD.adicionarServicoBD(JsonParser.parserJsonServico(response));
 
-                    if (servicoListener != null) {
-                        servicoListener.onRefreshDetalhes(ListaServicosFragment.ADD);
+                        if (servicoListener != null) {
+                            servicoListener.onRefreshDetalhes(ListaServicosFragment.ADD);
+                        }
+
                     }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }) {
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-
-                    params.put("token", getTokenFromSharedPreferences(context));
-                    params.put("titulo", servico.getTitulo());
-                    params.put("descricao", servico.getDescricao());
-                    params.put("duracao", servico.getDuracao()+ "");
-                    params.put("preco", servico.getPreco() + "");
-                    params.put("prestador_id", servico.getPrestador_id()+ "");
-                    return params;
-                }
-            };
-            volleyQueue.add(reqAdicionarServico); //faz o pedido á API
-        }
-    }
-
-    public void removerServicoAPI(final Servico servico, final Context context) {
-        if (!JsonParser.isConnectionInternet(context)) {
-            Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-        } else {
-            StringRequest reqRemoverServico = new StringRequest(Request.Method.DELETE, baseURL + "servicos/" + servico.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    BD.removerServicoBD(servico.getId());
-
-                    if (servicoListener != null) {
-                        servicoListener.onRefreshDetalhes(ListaServicosFragment.DELETE);
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-            volleyQueue.add(reqRemoverServico); //faz o pedido á API
-        }
-    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
 
-    public void editarServicoAPI(final Servico servico, final Context context) {
-        if (!JsonParser.isConnectionInternet(context)) {
-            Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-        } else {
-            StringRequest reqEditarServico = new StringRequest(Request.Method.PUT, baseURL + "servicos/" + servico.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    BD.editarServicoBD(servico);
-
-                    if (servicoListener != null) {
-                        servicoListener.onRefreshDetalhes(ListaServicosFragment.EDIT);
+                        params.put("token", getTokenFromSharedPreferences(context));
+                        params.put("titulo", servico.getTitulo());
+                        params.put("descricao", servico.getDescricao());
+                        params.put("duracao", servico.getDuracao()+ "");
+                        params.put("preco", servico.getPreco() + "");
+                        params.put("prestador_id", servico.getPrestador_id()+ "");
+                        return params;
                     }
-
-                    //TODO: Informar a vista
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }) {
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("token", getTokenFromSharedPreferences(context));
-                    params.put("titulo", servico.getTitulo());
-                    params.put("descricao", servico.getDescricao());
-                    params.put("duracao", servico.getDuracao() + "");
-                    params.put("preco", servico.getPreco() + "");
-                    params.put("prestador_id", servico.getPrestador_id() + "");
-                    return params;
-                }
-            };
-            volleyQueue.add(reqEditarServico); //faz o pedido á API
+                };
+                volleyQueue.add(reqAdicionarServico); //faz o pedido á API
+            }
         }
-    }
 
-    public void getUserProfileAPI(final Context context) {
-        if (!JsonParser.isConnectionInternet(context)) {
-            Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-        } else {
-            StringRequest reqUserprofile = new StringRequest(Request.Method.GET, baseURL+"userprofiles/"+getUserProfileIDFromSharedPreferences(context)+"?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    userprofile = JsonParser.parserJsonUserprofile(response);
+        public void removerServicoAPI(final Servico servico, final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqRemoverServico = new StringRequest(Request.Method.DELETE, baseURL + "servicos/" + servico.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BD.removerServicoBD(servico.getId());
 
-                    if (servicosListener != null) {
-                        servicosListener.onRefreshListaServicos(services);
+                        if (servicoListener != null) {
+                            servicoListener.onRefreshDetalhes(ListaServicosFragment.DELETE);
+                        }
                     }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-            volleyQueue.add(reqUserprofile); //faz o pedido á API;
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqRemoverServico); //faz o pedido á API
+            }
         }
-    }
 
+        public void editarServicoAPI(final Servico servico, final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqEditarServico = new StringRequest(Request.Method.PUT, baseURL + "servicos/" + servico.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BD.editarServicoBD(servico);
+
+                        if (servicoListener != null) {
+                            servicoListener.onRefreshDetalhes(ListaServicosFragment.EDIT);
+                        }
+
+                        //TODO: Informar a vista
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("token", getTokenFromSharedPreferences(context));
+                        params.put("titulo", servico.getTitulo());
+                        params.put("descricao", servico.getDescricao());
+                        params.put("duracao", servico.getDuracao() + "");
+                        params.put("preco", servico.getPreco() + "");
+                        params.put("prestador_id", servico.getPrestador_id() + "");
+                        return params;
+                    }
+                };
+                volleyQueue.add(reqEditarServico); //faz o pedido á API
+            }
+        }
+        //endregion
+
+        //region API-Users
+        public void getUserAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                JsonObjectRequest reqUser = new JsonObjectRequest(Request.Method.GET, baseURL + "users/" + getUserIDFromSharedPreferences(context) + "?access-token=" + getTokenFromSharedPreferences(context), null, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                user = JsonParser.parserJsonUser(response);
+                                BD.adicionarUserBD(user);
+                                users.add(user);
+                                if (userListener != null) {
+                                    userListener.onRefreshDetalhes(user.getUsername(), user.getEmail());
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                String errorMessage = error.getMessage();
+                                if (errorMessage == null || errorMessage.isEmpty()) {
+                                    errorMessage = "Error occurred";  // Default message
+                                }
+                                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                );
+                volleyQueue.add(reqUser); //faz o pedido á API;
+            }
+        }
+
+        public void editarUserAPI(User user,final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqEditarUser = new StringRequest(Request.Method.PUT, baseURL + "users/" + user.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BD.editarUserBD(user);
+
+                        if (userListener != null) {
+                            userListener.onRefreshDetalhes(user.getUsername(),user.getEmail());
+                        }
+
+                        //TODO: Informar a vista
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("token", getTokenFromSharedPreferences(context));
+                        params.put("username", user.getUsername());
+                        params.put("email", user.getEmail());
+                        return params;
+                    }
+                };
+                volleyQueue.add(reqEditarUser); //faz o pedido á API
+            }
+        }
+
+        public void removerUserAPI( final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqRemoverUser = new StringRequest(Request.Method.DELETE, baseURL + "users/fulldelete/" + getUserIDFromSharedPreferences(context) + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BD.removerUserBD(user.getId());
+                        BD.removerUserProfileBD(user.getId());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqRemoverUser); //faz o pedido á API
+            }
+        }
+        //endregion
+
+        //region API-Userprofiles
+        public void getUserProfileAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqUserprofile = new StringRequest(Request.Method.GET, baseURL+"userprofiles/"+getUserProfileIDFromSharedPreferences(context)+"?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        userprofile = JsonParser.parserJsonUserprofile(response);
+                        BD.adicionarUserProfileBD(userprofile);
+
+                        if (userProfileListener != null) {
+                            userProfileListener.onRefreshDetalhes(userprofile.getNome(),userprofile.getMorada(),userprofile.getTelefone(),userprofile.getNif());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqUserprofile); //faz o pedido á API;
+            }
+        }
+        //endregion
     //endregion
-
 
     //region Acesso do login e register da API
 
@@ -390,6 +508,8 @@ public class SingletonGardenLabsManager {
 
     //endregion
 
+    //region SharedData
+
     public String getTokenFromSharedPreferences(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
         return sharedPref.getString("token", null);  // Return the token, or null if not found
@@ -397,7 +517,16 @@ public class SingletonGardenLabsManager {
 
     public String getUserProfileIDFromSharedPreferences(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
-        return sharedPref.getString("profileid", null);  // Return the token, or null if not found
+        int userprofileID = sharedPref.getInt("profileid", -1); // Retrieve the user ID as Integer
+        return Integer.toString(userprofileID); // Return the token, or null if not found
     }
+
+    public String getUserIDFromSharedPreferences(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+        int userID = sharedPref.getInt("id", -1); // Retrieve the user ID as Integer
+        return Integer.toString(userID);
+    }
+
+    //endregion
 
 }

@@ -5,27 +5,44 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:title="Shopping">
+            android:title="@string/navShopping">
             <menu>
                 <item
-                    android:id="@+id/navServices"
-                    android:icon="@drawable/ic_action_lista"
-                    android:title="@string/nav_services" />
+                    android:id="@+id/navHome"
+                    android:icon="@drawable/ic_action_home"
+                    android:title="@string/navHome"
+                    android:checkable="true"/>
                 <item
-                    android:id="@+id/navCarrinho"
-                    android:icon="@drawable/ic_action_grelha"
-                    android:title="@string/navCarrinho" />
+                    android:id="@+id/navServices"
+                    android:icon="@drawable/ic_action_services"
+                    android:title="@string/nav_services"
+                    android:checkable="true"/>
+                <item
+                    android:id="@+id/navCart"
+                    android:icon="@drawable/ic_action_cart"
+                    android:title="@string/navCarrinho"
+                    android:checkable="true"/>
+                <item
+                    android:id="@+id/navWishlist"
+                    android:icon="@drawable/ic_action_wishlist"
+                    android:title="@string/navWishlist"
+                    android:checkable="true"/>
             </menu>
         </item>
 
     </group>
     <item
-        android:title="Account">
+        android:title="@string/navAccountHeader">
         <menu>
             <item
-                android:id="@+id/navEmail"
-                android:icon="@drawable/ic_action_email"
-                android:title="Account Details" />
+                android:id="@+id/navAccount"
+                android:icon="@drawable/ic_action_user"
+                android:title="@string/navAccount"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/navLogout"
+                android:icon="@drawable/ic_action_logout"
+                android:title="@string/navLogout" />
         </menu>
     </item>
 </menu>

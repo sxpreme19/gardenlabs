@@ -47,9 +47,6 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
 
 
         lvServicos = view.findViewById(R.id.lvServicos);
-        //books = SingletonBookManager.getInstance(getContext()).getBooksBD();
-        //lvServicos.setAdapter(new ListaLivrosAdaptador(books,getContext()));
-
         lvServicos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

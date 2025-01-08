@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.example.amsi_project.modelo.Servico;
+import com.example.amsi_project.modelo.User;
 import com.example.amsi_project.modelo.Userprofile;
 
 import org.json.JSONArray;
@@ -17,7 +18,30 @@ import java.util.Map;
 
 public class JsonParser {
 
-    //Método parserJsonUserprofile(), que devolve o userprofile do user logado;
+    //Método parserJsonUser(), que devolve o userprofile do user logado;
+    public static User parserJsonUser(JSONObject response){
+        User auxUser = null;
+
+        try {
+            int id = response.getInt("id");
+            String username = response.getString("username");
+            String auth_key = response.getString("auth_key");
+            String password_hash = response.getString("password_hash");
+            String password_reset_token = response.getString("password_reset_token");
+            String email = response.getString("email");
+            int status = response.getInt("status");
+            int created_at = response.getInt("created_at");
+            int updated_at = response.getInt("updated_at");
+            String verification_token = response.getString("verification_token");
+
+            auxUser = new User(id,username,auth_key,password_hash,password_reset_token,email,status,created_at,updated_at,verification_token);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxUser;
+    }
+
+    //Método parserJsonUserprofile(), que devolve um userprofile;
     public static Userprofile parserJsonUserprofile(String response){
         Userprofile auxUserprofile = null;
 

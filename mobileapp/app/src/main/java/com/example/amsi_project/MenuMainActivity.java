@@ -1,6 +1,7 @@
 package com.example.amsi_project;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -50,10 +51,13 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
     }
 
     private boolean CarregarFragmentoInicial() {
-        Menu menu = navigationView.getMenu();
-        MenuItem item = menu.getItem(0);
-        item.setChecked(true);
+        setTitle("Home");
+        Fragment fragment = new HomeFragment();
+        fragmentManager.beginTransaction().replace(R.id.contentFragment, fragment).commit();
 
+        Menu menu = navigationView.getMenu();
+        MenuItem item = menu.findItem(R.id.navHome);
+        setCheckedItem(item.getItemId());
         return onNavigationItemSelected(item);
     }
 
@@ -64,34 +68,58 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
         username = sharedPrefUser.getString("username", "");
 
         View hView = navigationView.getHeaderView(0);
-        TextView tvEmail = hView.findViewById(R.id.tvEmail);
-        tvEmail.setText(username);
+        TextView tvUsername = hView.findViewById(R.id.tvUsername);
+        tvUsername.setText(username);
 
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
-        if (item.getItemId()==R.id.navServices) {
+        if (item.getItemId()==R.id.navHome) {
+            setTitle(item.getTitle());
+            fragment = new HomeFragment();
+        }
+        else if (item.getItemId()==R.id.navServices) {
             setTitle(item.getTitle());
             fragment = new ListaServicosFragment();
         }
-        else if (item.getItemId()==R.id.navCarrinho) {
+        else if (item.getItemId()==R.id.navCart) {
             setTitle(item.getTitle());
+            fragment = new CartFragment();
         }
-        else {
-            enviarEmail();
+        else if (item.getItemId()==R.id.navWishlist) {
+            setTitle(item.getTitle());
+            fragment = new WishlistFragment();
+        }
+        else if (item.getItemId()==R.id.navAccount) {
+            setTitle(item.getTitle());
+            fragment = new AccountFragment();
+        }
+        else if (item.getItemId()==R.id.navLogout) {
+            SharedPreferences sharedPrefUser = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPrefUser.edit();
+            editor.clear();
+            editor.apply();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
-        if (fragment!=null)
-            fragmentManager.beginTransaction().replace(R.id.contentFragment,fragment).commit();
-
+        if (fragment!=null) {
+            fragmentManager.beginTransaction().replace(R.id.contentFragment, fragment).commit();
+            setCheckedItem(item.getItemId());
+        }
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
     }
 
-    private void enviarEmail() {
-        //TODO
+    private void setCheckedItem(int menuItemId) {
+        Menu menu = navigationView.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            item.setChecked(item.getItemId() == menuItemId);
+        }
     }
+
 }
