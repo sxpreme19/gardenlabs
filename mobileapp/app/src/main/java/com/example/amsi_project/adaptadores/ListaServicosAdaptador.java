@@ -81,7 +81,7 @@ public class ListaServicosAdaptador extends BaseAdapter {
             tvDuracao.setText(s.getDuracao() + " dias");
             tvPreco.setText(s.getPreco()+"€");
             Glide.with(context)
-                    .load(R.drawable.logoipl)
+                    .load(R.drawable.ic_action_service)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
         }

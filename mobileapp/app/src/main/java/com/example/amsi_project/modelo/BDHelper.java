@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.amsi_project.R;
+
 import java.util.ArrayList;
 
 public class BDHelper extends SQLiteOpenHelper {
@@ -16,28 +18,30 @@ public class BDHelper extends SQLiteOpenHelper {
     //Nome da base de dados
     private static final String DB_NAME = "bdGardenLabs";
 
-    //region Tabelas
+    //region Tabels
     private static final String SERVICOS = "Servicos";
     private static final String USERS = "Users";
     private static final String USERPROFILES = "Userprofiles";
-    private static final String CARRINHOSSERVICOS = "Carrinhosservicos";
+    private static final String CARRINHOSERVICOS = "Carrinhoservicos";
     private static final String LINHACARRINHOSERVICOS = "Linhacarrinhoservicos";
     private static final String FAVORITOS = "Favoritos";
     private static final String REVIEWS = "Reviews";
     private static final String FATURAS = "Faturas";
-    private static final String LINHAFATURA = "Linhafatura";
-    private static final String METODOPAGAMENTOS = "Metodopagamento";
+    private static final String LINHAFATURA = "Linhafaturas";
+    private static final String METODOPAGAMENTOS = "Metodopagamentos";
     //endregion
 
-    //region Variables
+    //region Fields
     private static final String  ID ="id",STATUS="status",CREATED_AT="created_at",UPDATED_AT="updated_at",USER_ID="user_id",NIF="nif",TELEFONE="telefone",USERPROFILE_ID="userprofile_id",CARRINHOSERVICO_ID="carrinhoservico_id",SERVICO_ID="servico_id";
     private static final String TITULO = "titulo", DESCRICAO ="descricao", DURACAO ="duracao", PRECO ="PRECO", PRESTADOR_ID ="prestador_id";
     private static final String USERNAME ="username",AUTH_KEY="auth_key",PASSWORD_HASH="password_hash",PASSWORD_RESET_TOKEN="password_reset_token",EMAIL="email",VERIFICATION_TOKEN="verification_token";
     private static final String NOME ="nome",MORADA ="morada";
-    private static final String TOTAL="total";
+    private static final String TOTAL="total",DATAHORA="datahora",NOME_DESTINATARIO="nome_destinatariol",MORADA_DESTINATARIO="morada_destinatario",TELEFONE_DESTINATARIO="telefone_destinatario",NIF_DESTINATARIO="nif_destinatario",PRECO_ENVIO="preco_envio",METODOPAGAMENTO_ID="metodopagamento_id";
+    private static final String QUANTIDADE="quantidade",PRECO_UNITARIO="preco_unitario",FATURA_ID="fatura_id";
+    private static final String CONTEUDO="conteudo",AVALIACAO="avaliacao";
     //endregion
-    private final SQLiteDatabase db;
 
+    private final SQLiteDatabase db;
 
     public BDHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
@@ -77,7 +81,7 @@ public class BDHelper extends SQLiteOpenHelper {
                 USER_ID + " INTEGER NOT NULL " +
                 ");";
 
-        String sqlCriarTabelaCarrinhoservico = "CREATE TABLE " + CARRINHOSSERVICOS + "(" +
+        String sqlCriarTabelaCarrinhoservico = "CREATE TABLE " + CARRINHOSERVICOS + "(" +
                 ID + " INTEGER PRIMARY KEY, "+
                 TOTAL + " DOUBLE NOT NULL, " +
                 USERPROFILE_ID + " INTEGER NOT NULL " +
@@ -86,14 +90,44 @@ public class BDHelper extends SQLiteOpenHelper {
         String sqlCriarTabelaLinhacarrinhoservicos = "CREATE TABLE " + LINHACARRINHOSERVICOS + "(" +
                 ID + " INTEGER PRIMARY KEY, "+
                 PRECO + " DOUBLE NOT NULL, " +
-                CARRINHOSERVICO_ID + " INTEGER NOT NULL " +
+                CARRINHOSERVICO_ID + " INTEGER NOT NULL, " +
                 SERVICO_ID + " INTEGER NOT NULL " +
                 ");";
 
         String sqlCriarTabelaFavoritos = "CREATE TABLE " + FAVORITOS + "(" +
                 ID + " INTEGER PRIMARY KEY, "+
-                USERPROFILE_ID + " INTEGER NOT NULL " +
+                USERPROFILE_ID + " INTEGER NOT NULL, " +
                 SERVICO_ID + " INTEGER NOT NULL " +
+                ");";
+
+        String sqlCriarTabelaFaturas = "CREATE TABLE " + FATURAS + "(" +
+                ID + " INTEGER PRIMARY KEY, "+
+                TOTAL + " INTEGER NOT NULL, " +
+                DATAHORA + " DATETIME NOT NULL, "+
+                NOME_DESTINATARIO + " TEXT NOT NULL, " +
+                MORADA_DESTINATARIO + " TEXT NOT NULL, " +
+                TELEFONE_DESTINATARIO + " TEXT NOT NULL, " +
+                NIF_DESTINATARIO + " TEXT NOT NULL, " +
+                PRECO_ENVIO + " DOUBLE NOT NULL, " +
+                METODOPAGAMENTO_ID + " INTEGER NOT NULL, " +
+                USERPROFILE_ID + " INTEGER NOT NULL " +
+                ");";
+
+        String sqlCriarTabelaLinhaFaturas = "CREATE TABLE " + LINHAFATURA + "(" +
+                ID + " INTEGER PRIMARY KEY, "+
+                QUANTIDADE + " INTEGER NOT NULL, " +
+                PRECO_UNITARIO + " DOUBLE NOT NULL, " +
+                FATURA_ID + " INTEGER NOT NULL, " +
+                SERVICO_ID + " INTEGER NOT NULL " +
+                ");";
+
+        String sqlCriarTabelaReviews = "CREATE TABLE " + REVIEWS + "(" +
+                ID + " INTEGER PRIMARY KEY, "+
+                CONTEUDO + " TEXT NOT NULL, " +
+                DATAHORA + " DATETIME NOT NULL, "+
+                AVALIACAO + " DOUBLE NOT NULL, " +
+                SERVICO_ID + " INTEGER NOT NULL, " +
+                USERPROFILE_ID + " INTEGER NOT NULL " +
                 ");";
 
         try {
@@ -103,6 +137,10 @@ public class BDHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(sqlCriarTabelaCarrinhoservico);
             sqLiteDatabase.execSQL(sqlCriarTabelaLinhacarrinhoservicos);
             sqLiteDatabase.execSQL(sqlCriarTabelaFavoritos);
+            sqLiteDatabase.execSQL(sqlCriarTabelaFaturas);
+            sqLiteDatabase.execSQL(sqlCriarTabelaLinhaFaturas);
+            sqLiteDatabase.execSQL(sqlCriarTabelaReviews);
+
             Log.d("BDHelper", "Tables created successfully.");
         } catch (Exception e) {
             Log.e("BDHelper", "Error creating tables: " + e.getMessage());
@@ -165,6 +203,36 @@ public class BDHelper extends SQLiteOpenHelper {
         this.db.delete(SERVICOS,null, null);
     }
 
+    public Servico getServiceBD(int serviceId) {
+        Servico servico = null;
+        Cursor cursor = null;
+        try {
+            cursor = this.db.query(
+                    SERVICOS,
+                    new String[]{ID, TITULO, DESCRICAO,DURACAO, PRECO, PRESTADOR_ID},
+                    ID + "=?",
+                    new String[]{String.valueOf(serviceId)},
+                    null, null, null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                servico = new Servico(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getInt(4),
+                        cursor.getInt(5)
+                );
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return servico;
+    }
+
     public ArrayList<Servico> getAllServicosBD(){
 
         ArrayList<Servico> Servicos = new ArrayList<>();
@@ -220,7 +288,7 @@ public class BDHelper extends SQLiteOpenHelper {
         return nLinhas == 1;
     }
 
-    public User getUserByIdBD(int userId) {
+    public User getUserBD(int userId) {
         User user = null;
         Cursor cursor = null;
         try {
@@ -254,9 +322,30 @@ public class BDHelper extends SQLiteOpenHelper {
         return user;
     }
 
+    public boolean isUserExists(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Users WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
     //endregion
 
-    //region Userprofiles
+    //region CRUD Userprofiles
 
     public Userprofile adicionarUserProfileBD(Userprofile up){
         ContentValues values = new ContentValues();
@@ -291,6 +380,140 @@ public class BDHelper extends SQLiteOpenHelper {
     public boolean removerUserProfileBD(int id){
         int nLinhas = this.db.delete(USERPROFILES, USER_ID + "=?", new String[]{id + ""});
         return nLinhas == 1;
+    }
+
+    public Userprofile getUserProfileBD(int userprofileId) {
+        Userprofile userprofile = null;
+        Cursor cursor = null;
+        try {
+            cursor = this.db.query(
+                    USERPROFILES,
+                    new String[]{ID, NOME,MORADA,TELEFONE,NIF,USER_ID},
+                    ID + "=?",
+                    new String[]{String.valueOf(userprofileId)},
+                    null, null, null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                userprofile = new Userprofile(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getInt(4),
+                        cursor.getInt(5)
+                );
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return userprofile;
+    }
+
+    public boolean isUserProfileExists(int userprofileId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Userprofiles WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(userprofileId)});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
+
+    //endregion
+
+    //region CRUD Carts
+    public Carrinhoservico adicionarCartBD(Carrinhoservico cs){
+        ContentValues values = new ContentValues();
+        values.put(ID,cs.getId());
+        values.put(TOTAL,cs.getTotal());
+        values.put(USERPROFILE_ID,cs.getUserprofile_id());
+
+        long id = this.db.insert(CARRINHOSERVICOS, null,values);
+
+        if(id > -1) {
+            cs.setId((int) id);
+            return cs;
+        }
+
+        return null;
+    }
+
+    public boolean isCartExists(int cartId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Carrinhoservicos WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(cartId)});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
+    public Linhacarrinhoservico adicionarCartLineBD(Linhacarrinhoservico lcs){
+        ContentValues values = new ContentValues();
+        values.put(ID,lcs.getId());
+        values.put(PRECO,lcs.getPreco());
+        values.put(CARRINHOSERVICO_ID,lcs.getCarrinhoservico_id());
+        values.put(SERVICO_ID,lcs.getServico_id());
+
+        long id = this.db.insert(LINHACARRINHOSERVICOS, null,values);
+
+        if(id > -1) {
+            lcs.setId((int) id);
+            return lcs;
+        }
+
+        return null;
+    }
+
+    public boolean isCartLineExists(int cartLineId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Linhacarrinhoservicos WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(cartLineId)});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
+    public void removerAllLinhasCarrinhoBD(){
+        this.db.delete(LINHACARRINHOSERVICOS,null, null);
     }
 
     //endregion

@@ -19,6 +19,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.amsi_project.ListaServicosFragment;
+import com.example.amsi_project.listeners.CartLinesListener;
+import com.example.amsi_project.listeners.CartListener;
 import com.example.amsi_project.listeners.LoginListener;
 import com.example.amsi_project.listeners.RegisterListener;
 import com.example.amsi_project.listeners.ResetPasswordListener;
@@ -40,13 +42,16 @@ public class SingletonGardenLabsManager {
     public BDHelper BD = null;
     private static SingletonGardenLabsManager instance = null;
     private static RequestQueue volleyQueue = null;
-    public static final String baseURL = "http://10.0.2.2/gardenlabs/webapp/backend/web/api/";
+    private static String ip = "10.0.2.2";
+    public static final String baseURL = "http://"+ip+"/gardenlabs/webapp/backend/web/api/";
 
     //region ModelVariables
     private User user;
     private Userprofile userprofile;
+    private Carrinhoservico cart;
     private ArrayList<Servico> services;
     private ArrayList<User> users;
+    private ArrayList<Linhacarrinhoservico> cartLines;
     //endregion
 
     //region Listeners
@@ -55,6 +60,8 @@ public class SingletonGardenLabsManager {
     private UserProfileListener userProfileListener;
     private ServicosListener servicosListener;
     private ServicoListener servicoListener;
+    private CartListener cartListener;
+    private CartLinesListener cartLinesListener;
     private LoginListener loginListener;
     private RegisterListener registerListener;
     private ResetPasswordListener resetPasswordListener;
@@ -73,6 +80,14 @@ public class SingletonGardenLabsManager {
 
     public void setServicoListener(ServicoListener servicoListener) {
         this.servicoListener = servicoListener;
+    }
+
+    public void setCartListener(CartListener cartListener) {
+        this.cartListener = cartListener;
+    }
+
+    public void setCartLinesListener(CartLinesListener cartLinesListener) {
+        this.cartLinesListener = cartLinesListener;
     }
 
     public void setLoginListener(LoginListener loginListener) {
@@ -105,51 +120,62 @@ public class SingletonGardenLabsManager {
         BD = new BDHelper(context);
     }
 
-    public ArrayList<Servico> getServicosBD() {
-        services = BD.getAllServicosBD();
-        return new ArrayList<>(services);
-    }
-
-    public Servico getServico(int id) {
-        for (Servico l : services) {
-            if (l.getId() == id)
-                return l;
+    //region BD-Servicos
+        public ArrayList<Servico> getServicosBD() {
+            services = BD.getAllServicosBD();
+            return new ArrayList<>(services);
         }
-        return null;
-    }
 
-    public void addServicoBD(Servico servico) {
-        BD.adicionarServicoBD(servico);
-    }
-
-    public void deleteServicoBD(int id) {
-        Servico l = getServico(id);
-        if (l != null) {
-            if (BD.removerServicoBD(id))
-                services.remove(l);
+        public Servico getServico(int id) {
+            for (Servico l : services) {
+                if (l.getId() == id)
+                    return l;
+            }
+            return null;
         }
-    }
 
-    public void editServicoBD(Servico servico) {
-        Servico l = getServico(servico.getId());
-        if (l != null) {
-            BD.editarServicoBD(servico);
+        public void addServicoBD(Servico servico) {
+            BD.adicionarServicoBD(servico);
         }
-    }
 
-    public void adicionarServicosBD(ArrayList<Servico> servicos) {
-        BD.removerAllServicosBD();
-        for (Servico l : servicos) {
-            BD.adicionarServicoBD(l);
+        public void deleteServicoBD(int id) {
+            Servico l = getServico(id);
+            if (l != null) {
+                if (BD.removerServicoBD(id))
+                    services.remove(l);
+            }
         }
-    }
+
+        public void editServicoBD(Servico servico) {
+            Servico l = getServico(servico.getId());
+            if (l != null) {
+                BD.editarServicoBD(servico);
+            }
+        }
+
+        public void adicionarServicosBD(ArrayList<Servico> servicos) {
+            BD.removerAllServicosBD();
+            for (Servico l : servicos) {
+                BD.adicionarServicoBD(l);
+            }
+        }
+
+        //endregion
 
     public User getUser(int id) {
-        for (User u : users) {
-            if (u.getId() == id)
-                return u;
+        return BD.getUserBD(id);
+    }
+
+    public Userprofile getUserProfile(int id) {
+        return BD.getUserProfileBD(id);
+    }
+
+    public void adicionarLinhasCarrinhoBD(ArrayList<Linhacarrinhoservico> linhascarrinhoservico) {
+        for (Linhacarrinhoservico lcs : linhascarrinhoservico) {
+            if (!BD.isCartLineExists(lcs.getId())){
+                BD.adicionarCartLineBD(lcs);
+            }
         }
-        return null;
     }
 
     //endregion
@@ -299,8 +325,9 @@ public class SingletonGardenLabsManager {
                             @Override
                             public void onResponse(JSONObject response) {
                                 user = JsonParser.parserJsonUser(response);
-                                BD.adicionarUserBD(user);
-                                users.add(user);
+                                if (!BD.isUserExists(user.getId())) {
+                                    BD.adicionarUserBD(user);
+                                }
                                 if (userListener != null) {
                                     userListener.onRefreshDetalhes(user.getUsername(), user.getEmail());
                                 }
@@ -386,7 +413,9 @@ public class SingletonGardenLabsManager {
                     @Override
                     public void onResponse(String response) {
                         userprofile = JsonParser.parserJsonUserprofile(response);
-                        BD.adicionarUserProfileBD(userprofile);
+                        if (!BD.isUserProfileExists(userprofile.getId())) { // Assuming isUserProfileExists checks by ID
+                            BD.adicionarUserProfileBD(userprofile); // Add to database if it doesn't exist
+                        }
 
                         if (userProfileListener != null) {
                             userProfileListener.onRefreshDetalhes(userprofile.getNome(),userprofile.getMorada(),userprofile.getTelefone(),userprofile.getNif());
@@ -400,6 +429,97 @@ public class SingletonGardenLabsManager {
                     }
                 });
                 volleyQueue.add(reqUserprofile); //faz o pedido á API;
+            }
+        }
+
+        public void editarUserProfileAPI(Userprofile userprofile,final Context context) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+        } else {
+            StringRequest reqEditarUser = new StringRequest(Request.Method.PUT, baseURL + "userprofiles/" + userprofile.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    BD.editarUserProfileBD(userprofile);
+
+                    if (userProfileListener != null) {
+                        userProfileListener.onRefreshDetalhes(userprofile.getNome(),userprofile.getMorada(),userprofile.getTelefone(),userprofile.getNif());
+                    }
+
+                    //TODO: Informar a vista
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }) {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("token", getTokenFromSharedPreferences(context));
+                    params.put("nome", userprofile.getNome());
+                    params.put("morada", userprofile.getMorada());
+                    params.put("telefone", String.valueOf(userprofile.getTelefone()));
+                    params.put("nif", String.valueOf(userprofile.getNif()));
+
+                    return params;
+                }
+            };
+            volleyQueue.add(reqEditarUser); //faz o pedido á API
+        }
+    }
+        //endregion
+
+        //region API-Carts
+        public void getCartAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqUserprofile = new StringRequest(Request.Method.GET, baseURL+"carrinhoservicos/"+getCartIDFromSharedPreferences(context)+"?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        cart = JsonParser.parserJsonCart(response);
+                        if (!BD.isCartExists(cart.getId())) {
+                            BD.adicionarCartBD(cart);
+                        }
+                        if (cart != null) {
+                            cartListener.onRefreshDetalhes(cart.getTotal());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqUserprofile); //faz o pedido á API;
+            }
+        }
+
+        public void getCartLinesAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                JsonArrayRequest reqCartlines = new JsonArrayRequest(Request.Method.GET, baseURL+"linhacarrinhoservicos/carrinhoservico_id/"+getCartIDFromSharedPreferences(context)+"?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        cartLines = JsonParser.parserJsonCartLines(response);
+                        adicionarLinhasCarrinhoBD(cartLines);
+
+                        if (cartLinesListener != null) {
+                            cartLinesListener.onRefreshListaLinhasCarrinho(cartLines);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqCartlines); //faz o pedido á API;
             }
         }
         //endregion
@@ -524,6 +644,12 @@ public class SingletonGardenLabsManager {
     public String getUserIDFromSharedPreferences(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
         int userID = sharedPref.getInt("id", -1); // Retrieve the user ID as Integer
+        return Integer.toString(userID);
+    }
+
+    public String getCartIDFromSharedPreferences(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+        int userID = sharedPref.getInt("servicecartid", -1); // Retrieve the user ID as Integer
         return Integer.toString(userID);
     }
 

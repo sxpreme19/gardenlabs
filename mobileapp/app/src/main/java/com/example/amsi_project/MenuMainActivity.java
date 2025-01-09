@@ -92,6 +92,10 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
             setTitle(item.getTitle());
             fragment = new WishlistFragment();
         }
+        else if (item.getItemId()==R.id.navPurchaseHistory) {
+            setTitle(item.getTitle());
+            fragment = new PurchaseHistoryFragment();
+        }
         else if (item.getItemId()==R.id.navAccount) {
             setTitle(item.getTitle());
             fragment = new AccountFragment();

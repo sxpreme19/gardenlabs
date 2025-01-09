@@ -124,4 +124,6 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
             lvServicos.setAdapter(new ListaServicosAdaptador(listaServicos,getContext()));
         }
     }
+
+
 }

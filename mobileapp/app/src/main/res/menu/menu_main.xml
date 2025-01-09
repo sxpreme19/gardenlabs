@@ -35,6 +35,11 @@
         android:title="@string/navAccountHeader">
         <menu>
             <item
+                android:id="@+id/navPurchaseHistory"
+                android:icon="@drawable/ic_action_history"
+                android:title="@string/navPurchaseHistory"
+                android:checkable="true"/>
+            <item
                 android:id="@+id/navAccount"
                 android:icon="@drawable/ic_action_user"
                 android:title="@string/navAccount"

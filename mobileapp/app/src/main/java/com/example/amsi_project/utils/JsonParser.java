@@ -3,7 +3,10 @@ package com.example.amsi_project.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
+import com.example.amsi_project.modelo.Carrinhoservico;
+import com.example.amsi_project.modelo.Linhacarrinhoservico;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.User;
 import com.example.amsi_project.modelo.Userprofile;
@@ -103,6 +106,42 @@ public class JsonParser {
         return services;
     }
 
+
+    //Método parserJsonCart(), que devolve o carrinho do user logado;
+    public static Carrinhoservico parserJsonCart(String response){
+        Carrinhoservico auxCarrinhoservico = null;
+
+        try {
+            JSONObject cart = new JSONObject(response);
+            int id = cart.getInt("id");
+            double total = cart.getDouble("total");
+            int userprofile_id = cart.getInt("userprofile_id");
+
+            auxCarrinhoservico = new Carrinhoservico(id,total,userprofile_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxCarrinhoservico;
+    }
+
+    //Método parserJsonCartLines(), que devolve as linhas de carrinho do carrinho do user logado;
+    public static ArrayList<Linhacarrinhoservico> parserJsonCartLines(JSONArray response){
+        ArrayList<Linhacarrinhoservico> cartLines = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject cartLine = null;
+            try {
+                cartLine = (JSONObject) response.get(i);
+                int id = cartLine.getInt("id");
+                Double preco = cartLine.getDouble("preco");
+                int carrinhoservico_id = cartLine.getInt("carrinhoservico_id");
+                int servico_id = cartLine.getInt("servico_id");
+                cartLines.add(new Linhacarrinhoservico(id,preco,carrinhoservico_id,servico_id));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return cartLines;
+    }
 
 
     //Método parserJsonLogin(), que efetuará o login na API;

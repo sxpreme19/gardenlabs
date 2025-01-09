@@ -3010,11 +3010,14 @@ drawable ic_action_cart
 drawable ic_action_delete
 drawable ic_action_email
 drawable ic_action_grelha
+drawable ic_action_history
 drawable ic_action_home
 drawable ic_action_lista
 drawable ic_action_logout
+drawable ic_action_remove
 drawable ic_action_save
 drawable ic_action_search
+drawable ic_action_service
 drawable ic_action_services
 drawable ic_action_user
 drawable ic_action_wishlist
@@ -3220,8 +3223,10 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id btnCheckout
 id btnLogin
 id btnRegister
+id btnRemove
 id btnResetPassword
 id buttonPanel
 id cache_measures
@@ -3394,6 +3399,8 @@ id line3
 id linear
 id listMode
 id list_item
+id lvFaturas
+id lvLinhasCarrinho
 id lvServicos
 id m3_side_sheet
 id main
@@ -3460,6 +3467,7 @@ id navAccount
 id navCart
 id navHome
 id navLogout
+id navPurchaseHistory
 id navServices
 id navView
 id navWishlist
@@ -3647,6 +3655,7 @@ id tvPreco
 id tvRegisterLink
 id tvResetPassword
 id tvTitulo
+id tvTotalCarrinho
 id tvUsername
 id unchecked
 id uniform
@@ -3811,9 +3820,11 @@ layout fragment_account
 layout fragment_cart
 layout fragment_home
 layout fragment_lista_servicos
+layout fragment_purchase_history
 layout fragment_wishlist
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_lista_linhascarrinho
 layout item_lista_livro
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
@@ -4050,6 +4061,7 @@ string navAccountHeader
 string navCarrinho
 string navHome
 string navLogout
+string navPurchaseHistory
 string navShopping
 string navWishlist
 string nav_services

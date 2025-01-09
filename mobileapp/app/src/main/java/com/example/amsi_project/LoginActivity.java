@@ -16,12 +16,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.amsi_project.listeners.LoginListener;
 import com.example.amsi_project.listeners.ResetPasswordListener;
+import com.example.amsi_project.modelo.BDHelper;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     private EditText etUsername, etPassword;
     public static final  int MIN_PASS=8;
+    public BDHelper BD = null;
 
 
 

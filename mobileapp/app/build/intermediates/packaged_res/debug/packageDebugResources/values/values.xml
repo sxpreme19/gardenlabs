@@ -18,6 +18,7 @@
     <string name="navCarrinho">Carrinho</string>
     <string name="navHome">Home</string>
     <string name="navLogout">Logout</string>
+    <string name="navPurchaseHistory">Histórico de compras</string>
     <string name="navShopping">Shopping</string>
     <string name="navWishlist">Wishlist</string>
     <string name="nav_services">Serviços</string>
