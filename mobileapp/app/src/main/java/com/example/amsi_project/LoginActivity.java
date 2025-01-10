@@ -59,12 +59,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         }
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).loginAPI(getApplicationContext(),username, passwrd);
-        //Toast.makeText(this, getString(R.string.txt_login_sucess), Toast.LENGTH_SHORT).show();
-        //Intent intent = new Intent(this, MainActivity.class);
-        //Intent intent = new Intent(this, MenuMainActivity.class);
-        //intent.putExtra(LoginActivity.EMAIL, email);
-        //startActivity(intent);
-        //finish();
     }
 
     @Override

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
-        app:srcCompat="@drawable/programarandroid2" />
+        app:srcCompat="@drawable/ic_action_service" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +60,37 @@
             android:inputType="number" />
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnAddToCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/gl_green"
+            android:text="Add to Cart"
+            android:textColor="@android:color/white" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btnWishlist"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="Add to Wishlist"
+            android:src="@drawable/ic_action_not_wishlist"
+            app:tint="@color/delete_red" />
+
+    </LinearLayout>
+
+   <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabDetalhes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,4 +101,5 @@
         android:contentDescription="Guardar"
         android:clickable="true"
         android:src="@drawable/ic_action_save" />
+       -->
 </LinearLayout>

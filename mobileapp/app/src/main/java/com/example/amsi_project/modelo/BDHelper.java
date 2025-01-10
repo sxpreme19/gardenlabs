@@ -512,6 +512,27 @@ public class BDHelper extends SQLiteOpenHelper {
         return exists;
     }
 
+    public boolean isCartLineServicoExists(int serviceId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Linhacarrinhoservicos WHERE servico_id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(serviceId)});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
     public void removerAllLinhasCarrinhoBD(){
         this.db.delete(LINHACARRINHOSERVICOS,null, null);
     }

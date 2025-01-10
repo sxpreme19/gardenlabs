@@ -124,6 +124,24 @@ public class JsonParser {
         return auxCarrinhoservico;
     }
 
+    //Método parserJsonServico(), que devolve apenas um servico;
+    public static Linhacarrinhoservico parserJsonCartLine(String response){
+        Linhacarrinhoservico auxLinhacarrinhoservico = null;
+
+        try {
+            JSONObject linhacarrinhoservico = new JSONObject(response);
+            int id = linhacarrinhoservico.getInt("id");
+            int carrinhoservico_id = linhacarrinhoservico.getInt("carrinhoservico_id");
+            double preco = linhacarrinhoservico.getDouble("preco");
+            int servico_id = linhacarrinhoservico.getInt("servico_id");
+
+            auxLinhacarrinhoservico = new Linhacarrinhoservico(id,preco,carrinhoservico_id,servico_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxLinhacarrinhoservico;
+    }
+
     //Método parserJsonCartLines(), que devolve as linhas de carrinho do carrinho do user logado;
     public static ArrayList<Linhacarrinhoservico> parserJsonCartLines(JSONArray response){
         ArrayList<Linhacarrinhoservico> cartLines = new ArrayList<>();

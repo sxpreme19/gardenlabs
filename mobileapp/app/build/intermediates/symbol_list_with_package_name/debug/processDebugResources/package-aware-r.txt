@@ -3009,11 +3009,13 @@ drawable ic_action_add
 drawable ic_action_cart
 drawable ic_action_delete
 drawable ic_action_email
+drawable ic_action_go_back
 drawable ic_action_grelha
 drawable ic_action_history
 drawable ic_action_home
 drawable ic_action_lista
 drawable ic_action_logout
+drawable ic_action_not_wishlist
 drawable ic_action_remove
 drawable ic_action_save
 drawable ic_action_search
@@ -3067,7 +3069,6 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
-drawable miat
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -3119,8 +3120,6 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
-drawable programarandroid1
-drawable programarandroid2
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3223,11 +3222,13 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id btnAddToCart
 id btnCheckout
 id btnLogin
 id btnRegister
 id btnRemove
 id btnResetPassword
+id btnWishlist
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3331,7 +3332,6 @@ id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
 id fabDelete
-id fabDetalhes
 id fabLista
 id fabUpdate
 id fade
@@ -3384,8 +3384,8 @@ id info
 id invisible
 id inward
 id italic
+id itemGoBack
 id itemPesquisa
-id itemRemover
 id item_touch_helper_previous_elevation
 id jumpToEnd
 id jumpToStart
