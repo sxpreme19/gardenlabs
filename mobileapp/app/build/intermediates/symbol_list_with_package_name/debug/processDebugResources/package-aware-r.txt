@@ -2990,6 +2990,8 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable appbg
+drawable appbg2
 drawable avd_hide_password
 drawable avd_show_password
 drawable btn_checkbox_checked_mtrl
@@ -3332,6 +3334,7 @@ id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
 id fabDelete
+id fabGoToStore
 id fabLista
 id fabUpdate
 id fade
@@ -3400,6 +3403,7 @@ id linear
 id listMode
 id list_item
 id lvFaturas
+id lvFavoritos
 id lvLinhasCarrinho
 id lvServicos
 id m3_side_sheet
@@ -3654,9 +3658,11 @@ id tvLoginLink
 id tvPreco
 id tvRegisterLink
 id tvResetPassword
+id tvSubtitle
 id tvTitulo
 id tvTotalCarrinho
 id tvUsername
+id tvWelcome
 id unchecked
 id uniform
 id unlabeled

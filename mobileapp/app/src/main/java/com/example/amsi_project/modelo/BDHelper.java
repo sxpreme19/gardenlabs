@@ -41,6 +41,8 @@ public class BDHelper extends SQLiteOpenHelper {
     private static final String CONTEUDO="conteudo",AVALIACAO="avaliacao";
     //endregion
 
+    //region BD-Init
+
     private final SQLiteDatabase db;
 
     public BDHelper(@Nullable Context context) {
@@ -160,6 +162,7 @@ public class BDHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    //endregion
 
     //region CRUD Servicos
     public Servico adicionarServicoBD(Servico s){

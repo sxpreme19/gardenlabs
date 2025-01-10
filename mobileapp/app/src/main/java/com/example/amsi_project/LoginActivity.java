@@ -25,8 +25,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     public static final  int MIN_PASS=8;
     public BDHelper BD = null;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

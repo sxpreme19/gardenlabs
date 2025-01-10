@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class JsonParser {
 
-    //Método parserJsonUser(), que devolve o userprofile do user logado;
+    //Method parserJsonUser(), que devolve o userprofile do user logado;
     public static User parserJsonUser(JSONObject response){
         User auxUser = null;
 
@@ -44,7 +44,7 @@ public class JsonParser {
         return auxUser;
     }
 
-    //Método parserJsonUserprofile(), que devolve um userprofile;
+    //Method parserJsonUserprofile(), que devolve um userprofile;
     public static Userprofile parserJsonUserprofile(String response){
         Userprofile auxUserprofile = null;
 
@@ -64,7 +64,7 @@ public class JsonParser {
         return auxUserprofile;
     }
 
-    //Método parserJsonServico(), que devolve apenas um servico;
+    //Method parserJsonServico(), que devolve apenas um servico;
     public static Servico parserJsonServico(String response){
         Servico auxServico = null;
 
@@ -84,7 +84,7 @@ public class JsonParser {
         return auxServico;
     }
 
-    //Método parserJsonServicos(), que devolve a lista de Servicos;
+    //Method parserJsonServicos(), que devolve a lista de Servicos;
     public static ArrayList<Servico> parserJsonServices(JSONArray response) {
         ArrayList<Servico> services = new ArrayList<>();
         for (int i = 0; i < response.length(); i++) {
@@ -106,8 +106,7 @@ public class JsonParser {
         return services;
     }
 
-
-    //Método parserJsonCart(), que devolve o carrinho do user logado;
+    //Method parserJsonCart(), que devolve o carrinho do user logado;
     public static Carrinhoservico parserJsonCart(String response){
         Carrinhoservico auxCarrinhoservico = null;
 
@@ -124,7 +123,7 @@ public class JsonParser {
         return auxCarrinhoservico;
     }
 
-    //Método parserJsonServico(), que devolve apenas um servico;
+    //Method parserJsonServico(), que devolve apenas um servico;
     public static Linhacarrinhoservico parserJsonCartLine(String response){
         Linhacarrinhoservico auxLinhacarrinhoservico = null;
 
@@ -142,7 +141,7 @@ public class JsonParser {
         return auxLinhacarrinhoservico;
     }
 
-    //Método parserJsonCartLines(), que devolve as linhas de carrinho do carrinho do user logado;
+    //Method parserJsonCartLines(), que devolve as linhas de carrinho do carrinho do user logado;
     public static ArrayList<Linhacarrinhoservico> parserJsonCartLines(JSONArray response){
         ArrayList<Linhacarrinhoservico> cartLines = new ArrayList<>();
         for (int i = 0; i < response.length(); i++) {
@@ -161,8 +160,7 @@ public class JsonParser {
         return cartLines;
     }
 
-
-    //Método parserJsonLogin(), que efetuará o login na API;
+    //Method parserJsonLogin(), que efetuará o login na API;
     public static Map<String, Object> parserJsonLogin(String response) {
         String token = null;
         int id,profileid,servicecartid;
@@ -183,7 +181,7 @@ public class JsonParser {
         return result;
     }
 
-    //Método isConnectionInternet(), que verifica se existe acesso à internet;
+    //Method isConnectionInternet(), que verifica se existe acesso à internet;
     public static boolean isConnectionInternet(Context context){
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
