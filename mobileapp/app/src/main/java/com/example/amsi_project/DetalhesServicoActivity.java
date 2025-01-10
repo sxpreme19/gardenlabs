@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -24,10 +26,11 @@ public class DetalhesServicoActivity extends AppCompatActivity implements Servic
 
     public static final String DEFAULT_IMG = "http://amsi.dei.estg.ipleiria.pt/img/ipl_semfundo.png";
     private EditText etTitulo, etDescricao, etDuracao, etPreco,etPrestadorID;
+    private Button btnAddtoCart;
+    private ImageButton btnAddtoWishlist;
     private ImageView imgCapa;
-    private FloatingActionButton fabDetalhes;
+    //private FloatingActionButton fabDetalhes;
     private Servico servico;
-    public static final int MIN_CHAR=3, MIN_NUMBER=4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +45,24 @@ public class DetalhesServicoActivity extends AppCompatActivity implements Servic
         etPreco=findViewById(R.id.etPreco);
         etPrestadorID=findViewById(R.id.etPrestadorID);
         imgCapa=findViewById(R.id.imgCapa);
-        fabDetalhes=findViewById(R.id.fabDetalhes);
+        btnAddtoCart=findViewById(R.id.btnAddToCart);
+        btnAddtoWishlist=findViewById(R.id.btnWishlist);
+
+        //fabDetalhes=findViewById(R.id.fabDetalhes);
         if (servico != null)
             carregarServicos();
         else setTitle("Novo livro");
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setServicoListener(this);
 
-        fabDetalhes.setOnClickListener(new View.OnClickListener() {
+        btnAddtoCart.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarCartLineAPI(servico,getApplicationContext());
+            }
+        });
+
+        /*fabDetalhes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -59,44 +72,15 @@ public class DetalhesServicoActivity extends AppCompatActivity implements Servic
                         servico.setDuracao(Integer.parseInt(etDuracao.getText().toString()));
                         servico.setPreco(Double.parseDouble(etPreco.getText().toString()));
                         servico.setPrestador_id(Integer.parseInt(etPrestadorID.getText().toString()));
-                        /*SingletonBookManager.getInstance(getApplicationContext()).editBookBD(book);
-                        Intent intent = new Intent();
-                        setResult(RESULT_OK, intent);
-                        finish();*/
                         SingletonGardenLabsManager.getInstance(getApplicationContext()).editarServicoAPI(servico, getApplicationContext());
                     }
                     else {
                         servico = new Servico(0, etTitulo.getText().toString(), etDescricao.getText().toString(),  Integer.parseInt(etDuracao.getText().toString()),Double.parseDouble(etPreco.getText().toString()),Integer.parseInt(etPrestadorID.getText().toString()));
                         SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarServicoAPI(servico, getApplicationContext());
                     }
-                //if(isLivroValid()) {}
             }
-        });
+        });*/
     }
-
-    /*private boolean isLivroValid() {
-        String titulo=etTitulo.getText().toString();
-        String serie=etSerie.getText().toString();
-        String autor=etAutor.getText().toString();
-        String ano=etAno.getText().toString();
-        if (titulo.length()<MIN_CHAR) {
-            etTitulo.setError("Título inválido");
-            return false;
-        }
-        if (autor.length()<MIN_CHAR) {
-            etAutor.setError("Autor inválido");
-            return false;
-        }
-        if (ano.length()<MIN_NUMBER) {
-            etAno.setError("Ano inválido");
-            return false;
-        }
-        if (serie.length()<MIN_CHAR) {
-            etSerie.setError("Série inválida");
-            return false;
-        }
-        return true;
-    }*/
 
     private void carregarServicos() {
         if (servico != null) {
@@ -107,12 +91,11 @@ public class DetalhesServicoActivity extends AppCompatActivity implements Servic
             etPreco.setText(String.valueOf(servico.getPreco()));
             etPrestadorID.setText(String.valueOf(servico.getPrestador_id()));
             Glide.with(getApplicationContext())
-                    .load(R.drawable.logoipl)
+                    .load(R.drawable.ic_action_service)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,8 +108,8 @@ public class DetalhesServicoActivity extends AppCompatActivity implements Servic
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.itemRemover) {
-            dialogConfirmRemover();
+        if(item.getItemId()==R.id.itemGoBack) {
+            finish();
             return super.onOptionsItemSelected(item);
         }
         return false;
@@ -139,10 +122,6 @@ public class DetalhesServicoActivity extends AppCompatActivity implements Servic
                 .setPositiveButton("SIMMMM :DD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        /*SingletonBookManager.getInstance(getApplicationContext()).deleteBookBD(book.getId());
-                        Intent intent = new Intent();
-                        setResult(RESULT_OK, intent);
-                        finish();*/
                         SingletonGardenLabsManager.getInstance(getApplicationContext()).removerServicoAPI(servico, getApplicationContext());
                     }
                 })

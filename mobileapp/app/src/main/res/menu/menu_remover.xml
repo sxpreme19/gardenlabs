@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/itemRemover"
-        android:title="Remover"
-        android:icon="@drawable/ic_action_delete"
+        android:id="@+id/itemGoBack"
+        android:title="Go back"
+        android:icon="@drawable/ic_action_go_back"
         app:showAsAction="always" />
 </menu>

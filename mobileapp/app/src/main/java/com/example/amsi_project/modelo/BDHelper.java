@@ -41,6 +41,8 @@ public class BDHelper extends SQLiteOpenHelper {
     private static final String CONTEUDO="conteudo",AVALIACAO="avaliacao";
     //endregion
 
+    //region BD-Init
+
     private final SQLiteDatabase db;
 
     public BDHelper(@Nullable Context context) {
@@ -160,6 +162,7 @@ public class BDHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    //endregion
 
     //region CRUD Servicos
     public Servico adicionarServicoBD(Servico s){
@@ -500,6 +503,27 @@ public class BDHelper extends SQLiteOpenHelper {
             // Query to check if the user ID exists in the database
             String query = "SELECT 1 FROM Linhacarrinhoservicos WHERE id = ?";
             cursor = db.rawQuery(query, new String[]{String.valueOf(cartLineId)});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
+    public boolean isCartLineServicoExists(int serviceId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Linhacarrinhoservicos WHERE servico_id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(serviceId)});
 
             // If the cursor has at least one result, the user exists
             exists = (cursor.getCount() > 0);

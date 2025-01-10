@@ -498,6 +498,39 @@ public class SingletonGardenLabsManager {
             }
         }
 
+        public void adicionarCartLineAPI(Servico servico , final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqAdicionarLinhaCarrinho = new StringRequest(Request.Method.POST, baseURL+"linhacarrinhoservicos/addtocart?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(!BD.isCartLineServicoExists(servico.getId())) {
+                            BD.adicionarCartLineBD(JsonParser.parserJsonCartLine(response));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+
+                        params.put("token", getTokenFromSharedPreferences(context));
+                        params.put("preco", String.valueOf(servico.getPreco()));
+                        params.put("carrinhoservico_id", getCartIDFromSharedPreferences(context));
+                        params.put("servico_id", servico.getId()+ "");
+                        return params;
+                    }
+                };
+                volleyQueue.add(reqAdicionarLinhaCarrinho); //faz o pedido á API
+            }
+        }
+
         public void getCartLinesAPI(final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -542,11 +575,13 @@ public class SingletonGardenLabsManager {
                     if (loginListener != null) {
                         loginListener.onUpdateLogin(id,token,username,profileid,servicecartid);
                     }
+                    Toast.makeText(context, "Login válido!", Toast.LENGTH_LONG).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    String errorMessage = "An unexpected error occurred.";
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
                 }
             }) {
                 @Nullable
