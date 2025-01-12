@@ -41,6 +41,12 @@
             android:textColor="@android:color/darker_gray"
             android:layout_marginTop="8dp" />
 
+        <ImageView
+            android:layout_width="380dp"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_action_service" />
+
     </LinearLayout>
 
 </FrameLayout>
