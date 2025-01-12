@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.amsi_project.ListaServicosFragment;
 import com.example.amsi_project.listeners.CartLinesListener;
 import com.example.amsi_project.listeners.CartListener;
+import com.example.amsi_project.listeners.FavoritosListener;
 import com.example.amsi_project.listeners.LoginListener;
 import com.example.amsi_project.listeners.RegisterListener;
 import com.example.amsi_project.listeners.ResetPasswordListener;
@@ -50,6 +51,7 @@ public class SingletonGardenLabsManager {
     private Userprofile userprofile;
     private Carrinhoservico cart;
     private ArrayList<Servico> services;
+    private ArrayList<Favorito> favoritos;
     private ArrayList<User> users;
     private ArrayList<Linhacarrinhoservico> cartLines;
     //endregion
@@ -62,6 +64,7 @@ public class SingletonGardenLabsManager {
     private ServicoListener servicoListener;
     private CartListener cartListener;
     private CartLinesListener cartLinesListener;
+    private FavoritosListener favoritosListener;
     private LoginListener loginListener;
     private RegisterListener registerListener;
     private ResetPasswordListener resetPasswordListener;
@@ -88,6 +91,10 @@ public class SingletonGardenLabsManager {
 
     public void setCartLinesListener(CartLinesListener cartLinesListener) {
         this.cartLinesListener = cartLinesListener;
+    }
+
+    public void setFavoritosListener(FavoritosListener favoritosListener) {
+        this.favoritosListener = favoritosListener;
     }
 
     public void setLoginListener(LoginListener loginListener) {
@@ -178,11 +185,18 @@ public class SingletonGardenLabsManager {
         }
     }
 
+    public void adicionarFavoritosBD(ArrayList<Favorito> favoritos) {
+        for (Favorito favorito : favoritos) {
+            if (!BD.isFavoritoExists(favorito.getId())){
+                BD.adicionarFavoritoBD(favorito);
+            }
+        }
+    }
+
     //endregion
 
     //region Acesso á API
         //region API-Servicos
-
         public void getAllServicesAPI(final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -216,104 +230,37 @@ public class SingletonGardenLabsManager {
             }
         }
 
-        public void adicionarServicoAPI(final Servico servico, final Context context) {
-            if (!JsonParser.isConnectionInternet(context)) {
-                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-            } else {
-                StringRequest reqAdicionarServico = new StringRequest(Request.Method.POST, baseURL+"servicos?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        BD.adicionarServicoBD(JsonParser.parserJsonServico(response));
+    public void getAllServiceswFiltersAPI(double minPreco,double maxPreco,int minDuracao,int maxDuracao,final Context context) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
 
-                        if (servicoListener != null) {
-                            servicoListener.onRefreshDetalhes(ListaServicosFragment.ADD);
-                        }
+            //Se não tem internet vai buscar todos os livros á bd local
+            //Insert, delete and PUT n tem funcionalidades offline
+            services = BD.getAllServicosBD();
 
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-
-                        params.put("token", getTokenFromSharedPreferences(context));
-                        params.put("titulo", servico.getTitulo());
-                        params.put("descricao", servico.getDescricao());
-                        params.put("duracao", servico.getDuracao()+ "");
-                        params.put("preco", servico.getPreco() + "");
-                        params.put("prestador_id", servico.getPrestador_id()+ "");
-                        return params;
-                    }
-                };
-                volleyQueue.add(reqAdicionarServico); //faz o pedido á API
+            if (servicosListener != null) {
+                servicosListener.onRefreshListaServicos(services);
             }
+        } else {
+            JsonArrayRequest reqServices = new JsonArrayRequest(Request.Method.GET, baseURL+"servicos/filter/"+minPreco+"/"+maxPreco+"/"+minDuracao+"/"+maxDuracao+"?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    services = JsonParser.parserJsonServices(response);
+
+                    if (servicosListener != null) {
+                        servicosListener.onRefreshListaServicos(services);
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(reqServices); //faz o pedido á API;
         }
-
-        public void removerServicoAPI(final Servico servico, final Context context) {
-            if (!JsonParser.isConnectionInternet(context)) {
-                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-            } else {
-                StringRequest reqRemoverServico = new StringRequest(Request.Method.DELETE, baseURL + "servicos/" + servico.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        BD.removerServicoBD(servico.getId());
-
-                        if (servicoListener != null) {
-                            servicoListener.onRefreshDetalhes(ListaServicosFragment.DELETE);
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-                volleyQueue.add(reqRemoverServico); //faz o pedido á API
-            }
-        }
-
-        public void editarServicoAPI(final Servico servico, final Context context) {
-            if (!JsonParser.isConnectionInternet(context)) {
-                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-            } else {
-                StringRequest reqEditarServico = new StringRequest(Request.Method.PUT, baseURL + "servicos/" + servico.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        BD.editarServicoBD(servico);
-
-                        if (servicoListener != null) {
-                            servicoListener.onRefreshDetalhes(ListaServicosFragment.EDIT);
-                        }
-
-                        //TODO: Informar a vista
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-                    @Nullable
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("token", getTokenFromSharedPreferences(context));
-                        params.put("titulo", servico.getTitulo());
-                        params.put("descricao", servico.getDescricao());
-                        params.put("duracao", servico.getDuracao() + "");
-                        params.put("preco", servico.getPreco() + "");
-                        params.put("prestador_id", servico.getPrestador_id() + "");
-                        return params;
-                    }
-                };
-                volleyQueue.add(reqEditarServico); //faz o pedido á API
-            }
-        }
+    }
         //endregion
 
         //region API-Users
@@ -502,12 +449,15 @@ public class SingletonGardenLabsManager {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
             } else {
+                if (BD.isCartLineServicoExists(Integer.parseInt(getCartIDFromSharedPreferences(context)),servico.getId())) {
+                    Toast.makeText(context, "Serviço já está no carrinho", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 StringRequest reqAdicionarLinhaCarrinho = new StringRequest(Request.Method.POST, baseURL+"linhacarrinhoservicos/addtocart?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(!BD.isCartLineServicoExists(servico.getId())) {
                             BD.adicionarCartLineBD(JsonParser.parserJsonCartLine(response));
-                        }
+                            Toast.makeText(context, "Adicionado!", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -553,6 +503,103 @@ public class SingletonGardenLabsManager {
                     }
                 });
                 volleyQueue.add(reqCartlines); //faz o pedido á API;
+            }
+        }
+
+        public void removerCartLineAPI(final Linhacarrinhoservico linhacarrinhoservico, final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqRemoverLinhacarrinhoservico = new StringRequest(Request.Method.DELETE, baseURL + "linhacarrinhoservicos/removefromcart/" + linhacarrinhoservico.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BD.removerCartLineBD(linhacarrinhoservico.getId());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqRemoverLinhacarrinhoservico); //faz o pedido á API
+            }
+        }
+        //endregion
+
+        //region API-Favoritos
+        public void adicionarFavoritoAPI(Servico servico , final Context context) {
+                if (!JsonParser.isConnectionInternet(context)) {
+                    Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+                } else {
+                    if (BD.isFavoritoServicoExists(Integer.parseInt(getUserProfileIDFromSharedPreferences(context)),servico.getId())) {
+                        Toast.makeText(context, "Serviço já está na wishlist", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    StringRequest reqAdicionarFavorito = new StringRequest(Request.Method.POST, baseURL+"favoritos?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            BD.adicionarFavoritoBD(JsonParser.parserJsonFavorito(response));
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                        @Nullable
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<>();
+
+                            params.put("token", getTokenFromSharedPreferences(context));
+                            params.put("userprofile_id", getUserProfileIDFromSharedPreferences(context));
+                            params.put("servico_id", servico.getId()+ "");
+                            return params;
+                        }
+                    };
+                    volleyQueue.add(reqAdicionarFavorito); //faz o pedido á API
+                }
+            }
+        public void getFavoritosAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                JsonArrayRequest reqFavoritos = new JsonArrayRequest(Request.Method.GET, baseURL+"favoritos/userprofile_id/"+getUserProfileIDFromSharedPreferences(context)+"?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        favoritos = JsonParser.parserJsonFavoritos(response);
+                        adicionarFavoritosBD(favoritos);
+
+                        if (favoritosListener != null) {
+                            favoritosListener.onRefreshListaFavoritos(favoritos);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqFavoritos); //faz o pedido á API;
+            }
+        }
+        public void removerFavoritoAPI(final Favorito favorito, final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqRemoverFavorito = new StringRequest(Request.Method.DELETE, baseURL + "favoritos/" + favorito.getId() + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BD.removerFavoritoBD(favorito.getId());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqRemoverFavorito); //faz o pedido á API
             }
         }
         //endregion

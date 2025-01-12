@@ -48,7 +48,6 @@ public class CartFragment extends Fragment implements CartListener, CartLinesLis
     @Override
     public void onRefreshListaLinhasCarrinho(ArrayList<Linhacarrinhoservico> listLinhasCarrinho) {
         if(listLinhasCarrinho != null){
-            Log.d("LINHAS", String.valueOf(listLinhasCarrinho));
             lvCartLines.setAdapter(new ListaLinhasCarrinhoAdaptador(listLinhasCarrinho,getContext()));
         }
     }

@@ -48,7 +48,7 @@ public class ListaServicosAdaptador extends BaseAdapter {
         }
         if(view == null)
         {
-            view = inflater.inflate(R.layout.item_lista_livro, null);
+            view = inflater.inflate(R.layout.item_lista_servico, null);
         }
 
         //otimização

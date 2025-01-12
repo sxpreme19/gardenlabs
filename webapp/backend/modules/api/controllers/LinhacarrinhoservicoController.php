@@ -33,7 +33,7 @@ class LinhacarrinhoservicoController extends ActiveController
             $cart = $model->carrinhoservico;
             $cart->calculateTotal();
 
-            return $model; 
+            return $model;
         }
 
         return [
@@ -73,6 +73,7 @@ class LinhacarrinhoservicoController extends ActiveController
             return [
                 'status' => 'success',
                 'message' => 'Removed from cart successfully',
+                'cart' => $cart->total
             ];
         }
 

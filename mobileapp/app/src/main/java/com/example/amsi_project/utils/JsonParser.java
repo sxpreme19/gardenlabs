@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.example.amsi_project.modelo.Carrinhoservico;
+import com.example.amsi_project.modelo.Favorito;
 import com.example.amsi_project.modelo.Linhacarrinhoservico;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.User;
@@ -158,6 +159,41 @@ public class JsonParser {
             }
         }
         return cartLines;
+    }
+
+    //Method parserJsonFavorito(), que devolve apenas um favorito do user logado;
+    public static Favorito parserJsonFavorito(String response){
+        Favorito auxFavorito = null;
+
+        try {
+            JSONObject favorito = new JSONObject(response);
+            int id = favorito.getInt("id");
+            int userprofile_id = favorito.getInt("userprofile_id");
+            int servico_id = favorito.getInt("servico_id");
+
+            auxFavorito = new Favorito(id,userprofile_id,servico_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxFavorito;
+    }
+
+    //Method parserJsonFavoritos(), que devolve os favoritos do user logado;
+    public static ArrayList<Favorito> parserJsonFavoritos(JSONArray response){
+        ArrayList<Favorito> favorites = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject favorite = null;
+            try {
+                favorite = (JSONObject) response.get(i);
+                int id = favorite.getInt("id");
+                int userprofile_id = favorite.getInt("userprofile_id");
+                int servico_id = favorite.getInt("servico_id");
+                favorites.add(new Favorito(id,userprofile_id,servico_id));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return favorites;
     }
 
     //Method parserJsonLogin(), que efetuará o login na API;

@@ -421,11 +421,9 @@ public class BDHelper extends SQLiteOpenHelper {
 
         Cursor cursor = null;
         try {
-            // Query to check if the user ID exists in the database
             String query = "SELECT 1 FROM Userprofiles WHERE id = ?";
             cursor = db.rawQuery(query, new String[]{String.valueOf(userprofileId)});
 
-            // If the cursor has at least one result, the user exists
             exists = (cursor.getCount() > 0);
         } finally {
             if (cursor != null) {
@@ -500,11 +498,9 @@ public class BDHelper extends SQLiteOpenHelper {
 
         Cursor cursor = null;
         try {
-            // Query to check if the user ID exists in the database
             String query = "SELECT 1 FROM Linhacarrinhoservicos WHERE id = ?";
             cursor = db.rawQuery(query, new String[]{String.valueOf(cartLineId)});
 
-            // If the cursor has at least one result, the user exists
             exists = (cursor.getCount() > 0);
         } finally {
             if (cursor != null) {
@@ -515,15 +511,90 @@ public class BDHelper extends SQLiteOpenHelper {
         return exists;
     }
 
-    public boolean isCartLineServicoExists(int serviceId) {
+    public boolean isCartLineServicoExists(int cartId,int serviceId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            String query = "SELECT * FROM Linhacarrinhoservicos WHERE carrinhoservico_id = ? AND servico_id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(cartId), String.valueOf(serviceId)});
+
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
+    public boolean removerCartLineBD(int id){
+        int nLinhas = this.db.delete(LINHACARRINHOSERVICOS, ID + "=?", new String[]{id + ""});
+        return nLinhas == 1;
+    }
+
+    public void removerAllLinhasCarrinhoBD(){
+        this.db.delete(LINHACARRINHOSERVICOS,null, null);
+    }
+
+    //endregion
+
+    //region CRUD Favoritos
+
+    public Favorito adicionarFavoritoBD(Favorito f){
+        ContentValues values = new ContentValues();
+        values.put(ID,f.getId());
+        values.put(USERPROFILE_ID,f.getUserprofile_id());
+        values.put(SERVICO_ID,f.getServico_id());
+
+        long id = this.db.insert(FAVORITOS, null,values);
+
+        if(id > -1) {
+            f.setId((int) id);
+            return f;
+        }
+
+        return null;
+    }
+
+    public Favorito getFavoritoBD(int userprofileId,int servico_id) {
+        Favorito favorito = null;
+        Cursor cursor = null;
+        try {
+            cursor = this.db.query(
+                    FAVORITOS,
+                    new String[]{ID, USERPROFILE_ID,SERVICO_ID},
+                    USERPROFILE_ID + "=? AND " + SERVICO_ID + "=?",
+                    new String[]{String.valueOf(userprofileId), String.valueOf(servico_id)},
+                    null, null, null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                favorito = new Favorito(
+                        cursor.getInt(0),
+                        cursor.getInt(1),
+                        cursor.getInt(2)
+                );
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return favorito;
+    }
+
+    public boolean isFavoritoExists(int favoritoId) {
         SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
         boolean exists = false;
 
         Cursor cursor = null;
         try {
             // Query to check if the user ID exists in the database
-            String query = "SELECT 1 FROM Linhacarrinhoservicos WHERE servico_id = ?";
-            cursor = db.rawQuery(query, new String[]{String.valueOf(serviceId)});
+            String query = "SELECT 1 FROM Favoritos WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(favoritoId)});
 
             // If the cursor has at least one result, the user exists
             exists = (cursor.getCount() > 0);
@@ -536,8 +607,29 @@ public class BDHelper extends SQLiteOpenHelper {
         return exists;
     }
 
-    public void removerAllLinhasCarrinhoBD(){
-        this.db.delete(LINHACARRINHOSERVICOS,null, null);
+    public boolean isFavoritoServicoExists(int userprofileId,int serviceId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+
+            String query = "SELECT * FROM Favoritos WHERE userprofile_id = ? AND servico_id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(userprofileId), String.valueOf(serviceId)});
+            Log.d("QUERY",query);
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
+    public boolean removerFavoritoBD(int id){
+        int nLinhas = this.db.delete(FAVORITOS, ID + "=?", new String[]{id + ""});
+        return nLinhas == 1;
     }
 
     //endregion
