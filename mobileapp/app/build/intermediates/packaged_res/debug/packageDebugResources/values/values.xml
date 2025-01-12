@@ -11,6 +11,12 @@
     <string name="backtologin">Go back to Login</string>
     <string name="btn_reset_password">Reset Password</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lbl_email">Email</string>
+    <string name="lbl_morada">Morada</string>
+    <string name="lbl_nif">NIF</string>
+    <string name="lbl_nome">Nome</string>
+    <string name="lbl_telefone">Telefone</string>
+    <string name="lbl_username">Username</string>
     <string name="link_login">Already have an account? Login here</string>
     <string name="link_register">Don\'t have an account? Register here</string>
     <string name="navAccount">Conta</string>

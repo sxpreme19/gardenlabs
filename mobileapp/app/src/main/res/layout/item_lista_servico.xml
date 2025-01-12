@@ -13,8 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.3"
-        app:srcCompat="@drawable/ic_action_service"
-        app:tint="@color/black" />
+        app:srcCompat="@drawable/ic_action_service" />
 
     <LinearLayout
         android:layout_width="0dp"

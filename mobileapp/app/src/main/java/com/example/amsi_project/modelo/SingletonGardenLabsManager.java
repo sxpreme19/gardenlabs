@@ -23,6 +23,7 @@ import com.example.amsi_project.listeners.CartLinesListener;
 import com.example.amsi_project.listeners.CartListener;
 import com.example.amsi_project.listeners.FavoritosListener;
 import com.example.amsi_project.listeners.LoginListener;
+import com.example.amsi_project.listeners.MetodosPagamentoListener;
 import com.example.amsi_project.listeners.RegisterListener;
 import com.example.amsi_project.listeners.ResetPasswordListener;
 import com.example.amsi_project.listeners.ServicoListener;
@@ -52,6 +53,7 @@ public class SingletonGardenLabsManager {
     private Carrinhoservico cart;
     private ArrayList<Servico> services;
     private ArrayList<Favorito> favoritos;
+    private ArrayList<Metodopagamento> metodospagamento;
     private ArrayList<User> users;
     private ArrayList<Linhacarrinhoservico> cartLines;
     //endregion
@@ -65,6 +67,7 @@ public class SingletonGardenLabsManager {
     private CartListener cartListener;
     private CartLinesListener cartLinesListener;
     private FavoritosListener favoritosListener;
+    private MetodosPagamentoListener metodosPagamentoListener;
     private LoginListener loginListener;
     private RegisterListener registerListener;
     private ResetPasswordListener resetPasswordListener;
@@ -95,6 +98,10 @@ public class SingletonGardenLabsManager {
 
     public void setFavoritosListener(FavoritosListener favoritosListener) {
         this.favoritosListener = favoritosListener;
+    }
+
+    public void setMetodosPagamentoListener(MetodosPagamentoListener metodosPagamentoListener) {
+        this.metodosPagamentoListener = metodosPagamentoListener;
     }
 
     public void setLoginListener(LoginListener loginListener) {
@@ -193,6 +200,14 @@ public class SingletonGardenLabsManager {
         }
     }
 
+    public void adicionarMetodosPagamentoBD(ArrayList<Metodopagamento> metodospagamento) {
+        for (Metodopagamento mp : metodospagamento) {
+            if (!BD.isMetodoPagamentoExists(mp.getId())){
+                BD.adicionarMetodopagamentoBD(mp);
+            }
+        }
+    }
+
     //endregion
 
     //region Acesso á API
@@ -229,8 +244,7 @@ public class SingletonGardenLabsManager {
                 volleyQueue.add(reqServices); //faz o pedido á API;
             }
         }
-
-    public void getAllServiceswFiltersAPI(double minPreco,double maxPreco,int minDuracao,int maxDuracao,final Context context) {
+        public void getAllServiceswFiltersAPI(double minPreco,double maxPreco,int minDuracao,int maxDuracao,final Context context) {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
 
@@ -261,6 +275,32 @@ public class SingletonGardenLabsManager {
             volleyQueue.add(reqServices); //faz o pedido á API;
         }
     }
+        public void getProviderAPI(int userprofileId, final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqUserprofile = new StringRequest(Request.Method.GET, baseURL+"userprofiles/"+userprofileId+"?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        userprofile = JsonParser.parserJsonUserprofile(response);
+                        if (!BD.isUserProfileExists(userprofile.getId())) { // Assuming isUserProfileExists checks by ID
+                            BD.adicionarUserProfileBD(userprofile); // Add to database if it doesn't exist
+                        }
+
+                        if (userProfileListener != null) {
+                            userProfileListener.onRefreshDetalhes(userprofile.getNome(),userprofile.getMorada(),userprofile.getTelefone(),userprofile.getNif());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqUserprofile); //faz o pedido á API;
+            }
+        }
         //endregion
 
         //region API-Users
@@ -600,6 +640,33 @@ public class SingletonGardenLabsManager {
                     }
                 });
                 volleyQueue.add(reqRemoverFavorito); //faz o pedido á API
+            }
+        }
+        //endregion
+
+        //region API-MetodosPagamento
+        public void getMetodosPagamentoAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                JsonArrayRequest reqMetodosPagamento = new JsonArrayRequest(Request.Method.GET, baseURL+"metodopagamento?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        metodospagamento = JsonParser.parserJsonMetodosPagamento(response);
+                        adicionarMetodosPagamentoBD(metodospagamento);
+
+                        if (metodosPagamentoListener != null) {
+                            metodosPagamentoListener.onRefreshMetodosPagamento(metodospagamento);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqMetodosPagamento); //faz o pedido á API;
             }
         }
         //endregion

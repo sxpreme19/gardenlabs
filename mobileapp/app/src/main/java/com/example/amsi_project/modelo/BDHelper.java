@@ -39,6 +39,7 @@ public class BDHelper extends SQLiteOpenHelper {
     private static final String TOTAL="total",DATAHORA="datahora",NOME_DESTINATARIO="nome_destinatariol",MORADA_DESTINATARIO="morada_destinatario",TELEFONE_DESTINATARIO="telefone_destinatario",NIF_DESTINATARIO="nif_destinatario",PRECO_ENVIO="preco_envio",METODOPAGAMENTO_ID="metodopagamento_id";
     private static final String QUANTIDADE="quantidade",PRECO_UNITARIO="preco_unitario",FATURA_ID="fatura_id";
     private static final String CONTEUDO="conteudo",AVALIACAO="avaliacao";
+    private static final String DISPONIVEL="disponivel";
     //endregion
 
     //region BD-Init
@@ -132,6 +133,12 @@ public class BDHelper extends SQLiteOpenHelper {
                 USERPROFILE_ID + " INTEGER NOT NULL " +
                 ");";
 
+        String sqlCriarTabelaMetodosPagamento = "CREATE TABLE " + METODOPAGAMENTOS + "(" +
+                ID + " INTEGER PRIMARY KEY, "+
+                DESCRICAO + " TEXT NOT NULL, " +
+                DISPONIVEL + " BOOLEAN NOT NULL " +
+                ");";
+
         try {
             sqLiteDatabase.execSQL(sqlCriarTabelaServicos);
             sqLiteDatabase.execSQL(sqlCriarTabelaUsers);
@@ -142,6 +149,7 @@ public class BDHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(sqlCriarTabelaFaturas);
             sqLiteDatabase.execSQL(sqlCriarTabelaLinhaFaturas);
             sqLiteDatabase.execSQL(sqlCriarTabelaReviews);
+            sqLiteDatabase.execSQL(sqlCriarTabelaMetodosPagamento);
 
             Log.d("BDHelper", "Tables created successfully.");
         } catch (Exception e) {
@@ -632,5 +640,42 @@ public class BDHelper extends SQLiteOpenHelper {
         return nLinhas == 1;
     }
 
+    //endregion
+
+    //region CRUD Metodospagamento
+    public Metodopagamento adicionarMetodopagamentoBD(Metodopagamento mp){
+        ContentValues values = new ContentValues();
+        values.put(ID,mp.getId());
+        values.put(DESCRICAO,mp.getDescricao());
+        values.put(DISPONIVEL,mp.isDisponivel());
+
+        long id = this.db.insert(METODOPAGAMENTOS, null,values);
+
+        if(id > -1) {
+            mp.setId((int) id);
+            return mp;
+        }
+
+        return null;
+    }
+
+    public boolean isMetodoPagamentoExists(int paymentMethodId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            String query = "SELECT 1 FROM Metodopagamentos WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(paymentMethodId)});
+
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
     //endregion
 }

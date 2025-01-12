@@ -99,7 +99,7 @@ public class ListaFavoritosAdaptador extends BaseAdapter {
             tvDuracao.setText(servico.getDuracao() + " dias");
             tvPreco.setText(servico.getPreco()+"€");
             Glide.with(context)
-                    .load(R.drawable.ic_action_service)
+                    .load(R.drawable.serviceimg)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
 

@@ -96,7 +96,7 @@ public class ListaLinhasCarrinhoAdaptador extends BaseAdapter {
             tvDuracao.setText(servico.getDuracao() + " dias");
             tvPreco.setText(lcs.getPreco()+"€");
             Glide.with(context)
-                    .load(R.drawable.ic_action_service)
+                    .load(R.drawable.serviceimg)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
 

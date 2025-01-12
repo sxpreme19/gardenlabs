@@ -28,12 +28,12 @@
             android:orientation="vertical"
             android:layout_weight="0.6">
 
-            <!-- Username -->
             <TextView
                 android:id="@+id/tvUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Username"
+                android:text="@string/lbl_username"
+                android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"/>
 
@@ -41,17 +41,19 @@
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:hint="@string/lbl_username"
                 android:inputType="text"
-                android:text=""
-                android:hint="Username"/>
+                android:padding="12dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
+                android:layout_marginBottom="12dp" />
 
-            <!-- Email -->
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="@string/lbl_email"
+                android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"/>
 
@@ -59,17 +61,19 @@
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:hint="@string/lbl_email"
                 android:inputType="text"
-                android:text=""
-                android:hint="Email"/>
+                android:padding="12dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
+                android:layout_marginBottom="12dp" />
 
-            <!-- Nome -->
             <TextView
                 android:id="@+id/tvNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome"
+                android:text="@string/lbl_nome"
+                android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"/>
 
@@ -77,17 +81,19 @@
                 android:id="@+id/etNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:hint="@string/lbl_nome"
                 android:inputType="text"
-                android:text=""
-                android:hint="Nome"/>
+                android:padding="12dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
+                android:layout_marginBottom="12dp" />
 
-            <!-- Morada -->
             <TextView
                 android:id="@+id/tvMorada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Morada"
+                android:text="@string/lbl_morada"
+                android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"/>
 
@@ -95,16 +101,19 @@
                 android:id="@+id/etMorada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:hint="@string/lbl_morada"
                 android:inputType="text"
-                android:hint="Morada"/>
+                android:padding="12dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
+                android:layout_marginBottom="12dp" />
 
-            <!-- Telefone -->
             <TextView
                 android:id="@+id/tvTelefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Telefone"
+                android:text="@string/lbl_telefone"
+                android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"/>
 
@@ -112,16 +121,19 @@
                 android:id="@+id/etTelefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:hint="@string/lbl_telefone"
                 android:inputType="number"
-                android:hint="Telefone"/>
+                android:padding="12dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
+                android:layout_marginBottom="12dp" />
 
-            <!-- NIF -->
             <TextView
                 android:id="@+id/tvNIF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NIF"
+                android:text="@string/lbl_nif"
+                android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"/>
 
@@ -129,9 +141,12 @@
                 android:id="@+id/etNIF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:hint="@string/lbl_nif"
                 android:inputType="number"
-                android:hint="NIF"/>
+                android:padding="12dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
+                android:layout_marginBottom="12dp" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

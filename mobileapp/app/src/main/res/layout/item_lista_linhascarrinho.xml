@@ -8,7 +8,6 @@
     android:background="@android:color/white"
     android:gravity="center_vertical">
 
-    <!-- Product Image -->
     <ImageView
         android:id="@+id/imgCapa"
         android:layout_width="80dp"
@@ -108,8 +107,7 @@
         android:id="@+id/btnRemove"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Remove Item"
+        android:background="@android:color/transparent"
         app:srcCompat="@drawable/ic_action_remove"
         app:tint="@color/delete_red" />
 </LinearLayout>

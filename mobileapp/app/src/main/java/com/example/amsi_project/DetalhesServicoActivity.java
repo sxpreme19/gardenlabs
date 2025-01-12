@@ -20,14 +20,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.amsi_project.listeners.UserProfileListener;
 import com.example.amsi_project.modelo.BDHelper;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
-public class DetalhesServicoActivity extends AppCompatActivity{
+public class DetalhesServicoActivity extends AppCompatActivity implements UserProfileListener {
 
     private TextView tvTitulo, tvDescricao, tvDuracao, tvPreco,tvPrestadorID;
-    private Button btnAddtoCart,btnLeaveReview;
+    private Button btnAddtoCart;
     private ImageButton btnAddtoWishlist;
     private ImageView imgCapa;
     private Servico servico;
@@ -37,6 +38,7 @@ public class DetalhesServicoActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_servico);
+        setTitle("Service Details");
 
         bdHelper = new BDHelper(getApplicationContext());
 
@@ -50,6 +52,9 @@ public class DetalhesServicoActivity extends AppCompatActivity{
         imgCapa=findViewById(R.id.imgCapa);
         btnAddtoCart=findViewById(R.id.btnAddToCart);
         btnAddtoWishlist=findViewById(R.id.btnWishlist);
+
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).setUserProfileListener(this);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).getProviderAPI(servico.getPrestador_id(),getApplicationContext());
 
         if (servico != null)
             carregarServicos();
@@ -81,14 +86,14 @@ public class DetalhesServicoActivity extends AppCompatActivity{
 
     private void carregarServicos() {
         if (servico != null) {
+
             String titulo = servico.getTitulo();
             tvTitulo.setText(titulo);
             tvDescricao.setText(servico.getDescricao());
             tvDuracao.setText(servico.getDuracao() + " dias");
             tvPreco.setText(servico.getPreco() + "€");
-            tvPrestadorID.setText(String.valueOf(servico.getPrestador_id()));
             Glide.with(getApplicationContext())
-                    .load(R.drawable.ic_action_service)
+                    .load(R.drawable.serviceimg)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
         }
@@ -147,6 +152,11 @@ public class DetalhesServicoActivity extends AppCompatActivity{
 
     private void submitReview(String reviewText) {
         Toast.makeText(this, "Review Submitted: " + reviewText, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRefreshDetalhes(String nome, String morada, int telefone, int nif) {
+        tvPrestadorID.setText(nome);
     }
 
     public int getUserProfileIDFromSharedPreferences(Context context) {

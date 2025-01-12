@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.amsi_project.modelo.Carrinhoservico;
 import com.example.amsi_project.modelo.Favorito;
 import com.example.amsi_project.modelo.Linhacarrinhoservico;
+import com.example.amsi_project.modelo.Metodopagamento;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.User;
 import com.example.amsi_project.modelo.Userprofile;
@@ -194,6 +195,31 @@ public class JsonParser {
             }
         }
         return favorites;
+    }
+
+    //Method parserJsonMetodosPagamento(), que devolve os metodos de pagamento existentes;
+    public static ArrayList<Metodopagamento> parserJsonMetodosPagamento(JSONArray response){
+        ArrayList<Metodopagamento> paymentMethods = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject metodopagamento = null;
+            try {
+                metodopagamento = (JSONObject) response.get(i);
+                int id = metodopagamento.getInt("id");
+                String descricao = metodopagamento.getString("descricao");
+                boolean disponivel = false;
+                if (metodopagamento.has("disponivel")) {
+                    if (metodopagamento.get("disponivel") instanceof Integer) {
+                        disponivel = metodopagamento.getInt("disponivel") == 1;
+                    } else if (metodopagamento.get("disponivel") instanceof Boolean) {
+                        disponivel = metodopagamento.getBoolean("disponivel");
+                    }
+                }
+                paymentMethods.add(new Metodopagamento(id,descricao,disponivel));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return paymentMethods;
     }
 
     //Method parserJsonLogin(), que efetuará o login na API;
