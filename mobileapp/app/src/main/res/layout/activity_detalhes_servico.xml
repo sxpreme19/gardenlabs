@@ -38,7 +38,7 @@
                 android:id="@+id/tvDescricaoLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/lbl_descricao"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:padding="8dp"/>
@@ -47,7 +47,7 @@
                 android:id="@+id/tvDescricao"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:text="Service Description"
+                android:text="@string/lbl_descricao"
                 android:textSize="16sp"
                 android:padding="8dp"
                 android:gravity="top|start"
@@ -58,7 +58,7 @@
                 android:id="@+id/tvDuracaoLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Duration"
+                android:text="@string/lbl_duracao"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:padding="8dp"/>
@@ -67,7 +67,7 @@
                 android:id="@+id/tvDuracao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="@string/lbl_duracao"
                 android:textSize="16sp"
                 android:padding="8dp"/>
 
@@ -75,7 +75,7 @@
                 android:id="@+id/tvPrecoLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Price"
+                android:text="@string/lbl_preco"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:padding="8dp"/>
@@ -84,7 +84,7 @@
                 android:id="@+id/tvPreco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="@string/lbl_preco"
                 android:textSize="16sp"
                 android:padding="8dp"/>
 
@@ -92,7 +92,7 @@
                 android:id="@+id/tvPrestadorLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Provider"
+                android:text="@string/lbl_prestador"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:padding="8dp"/>
@@ -101,7 +101,7 @@
                 android:id="@+id/tvPrestadorID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="@string/lbl_prestador"
                 android:textSize="16sp"
                 android:padding="8dp"/>
         </LinearLayout>
@@ -111,7 +111,7 @@
             android:id="@+id/tvReviewsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reviews"
+            android:text="@string/lbl_reviews"
             android:textSize="18sp"
             android:textStyle="bold"
             android:padding="16dp"/>
@@ -129,13 +129,13 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnAddToCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/gl_green"
-                android:text="Add to Cart"
-                android:textColor="@android:color/white" />
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_action_cart"
+                app:tint="@color/gl_green" />
 
             <View
                 android:layout_width="0dp"
@@ -147,7 +147,6 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="Add to Wishlist"
                 android:src="@drawable/ic_action_not_wishlist"
                 app:tint="@color/delete_red" />
         </LinearLayout>

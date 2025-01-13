@@ -33,10 +33,14 @@ import com.example.amsi_project.listeners.UserProfileListener;
 import com.example.amsi_project.utils.JsonParser;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class SingletonGardenLabsManager {
@@ -44,8 +48,8 @@ public class SingletonGardenLabsManager {
     public BDHelper BD = null;
     private static SingletonGardenLabsManager instance = null;
     private static RequestQueue volleyQueue = null;
-    private static String ip = "10.0.2.2";
-    public static final String baseURL = "http://"+ip+"/gardenlabs/webapp/backend/web/api/";
+    private static String ip = null;
+    public static String baseURL = null;
 
     //region ModelVariables
     private User user;
@@ -54,8 +58,10 @@ public class SingletonGardenLabsManager {
     private ArrayList<Servico> services;
     private ArrayList<Favorito> favoritos;
     private ArrayList<Metodopagamento> metodospagamento;
-    private ArrayList<User> users;
+    private Fatura fatura;
+    private Linhafatura linhafatura;
     private ArrayList<Linhacarrinhoservico> cartLines;
+    private int faturaId;
     //endregion
 
     //region Listeners
@@ -130,8 +136,9 @@ public class SingletonGardenLabsManager {
 
     private SingletonGardenLabsManager(Context context) {
         services = new ArrayList<>();
-        users = new ArrayList<>();
         BD = new BDHelper(context);
+        ip = getAPIHostFromSharedPreferences(context);
+        baseURL = "http://"+ip+"/gardenlabs/webapp/backend/web/api/";
     }
 
     //region BD-Servicos
@@ -644,6 +651,91 @@ public class SingletonGardenLabsManager {
         }
         //endregion
 
+        //region API-Faturas
+
+        public void adicionarFaturaAPI(double total,String nomeD,String moradaD,Integer telefoneD,Integer nifD,int metodoPagamentoId,ArrayList<Linhacarrinhoservico> linhascarrinhoservico,final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqAdicionarFatura = new StringRequest(Request.Method.POST, baseURL+"faturas?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        fatura = JsonParser.parserJsonFatura(response);
+                        BD.adicionarFaturaBD(fatura);
+                        faturaId = fatura.getId();
+                        for (Linhacarrinhoservico lcs : linhascarrinhoservico){
+                            adicionarLinhaFaturaAPI(faturaId,lcs.getPreco(),lcs.getServico_id(),context);
+                        }
+                        Toast.makeText(context, "Adquirido!", Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                        String currentDateAndTime = sdf.format(new Date());
+
+                        params.put("token", getTokenFromSharedPreferences(context));
+                        params.put("total", String.valueOf(total));
+                        params.put("datahora", currentDateAndTime);
+                        params.put("nome_destinatario", nomeD);
+                        params.put("morada_destinatario", moradaD);
+                        params.put("telefone_destinatario", String.valueOf(telefoneD));
+                        params.put("nif_destinatario", String.valueOf(nifD));
+                        params.put("metodopagamento_id", String.valueOf(metodoPagamentoId));
+                        params.put("userprofile_id", String.valueOf(getUserProfileIDFromSharedPreferences(context)));
+                        return params;
+                    }
+                };
+                volleyQueue.add(reqAdicionarFatura); //faz o pedido á API
+            }
+        }
+
+        public void adicionarLinhaFaturaAPI(int faturaId,double precounitario,int serviceId , final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqAdicionarLinhaFatura = new StringRequest(Request.Method.POST, baseURL+"linhafaturas?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        linhafatura = JsonParser.parserJsonLinhaFatura(response);
+                        BD.adicionarLinhaFaturaBD(linhafatura);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("FATURA_ERROR", "VolleyError: " + error.getMessage());
+                        Log.d("FATURAID", String.valueOf(faturaId));
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+
+                        params.put("token", getTokenFromSharedPreferences(context));
+                        params.put("quantidade", String.valueOf(1));
+                        params.put("precounitario", String.valueOf(precounitario));
+                        params.put("fatura_id", String.valueOf(faturaId));
+                        params.put("servico_id", String.valueOf(serviceId));
+                        return params;
+                    }
+                };
+                volleyQueue.add(reqAdicionarLinhaFatura); //faz o pedido á API
+            }
+        }
+
+        //endregion
+
         //region API-MetodosPagamento
         public void getMetodosPagamentoAPI(final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
@@ -681,20 +773,26 @@ public class SingletonGardenLabsManager {
             StringRequest reqLogin = new StringRequest(Request.Method.POST, baseURL+"user/login", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Map<String, Object> loginResponse = parserJsonLogin(response);
-                    String token = (String) loginResponse.get("token");
-                    int id = (int) loginResponse.get("id");
-                    int profileid = (int) loginResponse.get("profileid");
-                    int servicecartid = (int) loginResponse.get("servicecartid");
-                    if (loginListener != null) {
-                        loginListener.onUpdateLogin(id,token,username,profileid,servicecartid);
+                    try {
+                        Map<String, Object> loginResponse = parserJsonLogin(response);
+                        String token = (String) loginResponse.get("token");
+                        int id = (int) loginResponse.get("id");
+                        int profileid = (int) loginResponse.get("profileid");
+                        int servicecartid = (int) loginResponse.get("servicecartid");
+
+                        if (loginListener != null) {
+                            loginListener.onUpdateLogin(id, token, username, profileid, servicecartid);
+                        }
+
+                        Toast.makeText(context, "Login válido!", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(context, "Login inválido!", Toast.LENGTH_LONG).show();
                     }
-                    Toast.makeText(context, "Login válido!", Toast.LENGTH_LONG).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    String errorMessage = "An unexpected error occurred.";
+                    String errorMessage = "Login inválido!";
                     Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
                 }
             }) {
@@ -786,8 +884,8 @@ public class SingletonGardenLabsManager {
 
     public String getUserProfileIDFromSharedPreferences(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
-        int userprofileID = sharedPref.getInt("profileid", -1); // Retrieve the user ID as Integer
-        return Integer.toString(userprofileID); // Return the token, or null if not found
+        int userprofileID = sharedPref.getInt("profileid", -1);
+        return Integer.toString(userprofileID);
     }
 
     public String getUserIDFromSharedPreferences(Context context) {
@@ -798,8 +896,13 @@ public class SingletonGardenLabsManager {
 
     public String getCartIDFromSharedPreferences(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
-        int userID = sharedPref.getInt("servicecartid", -1); // Retrieve the user ID as Integer
-        return Integer.toString(userID);
+        int cartID = sharedPref.getInt("servicecartid", -1);
+        return Integer.toString(cartID);
+    }
+
+    public String getAPIHostFromSharedPreferences(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+        return sharedPref.getString("apihost", null);
     }
 
     //endregion

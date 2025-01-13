@@ -1,5 +1,7 @@
 package com.example.amsi_project.modelo;
 
+import android.util.Log;
+
 import java.util.Date;
 
 public class Fatura {
@@ -21,6 +23,7 @@ public class Fatura {
     }
 
     public int getId() {
+        Log.d("ID", String.valueOf(id));
         return id;
     }
 

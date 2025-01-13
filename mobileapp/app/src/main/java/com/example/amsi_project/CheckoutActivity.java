@@ -1,8 +1,13 @@
 package com.example.amsi_project;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -21,18 +26,26 @@ import com.example.amsi_project.listeners.CartLinesListener;
 import com.example.amsi_project.listeners.CartListener;
 import com.example.amsi_project.listeners.MetodosPagamentoListener;
 import com.example.amsi_project.listeners.UserProfileListener;
+import com.example.amsi_project.modelo.BDHelper;
+import com.example.amsi_project.modelo.Fatura;
 import com.example.amsi_project.modelo.Linhacarrinhoservico;
+import com.example.amsi_project.modelo.Linhafatura;
 import com.example.amsi_project.modelo.Metodopagamento;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CheckoutActivity extends AppCompatActivity implements CartListener, CartLinesListener, MetodosPagamentoListener, UserProfileListener {
 
+    private BDHelper bdHelper;
     private Spinner spMetodosPagamento;
     private ListView listaLinhascarrinho;
     private TextView tvTotal;
     private EditText etNome,etMorada,etTelefone,etNIF;
+    private Button btnConfirmPurchase;
+    private ArrayList<Linhacarrinhoservico> linhascarrinhoservico;
+    private double total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +54,9 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
         setContentView(R.layout.activity_checkout);
         setTitle("Checkout");
 
+        bdHelper = new BDHelper(getApplicationContext());
+        linhascarrinhoservico = new ArrayList<>();
+
         listaLinhascarrinho = findViewById(R.id.lvLinhasCarrinho);
         tvTotal = findViewById(R.id.tvTotal);
         spMetodosPagamento = findViewById(R.id.spMetodoPagamento);
@@ -48,6 +64,7 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
         etMorada = findViewById(R.id.etMorada);
         etTelefone = findViewById(R.id.etTelefone);
         etNIF = findViewById(R.id.etNIF);
+        btnConfirmPurchase = findViewById(R.id.btnConfirmarCompra);
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setUserProfileListener(this);
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setMetodosPagamentoListener(this);
@@ -57,6 +74,33 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
         SingletonGardenLabsManager.getInstance(getApplicationContext()).getCartLinesAPI(getApplicationContext());
         SingletonGardenLabsManager.getInstance(getApplicationContext()).getMetodosPagamentoAPI(getApplicationContext());
         SingletonGardenLabsManager.getInstance(getApplicationContext()).getUserProfileAPI(getApplicationContext());
+
+        btnConfirmPurchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etNome.length() < 1){
+                    etNome.setError(getString(R.string.txt_form_error_field_empty));
+                    return;
+                }
+                if(etMorada.length() < 1){
+                    etMorada.setError(getString(R.string.txt_form_error_field_empty));
+                    return;
+                }
+
+                String nome = etNome.getText().toString();
+                String morada = etMorada.getText().toString();
+                Integer telefone = Integer.parseInt(etTelefone.getText().toString());
+                Integer nif = Integer.parseInt(etNIF.getText().toString());
+
+                Metodopagamento selectedMetodo = (Metodopagamento) spMetodosPagamento.getSelectedItem();
+
+                linhascarrinhoservico = bdHelper.getCartLinesBD(getCartIDFromSharedPreferences(getApplicationContext()));
+
+                SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarFaturaAPI(total,nome,morada,telefone,nif,selectedMetodo.getId(),linhascarrinhoservico,getApplicationContext());
+
+
+            }
+        });
     }
 
     @Override
@@ -77,6 +121,7 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
     @Override
     public void onRefreshDetalhes(Double total) {
         tvTotal.setText("Total: " + total + "€");
+        this.total = total;
     }
 
     @Override
@@ -94,10 +139,17 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
     }
 
     @Override
-    public void onRefreshDetalhes(String nome, String morada, int telefone, int nif) {
+    public void onRefreshDetalhes(String nome, String morada, Integer telefone, Integer nif) {
         etNome.setText(nome);
         etMorada.setText(morada);
         etTelefone.setText(String.valueOf(telefone));
         etNIF.setText(String.valueOf(nif));
     }
+
+    public int getCartIDFromSharedPreferences(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+        int cartID = sharedPref.getInt("servicecartid", -1);
+        return cartID;
+    }
+
 }

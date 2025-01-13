@@ -116,7 +116,7 @@ public class AccountFragment extends Fragment implements UserListener, UserProfi
     }
 
     @Override
-    public void onRefreshDetalhes(String nome, String morada, int telefone, int nif) {
+    public void onRefreshDetalhes(String nome, String morada, Integer telefone, Integer nif) {
         etNome.setText(nome);
         etMorada.setText(morada);
         etTelefone.setText(String.valueOf(telefone));

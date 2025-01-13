@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     private EditText etUsername, etPassword;
     public static final  int MIN_PASS=8;
     public BDHelper BD = null;
+    private String apihost = "10.0.2.2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,11 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("apihost", apihost);
+        editor.apply();
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setLoginListener(this);
 

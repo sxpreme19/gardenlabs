@@ -6,8 +6,10 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.example.amsi_project.modelo.Carrinhoservico;
+import com.example.amsi_project.modelo.Fatura;
 import com.example.amsi_project.modelo.Favorito;
 import com.example.amsi_project.modelo.Linhacarrinhoservico;
+import com.example.amsi_project.modelo.Linhafatura;
 import com.example.amsi_project.modelo.Metodopagamento;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.User;
@@ -17,7 +19,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,8 +60,8 @@ public class JsonParser {
             int id = userprofile.getInt("id");
             String nome = userprofile.getString("nome");
             String morada = userprofile.getString("morada");
-            int telefone = userprofile.getInt("telefone");
-            int nif = userprofile.getInt("nif");
+            Integer telefone = userprofile.isNull("telefone") ? null : userprofile.getInt("telefone");
+            Integer nif = userprofile.isNull("nif") ? null : userprofile.getInt("nif");
             int user_id = userprofile.getInt("user_id");
 
             auxUserprofile = new Userprofile(id,nome,morada,telefone,nif,user_id);
@@ -143,7 +148,7 @@ public class JsonParser {
         return auxLinhacarrinhoservico;
     }
 
-    //Method parserJsonCartLines(), que devolve as linhas de carrinho do carrinho do user logado;
+    //Method parserJsonCartLines(), que devolve as linhas de carrinho do carrinho;
     public static ArrayList<Linhacarrinhoservico> parserJsonCartLines(JSONArray response){
         ArrayList<Linhacarrinhoservico> cartLines = new ArrayList<>();
         for (int i = 0; i < response.length(); i++) {
@@ -162,7 +167,7 @@ public class JsonParser {
         return cartLines;
     }
 
-    //Method parserJsonFavorito(), que devolve apenas um favorito do user logado;
+    //Method parserJsonFavorito(), que devolve apenas um favorito;
     public static Favorito parserJsonFavorito(String response){
         Favorito auxFavorito = null;
 
@@ -197,6 +202,57 @@ public class JsonParser {
         return favorites;
     }
 
+    //Method parserJsonFatura(), que devolve apenas uma fatura;
+    public static Fatura parserJsonFatura(String response){
+        Fatura auxFatura = null;
+
+        try {
+            JSONObject fatura = new JSONObject(response);
+            int id = fatura.getInt("id");
+            double total = fatura.getDouble("total");
+            String datahora = fatura.getString("datahora");
+            String nome_destinatario = fatura.getString("nome_destinatario");
+            String morada_destinatario = fatura.getString("morada_destinatario");
+            Integer telefone_destinatario = fatura.getInt("telefone_destinatario");
+            Integer nif_destinatario = fatura.getInt("nif_destinatario");
+            int metodopagamento_id = fatura.getInt("metodopagamento_id");
+            int userprofile_id = fatura.getInt("userprofile_id");
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date;
+            try {
+                // Parse the date
+                date = formatter.parse(datahora);
+            } catch (ParseException e) {
+                throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
+            }
+
+            auxFatura = new Fatura(id,total,date,nome_destinatario,morada_destinatario,telefone_destinatario,nif_destinatario,metodopagamento_id,userprofile_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxFatura;
+    }
+
+    //Method parserJsonLinhaFatura(), que devolve apenas uma linha de fatura;
+    public static Linhafatura parserJsonLinhaFatura(String response){
+        Linhafatura auxLinhafatura = null;
+
+        try {
+            JSONObject linhafatura = new JSONObject(response);
+            int id = linhafatura.getInt("id");
+            int quantidade = linhafatura.getInt("quantidade");
+            double precounitario = linhafatura.getDouble("precounitario");
+            int fatura_id = linhafatura.getInt("fatura_id");
+            int servico_id = linhafatura.getInt("servico_id");
+
+            auxLinhafatura = new Linhafatura(id,quantidade,precounitario,fatura_id,servico_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxLinhafatura;
+    }
+
     //Method parserJsonMetodosPagamento(), que devolve os metodos de pagamento existentes;
     public static ArrayList<Metodopagamento> parserJsonMetodosPagamento(JSONArray response){
         ArrayList<Metodopagamento> paymentMethods = new ArrayList<>();
@@ -207,6 +263,7 @@ public class JsonParser {
                 int id = metodopagamento.getInt("id");
                 String descricao = metodopagamento.getString("descricao");
                 boolean disponivel = false;
+
                 if (metodopagamento.has("disponivel")) {
                     if (metodopagamento.get("disponivel") instanceof Integer) {
                         disponivel = metodopagamento.getInt("disponivel") == 1;
@@ -214,7 +271,9 @@ public class JsonParser {
                         disponivel = metodopagamento.getBoolean("disponivel");
                     }
                 }
-                paymentMethods.add(new Metodopagamento(id,descricao,disponivel));
+
+                if(disponivel)
+                    paymentMethods.add(new Metodopagamento(id,descricao,disponivel));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

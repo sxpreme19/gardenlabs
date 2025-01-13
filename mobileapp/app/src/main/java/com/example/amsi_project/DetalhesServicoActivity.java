@@ -28,8 +28,7 @@ import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 public class DetalhesServicoActivity extends AppCompatActivity implements UserProfileListener {
 
     private TextView tvTitulo, tvDescricao, tvDuracao, tvPreco,tvPrestadorID;
-    private Button btnAddtoCart;
-    private ImageButton btnAddtoWishlist;
+    private ImageButton btnAddtoCart,btnAddtoWishlist;
     private ImageView imgCapa;
     private Servico servico;
     private BDHelper bdHelper;
@@ -155,7 +154,7 @@ public class DetalhesServicoActivity extends AppCompatActivity implements UserPr
     }
 
     @Override
-    public void onRefreshDetalhes(String nome, String morada, int telefone, int nif) {
+    public void onRefreshDetalhes(String nome, String morada, Integer telefone, Integer nif) {
         tvPrestadorID.setText(nome);
     }
 

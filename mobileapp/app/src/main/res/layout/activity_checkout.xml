@@ -17,8 +17,8 @@
             android:id="@+id/tvItemsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Items in your cart"
-            android:textSize="18sp"
+            android:text="@string/lbl_items_do_carrinho"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:paddingBottom="8dp" />
 
@@ -34,50 +34,86 @@
             android:id="@+id/tvRecipientInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recipient Information"
-            android:textSize="18sp"
+            android:text="@string/lbl_detalhes_do_destinatario"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:paddingTop="16dp"
             android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_nome"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/etNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
-            android:inputType="textPersonName"
+            android:hint="@string/lbl_nome"
+            android:inputType="text"
             android:padding="12dp"
             android:background="@android:color/white"
             android:elevation="2dp"
             android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tvMorada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_morada"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/etMorada"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Address"
-            android:inputType="textPostalAddress"
+            android:hint="@string/lbl_morada"
+            android:inputType="textEmailAddress"
             android:padding="12dp"
             android:background="@android:color/white"
             android:elevation="2dp"
             android:layout_marginBottom="12dp" />
 
+        <TextView
+            android:id="@+id/tvTelefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_telefone"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"/>
+
         <EditText
             android:id="@+id/etTelefone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:hint="@string/lbl_telefone"
             android:inputType="phone"
             android:padding="12dp"
             android:background="@android:color/white"
             android:elevation="2dp"
             android:layout_marginBottom="12dp" />
 
+        <TextView
+            android:id="@+id/tvNIF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_nif"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"/>
+
         <EditText
             android:id="@+id/etNIF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="NIF"
+            android:hint="@string/lbl_nif"
             android:inputType="number"
             android:padding="12dp"
             android:background="@android:color/white"
@@ -88,8 +124,8 @@
             android:id="@+id/tvPaymentMethod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Payment Method"
-            android:textSize="18sp"
+            android:text="@string/lbl_metodo_de_pagamento"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:paddingTop="16dp"
             android:paddingBottom="8dp" />
@@ -106,7 +142,7 @@
             android:id="@+id/tvTotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total: €0.00"
+            android:text="saf"
             android:textSize="20sp"
             android:textStyle="bold"
             android:paddingTop="16dp"
@@ -119,7 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:padding="16dp"
-            android:text="Confirm Purchase"
+            android:text="@string/txt_confirm_purchase"
             android:textSize="16sp"
             android:textStyle="bold"
             android:backgroundTint="@color/gl_green"

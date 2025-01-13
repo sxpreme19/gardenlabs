@@ -36,8 +36,8 @@ public class BDHelper extends SQLiteOpenHelper {
     private static final String TITULO = "titulo", DESCRICAO ="descricao", DURACAO ="duracao", PRECO ="PRECO", PRESTADOR_ID ="prestador_id";
     private static final String USERNAME ="username",AUTH_KEY="auth_key",PASSWORD_HASH="password_hash",PASSWORD_RESET_TOKEN="password_reset_token",EMAIL="email",VERIFICATION_TOKEN="verification_token";
     private static final String NOME ="nome",MORADA ="morada";
-    private static final String TOTAL="total",DATAHORA="datahora",NOME_DESTINATARIO="nome_destinatariol",MORADA_DESTINATARIO="morada_destinatario",TELEFONE_DESTINATARIO="telefone_destinatario",NIF_DESTINATARIO="nif_destinatario",PRECO_ENVIO="preco_envio",METODOPAGAMENTO_ID="metodopagamento_id";
-    private static final String QUANTIDADE="quantidade",PRECO_UNITARIO="preco_unitario",FATURA_ID="fatura_id";
+    private static final String TOTAL="total",DATAHORA="datahora",NOME_DESTINATARIO="nome_destinatario",MORADA_DESTINATARIO="morada_destinatario",TELEFONE_DESTINATARIO="telefone_destinatario",NIF_DESTINATARIO="nif_destinatario",PRECO_ENVIO="preco_envio",METODOPAGAMENTO_ID="metodopagamento_id";
+    private static final String QUANTIDADE="quantidade",PRECOUNITARIO="precounitario",FATURA_ID="fatura_id";
     private static final String CONTEUDO="conteudo",AVALIACAO="avaliacao";
     private static final String DISPONIVEL="disponivel";
     //endregion
@@ -77,10 +77,10 @@ public class BDHelper extends SQLiteOpenHelper {
 
         String sqlCriarTabelaUserprofiles = "CREATE TABLE " + USERPROFILES + "(" +
                 ID + " INTEGER PRIMARY KEY, "+
-                MORADA + " TEXT NOT NULL, " +
-                NIF + " TEXT NOT NULL, " +
-                TELEFONE + " TEXT NOT NULL, " +
-                NOME + " TEXT NOT NULL, " +
+                MORADA + " TEXT, " +
+                NIF + " INTEGER, " +
+                TELEFONE + " INTEGER, " +
+                NOME + " TEXT, " +
                 USER_ID + " INTEGER NOT NULL " +
                 ");";
 
@@ -106,12 +106,11 @@ public class BDHelper extends SQLiteOpenHelper {
         String sqlCriarTabelaFaturas = "CREATE TABLE " + FATURAS + "(" +
                 ID + " INTEGER PRIMARY KEY, "+
                 TOTAL + " INTEGER NOT NULL, " +
-                DATAHORA + " DATETIME NOT NULL, "+
+                DATAHORA + " TEXT NOT NULL, "+
                 NOME_DESTINATARIO + " TEXT NOT NULL, " +
                 MORADA_DESTINATARIO + " TEXT NOT NULL, " +
-                TELEFONE_DESTINATARIO + " TEXT NOT NULL, " +
-                NIF_DESTINATARIO + " TEXT NOT NULL, " +
-                PRECO_ENVIO + " DOUBLE NOT NULL, " +
+                TELEFONE_DESTINATARIO + " INTEGER, " +
+                NIF_DESTINATARIO + " INTEGER, " +
                 METODOPAGAMENTO_ID + " INTEGER NOT NULL, " +
                 USERPROFILE_ID + " INTEGER NOT NULL " +
                 ");";
@@ -119,7 +118,7 @@ public class BDHelper extends SQLiteOpenHelper {
         String sqlCriarTabelaLinhaFaturas = "CREATE TABLE " + LINHAFATURA + "(" +
                 ID + " INTEGER PRIMARY KEY, "+
                 QUANTIDADE + " INTEGER NOT NULL, " +
-                PRECO_UNITARIO + " DOUBLE NOT NULL, " +
+                PRECOUNITARIO + " DOUBLE NOT NULL, " +
                 FATURA_ID + " INTEGER NOT NULL, " +
                 SERVICO_ID + " INTEGER NOT NULL " +
                 ");";
@@ -127,7 +126,7 @@ public class BDHelper extends SQLiteOpenHelper {
         String sqlCriarTabelaReviews = "CREATE TABLE " + REVIEWS + "(" +
                 ID + " INTEGER PRIMARY KEY, "+
                 CONTEUDO + " TEXT NOT NULL, " +
-                DATAHORA + " DATETIME NOT NULL, "+
+                DATAHORA + " TEXT NOT NULL, "+
                 AVALIACAO + " DOUBLE NOT NULL, " +
                 SERVICO_ID + " INTEGER NOT NULL, " +
                 USERPROFILE_ID + " INTEGER NOT NULL " +
@@ -191,7 +190,6 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return null;
     }
-
     public boolean editarServicoBD(Servico s){
         ContentValues values = new ContentValues();
         values.put(TITULO,s.getTitulo());
@@ -204,16 +202,13 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return nLinhas == 1;
     }
-
     public boolean removerServicoBD(int id){
         int nLinhas = this.db.delete(SERVICOS, ID + "=?", new String[]{id + ""});
         return nLinhas == 1;
     }
-
     public void removerAllServicosBD(){
         this.db.delete(SERVICOS,null, null);
     }
-
     public Servico getServiceBD(int serviceId) {
         Servico servico = null;
         Cursor cursor = null;
@@ -243,7 +238,6 @@ public class BDHelper extends SQLiteOpenHelper {
         }
         return servico;
     }
-
     public ArrayList<Servico> getAllServicosBD(){
 
         ArrayList<Servico> Servicos = new ArrayList<>();
@@ -293,12 +287,10 @@ public class BDHelper extends SQLiteOpenHelper {
         int nLinhas = this.db.update(USERS, values ,ID + "=?", new String[]{u.getId() + ""});
         return nLinhas == 1;
     }
-
     public boolean removerUserBD(int id){
         int nLinhas = this.db.delete(USERS, ID + "=?", new String[]{id + ""});
         return nLinhas == 1;
     }
-
     public User getUserBD(int userId) {
         User user = null;
         Cursor cursor = null;
@@ -332,7 +324,6 @@ public class BDHelper extends SQLiteOpenHelper {
         }
         return user;
     }
-
     public boolean isUserExists(int userId) {
         SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
         boolean exists = false;
@@ -363,8 +354,16 @@ public class BDHelper extends SQLiteOpenHelper {
         values.put(ID,up.getId());
         values.put(NOME,up.getNome());
         values.put(MORADA,up.getMorada());
-        values.put(TELEFONE,up.getTelefone());
-        values.put(NIF,up.getNif());
+        if (up.getTelefone() != null) {
+            values.put(TELEFONE, up.getTelefone());
+        } else {
+            values.putNull(TELEFONE);
+        }
+        if (up.getNif() != null) {
+            values.put(NIF, up.getNif());
+        } else {
+            values.putNull(NIF);
+        }
         values.put(USER_ID,up.getUser_id());
 
         long id = this.db.insert(USERPROFILES, null,values);
@@ -387,12 +386,10 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return nLinhas == 1;
     }
-
     public boolean removerUserProfileBD(int id){
         int nLinhas = this.db.delete(USERPROFILES, USER_ID + "=?", new String[]{id + ""});
         return nLinhas == 1;
     }
-
     public Userprofile getUserProfileBD(int userprofileId) {
         Userprofile userprofile = null;
         Cursor cursor = null;
@@ -422,7 +419,6 @@ public class BDHelper extends SQLiteOpenHelper {
         }
         return userprofile;
     }
-
     public boolean isUserProfileExists(int userprofileId) {
         SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
         boolean exists = false;
@@ -442,10 +438,10 @@ public class BDHelper extends SQLiteOpenHelper {
         return exists;
     }
 
-
     //endregion
 
     //region CRUD Carts
+
     public Carrinhoservico adicionarCartBD(Carrinhoservico cs){
         ContentValues values = new ContentValues();
         values.put(ID,cs.getId());
@@ -461,7 +457,6 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return null;
     }
-
     public boolean isCartExists(int cartId) {
         SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
         boolean exists = false;
@@ -482,7 +477,6 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return exists;
     }
-
     public Linhacarrinhoservico adicionarCartLineBD(Linhacarrinhoservico lcs){
         ContentValues values = new ContentValues();
         values.put(ID,lcs.getId());
@@ -499,7 +493,6 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return null;
     }
-
     public boolean isCartLineExists(int cartLineId) {
         SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
         boolean exists = false;
@@ -518,7 +511,6 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return exists;
     }
-
     public boolean isCartLineServicoExists(int cartId,int serviceId) {
         SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
         boolean exists = false;
@@ -538,11 +530,44 @@ public class BDHelper extends SQLiteOpenHelper {
         return exists;
     }
 
+    public ArrayList<Linhacarrinhoservico> getCartLinesBD(int userCartId) {
+        ArrayList<Linhacarrinhoservico> cartLines = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            cursor = this.db.query(
+                    LINHACARRINHOSERVICOS,
+                    new String[]{ID,PRECO,CARRINHOSERVICO_ID,SERVICO_ID},
+                    "carrinhoservico_id=?",
+                    new String[]{String.valueOf(userCartId)},
+                    null, null, null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    Linhacarrinhoservico linha = new Linhacarrinhoservico(
+                            cursor.getInt(0),
+                            cursor.getDouble(1),
+                            cursor.getInt(2),
+                            cursor.getInt(3)
+                    );
+
+                    cartLines.add(linha);
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return cartLines;
+    }
+
     public boolean removerCartLineBD(int id){
         int nLinhas = this.db.delete(LINHACARRINHOSERVICOS, ID + "=?", new String[]{id + ""});
         return nLinhas == 1;
     }
-
     public void removerAllLinhasCarrinhoBD(){
         this.db.delete(LINHACARRINHOSERVICOS,null, null);
     }
@@ -566,7 +591,6 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return null;
     }
-
     public Favorito getFavoritoBD(int userprofileId,int servico_id) {
         Favorito favorito = null;
         Cursor cursor = null;
@@ -593,7 +617,6 @@ public class BDHelper extends SQLiteOpenHelper {
         }
         return favorito;
     }
-
     public boolean isFavoritoExists(int favoritoId) {
         SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
         boolean exists = false;
@@ -614,7 +637,6 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return exists;
     }
-
     public boolean isFavoritoServicoExists(int userprofileId,int serviceId) {
         SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
         boolean exists = false;
@@ -634,10 +656,53 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return exists;
     }
-
     public boolean removerFavoritoBD(int id){
         int nLinhas = this.db.delete(FAVORITOS, ID + "=?", new String[]{id + ""});
         return nLinhas == 1;
+    }
+
+    //endregion
+
+    //region CRUD Faturas
+
+    public Fatura adicionarFaturaBD(Fatura f){
+        ContentValues values = new ContentValues();
+        values.put(ID,f.getId());
+        values.put(TOTAL,f.getTotal());
+        values.put(DATAHORA, String.valueOf(f.getDatahora()));
+        values.put(NOME_DESTINATARIO, f.getNome_destinatario());
+        values.put(MORADA_DESTINATARIO, f.getMorada_destinatario());
+        values.put(TELEFONE_DESTINATARIO, f.getTelefone_destinatario());
+        values.put(NIF_DESTINATARIO, f.getNif_destinatario());
+        values.put(METODOPAGAMENTO_ID, f.getMetodopagamento_id());
+        values.put(USERPROFILE_ID,f.getUserprofile_id());
+
+        long id = this.db.insert(FATURAS, null,values);
+
+        if(id > -1) {
+            f.setId((int) id);
+            return f;
+        }
+
+        return null;
+    }
+
+    public Linhafatura adicionarLinhaFaturaBD(Linhafatura lf){
+        ContentValues values = new ContentValues();
+        values.put(ID,lf.getId());
+        values.put(QUANTIDADE,lf.getQuantidade());
+        values.put(PRECOUNITARIO, lf.getPrecounitario());
+        values.put(FATURA_ID, lf.getFatura_id());
+        values.put(SERVICO_ID, lf.getServico_id());
+
+        long id = this.db.insert(LINHAFATURA, null,values);
+
+        if(id > -1) {
+            lf.setId((int) id);
+            return lf;
+        }
+
+        return null;
     }
 
     //endregion
@@ -658,7 +723,6 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return null;
     }
-
     public boolean isMetodoPagamentoExists(int paymentMethodId) {
         SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
         boolean exists = false;
