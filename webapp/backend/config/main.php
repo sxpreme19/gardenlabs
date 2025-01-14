@@ -109,6 +109,7 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/fatura',
                     'extraPatterns' => [
+                        'GET {id}' => 'id',
                         'GET userprofile_id/{id}' => 'getbyuserprofileid',
                     ],
                     'tokens' => [

@@ -23,7 +23,6 @@ public class Fatura {
     }
 
     public int getId() {
-        Log.d("ID", String.valueOf(id));
         return id;
     }
 

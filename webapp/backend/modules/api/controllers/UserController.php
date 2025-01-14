@@ -89,6 +89,7 @@ class UserController extends ActiveController
                 return [
                     'token' => $user->auth_key,
                     'id' => $user->id,
+                    'email' => $user->email,
                     'profileid' => $userProfile->id,
                     'servicecartid' => $userServiceCart->id,
                 ];

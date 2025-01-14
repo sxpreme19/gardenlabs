@@ -234,6 +234,38 @@ public class JsonParser {
         return auxFatura;
     }
 
+    //Method parserJsonFaturas(), que devolve as faturas do user logado;
+    public static ArrayList<Fatura> parserJsonFaturas(JSONArray response){
+        ArrayList<Fatura> invoices = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject invoice = null;
+            try {
+                invoice = (JSONObject) response.get(i);
+                int id = invoice.getInt("id");
+                double total = invoice.getDouble("total");
+                String datahora = invoice.getString("datahora");
+                String nome_destinatario = invoice.getString("nome_destinatario");
+                String morada_destinatario = invoice.getString("morada_destinatario");
+                Integer telefone_destinatario = invoice.getInt("telefone_destinatario");
+                Integer nif_destinatario = invoice.getInt("nif_destinatario");
+                int metodopagamento_id = invoice.getInt("metodopagamento_id");
+                int userprofile_id = invoice.getInt("userprofile_id");
+
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date;
+                try {
+                    date = formatter.parse(datahora);
+                } catch (ParseException e) {
+                    throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
+                }
+                invoices.add(new Fatura(id,total,date,nome_destinatario,morada_destinatario,telefone_destinatario,nif_destinatario,metodopagamento_id,userprofile_id));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return invoices;
+    }
+
     //Method parserJsonLinhaFatura(), que devolve apenas uma linha de fatura;
     public static Linhafatura parserJsonLinhaFatura(String response){
         Linhafatura auxLinhafatura = null;
@@ -251,6 +283,25 @@ public class JsonParser {
             throw new RuntimeException(e);
         }
         return auxLinhafatura;
+    }
+
+    //Method parserJsonLinhasFatura(), que devolve as linhas de fatura de uma fatura;
+    public static ArrayList<Linhafatura> parserJsonLinhasFatura(JSONArray response){
+        ArrayList<Linhafatura> invoiceLines = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject invoiceLine = null;
+            try {
+                invoiceLine = (JSONObject) response.get(i);
+                int id = invoiceLine.getInt("id");
+                double precounitario = invoiceLine.getDouble("precounitario");
+                int fatura_id = invoiceLine.getInt("fatura_id");
+                int servico_id = invoiceLine.getInt("servico_id");
+                invoiceLines.add(new Linhafatura(id,1,precounitario,fatura_id,servico_id));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return invoiceLines;
     }
 
     //Method parserJsonMetodosPagamento(), que devolve os metodos de pagamento existentes;
@@ -283,16 +334,18 @@ public class JsonParser {
 
     //Method parserJsonLogin(), que efetuará o login na API;
     public static Map<String, Object> parserJsonLogin(String response) {
-        String token = null;
+        String token,email = null;
         int id,profileid,servicecartid;
         Map<String, Object> result = new HashMap<>();
         try {
             JSONObject login = new JSONObject(response);
             token = login.getString("token");
+            email = login.getString("email");
             id = login.getInt("id");
             profileid = login.getInt("profileid");
             servicecartid = login.getInt("servicecartid");
             result.put("token", token);
+            result.put("email", email);
             result.put("id", id);
             result.put("profileid",profileid);
             result.put("servicecartid",servicecartid);

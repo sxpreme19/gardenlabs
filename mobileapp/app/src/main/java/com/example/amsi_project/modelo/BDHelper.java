@@ -11,7 +11,10 @@ import androidx.annotation.Nullable;
 
 import com.example.amsi_project.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class BDHelper extends SQLiteOpenHelper {
 
@@ -687,6 +690,73 @@ public class BDHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    public int getLatestFaturaId() {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        int latestId = -1;
+
+        Cursor cursor = null;
+        try {
+            String query = "SELECT MAX(id) AS latest_id FROM Faturas";
+            cursor = db.rawQuery(query, null);
+
+            if (cursor.moveToFirst()) {
+                latestId = cursor.getInt(0);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return latestId+1;
+    }
+
+    public ArrayList<Fatura> getAllFaturasBD(){
+
+        ArrayList<Fatura> faturas = new ArrayList<>();
+
+        Cursor cursor = this.db.query(FATURAS, new String[]{ID, TOTAL,DATAHORA,NOME_DESTINATARIO,MORADA_DESTINATARIO,TELEFONE_DESTINATARIO,NIF_DESTINATARIO,METODOPAGAMENTO_ID,USERPROFILE_ID},null, null,null, null, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Date dataHora = null;
+                try {
+                    // Parse the TEXT column to a Date object
+                    String dataHoraString = cursor.getString(2); // Column index 2
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                    dataHora = dateFormat.parse(dataHoraString);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Fatura aux = new Fatura(cursor.getInt(0),cursor.getDouble(1),dataHora, cursor.getString(3), cursor.getString(4),cursor.getInt(5),cursor.getInt(6),cursor.getInt(7),cursor.getInt(8));
+                faturas.add(aux);
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+        return faturas;
+    }
+
+    public boolean isFaturaExists(int faturaId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Faturas WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(faturaId)});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
     public Linhafatura adicionarLinhaFaturaBD(Linhafatura lf){
         ContentValues values = new ContentValues();
         values.put(ID,lf.getId());
@@ -741,5 +811,26 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return exists;
     }
+    public String getMetodopagamentoDescricaoById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        String descricao = null;
+
+        Cursor cursor = null;
+        try {
+            String query = "SELECT descricao FROM Metodopagamentos WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+
+            if (cursor.moveToFirst()) {
+                descricao = cursor.getString(0);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return descricao;
+    }
+
     //endregion
 }

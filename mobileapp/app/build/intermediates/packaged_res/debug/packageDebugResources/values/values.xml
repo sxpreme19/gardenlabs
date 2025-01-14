@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="delete_red">#FF0000</color>
     <color name="gl_green">#31FF46</color>
+    <color name="grey">#343a40</color>
     <color name="ic_user_background">#87FF47</color>
     <color name="purple_500">#9C27B0</color>
     <color name="red_500">#E91E63</color>

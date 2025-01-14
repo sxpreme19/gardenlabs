@@ -1,6 +1,7 @@
 package com.example.amsi_project;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -98,6 +99,8 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
 
                 SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarFaturaAPI(total,nome,morada,telefone,nif,selectedMetodo.getId(),linhascarrinhoservico,getApplicationContext());
 
+                Intent intent = new Intent(getApplicationContext(), PurchaseActivity.class);
+                startActivity(intent);
 
             }
         });

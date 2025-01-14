@@ -3,6 +3,7 @@ package com.example.amsi_project.modelo;
 import static com.example.amsi_project.utils.JsonParser.parserJsonLogin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,9 +20,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.amsi_project.ListaServicosFragment;
+import com.example.amsi_project.MenuMainActivity;
 import com.example.amsi_project.listeners.CartLinesListener;
 import com.example.amsi_project.listeners.CartListener;
+import com.example.amsi_project.listeners.FaturaListener;
+import com.example.amsi_project.listeners.FaturasListener;
 import com.example.amsi_project.listeners.FavoritosListener;
+import com.example.amsi_project.listeners.LinhasFaturaListener;
 import com.example.amsi_project.listeners.LoginListener;
 import com.example.amsi_project.listeners.MetodosPagamentoListener;
 import com.example.amsi_project.listeners.RegisterListener;
@@ -58,7 +63,9 @@ public class SingletonGardenLabsManager {
     private ArrayList<Servico> services;
     private ArrayList<Favorito> favoritos;
     private ArrayList<Metodopagamento> metodospagamento;
+    private ArrayList<Fatura> faturas;
     private Fatura fatura;
+    private ArrayList<Linhafatura> linhasfatura;
     private Linhafatura linhafatura;
     private ArrayList<Linhacarrinhoservico> cartLines;
     private int faturaId;
@@ -73,6 +80,9 @@ public class SingletonGardenLabsManager {
     private CartListener cartListener;
     private CartLinesListener cartLinesListener;
     private FavoritosListener favoritosListener;
+    private FaturaListener faturaListener;
+    private FaturasListener faturasListener;
+    private LinhasFaturaListener linhasFaturaListener;
     private MetodosPagamentoListener metodosPagamentoListener;
     private LoginListener loginListener;
     private RegisterListener registerListener;
@@ -104,6 +114,18 @@ public class SingletonGardenLabsManager {
 
     public void setFavoritosListener(FavoritosListener favoritosListener) {
         this.favoritosListener = favoritosListener;
+    }
+
+    public void setFaturaListener(FaturaListener faturaListener) {
+        this.faturaListener = faturaListener;
+    }
+
+    public void setFaturasListener(FaturasListener faturasListener) {
+        this.faturasListener = faturasListener;
+    }
+
+    public void setLinhasFaturaListener(LinhasFaturaListener linhasFaturaListener) {
+        this.linhasFaturaListener = linhasFaturaListener;
     }
 
     public void setMetodosPagamentoListener(MetodosPagamentoListener metodosPagamentoListener) {
@@ -207,6 +229,14 @@ public class SingletonGardenLabsManager {
         }
     }
 
+    public void adicionarFaturasBD(ArrayList<Fatura> faturas) {
+        for (Fatura fatura : faturas) {
+            if (!BD.isFaturaExists(fatura.getId())){
+                BD.adicionarFaturaBD(fatura);
+            }
+        }
+    }
+
     public void adicionarMetodosPagamentoBD(ArrayList<Metodopagamento> metodospagamento) {
         for (Metodopagamento mp : metodospagamento) {
             if (!BD.isMetodoPagamentoExists(mp.getId())){
@@ -222,14 +252,6 @@ public class SingletonGardenLabsManager {
         public void getAllServicesAPI(final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-
-                //Se não tem internet vai buscar todos os livros á bd local
-                //Insert, delete and PUT n tem funcionalidades offline
-                services = BD.getAllServicosBD();
-
-                if (servicosListener != null) {
-                    servicosListener.onRefreshListaServicos(services);
-                }
             } else {
                 JsonArrayRequest reqServices = new JsonArrayRequest(Request.Method.GET, baseURL+"servico?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
                     @Override
@@ -254,14 +276,6 @@ public class SingletonGardenLabsManager {
         public void getAllServiceswFiltersAPI(double minPreco,double maxPreco,int minDuracao,int maxDuracao,final Context context) {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-
-            //Se não tem internet vai buscar todos os livros á bd local
-            //Insert, delete and PUT n tem funcionalidades offline
-            services = BD.getAllServicosBD();
-
-            if (servicosListener != null) {
-                servicosListener.onRefreshListaServicos(services);
-            }
         } else {
             JsonArrayRequest reqServices = new JsonArrayRequest(Request.Method.GET, baseURL+"servicos/filter/"+minPreco+"/"+maxPreco+"/"+minDuracao+"/"+maxDuracao+"?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
                 @Override
@@ -306,6 +320,24 @@ public class SingletonGardenLabsManager {
                     }
                 });
                 volleyQueue.add(reqUserprofile); //faz o pedido á API;
+            }
+        }
+        public void getAllServicesCountAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqServices = new StringRequest(Request.Method.GET, baseURL+"servico/count?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqServices); //faz o pedido á API;
             }
         }
         //endregion
@@ -652,7 +684,6 @@ public class SingletonGardenLabsManager {
         //endregion
 
         //region API-Faturas
-
         public void adicionarFaturaAPI(double total,String nomeD,String moradaD,Integer telefoneD,Integer nifD,int metodoPagamentoId,ArrayList<Linhacarrinhoservico> linhascarrinhoservico,final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -698,7 +729,65 @@ public class SingletonGardenLabsManager {
                 volleyQueue.add(reqAdicionarFatura); //faz o pedido á API
             }
         }
+        public void getFaturaAPI(int id,final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                JsonObjectRequest reqFatura = new JsonObjectRequest(Request.Method.GET, baseURL + "faturas/" + id + "?access-token=" + getTokenFromSharedPreferences(context), null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        fatura = JsonParser.parserJsonFatura(String.valueOf(response));
+                        if (faturaListener != null) {
+                            faturaListener.onRefreshDetalhes(fatura.getId(),fatura.getTotal(), fatura.getDatahora(),fatura.getNome_destinatario(),fatura.getMorada_destinatario(),fatura.getTelefone_destinatario(),fatura.getNif_destinatario(),BD.getMetodopagamentoDescricaoById(fatura.getMetodopagamento_id()));
+                        }
+                        getLinhasFaturaAPI(id,context);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String errorMessage = error.getMessage();
+                        if (errorMessage == null || errorMessage.isEmpty()) {
+                            errorMessage = "Error occurred";
+                        }
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+                    }
+                }
+                );
+                volleyQueue.add(reqFatura); //faz o pedido á API;
+            }
+        }
+        public void getFaturasAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
 
+                //Se não tem internet vai buscar todas as faturas á bd local
+                //Insert, delete and PUT n tem funcionalidades offline
+                faturas = BD.getAllFaturasBD();
+
+                if (faturasListener != null) {
+                    faturasListener.onRefreshListaFaturas(faturas);
+                }
+            } else {
+                JsonArrayRequest reqFaturas = new JsonArrayRequest(Request.Method.GET, baseURL+"faturas/userprofile_id/"+getUserProfileIDFromSharedPreferences(context)+"?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        faturas = JsonParser.parserJsonFaturas(response);
+                        adicionarFaturasBD(faturas);
+
+                        if (faturasListener != null) {
+                            faturasListener.onRefreshListaFaturas(faturas);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqFaturas); //faz o pedido á API;
+            }
+        }
         public void adicionarLinhaFaturaAPI(int faturaId,double precounitario,int serviceId , final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -733,7 +822,29 @@ public class SingletonGardenLabsManager {
                 volleyQueue.add(reqAdicionarLinhaFatura); //faz o pedido á API
             }
         }
+        public void getLinhasFaturaAPI(int faturaid,final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                JsonArrayRequest reqLinhasFatura = new JsonArrayRequest(Request.Method.GET, baseURL+"linhafaturas/fatura_id/"+faturaid+"?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        linhasfatura = JsonParser.parserJsonLinhasFatura(response);
 
+                        if (linhasFaturaListener != null) {
+                            linhasFaturaListener.onRefreshListaLinhasFatura(linhasfatura);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqLinhasFatura); //faz o pedido á API;
+            }
+        }
         //endregion
 
         //region API-MetodosPagamento
@@ -777,11 +888,12 @@ public class SingletonGardenLabsManager {
                         Map<String, Object> loginResponse = parserJsonLogin(response);
                         String token = (String) loginResponse.get("token");
                         int id = (int) loginResponse.get("id");
+                        String email = (String) loginResponse.get("email");
                         int profileid = (int) loginResponse.get("profileid");
                         int servicecartid = (int) loginResponse.get("servicecartid");
 
                         if (loginListener != null) {
-                            loginListener.onUpdateLogin(id, token, username, profileid, servicecartid);
+                            loginListener.onUpdateLogin(id, token, username, email,profileid, servicecartid);
                         }
 
                         Toast.makeText(context, "Login válido!", Toast.LENGTH_LONG).show();
@@ -824,7 +936,7 @@ public class SingletonGardenLabsManager {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Register inválido!", Toast.LENGTH_LONG).show();
                 }
             }) {
                 @Nullable
@@ -856,7 +968,7 @@ public class SingletonGardenLabsManager {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Reset inválido!", Toast.LENGTH_LONG).show();
                 }
             }) {
                 @Nullable
