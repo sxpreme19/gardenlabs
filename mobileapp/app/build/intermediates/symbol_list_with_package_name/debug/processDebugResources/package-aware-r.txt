@@ -3009,6 +3009,7 @@ drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
 drawable ic_action_add
+drawable ic_action_api
 drawable ic_action_cart
 drawable ic_action_delete
 drawable ic_action_email
@@ -3393,6 +3394,7 @@ id info
 id invisible
 id inward
 id italic
+id itemAPIHost
 id itemGoBack
 id itemPesquisa
 id itemReview
@@ -3947,6 +3949,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+menu menu_api
 menu menu_goback
 menu menu_main
 menu menu_pesquisa

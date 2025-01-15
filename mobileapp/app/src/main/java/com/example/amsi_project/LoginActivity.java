@@ -1,14 +1,19 @@
 package com.example.amsi_project;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -38,32 +43,13 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         });
 
         SharedPreferences sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("apihost", apihost);
-        editor.apply();
+        apihost = sharedPreferences.getString("apihost", "10.0.2.2");
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setLoginListener(this);
         SingletonGardenLabsManager.getInstance(getApplicationContext()).getUsersAPI(this);
 
         etUsername=findViewById(R.id.etUsername);
         etPassword=findViewById(R.id.etPassword);
-    }
-
-    public void onClickLogin(View view) {
-        String username = etUsername.getText().toString();
-        String passwrd = etPassword.getText().toString();
-
-        if(!isUsernameValid(username)){
-            etUsername.setError(getString(R.string.txt_username_inval));
-            return;
-        }
-
-        if (!isPasswrdValid(passwrd)) {
-            etPassword.setError(getString(R.string.txt_ncaracteres_insuf));
-            return;
-        }
-
-        SingletonGardenLabsManager.getInstance(getApplicationContext()).loginAPI(getApplicationContext(),username, passwrd);
     }
 
     @Override
@@ -89,6 +75,23 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     }
 
+    public void onClickLogin(View view) {
+        String username = etUsername.getText().toString();
+        String passwrd = etPassword.getText().toString();
+
+        if(!isUsernameValid(username)){
+            etUsername.setError(getString(R.string.txt_username_inval));
+            return;
+        }
+
+        if (!isPasswrdValid(passwrd)) {
+            etPassword.setError(getString(R.string.txt_ncaracteres_insuf));
+            return;
+        }
+
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).loginAPI(getApplicationContext(),username, passwrd);
+    }
+
     public void onClickRegisterLink(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
@@ -110,5 +113,49 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             return false;
 
         return passwrd.length()>=MIN_PASS;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(apihost!=null) {
+            getMenuInflater().inflate(R.menu.menu_api,menu);
+            return super.onCreateOptionsMenu(menu);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.itemAPIHost) {
+            showAPIDialog();
+        }
+        return false;
+    }
+
+    private void showAPIDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("API Host Config");
+
+        final EditText input = new EditText(this);
+        input.setHint(apihost);
+        builder.setView(input);
+
+        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                String apiText = input.getText().toString();
+                apihost = apiText;
+                SharedPreferences sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("apihost", apihost);
+                editor.apply();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        builder.create().show();
     }
 }

@@ -11,6 +11,7 @@ color white
 drawable appbg
 drawable appbg2
 drawable ic_action_add
+drawable ic_action_api
 drawable ic_action_cart
 drawable ic_action_delete
 drawable ic_action_email
@@ -72,6 +73,7 @@ id imageView
 id imgAccount
 id imgCapa
 id imgFoto
+id itemAPIHost
 id itemGoBack
 id itemPesquisa
 id itemReview
@@ -162,6 +164,7 @@ layout item_lista_linhascarrinho
 layout item_lista_linhasfatura
 layout item_lista_servico
 layout nav_header_main
+menu menu_api
 menu menu_goback
 menu menu_main
 menu menu_pesquisa
