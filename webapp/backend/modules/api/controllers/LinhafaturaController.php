@@ -25,7 +25,7 @@ class LinhafaturaController extends ActiveController
     public function actionGetbyfaturaid($id)
     {
         $invoiceLines = Linhafatura::find()
-            ->where(['userprofile_id' => $id])
+            ->where(['fatura_id' => $id])
             ->all();
 
         return $invoiceLines;

@@ -33,4 +33,20 @@
     <string name="navAccountHeader">Account</string>
     <string name="navHome">Home</string>
     <string name="navPurchaseHistory">Histórico de compras</string>
+    <string name="lbl_username">Username</string>
+    <string name="lbl_email">Email</string>
+    <string name="lbl_nome">Nome</string>
+    <string name="lbl_morada">Morada</string>
+    <string name="lbl_telefone">Telefone</string>
+    <string name="lbl_nif">NIF</string>
+    <string name="lbl_metodo_de_pagamento">Método de pagamento</string>
+    <string name="txt_confirm_purchase">Confirm Purchase</string>
+    <string name="lbl_items_do_carrinho">Items do carrinho</string>
+    <string name="lbl_detalhes_do_destinatario">Detalhes do destinatário</string>
+    <string name="lbl_descricao">Descricao</string>
+    <string name="lbl_duracao">Duração</string>
+    <string name="lbl_preco">Preço</string>
+    <string name="lbl_prestador">Prestador</string>
+    <string name="lbl_reviews">Reviews</string>
+    <string name="txt_form_error_field_empty">Campo de preenchimento obrigatório!</string>
 </resources>

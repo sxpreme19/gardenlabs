@@ -7,15 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.amsi_project.CartFragment;
 import com.example.amsi_project.R;
 import com.example.amsi_project.modelo.BDHelper;
 import com.example.amsi_project.modelo.Linhacarrinhoservico;
 import com.example.amsi_project.modelo.Servico;
+import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
 import java.util.ArrayList;
 
@@ -72,12 +78,14 @@ public class ListaLinhasCarrinhoAdaptador extends BaseAdapter {
     private class ViewHolderLista{
         private TextView tvTitulo, tvPreco, tvDuracao;
         private ImageView imgCapa;
+        private ImageButton removeFromCart;
 
         public ViewHolderLista(View view){
             tvTitulo = view.findViewById(R.id.tvTitulo);
             tvDuracao = view.findViewById(R.id.tvDuracao);
             tvPreco = view.findViewById(R.id.tvPreco);
             imgCapa = view.findViewById(R.id.imgCapa);
+            removeFromCart = view.findViewById(R.id.btnRemove);
         }
 
         public void update(Linhacarrinhoservico lcs){
@@ -88,13 +96,24 @@ public class ListaLinhasCarrinhoAdaptador extends BaseAdapter {
             tvDuracao.setText(servico.getDuracao() + " dias");
             tvPreco.setText(lcs.getPreco()+"€");
             Glide.with(context)
-                    .load(R.drawable.ic_action_service)
+                    .load(R.drawable.serviceimg)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
+
+            removeFromCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SingletonGardenLabsManager.getInstance(context).removerCartLineAPI(lcs,context);
+
+                    CartFragment cartFragment = new CartFragment();
+                    ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.contentFragment, cartFragment)
+                            .commit();
+                    Toast.makeText(context, "Removido!", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
-
-    // Inside your SQLiteHelper (DBHelper) class
 
     public Servico getServicoById(int servicoId) {
         BDHelper bdHelper = new BDHelper(context);

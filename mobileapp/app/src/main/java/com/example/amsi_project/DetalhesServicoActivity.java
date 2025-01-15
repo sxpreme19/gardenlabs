@@ -1,8 +1,9 @@
 package com.example.amsi_project;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -17,43 +20,43 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.amsi_project.listeners.ServicoListener;
+import com.example.amsi_project.listeners.UserProfileListener;
+import com.example.amsi_project.modelo.BDHelper;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class DetalhesServicoActivity extends AppCompatActivity implements ServicoListener {
+public class DetalhesServicoActivity extends AppCompatActivity implements UserProfileListener {
 
-    public static final String DEFAULT_IMG = "http://amsi.dei.estg.ipleiria.pt/img/ipl_semfundo.png";
-    private EditText etTitulo, etDescricao, etDuracao, etPreco,etPrestadorID;
-    private Button btnAddtoCart;
-    private ImageButton btnAddtoWishlist;
+    private TextView tvTitulo, tvDescricao, tvDuracao, tvPreco,tvPrestadorID;
+    private ImageButton btnAddtoCart,btnAddtoWishlist;
     private ImageView imgCapa;
-    //private FloatingActionButton fabDetalhes;
     private Servico servico;
+    private BDHelper bdHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_servico);
+        setTitle("Service Details");
+
+        bdHelper = new BDHelper(getApplicationContext());
 
         int id=getIntent().getIntExtra("ID", 0);
         servico = SingletonGardenLabsManager.getInstance(getApplicationContext()).getServico(id);
-        etTitulo=findViewById(R.id.etTitulo);
-        etDescricao=findViewById(R.id.etDescricao);
-        etDuracao=findViewById(R.id.etDuracao);
-        etPreco=findViewById(R.id.etPreco);
-        etPrestadorID=findViewById(R.id.etPrestadorID);
+        tvTitulo=findViewById(R.id.tvTitulo);
+        tvDescricao=findViewById(R.id.tvDescricao);
+        tvDuracao=findViewById(R.id.tvDuracao);
+        tvPreco=findViewById(R.id.tvPreco);
+        tvPrestadorID=findViewById(R.id.tvPrestadorID);
         imgCapa=findViewById(R.id.imgCapa);
         btnAddtoCart=findViewById(R.id.btnAddToCart);
         btnAddtoWishlist=findViewById(R.id.btnWishlist);
 
-        //fabDetalhes=findViewById(R.id.fabDetalhes);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).setUserProfileListener(this);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).getProviderAPI(servico.getPrestador_id(),getApplicationContext());
+
         if (servico != null)
             carregarServicos();
-        else setTitle("Novo livro");
-
-        SingletonGardenLabsManager.getInstance(getApplicationContext()).setServicoListener(this);
 
         btnAddtoCart.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -62,45 +65,50 @@ public class DetalhesServicoActivity extends AppCompatActivity implements Servic
             }
         });
 
-        /*fabDetalhes.setOnClickListener(new View.OnClickListener() {
+        btnAddtoWishlist.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
-                    if(servico!=null) {
-                        servico.setTitulo(etTitulo.getText().toString());
-                        servico.setDescricao(etDescricao.getText().toString());
-                        servico.setDuracao(Integer.parseInt(etDuracao.getText().toString()));
-                        servico.setPreco(Double.parseDouble(etPreco.getText().toString()));
-                        servico.setPrestador_id(Integer.parseInt(etPrestadorID.getText().toString()));
-                        SingletonGardenLabsManager.getInstance(getApplicationContext()).editarServicoAPI(servico, getApplicationContext());
-                    }
-                    else {
-                        servico = new Servico(0, etTitulo.getText().toString(), etDescricao.getText().toString(),  Integer.parseInt(etDuracao.getText().toString()),Double.parseDouble(etPreco.getText().toString()),Integer.parseInt(etPrestadorID.getText().toString()));
-                        SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarServicoAPI(servico, getApplicationContext());
-                    }
+                if (bdHelper.isFavoritoServicoExists(getUserProfileIDFromSharedPreferences(getApplicationContext()),servico.getId())) {
+                    SingletonGardenLabsManager.getInstance(getApplicationContext()).removerFavoritoAPI(bdHelper.getFavoritoBD(getUserProfileIDFromSharedPreferences(getApplicationContext()),servico.getId()), getApplicationContext());
+                    btnAddtoWishlist.setImageResource(R.drawable.ic_action_not_wishlist);
+                    Toast.makeText(getApplicationContext(), "Removed from Wishlist", Toast.LENGTH_SHORT).show();
+                } else {
+                    SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarFavoritoAPI(servico, getApplicationContext());
+                    btnAddtoWishlist.setImageResource(R.drawable.ic_action_wishlist);
+                    Toast.makeText(getApplicationContext(), "Added to Wishlist", Toast.LENGTH_SHORT).show();
+                }
             }
-        });*/
+        });
+
     }
 
     private void carregarServicos() {
         if (servico != null) {
+
             String titulo = servico.getTitulo();
-            etTitulo.setText(titulo);
-            etDescricao.setText(servico.getDescricao());
-            etDuracao.setText(String.valueOf(servico.getDuracao()));
-            etPreco.setText(String.valueOf(servico.getPreco()));
-            etPrestadorID.setText(String.valueOf(servico.getPrestador_id()));
+            tvTitulo.setText(titulo);
+            tvDescricao.setText(servico.getDescricao());
+            tvDuracao.setText(servico.getDuracao() + " dias");
+            tvPreco.setText(servico.getPreco() + "€");
             Glide.with(getApplicationContext())
-                    .load(R.drawable.ic_action_service)
+                    .load(R.drawable.serviceimg)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
+        }
+
+        if(bdHelper.isFavoritoServicoExists(getUserProfileIDFromSharedPreferences(getApplicationContext()),servico.getId())){
+            btnAddtoWishlist.setImageResource(R.drawable.ic_action_wishlist);
+        }else{
+            btnAddtoWishlist.setImageResource(R.drawable.ic_action_not_wishlist);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(servico!=null) {
-            getMenuInflater().inflate(R.menu.menu_remover,menu);
+            getMenuInflater().inflate(R.menu.menu_review,menu);
+            getMenuInflater().inflate(R.menu.menu_goback,menu);
             return super.onCreateOptionsMenu(menu);
         }
         return false;
@@ -108,36 +116,51 @@ public class DetalhesServicoActivity extends AppCompatActivity implements Servic
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.itemGoBack) {
+        if(item.getItemId()==R.id.itemReview) {
+            showReviewDialog();
+        }
+        else if(item.getItemId()==R.id.itemGoBack) {
             finish();
             return super.onOptionsItemSelected(item);
         }
         return false;
     }
 
-    private void dialogConfirmRemover() {
+    private void showReviewDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Remover Livro")
-                .setMessage("Tem a certeza que pretende remover o Livro?")
-                .setPositiveButton("SIMMMM :DD", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        SingletonGardenLabsManager.getInstance(getApplicationContext()).removerServicoAPI(servico, getApplicationContext());
-                    }
-                })
-                .setNegativeButton("não :/", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //Nada :D
-                    }
-                })
-                .setIcon(android.R.drawable.ic_delete)
-                .show();
+        builder.setTitle("Leave a Review");
+
+        final EditText input = new EditText(this);
+        input.setHint("Write your review here...");
+        builder.setView(input);
+
+        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                String reviewText = input.getText().toString();
+                submitReview(reviewText);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        builder.create().show();
+    }
+
+    private void submitReview(String reviewText) {
+        Toast.makeText(this, "Review Submitted: " + reviewText, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onRefreshDetalhes(int op) {
-        setResult(RESULT_OK);
-        finish();
+    public void onRefreshDetalhes(String nome, String morada, Integer telefone, Integer nif) {
+        tvPrestadorID.setText(nome);
+    }
+
+    public int getUserProfileIDFromSharedPreferences(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
+        int userprofileID = sharedPref.getInt("profileid", -1); // Retrieve the user ID as Integer
+        return userprofileID; // Return the token, or null if not found
     }
 }

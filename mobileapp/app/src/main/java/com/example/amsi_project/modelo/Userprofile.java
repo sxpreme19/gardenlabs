@@ -1,10 +1,11 @@
 package com.example.amsi_project.modelo;
 
 public class Userprofile {
-    private int id,telefone,nif,user_id;
+    private int id,user_id;
+    private Integer telefone,nif;
     private String nome,morada;
 
-    public Userprofile(int id, String nome, String morada,int telefone, int nif, int user_id) {
+    public Userprofile(int id, String nome, String morada,Integer telefone, Integer nif, int user_id) {
         this.id = id;
         this.telefone = telefone;
         this.nif = nif;
@@ -21,19 +22,19 @@ public class Userprofile {
         this.id = id;
     }
 
-    public int getTelefone() {
+    public Integer getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(Integer telefone) {
         this.telefone = telefone;
     }
 
-    public int getNif() {
+    public Integer getNif() {
         return nif;
     }
 
-    public void setNif(int nif) {
+    public void setNif(Integer nif) {
         this.nif = nif;
     }
 

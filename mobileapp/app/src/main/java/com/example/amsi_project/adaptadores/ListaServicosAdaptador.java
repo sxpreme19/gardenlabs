@@ -48,7 +48,7 @@ public class ListaServicosAdaptador extends BaseAdapter {
         }
         if(view == null)
         {
-            view = inflater.inflate(R.layout.item_lista_livro, null);
+            view = inflater.inflate(R.layout.item_lista_servico, null);
         }
 
         //otimização
@@ -81,7 +81,7 @@ public class ListaServicosAdaptador extends BaseAdapter {
             tvDuracao.setText(s.getDuracao() + " dias");
             tvPreco.setText(s.getPreco()+"€");
             Glide.with(context)
-                    .load(R.drawable.ic_action_service)
+                    .load(R.drawable.serviceimg)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
         }

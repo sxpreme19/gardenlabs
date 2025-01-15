@@ -32,6 +32,15 @@
         android:theme="@style/Base.Theme.GardenLabs"
         android:usesCleartextTraffic="true" >
         <activity
+            android:name="com.example.amsi_project.DetalhesFaturaActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.amsi_project.PurchaseActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.amsi_project.CheckoutActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.amsi_project.DetalhesServicoActivity"
             android:exported="false" />
         <activity

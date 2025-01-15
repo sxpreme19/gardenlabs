@@ -6,7 +6,11 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.example.amsi_project.modelo.Carrinhoservico;
+import com.example.amsi_project.modelo.Fatura;
+import com.example.amsi_project.modelo.Favorito;
 import com.example.amsi_project.modelo.Linhacarrinhoservico;
+import com.example.amsi_project.modelo.Linhafatura;
+import com.example.amsi_project.modelo.Metodopagamento;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.User;
 import com.example.amsi_project.modelo.Userprofile;
@@ -15,7 +19,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +51,32 @@ public class JsonParser {
         return auxUser;
     }
 
+    //Method parserJsonUsers(), que devolve todos os users;
+    public static ArrayList<User> parserJsonUsers(JSONArray response) {
+        ArrayList<User> users = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject user = null;
+            try {
+                user = response.getJSONObject(i);
+                int id = user.getInt("id");
+                String username = user.getString("username");
+                String auth_key = user.getString("auth_key");
+                String password_hash = user.getString("password_hash");
+                String password_reset_token = user.getString("password_reset_token");
+                String email = user.getString("email");
+                int status = user.getInt("status");
+                int created_at = user.getInt("created_at");
+                int updated_at = user.getInt("updated_at");
+                String verification_token = user.getString("verification_token");
+                users.add(new User(id,username,auth_key,password_hash,password_reset_token,email,status,created_at,updated_at,verification_token));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        return users;
+    }
+
     //Method parserJsonUserprofile(), que devolve um userprofile;
     public static Userprofile parserJsonUserprofile(String response){
         Userprofile auxUserprofile = null;
@@ -53,8 +86,8 @@ public class JsonParser {
             int id = userprofile.getInt("id");
             String nome = userprofile.getString("nome");
             String morada = userprofile.getString("morada");
-            int telefone = userprofile.getInt("telefone");
-            int nif = userprofile.getInt("nif");
+            Integer telefone = userprofile.isNull("telefone") ? null : userprofile.getInt("telefone");
+            Integer nif = userprofile.isNull("nif") ? null : userprofile.getInt("nif");
             int user_id = userprofile.getInt("user_id");
 
             auxUserprofile = new Userprofile(id,nome,morada,telefone,nif,user_id);
@@ -141,7 +174,7 @@ public class JsonParser {
         return auxLinhacarrinhoservico;
     }
 
-    //Method parserJsonCartLines(), que devolve as linhas de carrinho do carrinho do user logado;
+    //Method parserJsonCartLines(), que devolve as linhas de carrinho do carrinho;
     public static ArrayList<Linhacarrinhoservico> parserJsonCartLines(JSONArray response){
         ArrayList<Linhacarrinhoservico> cartLines = new ArrayList<>();
         for (int i = 0; i < response.length(); i++) {
@@ -160,18 +193,220 @@ public class JsonParser {
         return cartLines;
     }
 
+    //Method parserJsonFavorito(), que devolve apenas um favorito;
+    public static Favorito parserJsonFavorito(String response){
+        Favorito auxFavorito = null;
+
+        try {
+            JSONObject favorito = new JSONObject(response);
+            int id = favorito.getInt("id");
+            int userprofile_id = favorito.getInt("userprofile_id");
+            int servico_id = favorito.getInt("servico_id");
+
+            auxFavorito = new Favorito(id,userprofile_id,servico_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxFavorito;
+    }
+
+    //Method parserJsonFavoritos(), que devolve os favoritos do user logado;
+    public static ArrayList<Favorito> parserJsonFavoritos(JSONArray response){
+        ArrayList<Favorito> favorites = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject favorite = null;
+            try {
+                favorite = (JSONObject) response.get(i);
+                int id = favorite.getInt("id");
+                int userprofile_id = favorite.getInt("userprofile_id");
+                int servico_id = favorite.getInt("servico_id");
+                favorites.add(new Favorito(id,userprofile_id,servico_id));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return favorites;
+    }
+
+    //Method parserJsonFatura(), que devolve apenas uma fatura;
+    public static Fatura parserJsonFatura(String response){
+        Fatura auxFatura = null;
+
+        try {
+            JSONObject fatura = new JSONObject(response);
+            int id = fatura.getInt("id");
+            double total = fatura.getDouble("total");
+            String datahora = fatura.getString("datahora");
+            String nome_destinatario = fatura.getString("nome_destinatario");
+            String morada_destinatario = fatura.getString("morada_destinatario");
+            Integer telefone_destinatario = null;
+            if (fatura.has("telefone_destinatario") && !fatura.isNull("telefone_destinatario")) {
+                try {
+                    telefone_destinatario = Integer.parseInt(fatura.getString("telefone_destinatario"));
+                } catch (NumberFormatException e) {
+                    Log.e("JSON_PARSER", "Invalid telefone_destinatario: " + fatura.optString("telefone_destinatario"));
+                }
+            }
+
+            Integer nif_destinatario = null;
+            if (fatura.has("nif_destinatario") && !fatura.isNull("nif_destinatario")) {
+                try {
+                    nif_destinatario = Integer.parseInt(fatura.getString("nif_destinatario"));
+                } catch (NumberFormatException e) {
+                    Log.e("JSON_PARSER", "Invalid nif_destinatario: " + fatura.optString("nif_destinatario"));
+                }
+            }
+            int finalTelefone = (telefone_destinatario != null) ? telefone_destinatario : 0;  // Default to 0 if null
+            int finalNif = (nif_destinatario != null) ? nif_destinatario : 0;
+            int metodopagamento_id = fatura.getInt("metodopagamento_id");
+            int userprofile_id = fatura.getInt("userprofile_id");
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date;
+            try {
+                // Parse the date
+                date = formatter.parse(datahora);
+            } catch (ParseException e) {
+                throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
+            }
+
+            auxFatura = new Fatura(id,total,date,nome_destinatario,morada_destinatario,finalTelefone,finalNif,metodopagamento_id,userprofile_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxFatura;
+    }
+
+    //Method parserJsonFaturas(), que devolve as faturas do user logado;
+    public static ArrayList<Fatura> parserJsonFaturas(JSONArray response){
+        ArrayList<Fatura> invoices = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject invoice = null;
+            try {
+                invoice = (JSONObject) response.get(i);
+                int id = invoice.getInt("id");
+                double total = invoice.getDouble("total");
+                String datahora = invoice.getString("datahora");
+                String nome_destinatario = invoice.getString("nome_destinatario");
+                String morada_destinatario = invoice.getString("morada_destinatario");
+                Integer telefone_destinatario = null;
+                if (invoice.has("telefone_destinatario") && !invoice.isNull("telefone_destinatario")) {
+                    try {
+                        telefone_destinatario = Integer.parseInt(invoice.getString("telefone_destinatario"));
+                    } catch (NumberFormatException e) {
+                        Log.e("JSON_PARSER", "Invalid telefone_destinatario: " + invoice.optString("telefone_destinatario"));
+                    }
+                }
+
+                Integer nif_destinatario = null;
+                if (invoice.has("nif_destinatario") && !invoice.isNull("nif_destinatario")) {
+                    try {
+                        nif_destinatario = Integer.parseInt(invoice.getString("nif_destinatario"));
+                    } catch (NumberFormatException e) {
+                        Log.e("JSON_PARSER", "Invalid nif_destinatario: " + invoice.optString("nif_destinatario"));
+                    }
+                }
+
+                int finalTelefone = (telefone_destinatario != null) ? telefone_destinatario : 0;  // Default to 0 if null
+                int finalNif = (nif_destinatario != null) ? nif_destinatario : 0;
+                int metodopagamento_id = invoice.getInt("metodopagamento_id");
+                int userprofile_id = invoice.getInt("userprofile_id");
+
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date;
+                try {
+                    date = formatter.parse(datahora);
+                } catch (ParseException e) {
+                    throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
+                }
+                invoices.add(new Fatura(id,total,date,nome_destinatario,morada_destinatario,finalTelefone,finalNif,metodopagamento_id,userprofile_id));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return invoices;
+    }
+
+    //Method parserJsonLinhaFatura(), que devolve apenas uma linha de fatura;
+    public static Linhafatura parserJsonLinhaFatura(String response){
+        Linhafatura auxLinhafatura = null;
+
+        try {
+            JSONObject linhafatura = new JSONObject(response);
+            int id = linhafatura.getInt("id");
+            int quantidade = linhafatura.getInt("quantidade");
+            double precounitario = linhafatura.getDouble("precounitario");
+            int fatura_id = linhafatura.getInt("fatura_id");
+            int servico_id = linhafatura.getInt("servico_id");
+
+            auxLinhafatura = new Linhafatura(id,quantidade,precounitario,fatura_id,servico_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxLinhafatura;
+    }
+
+    //Method parserJsonLinhasFatura(), que devolve as linhas de fatura de uma fatura;
+    public static ArrayList<Linhafatura> parserJsonLinhasFatura(JSONArray response){
+        ArrayList<Linhafatura> invoiceLines = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject invoiceLine = null;
+            try {
+                invoiceLine = (JSONObject) response.get(i);
+                int id = invoiceLine.getInt("id");
+                double precounitario = invoiceLine.getDouble("precounitario");
+                int fatura_id = invoiceLine.getInt("fatura_id");
+                int servico_id = invoiceLine.getInt("servico_id");
+                invoiceLines.add(new Linhafatura(id,1,precounitario,fatura_id,servico_id));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return invoiceLines;
+    }
+
+    //Method parserJsonMetodosPagamento(), que devolve os metodos de pagamento existentes;
+    public static ArrayList<Metodopagamento> parserJsonMetodosPagamento(JSONArray response){
+        ArrayList<Metodopagamento> paymentMethods = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject metodopagamento = null;
+            try {
+                metodopagamento = (JSONObject) response.get(i);
+                int id = metodopagamento.getInt("id");
+                String descricao = metodopagamento.getString("descricao");
+                boolean disponivel = false;
+
+                if (metodopagamento.has("disponivel")) {
+                    if (metodopagamento.get("disponivel") instanceof Integer) {
+                        disponivel = metodopagamento.getInt("disponivel") == 1;
+                    } else if (metodopagamento.get("disponivel") instanceof Boolean) {
+                        disponivel = metodopagamento.getBoolean("disponivel");
+                    }
+                }
+
+                if(disponivel)
+                    paymentMethods.add(new Metodopagamento(id,descricao,disponivel));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return paymentMethods;
+    }
+
     //Method parserJsonLogin(), que efetuará o login na API;
     public static Map<String, Object> parserJsonLogin(String response) {
-        String token = null;
+        String token,email = null;
         int id,profileid,servicecartid;
         Map<String, Object> result = new HashMap<>();
         try {
             JSONObject login = new JSONObject(response);
             token = login.getString("token");
+            email = login.getString("email");
             id = login.getInt("id");
             profileid = login.getInt("profileid");
             servicecartid = login.getInt("servicecartid");
             result.put("token", token);
+            result.put("email", email);
             result.put("id", id);
             result.put("profileid",profileid);
             result.put("servicecartid",servicecartid);
