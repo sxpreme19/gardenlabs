@@ -3665,10 +3665,15 @@ id triangle
 id tvBackToLogin
 id tvBillingAddress
 id tvBillingAddressHeader
+id tvBillingAddressLabel
 id tvBillingEmail
+id tvBillingEmailLabel
 id tvBillingName
+id tvBillingNameLabel
 id tvBillingNif
+id tvBillingNifLabel
 id tvBillingPhone
+id tvBillingPhoneLabel
 id tvData
 id tvDescricao
 id tvDescricaoLabel
@@ -3842,6 +3847,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_checkout
+layout activity_detalhes_fatura
 layout activity_detalhes_servico
 layout activity_login
 layout activity_menu_main

@@ -1,9 +1,11 @@
 package com.example.amsi_project;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.content.Intent;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -11,18 +13,21 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.amsi_project.listeners.RegisterListener;
+import com.example.amsi_project.modelo.BDHelper;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterListener {
 
     private EditText etEmail, etPassword,etUsername;
     public static final  int MIN_PASS=8;
+    private BDHelper bdHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
+        bdHelper = new BDHelper(getApplicationContext());
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setRegisterListener(this);
 
@@ -39,11 +44,21 @@ public class RegisterActivity extends AppCompatActivity implements RegisterListe
         if(!isUsernameValid(username)){
             etUsername.setError(getString(R.string.txt_username_inval));
             return;
+        }else{
+            if (bdHelper.isUserUsernameExists(username)) {
+                Toast.makeText(getApplicationContext(), "Username inválido!", Toast.LENGTH_LONG).show();
+                return;
+            }
         }
 
         if (!isEmailValid(email)) {
             etEmail.setError(getString(R.string.txt_email_inval));
             return;
+        }else{
+            if (bdHelper.isUserEmailExists(email)) {
+                Toast.makeText(getApplicationContext(), "Email inválido!", Toast.LENGTH_LONG).show();
+                return;
+            }
         }
 
         if (!isPasswrdValid(password)) {

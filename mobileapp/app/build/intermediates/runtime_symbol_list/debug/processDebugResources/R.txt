@@ -3664,10 +3664,15 @@ int id triangle 0x7f08020e
 int id tvBackToLogin 0x7f08020f
 int id tvBillingAddress 0x7f080251
 int id tvBillingAddressHeader 0x7f080252
+int id tvBillingAddressLabel 0x7f080261
 int id tvBillingEmail 0x7f080253
+int id tvBillingEmailLabel 0x7f080262
 int id tvBillingName 0x7f080254
+int id tvBillingNameLabel 0x7f080263
 int id tvBillingNif 0x7f080255
+int id tvBillingNifLabel 0x7f080264
 int id tvBillingPhone 0x7f080256
+int id tvBillingPhoneLabel 0x7f080265
 int id tvData 0x7f08025f
 int id tvDescricao 0x7f080234
 int id tvDescricaoLabel 0x7f080244
@@ -3841,6 +3846,7 @@ int layout abc_search_view 0x7f0b0019
 int layout abc_select_dialog_material 0x7f0b001a
 int layout abc_tooltip 0x7f0b001b
 int layout activity_checkout 0x7f0b007d
+int layout activity_detalhes_fatura 0x7f0b0081
 int layout activity_detalhes_servico 0x7f0b001c
 int layout activity_login 0x7f0b001d
 int layout activity_menu_main 0x7f0b001e

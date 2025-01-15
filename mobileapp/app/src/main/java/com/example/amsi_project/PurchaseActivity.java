@@ -1,27 +1,24 @@
 package com.example.amsi_project;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.amsi_project.adaptadores.ListaLinhasCarrinhoAdaptador;
 import com.example.amsi_project.adaptadores.ListaLinhasFaturaAdaptador;
 import com.example.amsi_project.listeners.FaturaListener;
 import com.example.amsi_project.listeners.LinhasFaturaListener;
 import com.example.amsi_project.modelo.BDHelper;
-import com.example.amsi_project.modelo.Linhacarrinhoservico;
 import com.example.amsi_project.modelo.Linhafatura;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
@@ -32,9 +29,9 @@ import java.util.Locale;
 
 public class PurchaseActivity extends AppCompatActivity implements FaturaListener, LinhasFaturaListener {
 
-    TextView tvInvoiceTitle,tvInvoiceDate,tvInvoiceName,tvInvoiceEmail,tvInvoiceAddress,tvInvoicePhone,tvInvoiceNif,tvInvoicePaymentMethod,tvInvoiceTotal;
-    ListView lvInvoiceLines;
-    Button btnBackToShop;
+    private TextView tvInvoiceTitle,tvInvoiceDate,tvInvoiceName,tvInvoiceEmail,tvInvoiceAddress,tvInvoicePhone,tvInvoiceNif,tvInvoicePaymentMethod,tvInvoiceTotal,tvPhonelbl,tvNiflbl;
+    private ListView lvInvoiceLines;
+    private Button btnBackToShop;
     int faturaid;
     BDHelper bdHelper;
 
@@ -59,6 +56,8 @@ public class PurchaseActivity extends AppCompatActivity implements FaturaListene
         tvInvoicePaymentMethod = findViewById(R.id.tvPaymentMethod);
         tvInvoiceTotal = findViewById(R.id.tvInvoiceTotal);
         btnBackToShop = findViewById(R.id.btnBackToShop);
+        tvPhonelbl = findViewById(R.id.tvBillingPhoneLabel);
+        tvNiflbl = findViewById(R.id.tvBillingNifLabel);
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setLinhasFaturaListener(this);
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setFaturaListener(this);
@@ -83,17 +82,19 @@ public class PurchaseActivity extends AppCompatActivity implements FaturaListene
         tvInvoiceName.setText(nome_destinatario);
         tvInvoiceEmail.setText(getEmailFromSharedPreferences(getApplicationContext()));
         tvInvoiceAddress.setText(morada_destinatario);
-        if(telefone_destinatario != null){
+        if(telefone_destinatario != null && telefone_destinatario != 0){
             tvInvoicePhone.setText(String.valueOf(telefone_destinatario));
             tvInvoicePhone.setVisibility(View.VISIBLE);
+            tvPhonelbl.setVisibility(View.VISIBLE);
         }
-        if(nif_destinatario != null){
+        if(nif_destinatario != null && nif_destinatario != 0){
             tvInvoiceNif.setText(String.valueOf(nif_destinatario));
             tvInvoiceNif.setVisibility(View.VISIBLE);
+            tvNiflbl.setVisibility(View.VISIBLE);
         }
 
         tvInvoicePaymentMethod.setText(metodopagamento);
-        tvInvoiceTotal.setText(total+"");
+        tvInvoiceTotal.setText(total+"€");
 
     }
 

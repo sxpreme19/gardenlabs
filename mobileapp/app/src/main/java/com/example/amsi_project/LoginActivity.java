@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         editor.apply();
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setLoginListener(this);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).getUsersAPI(this);
 
         etUsername=findViewById(R.id.etUsername);
         etPassword=findViewById(R.id.etPassword);

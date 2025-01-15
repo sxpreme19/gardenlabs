@@ -96,10 +96,15 @@ id toolbar
 id tvBackToLogin
 id tvBillingAddress
 id tvBillingAddressHeader
+id tvBillingAddressLabel
 id tvBillingEmail
+id tvBillingEmailLabel
 id tvBillingName
+id tvBillingNameLabel
 id tvBillingNif
+id tvBillingNifLabel
 id tvBillingPhone
+id tvBillingPhoneLabel
 id tvData
 id tvDescricao
 id tvDescricaoLabel
@@ -136,6 +141,7 @@ id tvTotalCarrinho
 id tvUsername
 id tvWelcome
 layout activity_checkout
+layout activity_detalhes_fatura
 layout activity_detalhes_servico
 layout activity_login
 layout activity_menu_main

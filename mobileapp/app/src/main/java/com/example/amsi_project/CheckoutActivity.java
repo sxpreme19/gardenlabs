@@ -47,6 +47,7 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
     private Button btnConfirmPurchase;
     private ArrayList<Linhacarrinhoservico> linhascarrinhoservico;
     private double total;
+    private static final int MANDATORY=9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,25 +80,46 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
         btnConfirmPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etNome.length() < 1){
+                if(etNome.length() < 1 && etNome != null){
                     etNome.setError(getString(R.string.txt_form_error_field_empty));
                     return;
                 }
-                if(etMorada.length() < 1){
+                if(etMorada.length() < 1 && etMorada != null){
                     etMorada.setError(getString(R.string.txt_form_error_field_empty));
                     return;
                 }
 
                 String nome = etNome.getText().toString();
                 String morada = etMorada.getText().toString();
-                Integer telefone = Integer.parseInt(etTelefone.getText().toString());
-                Integer nif = Integer.parseInt(etNIF.getText().toString());
+                Integer telefone = null;
+                Integer nif = null;
+
+                if (etTelefone.length() == MANDATORY) {
+                    try {
+                        telefone = Integer.parseInt(etTelefone.getText().toString());
+                    } catch (NumberFormatException e) {
+                        etTelefone.setError(getString(R.string.txt_form_error_field_empty));
+                        return;
+                    }
+                }
+
+                if (etNIF.length() == MANDATORY) {
+                    try {
+                        nif = Integer.parseInt(etNIF.getText().toString());
+                    } catch (NumberFormatException e) {
+                        etNIF.setError(getString(R.string.txt_form_error_field_empty));
+                        return;
+                    }
+                }
 
                 Metodopagamento selectedMetodo = (Metodopagamento) spMetodosPagamento.getSelectedItem();
 
                 linhascarrinhoservico = bdHelper.getCartLinesBD(getCartIDFromSharedPreferences(getApplicationContext()));
 
                 SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarFaturaAPI(total,nome,morada,telefone,nif,selectedMetodo.getId(),linhascarrinhoservico,getApplicationContext());
+                for (Linhacarrinhoservico l : linhascarrinhoservico){
+                    SingletonGardenLabsManager.getInstance(getApplicationContext()).removerCartLineAPI(l,getApplicationContext());
+                }
 
                 Intent intent = new Intent(getApplicationContext(), PurchaseActivity.class);
                 startActivity(intent);
@@ -143,11 +165,16 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
 
     @Override
     public void onRefreshDetalhes(String nome, String morada, Integer telefone, Integer nif) {
-        etNome.setText(nome);
-        etMorada.setText(morada);
-        etTelefone.setText(String.valueOf(telefone));
-        etNIF.setText(String.valueOf(nif));
+        etNome.setText(isNullOrEmpty(nome) ? "" : nome);
+        etMorada.setText(isNullOrEmpty(morada) ? "" : morada);
+        etTelefone.setText(telefone == null ? "" : String.valueOf(telefone));
+        etNIF.setText(nif == null ? "" : String.valueOf(nif));
     }
+
+    private boolean isNullOrEmpty(String value) {
+        return value == null || value.equalsIgnoreCase("null") || value.isEmpty();
+    }
+
 
     public int getCartIDFromSharedPreferences(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);

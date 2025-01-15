@@ -51,6 +51,32 @@ public class JsonParser {
         return auxUser;
     }
 
+    //Method parserJsonUsers(), que devolve todos os users;
+    public static ArrayList<User> parserJsonUsers(JSONArray response) {
+        ArrayList<User> users = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject user = null;
+            try {
+                user = response.getJSONObject(i);
+                int id = user.getInt("id");
+                String username = user.getString("username");
+                String auth_key = user.getString("auth_key");
+                String password_hash = user.getString("password_hash");
+                String password_reset_token = user.getString("password_reset_token");
+                String email = user.getString("email");
+                int status = user.getInt("status");
+                int created_at = user.getInt("created_at");
+                int updated_at = user.getInt("updated_at");
+                String verification_token = user.getString("verification_token");
+                users.add(new User(id,username,auth_key,password_hash,password_reset_token,email,status,created_at,updated_at,verification_token));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        return users;
+    }
+
     //Method parserJsonUserprofile(), que devolve um userprofile;
     public static Userprofile parserJsonUserprofile(String response){
         Userprofile auxUserprofile = null;
@@ -213,8 +239,25 @@ public class JsonParser {
             String datahora = fatura.getString("datahora");
             String nome_destinatario = fatura.getString("nome_destinatario");
             String morada_destinatario = fatura.getString("morada_destinatario");
-            Integer telefone_destinatario = fatura.getInt("telefone_destinatario");
-            Integer nif_destinatario = fatura.getInt("nif_destinatario");
+            Integer telefone_destinatario = null;
+            if (fatura.has("telefone_destinatario") && !fatura.isNull("telefone_destinatario")) {
+                try {
+                    telefone_destinatario = Integer.parseInt(fatura.getString("telefone_destinatario"));
+                } catch (NumberFormatException e) {
+                    Log.e("JSON_PARSER", "Invalid telefone_destinatario: " + fatura.optString("telefone_destinatario"));
+                }
+            }
+
+            Integer nif_destinatario = null;
+            if (fatura.has("nif_destinatario") && !fatura.isNull("nif_destinatario")) {
+                try {
+                    nif_destinatario = Integer.parseInt(fatura.getString("nif_destinatario"));
+                } catch (NumberFormatException e) {
+                    Log.e("JSON_PARSER", "Invalid nif_destinatario: " + fatura.optString("nif_destinatario"));
+                }
+            }
+            int finalTelefone = (telefone_destinatario != null) ? telefone_destinatario : 0;  // Default to 0 if null
+            int finalNif = (nif_destinatario != null) ? nif_destinatario : 0;
             int metodopagamento_id = fatura.getInt("metodopagamento_id");
             int userprofile_id = fatura.getInt("userprofile_id");
 
@@ -227,7 +270,7 @@ public class JsonParser {
                 throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
             }
 
-            auxFatura = new Fatura(id,total,date,nome_destinatario,morada_destinatario,telefone_destinatario,nif_destinatario,metodopagamento_id,userprofile_id);
+            auxFatura = new Fatura(id,total,date,nome_destinatario,morada_destinatario,finalTelefone,finalNif,metodopagamento_id,userprofile_id);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -246,8 +289,26 @@ public class JsonParser {
                 String datahora = invoice.getString("datahora");
                 String nome_destinatario = invoice.getString("nome_destinatario");
                 String morada_destinatario = invoice.getString("morada_destinatario");
-                Integer telefone_destinatario = invoice.getInt("telefone_destinatario");
-                Integer nif_destinatario = invoice.getInt("nif_destinatario");
+                Integer telefone_destinatario = null;
+                if (invoice.has("telefone_destinatario") && !invoice.isNull("telefone_destinatario")) {
+                    try {
+                        telefone_destinatario = Integer.parseInt(invoice.getString("telefone_destinatario"));
+                    } catch (NumberFormatException e) {
+                        Log.e("JSON_PARSER", "Invalid telefone_destinatario: " + invoice.optString("telefone_destinatario"));
+                    }
+                }
+
+                Integer nif_destinatario = null;
+                if (invoice.has("nif_destinatario") && !invoice.isNull("nif_destinatario")) {
+                    try {
+                        nif_destinatario = Integer.parseInt(invoice.getString("nif_destinatario"));
+                    } catch (NumberFormatException e) {
+                        Log.e("JSON_PARSER", "Invalid nif_destinatario: " + invoice.optString("nif_destinatario"));
+                    }
+                }
+
+                int finalTelefone = (telefone_destinatario != null) ? telefone_destinatario : 0;  // Default to 0 if null
+                int finalNif = (nif_destinatario != null) ? nif_destinatario : 0;
                 int metodopagamento_id = invoice.getInt("metodopagamento_id");
                 int userprofile_id = invoice.getInt("userprofile_id");
 
@@ -258,7 +319,7 @@ public class JsonParser {
                 } catch (ParseException e) {
                     throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
                 }
-                invoices.add(new Fatura(id,total,date,nome_destinatario,morada_destinatario,telefone_destinatario,nif_destinatario,metodopagamento_id,userprofile_id));
+                invoices.add(new Fatura(id,total,date,nome_destinatario,morada_destinatario,finalTelefone,finalNif,metodopagamento_id,userprofile_id));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

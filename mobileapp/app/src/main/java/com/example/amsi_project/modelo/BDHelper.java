@@ -348,6 +348,48 @@ public class BDHelper extends SQLiteOpenHelper {
         return exists;
     }
 
+    public boolean isUserUsernameExists(String username) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Users WHERE username = ?";
+            cursor = db.rawQuery(query, new String[]{username});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
+    public boolean isUserEmailExists(String email) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Users WHERE email = ?";
+            cursor = db.rawQuery(query, new String[]{email});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
     //endregion
 
     //region CRUD Userprofiles

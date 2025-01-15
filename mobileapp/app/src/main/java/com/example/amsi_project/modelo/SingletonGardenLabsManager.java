@@ -55,8 +55,11 @@ public class SingletonGardenLabsManager {
     private static RequestQueue volleyQueue = null;
     private static String ip = null;
     public static String baseURL = null;
+    private static final String admin = "QLm-YoUugMwTquwdvKmvpDSBufUWXe8n";
 
     //region ModelVariables
+
+    private ArrayList<User> users;
     private User user;
     private Userprofile userprofile;
     private Carrinhoservico cart;
@@ -153,9 +156,6 @@ public class SingletonGardenLabsManager {
         }
         return instance;
     }
-
-    //region Acesso á BD
-
     private SingletonGardenLabsManager(Context context) {
         services = new ArrayList<>();
         BD = new BDHelper(context);
@@ -163,7 +163,7 @@ public class SingletonGardenLabsManager {
         baseURL = "http://"+ip+"/gardenlabs/webapp/backend/web/api/";
     }
 
-    //region BD-Servicos
+    //region BD
         public ArrayList<Servico> getServicosBD() {
             services = BD.getAllServicosBD();
             return new ArrayList<>(services);
@@ -177,25 +177,6 @@ public class SingletonGardenLabsManager {
             return null;
         }
 
-        public void addServicoBD(Servico servico) {
-            BD.adicionarServicoBD(servico);
-        }
-
-        public void deleteServicoBD(int id) {
-            Servico l = getServico(id);
-            if (l != null) {
-                if (BD.removerServicoBD(id))
-                    services.remove(l);
-            }
-        }
-
-        public void editServicoBD(Servico servico) {
-            Servico l = getServico(servico.getId());
-            if (l != null) {
-                BD.editarServicoBD(servico);
-            }
-        }
-
         public void adicionarServicosBD(ArrayList<Servico> servicos) {
             BD.removerAllServicosBD();
             for (Servico l : servicos) {
@@ -203,47 +184,53 @@ public class SingletonGardenLabsManager {
             }
         }
 
-        //endregion
+        public User getUser(int id) {
+            return BD.getUserBD(id);
+        }
 
-    public User getUser(int id) {
-        return BD.getUserBD(id);
-    }
+        public Userprofile getUserProfile(int id) {
+            return BD.getUserProfileBD(id);
+        }
 
-    public Userprofile getUserProfile(int id) {
-        return BD.getUserProfileBD(id);
-    }
-
-    public void adicionarLinhasCarrinhoBD(ArrayList<Linhacarrinhoservico> linhascarrinhoservico) {
-        for (Linhacarrinhoservico lcs : linhascarrinhoservico) {
-            if (!BD.isCartLineExists(lcs.getId())){
-                BD.adicionarCartLineBD(lcs);
+        public void adicionarUsersBD(ArrayList<User> users) {
+            for (User user : users) {
+                if (!BD.isUserExists(user.getId())){
+                    BD.adicionarUserBD(user);
+                }
             }
         }
-    }
 
-    public void adicionarFavoritosBD(ArrayList<Favorito> favoritos) {
-        for (Favorito favorito : favoritos) {
-            if (!BD.isFavoritoExists(favorito.getId())){
-                BD.adicionarFavoritoBD(favorito);
+        public void adicionarLinhasCarrinhoBD(ArrayList<Linhacarrinhoservico> linhascarrinhoservico) {
+            for (Linhacarrinhoservico lcs : linhascarrinhoservico) {
+                if (!BD.isCartLineExists(lcs.getId())){
+                    BD.adicionarCartLineBD(lcs);
+                }
             }
         }
-    }
 
-    public void adicionarFaturasBD(ArrayList<Fatura> faturas) {
-        for (Fatura fatura : faturas) {
-            if (!BD.isFaturaExists(fatura.getId())){
-                BD.adicionarFaturaBD(fatura);
+        public void adicionarFavoritosBD(ArrayList<Favorito> favoritos) {
+            for (Favorito favorito : favoritos) {
+                if (!BD.isFavoritoExists(favorito.getId())){
+                    BD.adicionarFavoritoBD(favorito);
+                }
             }
         }
-    }
 
-    public void adicionarMetodosPagamentoBD(ArrayList<Metodopagamento> metodospagamento) {
-        for (Metodopagamento mp : metodospagamento) {
-            if (!BD.isMetodoPagamentoExists(mp.getId())){
-                BD.adicionarMetodopagamentoBD(mp);
+        public void adicionarFaturasBD(ArrayList<Fatura> faturas) {
+            for (Fatura fatura : faturas) {
+                if (!BD.isFaturaExists(fatura.getId())){
+                    BD.adicionarFaturaBD(fatura);
+                }
             }
         }
-    }
+
+        public void adicionarMetodosPagamentoBD(ArrayList<Metodopagamento> metodospagamento) {
+            for (Metodopagamento mp : metodospagamento) {
+                if (!BD.isMetodoPagamentoExists(mp.getId())){
+                    BD.adicionarMetodopagamentoBD(mp);
+                }
+            }
+        }
 
     //endregion
 
@@ -343,6 +330,26 @@ public class SingletonGardenLabsManager {
         //endregion
 
         //region API-Users
+
+        public void getUsersAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                JsonArrayRequest reqUsers = new JsonArrayRequest(Request.Method.GET, baseURL + "user?access-token="+admin, null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        users = JsonParser.parserJsonUsers(response);
+                        adicionarUsersBD(users);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqUsers); //faz o pedido á API;
+            }
+        }
         public void getUserAPI(final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -373,7 +380,6 @@ public class SingletonGardenLabsManager {
                 volleyQueue.add(reqUser); //faz o pedido á API;
             }
         }
-
         public void editarUserAPI(User user,final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -387,12 +393,11 @@ public class SingletonGardenLabsManager {
                             userListener.onRefreshDetalhes(user.getUsername(),user.getEmail());
                         }
 
-                        //TODO: Informar a vista
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Insira outros detalhes!", Toast.LENGTH_LONG).show();
                     }
                 }) {
                     @Nullable
@@ -408,7 +413,6 @@ public class SingletonGardenLabsManager {
                 volleyQueue.add(reqEditarUser); //faz o pedido á API
             }
         }
-
         public void removerUserAPI( final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -457,7 +461,6 @@ public class SingletonGardenLabsManager {
                 volleyQueue.add(reqUserprofile); //faz o pedido á API;
             }
         }
-
         public void editarUserProfileAPI(Userprofile userprofile,final Context context) {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -471,12 +474,17 @@ public class SingletonGardenLabsManager {
                         userProfileListener.onRefreshDetalhes(userprofile.getNome(),userprofile.getMorada(),userprofile.getTelefone(),userprofile.getNif());
                     }
 
-                    //TODO: Informar a vista
+                    Toast.makeText(context, "Atualizado!", Toast.LENGTH_LONG).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("UserProfileUpdate", "Error: " + error.getMessage());
+                    if (error.networkResponse != null && error.networkResponse.statusCode == 422) {
+                        Toast.makeText(context, "Validation failed: Check required fields.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_LONG).show();
+                    }
                 }
             }) {
                 @Nullable
@@ -484,10 +492,19 @@ public class SingletonGardenLabsManager {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
                     params.put("token", getTokenFromSharedPreferences(context));
-                    params.put("nome", userprofile.getNome());
-                    params.put("morada", userprofile.getMorada());
-                    params.put("telefone", String.valueOf(userprofile.getTelefone()));
-                    params.put("nif", String.valueOf(userprofile.getNif()));
+                    if (userprofile.getNome() != null) {
+                        params.put("nome", userprofile.getNome());
+                    }
+                    if (userprofile.getMorada() != null) {
+                        params.put("morada", userprofile.getMorada());
+                    }
+                    if (userprofile.getTelefone() != null) {
+                        params.put("telefone", String.valueOf(userprofile.getTelefone()));
+                    }
+
+                    if (userprofile.getNif() != null) {
+                        params.put("nif", String.valueOf(userprofile.getNif()));
+                    }
 
                     return params;
                 }
@@ -719,8 +736,8 @@ public class SingletonGardenLabsManager {
                         params.put("datahora", currentDateAndTime);
                         params.put("nome_destinatario", nomeD);
                         params.put("morada_destinatario", moradaD);
-                        params.put("telefone_destinatario", String.valueOf(telefoneD));
-                        params.put("nif_destinatario", String.valueOf(nifD));
+                        params.put("telefone_destinatario", telefoneD == null ? "" : String.valueOf(telefoneD));
+                        params.put("nif_destinatario", nifD == null ? "" : String.valueOf(nifD));
                         params.put("metodopagamento_id", String.valueOf(metodoPagamentoId));
                         params.put("userprofile_id", String.valueOf(getUserProfileIDFromSharedPreferences(context)));
                         return params;

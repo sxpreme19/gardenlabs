@@ -34,7 +34,7 @@ public class PurchaseHistoryFragment extends Fragment implements FaturasListener
         lvFaturas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getContext(), DetalhesServicoActivity.class);
+                Intent intent = new Intent(getContext(), DetalhesFaturaActivity.class);
                 intent.putExtra("ID",(int) l);
                 startActivity(intent);
             }
