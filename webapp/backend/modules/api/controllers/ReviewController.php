@@ -6,9 +6,6 @@ use common\models\Review;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 
-/**
- * Default controller for the `api` module
- */
 class ReviewController extends ActiveController
 {
     public $modelClass = 'common\models\Review';
