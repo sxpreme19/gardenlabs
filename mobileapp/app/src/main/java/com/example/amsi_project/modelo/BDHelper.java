@@ -193,22 +193,6 @@ public class BDHelper extends SQLiteOpenHelper {
 
         return null;
     }
-    public boolean editarServicoBD(Servico s){
-        ContentValues values = new ContentValues();
-        values.put(TITULO,s.getTitulo());
-        values.put(DESCRICAO,s.getDescricao());
-        values.put(DURACAO,s.getDuracao());
-        values.put(PRECO,s.getPreco());
-        values.put(PRESTADOR_ID,s.getPrestador_id());
-
-        int nLinhas = this.db.update(SERVICOS, values ,ID + "=?", new String[]{s.getId() + ""});
-
-        return nLinhas == 1;
-    }
-    public boolean removerServicoBD(int id){
-        int nLinhas = this.db.delete(SERVICOS, ID + "=?", new String[]{id + ""});
-        return nLinhas == 1;
-    }
     public void removerAllServicosBD(){
         this.db.delete(SERVICOS,null, null);
     }
@@ -255,6 +239,55 @@ public class BDHelper extends SQLiteOpenHelper {
             cursor.close();
         }
         return Servicos;
+    }
+
+    //endregion
+
+    //region CRUD Reviews
+
+    public Review adicionarReviewBD(Review r){
+        ContentValues values = new ContentValues();
+        values.put(ID,r.getId());
+        values.put(CONTEUDO,r.getConteudo());
+        values.put(DATAHORA, String.valueOf(r.getDatahora()));
+        values.put(AVALIACAO,r.getAvaliacao());
+        values.put(SERVICO_ID,r.getServico_id());
+        values.put(USERPROFILE_ID,r.getUserprofile_id());
+
+        long id = this.db.insert(REVIEWS, null,values);
+
+        if(id > -1) {
+            r.setId((int) id);
+            return r;
+        }
+
+        return null;
+    }
+
+    public boolean isReviewExists(int reviewId) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Open the database in read-only mode
+        boolean exists = false;
+
+        Cursor cursor = null;
+        try {
+            // Query to check if the user ID exists in the database
+            String query = "SELECT 1 FROM Reviews WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(reviewId)});
+
+            // If the cursor has at least one result, the user exists
+            exists = (cursor.getCount() > 0);
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Always close the cursor to avoid memory leaks
+            }
+        }
+
+        return exists;
+    }
+
+    public boolean removerReviewBD(int id){
+        int nLinhas = this.db.delete(REVIEWS, ID + "=?", new String[]{id + ""});
+        return nLinhas == 1;
     }
 
     //endregion

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,13 +21,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.amsi_project.adaptadores.ListaLinhasCarrinhoAdaptador;
+import com.example.amsi_project.adaptadores.ListaReviewsAdaptador;
+import com.example.amsi_project.listeners.ReviewsListener;
 import com.example.amsi_project.listeners.UserProfileListener;
 import com.example.amsi_project.modelo.BDHelper;
+import com.example.amsi_project.modelo.Review;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.SingletonGardenLabsManager;
 
-public class DetalhesServicoActivity extends AppCompatActivity implements UserProfileListener {
+import java.util.ArrayList;
 
+public class DetalhesServicoActivity extends AppCompatActivity implements UserProfileListener, ReviewsListener {
+
+    private ListView lvReviews;
     private TextView tvTitulo, tvDescricao, tvDuracao, tvPreco,tvPrestadorID;
     private ImageButton btnAddtoCart,btnAddtoWishlist;
     private ImageView imgCapa;
@@ -51,9 +59,12 @@ public class DetalhesServicoActivity extends AppCompatActivity implements UserPr
         imgCapa=findViewById(R.id.imgCapa);
         btnAddtoCart=findViewById(R.id.btnAddToCart);
         btnAddtoWishlist=findViewById(R.id.btnWishlist);
+        lvReviews = findViewById(R.id.lvReviews);
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setUserProfileListener(this);
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).setReviewsListener(this);
         SingletonGardenLabsManager.getInstance(getApplicationContext()).getProviderAPI(servico.getPrestador_id(),getApplicationContext());
+        SingletonGardenLabsManager.getInstance(getApplicationContext()).getServiceReviewsAPI(servico.getId(),getApplicationContext());
 
         if (servico != null)
             carregarServicos();
@@ -136,8 +147,8 @@ public class DetalhesServicoActivity extends AppCompatActivity implements UserPr
 
         builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                String reviewText = input.getText().toString();
-                submitReview(reviewText);
+                String text = input.getText().toString();
+                SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarReviewAPI(text, servico.getPreco(), servico.getId(),getApplicationContext());
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -149,10 +160,6 @@ public class DetalhesServicoActivity extends AppCompatActivity implements UserPr
         builder.create().show();
     }
 
-    private void submitReview(String reviewText) {
-        Toast.makeText(this, "Review Submitted: " + reviewText, Toast.LENGTH_LONG).show();
-    }
-
     @Override
     public void onRefreshDetalhes(String nome, String morada, Integer telefone, Integer nif) {
         tvPrestadorID.setText(nome);
@@ -162,5 +169,12 @@ public class DetalhesServicoActivity extends AppCompatActivity implements UserPr
         SharedPreferences sharedPref = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
         int userprofileID = sharedPref.getInt("profileid", -1); // Retrieve the user ID as Integer
         return userprofileID; // Return the token, or null if not found
+    }
+
+    @Override
+    public void onRefreshListaReviews(ArrayList<Review> listReviews) {
+        if(listReviews != null){
+            lvReviews.setAdapter(new ListaReviewsAdaptador(listReviews,getApplicationContext()));
+        }
     }
 }

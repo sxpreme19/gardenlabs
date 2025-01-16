@@ -31,6 +31,7 @@ import com.example.amsi_project.listeners.LoginListener;
 import com.example.amsi_project.listeners.MetodosPagamentoListener;
 import com.example.amsi_project.listeners.RegisterListener;
 import com.example.amsi_project.listeners.ResetPasswordListener;
+import com.example.amsi_project.listeners.ReviewsListener;
 import com.example.amsi_project.listeners.ServicoListener;
 import com.example.amsi_project.listeners.ServicosListener;
 import com.example.amsi_project.listeners.UserListener;
@@ -64,6 +65,7 @@ public class SingletonGardenLabsManager {
     private Userprofile userprofile;
     private Carrinhoservico cart;
     private ArrayList<Servico> services;
+    private ArrayList<Review> reviews;
     private ArrayList<Favorito> favoritos;
     private ArrayList<Metodopagamento> metodospagamento;
     private ArrayList<Fatura> faturas;
@@ -79,7 +81,7 @@ public class SingletonGardenLabsManager {
     private UserListener userListener;
     private UserProfileListener userProfileListener;
     private ServicosListener servicosListener;
-    private ServicoListener servicoListener;
+    private ReviewsListener reviewsListener;
     private CartListener cartListener;
     private CartLinesListener cartLinesListener;
     private FavoritosListener favoritosListener;
@@ -103,8 +105,8 @@ public class SingletonGardenLabsManager {
         this.servicosListener = servicosListener;
     }
 
-    public void setServicoListener(ServicoListener servicoListener) {
-        this.servicoListener = servicoListener;
+    public void setReviewsListener(ReviewsListener reviewsListener) {
+        this.reviewsListener = reviewsListener;
     }
 
     public void setCartListener(CartListener cartListener) {
@@ -181,6 +183,14 @@ public class SingletonGardenLabsManager {
             BD.removerAllServicosBD();
             for (Servico l : servicos) {
                 BD.adicionarServicoBD(l);
+            }
+        }
+
+        public void adicionarReviewsBD(ArrayList<Review> reviews) {
+            for (Review review : reviews) {
+                if (!BD.isReviewExists(review.getId())){
+                    BD.adicionarReviewBD(review);
+                }
             }
         }
 
@@ -325,6 +335,86 @@ public class SingletonGardenLabsManager {
                     }
                 });
                 volleyQueue.add(reqServices); //faz o pedido á API;
+            }
+        }
+        //endregion
+
+        //region API-Reviews
+        public void adicionarReviewAPI(String conteudo,double avaliacao,int servicoid , final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqAdicionarReview = new StringRequest(Request.Method.POST, baseURL+"reviews?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BD.adicionarReviewBD(JsonParser.parserJsonReview(response));
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                        String currentDateAndTime = sdf.format(new Date());
+
+                        params.put("token", getTokenFromSharedPreferences(context));
+                        params.put("conteudo",conteudo);
+                        params.put("datahora",currentDateAndTime);
+                        params.put("avaliacao", String.valueOf(avaliacao));
+                        params.put("servico_id", servicoid+ "");
+                        params.put("userprofile_id", getUserProfileIDFromSharedPreferences(context));
+                        return params;
+                    }
+                };
+                volleyQueue.add(reqAdicionarReview); //faz o pedido á API
+            }
+        }
+        public void getServiceReviewsAPI(int serviceId,final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                JsonArrayRequest reqReviews = new JsonArrayRequest(Request.Method.GET, baseURL+"reviews/servico_id/"+serviceId+"?access-token="+getTokenFromSharedPreferences(context), null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        reviews = JsonParser.parserJsonReviews(response);
+                        adicionarReviewsBD(reviews);
+
+                        if (reviewsListener != null) {
+                            reviewsListener.onRefreshListaReviews(reviews);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqReviews); //faz o pedido á API;
+            }
+        }
+        public void removerReviewAPI(int id, final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqRemoverReview = new StringRequest(Request.Method.DELETE, baseURL + "reviews/" + id + "?access-token=" + getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        BD.removerReviewBD(id);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqRemoverReview); //faz o pedido á API
             }
         }
         //endregion
