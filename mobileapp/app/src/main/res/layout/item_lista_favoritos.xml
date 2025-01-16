@@ -109,7 +109,6 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Add to Cart"
         app:srcCompat="@drawable/ic_action_cart"
         app:tint="@color/gl_green" />
 
@@ -118,7 +117,6 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Remove Item"
         app:srcCompat="@drawable/ic_action_remove"
         app:tint="@color/delete_red" />
 </LinearLayout>

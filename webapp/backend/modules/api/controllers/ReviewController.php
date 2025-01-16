@@ -2,7 +2,7 @@
 
 namespace backend\modules\api\controllers;
 
-use common\models\Servico;
+use common\models\Review;
 use yii\filters\auth\QueryParamAuth;
 use yii\rest\ActiveController;
 
@@ -24,7 +24,7 @@ class ReviewController extends ActiveController
 
     public function actionGetbyservicoid($id)
     {
-        $reviews = Servico::find()
+        $reviews = Review::find()
             ->where(['servico_id' => $id])
             ->all();
 

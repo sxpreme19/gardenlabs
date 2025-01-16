@@ -134,6 +134,9 @@ id tvPrestadorLabel
 id tvRecipientInfo
 id tvRegisterLink
 id tvResetPassword
+id tvReviewContent
+id tvReviewEval
+id tvReviewUser
 id tvReviewsTitle
 id tvSubtitle
 id tvTelefone
@@ -162,6 +165,7 @@ layout item_lista_faturas
 layout item_lista_favoritos
 layout item_lista_linhascarrinho
 layout item_lista_linhasfatura
+layout item_lista_reviews
 layout item_lista_servico
 layout nav_header_main
 menu menu_api

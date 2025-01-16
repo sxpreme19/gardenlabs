@@ -11,6 +11,7 @@ import com.example.amsi_project.modelo.Favorito;
 import com.example.amsi_project.modelo.Linhacarrinhoservico;
 import com.example.amsi_project.modelo.Linhafatura;
 import com.example.amsi_project.modelo.Metodopagamento;
+import com.example.amsi_project.modelo.Review;
 import com.example.amsi_project.modelo.Servico;
 import com.example.amsi_project.modelo.User;
 import com.example.amsi_project.modelo.Userprofile;
@@ -97,26 +98,6 @@ public class JsonParser {
         return auxUserprofile;
     }
 
-    //Method parserJsonServico(), que devolve apenas um servico;
-    public static Servico parserJsonServico(String response){
-        Servico auxServico = null;
-
-        try {
-            JSONObject servico = new JSONObject(response);
-            int id = servico.getInt("id");
-            String titulo = servico.getString("titulo");
-            String descricao = servico.getString("descricao");
-            int duracao = servico.getInt("duracao");
-            double preco = servico.getDouble("preco");
-            int prestador_id = servico.getInt("prestador_id");
-
-            auxServico = new Servico(id,titulo,descricao,duracao,preco,prestador_id);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        return auxServico;
-    }
-
     //Method parserJsonServicos(), que devolve a lista de Servicos;
     public static ArrayList<Servico> parserJsonServices(JSONArray response) {
         ArrayList<Servico> services = new ArrayList<>();
@@ -137,6 +118,66 @@ public class JsonParser {
 
         }
         return services;
+    }
+
+    //Method parserJsonReview(), que devolve apenas uma review;
+    public static Review parserJsonReview(String response){
+        Review auxReview = null;
+
+        try {
+            JSONObject review = new JSONObject(response);
+            int id = review.getInt("id");
+            String conteudo = review.getString("conteudo");
+            String datahora = review.getString("datahora");
+            double avaliacao = review.getDouble("avaliacao");
+            int servico_id = review.getInt("servico_id");
+            int userprofile_id = review.getInt("userprofile_id");
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date;
+            try {
+                // Parse the date
+                date = formatter.parse(datahora);
+            } catch (ParseException e) {
+                throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
+            }
+
+            auxReview = new Review(id,conteudo,date,avaliacao,servico_id,userprofile_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return auxReview;
+    }
+
+    //Method parserJsonReviews(), que devolve a lista de reviews associados a um servico;
+    public static ArrayList<Review> parserJsonReviews(JSONArray response) {
+        ArrayList<Review> reviews = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject review = null;
+            try {
+                review = (JSONObject) response.get(i);
+                int id = review.getInt("id");
+                String conteudo = review.getString("conteudo");
+                String datahora = review.getString("datahora");
+                double avaliacao = review.getDouble("avaliacao");
+                int servico_id = review.getInt("servico_id");
+                int userprofile_id = review.getInt("userprofile_id");
+
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date;
+                try {
+                    // Parse the date
+                    date = formatter.parse(datahora);
+                } catch (ParseException e) {
+                    throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
+                }
+                reviews.add(new Review(id,conteudo,date,avaliacao,servico_id,userprofile_id));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        return reviews;
     }
 
     //Method parserJsonCart(), que devolve o carrinho do user logado;

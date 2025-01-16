@@ -130,7 +130,7 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/review',
                     'extraPatterns' => [
-                        'GET servico_id/{id}' => 'servicoid',
+                        'GET servico_id/{id}' => 'getbyservicoid',
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',
