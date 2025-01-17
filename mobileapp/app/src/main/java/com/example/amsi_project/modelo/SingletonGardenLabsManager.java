@@ -162,6 +162,7 @@ public class SingletonGardenLabsManager {
         services = new ArrayList<>();
         BD = new BDHelper(context);
         ip = getAPIHostFromSharedPreferences(context);
+        Log.d("DEBUG", "API Host from SharedPreferences: " + ip);
         baseURL = "http://"+ip+"/gardenlabs/webapp/backend/web/api/";
     }
 
@@ -348,6 +349,7 @@ public class SingletonGardenLabsManager {
                     @Override
                     public void onResponse(String response) {
                         BD.adicionarReviewBD(JsonParser.parserJsonReview(response));
+                        SingletonGardenLabsManager.getInstance(context).getServiceReviewsAPI(servicoid,context);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -407,6 +409,7 @@ public class SingletonGardenLabsManager {
                     @Override
                     public void onResponse(String response) {
                         BD.removerReviewBD(id);
+                        SingletonGardenLabsManager.getInstance(context).getServiceReviewsAPI(id,context);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -434,7 +437,15 @@ public class SingletonGardenLabsManager {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                        String errorMessage = (error != null && error.getMessage() != null)
+                                ? error.getMessage()
+                                : "An unknown error occurred";
+
+                        // Log the error for debugging
+                        Log.e("ERROR", errorMessage, error);
+
+                        // Display a user-friendly message
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
                 volleyQueue.add(reqUsers); //faz o pedido á API;

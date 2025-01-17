@@ -108,6 +108,7 @@ id tvBillingNifLabel
 id tvBillingPhone
 id tvBillingPhoneLabel
 id tvData
+id tvDeleteReview
 id tvDescricao
 id tvDescricaoLabel
 id tvDuracao
@@ -123,6 +124,7 @@ id tvItemsTitle
 id tvLoginLink
 id tvMorada
 id tvNIF
+id tvNoReviews
 id tvNome
 id tvOrderSummaryHeader
 id tvPaymentMethod

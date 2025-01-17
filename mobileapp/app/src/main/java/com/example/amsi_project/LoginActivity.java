@@ -44,6 +44,8 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
         SharedPreferences sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
         apihost = sharedPreferences.getString("apihost", "10.0.2.2");
+        Log.d("DEBUG", "API Host from SharedPreferences: " + apihost);
+
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setLoginListener(this);
         SingletonGardenLabsManager.getInstance(getApplicationContext()).getUsersAPI(this);

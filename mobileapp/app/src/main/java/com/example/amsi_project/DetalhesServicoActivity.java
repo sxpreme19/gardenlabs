@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 public class DetalhesServicoActivity extends AppCompatActivity implements UserProfileListener, ReviewsListener {
 
     private ListView lvReviews;
-    private TextView tvTitulo, tvDescricao, tvDuracao, tvPreco,tvPrestadorID;
+    private TextView tvTitulo, tvDescricao, tvDuracao, tvPreco,tvPrestadorID,tvNoReviews;
     private ImageButton btnAddtoCart,btnAddtoWishlist;
     private ImageView imgCapa;
     private Servico servico;
@@ -60,6 +61,7 @@ public class DetalhesServicoActivity extends AppCompatActivity implements UserPr
         btnAddtoCart=findViewById(R.id.btnAddToCart);
         btnAddtoWishlist=findViewById(R.id.btnWishlist);
         lvReviews = findViewById(R.id.lvReviews);
+        tvNoReviews = findViewById(R.id.tvNoReviews);
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setUserProfileListener(this);
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setReviewsListener(this);
@@ -141,14 +143,26 @@ public class DetalhesServicoActivity extends AppCompatActivity implements UserPr
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Leave a Review");
 
-        final EditText input = new EditText(this);
-        input.setHint("Write your review here...");
-        builder.setView(input);
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(50, 40, 50, 10);
+
+        final EditText inputContent = new EditText(this);
+        inputContent.setHint("Content");
+        layout.addView(inputContent);
+
+        final EditText inputRating = new EditText(this);
+        inputRating.setHint("Rating (0-5)");
+        inputRating.setInputType(android.text.InputType.TYPE_CLASS_NUMBER | android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        layout.addView(inputRating);
+
+        builder.setView(layout);
 
         builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                String text = input.getText().toString();
-                SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarReviewAPI(text, servico.getPreco(), servico.getId(),getApplicationContext());
+                String conteudo = inputContent.getText().toString();
+                double avaliacao = Double.parseDouble(inputRating.getText().toString());
+                SingletonGardenLabsManager.getInstance(getApplicationContext()).adicionarReviewAPI(conteudo, avaliacao, servico.getId(),getApplicationContext());
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -173,8 +187,13 @@ public class DetalhesServicoActivity extends AppCompatActivity implements UserPr
 
     @Override
     public void onRefreshListaReviews(ArrayList<Review> listReviews) {
-        if(listReviews != null){
+        if(listReviews != null && !listReviews.isEmpty()){
+            lvReviews.setVisibility(View.VISIBLE);
             lvReviews.setAdapter(new ListaReviewsAdaptador(listReviews,getApplicationContext()));
+            tvNoReviews.setVisibility(View.GONE);
+        }else{
+            tvNoReviews.setVisibility(View.VISIBLE);
+            lvReviews.setVisibility(View.GONE);
         }
     }
 }

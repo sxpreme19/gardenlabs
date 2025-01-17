@@ -3676,6 +3676,7 @@ int id tvBillingNifLabel 0x7f080264
 int id tvBillingPhone 0x7f080256
 int id tvBillingPhoneLabel 0x7f080265
 int id tvData 0x7f08025f
+int id tvDeleteReview 0x7f08026a
 int id tvDescricao 0x7f080234
 int id tvDescricaoLabel 0x7f080244
 int id tvDuracao 0x7f080210
@@ -3691,6 +3692,7 @@ int id tvItemsTitle 0x7f08024b
 int id tvLoginLink 0x7f080211
 int id tvMorada 0x7f080240
 int id tvNIF 0x7f080241
+int id tvNoReviews 0x7f08026b
 int id tvNome 0x7f080242
 int id tvOrderSummaryHeader 0x7f08025c
 int id tvPaymentMethod 0x7f08024c
