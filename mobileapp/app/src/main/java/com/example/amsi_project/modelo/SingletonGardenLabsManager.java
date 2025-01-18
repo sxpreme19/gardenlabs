@@ -26,6 +26,7 @@ import com.example.amsi_project.listeners.CartListener;
 import com.example.amsi_project.listeners.FaturaListener;
 import com.example.amsi_project.listeners.FaturasListener;
 import com.example.amsi_project.listeners.FavoritosListener;
+import com.example.amsi_project.listeners.HomeListener;
 import com.example.amsi_project.listeners.LinhasFaturaListener;
 import com.example.amsi_project.listeners.LoginListener;
 import com.example.amsi_project.listeners.MetodosPagamentoListener;
@@ -92,6 +93,7 @@ public class SingletonGardenLabsManager {
     private LoginListener loginListener;
     private RegisterListener registerListener;
     private ResetPasswordListener resetPasswordListener;
+    private HomeListener homeListener;
 
     public void setUserListener(UserListener userListener) {
         this.userListener = userListener;
@@ -147,6 +149,10 @@ public class SingletonGardenLabsManager {
 
     public void setResetPasswordListener(ResetPasswordListener resetPasswordListener) {
         this.resetPasswordListener = resetPasswordListener;
+    }
+
+    public void setHomeListener(HomeListener homeListener) {
+        this.homeListener = homeListener;
     }
 
     //endregion
@@ -247,6 +253,36 @@ public class SingletonGardenLabsManager {
 
     //region Acesso á API
         //region API-Servicos
+        public void getServiceCountAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqUserprofile = new StringRequest(Request.Method.GET, baseURL+"servico/count?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int serviceCount;
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            serviceCount = jsonResponse.getInt("count");
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        if (homeListener != null) {
+                            homeListener.onRefreshHome(serviceCount);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String errorMessage = "Error on count!";
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqUserprofile); //faz o pedido á API;
+            }
+        }
         public void getAllServicesAPI(final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -318,24 +354,6 @@ public class SingletonGardenLabsManager {
                     }
                 });
                 volleyQueue.add(reqUserprofile); //faz o pedido á API;
-            }
-        }
-        public void getAllServicesCountAPI(final Context context) {
-            if (!JsonParser.isConnectionInternet(context)) {
-                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-            } else {
-                StringRequest reqServices = new StringRequest(Request.Method.GET, baseURL+"servico/count?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-                volleyQueue.add(reqServices); //faz o pedido á API;
             }
         }
         //endregion
@@ -1054,7 +1072,8 @@ public class SingletonGardenLabsManager {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, "Register inválido!", Toast.LENGTH_LONG).show();
+                    String errorMessage = "Register inválido!";
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
                 }
             }) {
                 @Nullable

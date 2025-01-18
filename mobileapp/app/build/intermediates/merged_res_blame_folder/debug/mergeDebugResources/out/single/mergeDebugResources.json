@@ -1,41 +1,25 @@
 [
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_add.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_add.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_logoonlyleaf.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\logoonlyleaf.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_search.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_search.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\menu_menu_review.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\menu\\menu_review.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_email.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_email.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_menu_main.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_menu_main.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_detalhes_servico.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_detalhes_servico.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_goback.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/menu/menu_goback.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_view.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_view.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxxhdpi_ic_user.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-xxxhdpi/ic_user.webp"
-    },
-    {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_api.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/menu/menu_api.xml"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-anydpi-v26_ic_user.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-anydpi-v26/ic_user.xml"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_home.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_home.png"
-=======
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_view.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_view.png"
     },
@@ -46,140 +30,130 @@
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_home.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_home.png"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_not_wishlist.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_not_wishlist.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_cart.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_cart.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable_logoipl.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable/logoipl.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_service.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_service.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_wishlist.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_wishlist.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_save.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_save.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_review.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/menu/menu_review.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_add.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_add.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_go_back.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_go_back.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_dialog_filters_servicos.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\dialog_filters_servicos.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_home.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_home.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_reset_password.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_reset_password.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_lista.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_lista.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_remove.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_remove.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_user.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_user.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_save.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_save.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_cart.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_cart.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_home.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_home.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_delete.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_delete.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_add.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_add.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_remove.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_remove.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_email.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_email.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_services.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_services.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_add.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_add.png"
     },
     {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_review.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_review.png"
-=======
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_api.xml.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_api.xml"
     },
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_search.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_search.png"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_email.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_email.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_review.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_review.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_user.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_user.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_search.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_search.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_item_lista_linhasfatura.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/item_lista_linhasfatura.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_fragment_cart.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\fragment_cart.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xhdpi_ic_user.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-xhdpi/ic_user.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_services.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_services.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_search.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_search.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_email.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_email.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_delete.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_delete.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_email.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_email.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_lista.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_lista.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_history.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_history.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_fragment_wishlist.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\fragment_wishlist.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_history.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_history.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_wishlist.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_wishlist.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable_appbg.jpg.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable/appbg.jpg"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_go_back.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_go_back.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_home.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_home.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_history.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_history.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_logout.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_logout.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_wishlist.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_wishlist.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_service.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_service.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_save.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_save.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable_appbg2.jpg.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable/appbg2.jpg"
-    },
-    {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_lista.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_lista.xml"
-=======
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_api.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_api.png"
+    },
+    {
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_view.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_view.png"
     },
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_api.png.flat",
@@ -188,463 +162,396 @@
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-mdpi_ic_user_round.webp.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-mdpi\\ic_user_round.webp"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_logout.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_logout.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_addimg03.jpg.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\addimg03.jpg"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_view.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_view.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_appbg2.jpg.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\appbg2.jpg"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_search.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_search.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_serviceimg.jpg.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\serviceimg.jpg"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxhdpi_ic_user_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-xxhdpi/ic_user_round.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_login.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_cart.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_cart.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_save.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_save.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_logout.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_logout.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_services.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_services.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_purchase.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_purchase.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_services.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_services.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable_serviceimg.jpg.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable/serviceimg.jpg"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_logoipl.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\logoipl.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_cart.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_cart.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-hdpi_ic_user_round.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-hdpi\\ic_user_round.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_grelha.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_grelha.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_view.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_view.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_not_wishlist.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_not_wishlist.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_service.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_service.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_grelha.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_grelha.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_purchase.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_purchase.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_history.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_history.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_logout.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_logout.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_service.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_service.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_go_back.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_go_back.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_item_lista_linhascarrinho.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/item_lista_linhascarrinho.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_review.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_review.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\fragment_home.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_invoice.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_invoice.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_add.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_add.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-anydpi-v26_ic_user_round.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-anydpi-v26/ic_user_round.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-hdpi_ic_user.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-hdpi\\ic_user.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_go_back.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_go_back.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_delete.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_delete.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_lista.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_lista.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_save.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_save.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_account.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/fragment_account.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_item_lista_linhasfatura.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\item_lista_linhasfatura.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_search.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_search.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_nav_header_main.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\nav_header_main.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_history.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_history.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\menu_menu_pesquisa.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\menu\\menu_pesquisa.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_invoice.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_invoice.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\xml\\backup_rules.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_go_back.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_go_back.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_checkout.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_checkout.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_user.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_user.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_email.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_email.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable/ic_launcher_background.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_grelha.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_grelha.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_remove.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_remove.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_review.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_review.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_delete.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_delete.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_search.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_search.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_remove.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_remove.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-xxhdpi_ic_user_round.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-xxhdpi\\ic_user_round.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_delete.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_delete.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_history.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_history.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_invoice.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_invoice.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_invoice.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_invoice.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_view.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_view.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_logonobackground.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\logonobackground.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_checkout.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_checkout.xml"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_add.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_add.xml"
-    },
-    {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_api.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_api.png"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_email.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_email.png"
-=======
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_home.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_home.png"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_wishlist.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_wishlist.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_not_wishlist.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_not_wishlist.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_invoice.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_invoice.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_add.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_add.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_cart.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_cart.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_add.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_add.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_not_wishlist.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_not_wishlist.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_services.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_services.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_services.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_services.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_save.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_save.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_logout.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_logout.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_not_wishlist.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_not_wishlist.xml"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_view.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_view.png"
-    },
-    {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_api.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_api.png"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_go_back.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_go_back.xml"
-=======
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_grelha.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_grelha.png"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_user.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_user.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_lista.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_lista.png"
     },
     {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxxhdpi_ic_user_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-xxxhdpi/ic_user_round.webp"
-=======
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_api.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_api.png"
     },
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_user.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_user.png"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_service.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_service.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_remove.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_remove.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/xml/data_extraction_rules.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_not_wishlist.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_not_wishlist.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xxhdpi_ic_user.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-xxhdpi/ic_user.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_search.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_search.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_email.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_email.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_remove.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_remove.png"
     },
     {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_api.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_api.xml"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_home.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/fragment_home.xml"
-=======
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_logout.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_logout.png"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_services.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_services.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_history.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_history.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_history.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_history.xml"
     },
     {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_api.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_api.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_history.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_history.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_lista.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_lista.png"
-=======
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_invoice.xml.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_invoice.xml"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_main.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/menu/menu_main.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_item_lista_favoritos.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\item_lista_favoritos.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_cart.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_cart.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_save.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_save.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_save.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_save.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_user.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_user.png"
-    },
-    {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/drawable_logonobackground.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable/logonobackground.png"
-=======
-        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_api.png.flat",
-        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_api.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-mdpi_ic_user.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-mdpi\\ic_user.webp"
     },
     {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_item_lista_reviews.xml.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\item_lista_reviews.xml"
     },
     {
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_api.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_api.png"
+    },
+    {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-anydpi-v26_ic_user_round.xml.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-anydpi-v26\\ic_user_round.xml"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_wishlist.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_wishlist.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_grelha.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_grelha.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_not_wishlist.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_not_wishlist.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_add.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_add.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_services.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_services.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_fragment_purchase_history.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\fragment_purchase_history.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_review.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_review.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-xxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_home.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_home.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_invoice.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_invoice.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_view.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_view.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_go_back.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_go_back.xml"
+    },
+    {
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-xhdpi_ic_user.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-xhdpi\\ic_user.webp"
+    },
+    {
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_search.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_search.png"
     },
     {
         "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_wishlist.xml.flat",
         "source": "com.example.amsi_project.app-main-34:/layout/fragment_wishlist.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-hdpi_ic_user_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-hdpi/ic_user_round.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_go_back.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_go_back.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_nav_header_main.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/nav_header_main.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_delete.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_delete.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_dialog_filters_servicos.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/dialog_filters_servicos.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_wishlist.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_wishlist.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_save.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_save.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_email.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_email.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_fragment_lista_servicos.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\fragment_lista_servicos.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-mdpi_ic_user_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-mdpi/ic_user_round.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_lista.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_lista.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/menu_menu_pesquisa.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/menu/menu_pesquisa.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_fragment_account.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\fragment_account.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-hdpi_ic_user.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-hdpi/ic_user.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-anydpi-v26_ic_user.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-anydpi-v26\\ic_user.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_reset_password.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_reset_password.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_review.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_review.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_view.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_view.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_ic_user_foreground.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\ic_user_foreground.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_review.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_review.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xxhdpi_ic_action_invoice.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xxhdpi\\ic_action_invoice.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_invoice.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_invoice.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_home.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_home.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_wishlist.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_wishlist.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\menu_menu_main.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\menu\\menu_main.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-mdpi_ic_user.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-mdpi/ic_user.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-xxxhdpi_ic_user.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-xxxhdpi\\ic_user.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_grelha.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_grelha.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_remove.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_remove.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_purchase_history.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/fragment_purchase_history.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_not_wishlist.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_not_wishlist.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/xml_backup_rules.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/xml/backup_rules.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_item_lista_faturas.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\item_lista_faturas.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_grelha.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_grelha.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_home.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_home.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_app_bar_main.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/app_bar_main.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_cart.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_cart.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_logout.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_logout.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_lista.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_lista.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_search.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_search.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_app_bar_main.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\app_bar_main.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_delete.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_delete.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-xxxhdpi_ic_user_round.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-xxxhdpi\\ic_user_round.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_item_lista_faturas.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/item_lista_faturas.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_menu_main.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_menu_main.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/mipmap-xhdpi_ic_user_round.webp.flat",
-        "source": "com.example.amsi_project.app-main-34:/mipmap-xhdpi/ic_user_round.webp"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_item_lista_linhascarrinho.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\item_lista_linhascarrinho.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_register.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_register.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-mdpi_ic_action_service.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-mdpi\\ic_action_service.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_item_lista_favoritos.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/item_lista_favoritos.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_review.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_review.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_review.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_review.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_grelha.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_grelha.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_service.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_service.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_register.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_register.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_history.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_history.png"
-    },
-    {
-<<<<<<< HEAD
-        "merged": "com.example.amsi_project.app-debug-32:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable/ic_launcher_foreground.xml"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_api.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_api.png"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_detalhes_servico.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_detalhes_servico.xml"
-=======
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_email.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_email.png"
     },
@@ -701,108 +608,79 @@
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_services.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_detalhes_servico.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_detalhes_servico.xml"
-    },
-    {
         "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_delete.png.flat",
         "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_delete.png"
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_login.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_login.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_remove.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_remove.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_lista_servicos.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/fragment_lista_servicos.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_view.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_view.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_fragment_cart.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/fragment_cart.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_appbg3.jpg.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\appbg3.jpg"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_item_lista_servico.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/item_lista_servico.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\menu_menu_goback.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\menu\\menu_goback.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_remove.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_remove.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\layout_activity_detalhes_fatura.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\layout\\activity_detalhes_fatura.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-anydpi_ic_action_home.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-anydpi/ic_action_home.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_user.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_user.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_save.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_save.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_go_back.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_go_back.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable_ic_user_foreground.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable/ic_user_foreground.xml"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\mipmap-xhdpi_ic_user_round.webp.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\mipmap-xhdpi\\ic_user_round.webp"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_remove.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_remove.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_not_wishlist.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_not_wishlist.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_logout.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_logout.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\xml\\data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_not_wishlist.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_not_wishlist.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable_addimg04.jpg.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable\\addimg04.jpg"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_cart.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_cart.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-xhdpi_ic_action_grelha.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-xhdpi\\ic_action_grelha.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_services.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_services.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_wishlist.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_wishlist.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_lista.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_lista.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_go_back.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_go_back.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_wishlist.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_wishlist.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_user.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_user.png"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xxhdpi_ic_action_add.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xxhdpi/ic_action_add.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-anydpi_ic_action_service.xml.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-anydpi\\ic_action_service.xml"
     },
     {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_service.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_service.png"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-hdpi_ic_action_cart.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-hdpi/ic_action_cart.png"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable_logoonlyleaf.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable/logoonlyleaf.png"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_user.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_user.png"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/layout_activity_detalhes_fatura.xml.flat",
-        "source": "com.example.amsi_project.app-main-34:/layout/activity_detalhes_fatura.xml"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-mdpi_ic_action_grelha.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-mdpi/ic_action_grelha.png"
-    },
-    {
-        "merged": "com.example.amsi_project.app-debug-32:/drawable-xhdpi_ic_action_delete.png.flat",
-        "source": "com.example.amsi_project.app-main-34:/drawable-xhdpi/ic_action_delete.png"
+        "merged": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-debug-32:\\drawable-hdpi_ic_action_invoice.png.flat",
+        "source": "C:\\Users\\tomas\\.gradle\\daemon\\8.7\\com.example.amsi_project.app-main-34:\\drawable-hdpi\\ic_action_invoice.png"
     }
 ]

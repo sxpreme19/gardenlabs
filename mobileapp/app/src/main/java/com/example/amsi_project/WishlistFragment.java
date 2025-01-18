@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amsi_project.adaptadores.ListaFavoritosAdaptador;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 
 public class WishlistFragment extends Fragment implements FavoritosListener {
 
-    public static final int ADD = 100,EDIT = 200, DELETE = 300;
+    private TextView tvNoFavorites;
     private ListView lvFavoritos;
     private ArrayList<Favorito> favoritos;
 
@@ -34,6 +35,7 @@ public class WishlistFragment extends Fragment implements FavoritosListener {
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
 
         lvFavoritos = view.findViewById(R.id.lvFavoritos);
+        tvNoFavorites = view.findViewById(R.id.tvNoFavorites);
         SingletonGardenLabsManager.getInstance(getContext()).setFavoritosListener(this);
         SingletonGardenLabsManager.getInstance(getContext()).getFavoritosAPI(getContext());
 
@@ -42,8 +44,13 @@ public class WishlistFragment extends Fragment implements FavoritosListener {
 
     @Override
     public void onRefreshListaFavoritos(ArrayList<Favorito> favoritos) {
-        if(lvFavoritos != null){
+        if(favoritos != null && !favoritos.isEmpty()){
             lvFavoritos.setAdapter(new ListaFavoritosAdaptador(favoritos,getContext()));
+            lvFavoritos.setVisibility(View.VISIBLE);
+            tvNoFavorites.setVisibility(View.GONE);
+        }else{
+            lvFavoritos.setVisibility(View.GONE);
+            tvNoFavorites.setVisibility(View.VISIBLE);
         }
     }
 }

@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-#Fri Jan 17 02:51:10 WET 2025
-=======
-<<<<<<< HEAD
-#Thu Jan 16 02:25:01 WET 2025
-=======
-#Thu Jan 16 02:03:00 WET 2025
->>>>>>> 792d5b029dab52d7d407be5660625fcc8731b45d
->>>>>>> 9ae99750e44c088c4faa7b1d3df70f51ba1295d5
+#Sat Jan 18 21:58:44 WET 2025
 base.0=C\:\\wamp64\\www\\gardenlabs\\mobileapp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\wamp64\\www\\gardenlabs\\mobileapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\wamp64\\www\\gardenlabs\\mobileapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex

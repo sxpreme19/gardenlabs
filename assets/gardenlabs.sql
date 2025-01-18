@@ -38,7 +38,7 @@ CREATE TABLE `auth_assignment` (
 
 LOCK TABLES `auth_assignment` WRITE;
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
-INSERT INTO `auth_assignment` VALUES ('admin','90',1735756927),('client','113',1736961959),('client','91',1736182073),('manager','111',1736373522),('provider','104',1736111455),('provider','112',1736650985);
+INSERT INTO `auth_assignment` VALUES ('admin','90',1735756927),('client','91',1736182073),('manager','111',1736373522),('provider','104',1736111455),('provider','112',1736650985);
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +139,7 @@ CREATE TABLE `carrinhoproduto` (
   `userprofile_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_carrinhoproduto_userprofile1_idx` (`userprofile_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +148,7 @@ CREATE TABLE `carrinhoproduto` (
 
 LOCK TABLES `carrinhoproduto` WRITE;
 /*!40000 ALTER TABLE `carrinhoproduto` DISABLE KEYS */;
-INSERT INTO `carrinhoproduto` VALUES (45,0,88),(29,0,68),(28,0,67);
+INSERT INTO `carrinhoproduto` VALUES (29,0,68),(28,0,67);
 /*!40000 ALTER TABLE `carrinhoproduto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +190,7 @@ CREATE TABLE `carrinhoservico` (
   `userprofile_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_carrinhoservico_userprofile1_idx` (`userprofile_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +199,7 @@ CREATE TABLE `carrinhoservico` (
 
 LOCK TABLES `carrinhoservico` WRITE;
 /*!40000 ALTER TABLE `carrinhoservico` DISABLE KEYS */;
-INSERT INTO `carrinhoservico` VALUES (28,0,68),(27,0,67),(44,0,88);
+INSERT INTO `carrinhoservico` VALUES (28,0,68),(27,0,67);
 /*!40000 ALTER TABLE `carrinhoservico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +250,7 @@ CREATE TABLE `fatura` (
   KEY `fk_fatura_metodopagamento1_idx` (`metodopagamento_id`),
   KEY `fk_fatura_metodoexpedicao1_idx` (`metodoexpedicao_id`),
   KEY `fk_fatura_userprofile1_idx` (`userprofile_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=135 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +259,7 @@ CREATE TABLE `fatura` (
 
 LOCK TABLES `fatura` WRITE;
 /*!40000 ALTER TABLE `fatura` DISABLE KEYS */;
-INSERT INTO `fatura` VALUES (38,21.5,'2025-01-02 00:00:00','Andre Costa','Rua da Camelia, Buarcos',NULL,NULL,0.5,5,6,68),(42,1230.5,'2025-01-07 00:00:00','diogo','Rua da Silveira, Chã',961234567,431252313,0.5,5,6,68),(90,21.5,'2025-01-14 16:42:45','diogo','Rua da Silveira, Figueira da Foz',NULL,NULL,0.5,6,6,68);
+INSERT INTO `fatura` VALUES (38,21.5,'2025-01-02 00:00:00','Andre Costa','Rua da Camelia, Buarcos',NULL,NULL,0.5,5,6,68),(42,1230.5,'2025-01-07 00:00:00','diogo','Rua da Silveira, Chã',961234567,431252313,0.5,5,6,68),(135,67,'2025-01-16 03:04:47','diogo','Rua da Silveira, Figueira da Foz',961234513,431252354,NULL,5,NULL,68),(90,21.5,'2025-01-14 16:42:45','diogo','Rua da Silveira, Figueira da Foz',NULL,NULL,0.5,6,6,68),(136,50,'2025-01-16 03:05:18','diogo','Rua da Silveira, Figueira da Foz',961234513,431252354,NULL,5,NULL,68);
 /*!40000 ALTER TABLE `fatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +279,7 @@ CREATE TABLE `favorito` (
   KEY `fk_favorito_userprofile1_idx` (`userprofile_id`),
   KEY `fk_favorito_servico1_idx` (`servico_id`),
   KEY `fk_favorito_produto1_idx` (`produto_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +288,6 @@ CREATE TABLE `favorito` (
 
 LOCK TABLES `favorito` WRITE;
 /*!40000 ALTER TABLE `favorito` DISABLE KEYS */;
-INSERT INTO `favorito` VALUES (44,68,10,NULL);
 /*!40000 ALTER TABLE `favorito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,7 +387,7 @@ CREATE TABLE `linhacarrinhoservico` (
   PRIMARY KEY (`id`),
   KEY `fk_linhacarrinhoservico_carrinhoservico1_idx` (`carrinhoservico_id`),
   KEY `fk_linhacarrinhoservico_servico1_idx` (`servico_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -418,7 +417,7 @@ CREATE TABLE `linhafatura` (
   KEY `fk_linhafatura_fatura1_idx` (`fatura_id`),
   KEY `fk_linhafatura_produto1_idx` (`produto_id`),
   KEY `fk_linhafatura_servico1_idx` (`servico_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -427,7 +426,7 @@ CREATE TABLE `linhafatura` (
 
 LOCK TABLES `linhafatura` WRITE;
 /*!40000 ALTER TABLE `linhafatura` DISABLE KEYS */;
-INSERT INTO `linhafatura` VALUES (54,1,21,38,54,NULL),(57,10,123,42,55,NULL),(67,1,21,90,54,NULL);
+INSERT INTO `linhafatura` VALUES (54,1,21,38,54,NULL),(57,10,123,42,55,NULL),(67,1,21,90,54,NULL),(138,1,67,135,NULL,10),(139,1,50,136,NULL,14);
 /*!40000 ALTER TABLE `linhafatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -557,7 +556,7 @@ CREATE TABLE `review` (
   KEY `fk_review_servico1_idx` (`servico_id`),
   KEY `fk_review_produto1_idx` (`produto_id`),
   KEY `fk_review_userprofile1_idx` (`userprofile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -566,7 +565,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (12,'Good!','2025-01-09 13:01:00',4,NULL,54,68),(14,'Good!','2025-01-29 13:01:00',4,9,NULL,68);
+INSERT INTO `review` VALUES (12,'Good!','2025-01-09 13:01:00',4,NULL,54,68),(16,'Good!','2025-01-23 03:13:00',4,9,NULL,68),(18,'Medium!','2025-01-17 02:18:34',3,13,NULL,68);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -646,7 +645,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -655,7 +654,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (90,'tomas','QLm-YoUugMwTquwdvKmvpDSBufUWXe8n','$2y$13$8lYPp59HqnwWZiWkc6nk8.yIuIKwYS4vdSELZ4WW6gzdMfj3qxIzu',NULL,'tomas@gmail.com',10,1735756927,1735756927,'NZ1f2jj-EXneXqbcFYpcjN5DPm_KuXhN_1735756927'),(91,'diogo','-C4WYp3oSJqGeKOC4mKPBp8rNYG2rEMt','$2y$13$pXVoHXOTcQVQ8ELnNZF/ku4nASob5FfdjLZHS9StdgyoTXgXX.cee',NULL,'diogo@gmail.com',10,1735758358,1736380142,'yIuxw0RtB6dEjh_mjKCUKCRmU25wvsER_1735758358'),(104,'joao','rjKGITclVw9zGKGwuMR2XoJlyJkf2xnj','$2y$13$8cRyd2b9O0H8Lh6NaJ.CZ.Y9ZC9EMKg/rk1pbuwyEHxp2umu/ivWO',NULL,'joao@gmail.com',10,1736111455,1736111455,'YwG_zHJtdymLCPeVUorK7DNjBCEI0iyN_1736111455'),(111,'martim','nFZvg5J-KakGR2xbbC0ZTbJuCUCQHIKl','$2y$13$IfisfN4aTgX/cou6ghZaMethqIeNLWg8GqC3oGmeSxlu8gwRxGqe.',NULL,'martim@gmail.com',10,1736373522,1736373522,'OyjeyjpDeOiPKClAtmFWw5Mk6ZlZ6gJM_1736373522'),(112,'jose','7st92yxXiEHN-_TEt93FxO6sSHeVdLte','$2y$13$Xt62HQU1g9OE.QtOPDwnPOjy3Dxz0ll0vPtQivN7neXZDRuq9P38.',NULL,'jose@gmail.com',10,1736650985,1736650985,'AGkj-Xaqg-9gIlBiqWOoXx2ZqdQ0Q7ei_1736650985'),(113,'andre','FXL5MlOTIWPV79EBseHOU5ZKK8J65p2q','$2y$13$mQEmsUQE5u6qR4clPq6Zl.EHm8CNuk.v/fD4.rScd8pflBtBFqmUe',NULL,'andre@gmail.com',10,1736961959,1736961959,'TNgA0ygb-ntBeOJYOyw3cMGUHRtT4bIz_1736961959');
+INSERT INTO `user` VALUES (90,'tomas','QLm-YoUugMwTquwdvKmvpDSBufUWXe8n','$2y$13$8lYPp59HqnwWZiWkc6nk8.yIuIKwYS4vdSELZ4WW6gzdMfj3qxIzu',NULL,'tomas@gmail.com',10,1735756927,1735756927,'NZ1f2jj-EXneXqbcFYpcjN5DPm_KuXhN_1735756927'),(91,'diogo','-C4WYp3oSJqGeKOC4mKPBp8rNYG2rEMt','$2y$13$pXVoHXOTcQVQ8ELnNZF/ku4nASob5FfdjLZHS9StdgyoTXgXX.cee',NULL,'diogo@gmail.com',10,1735758358,1736380142,'yIuxw0RtB6dEjh_mjKCUKCRmU25wvsER_1735758358'),(104,'joao','rjKGITclVw9zGKGwuMR2XoJlyJkf2xnj','$2y$13$8cRyd2b9O0H8Lh6NaJ.CZ.Y9ZC9EMKg/rk1pbuwyEHxp2umu/ivWO',NULL,'joao@gmail.com',10,1736111455,1736111455,'YwG_zHJtdymLCPeVUorK7DNjBCEI0iyN_1736111455'),(111,'martim','nFZvg5J-KakGR2xbbC0ZTbJuCUCQHIKl','$2y$13$IfisfN4aTgX/cou6ghZaMethqIeNLWg8GqC3oGmeSxlu8gwRxGqe.',NULL,'martim@gmail.com',10,1736373522,1736373522,'OyjeyjpDeOiPKClAtmFWw5Mk6ZlZ6gJM_1736373522'),(112,'jose','7st92yxXiEHN-_TEt93FxO6sSHeVdLte','$2y$13$Xt62HQU1g9OE.QtOPDwnPOjy3Dxz0ll0vPtQivN7neXZDRuq9P38.',NULL,'jose@gmail.com',10,1736650985,1736650985,'AGkj-Xaqg-9gIlBiqWOoXx2ZqdQ0Q7ei_1736650985');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -676,7 +675,7 @@ CREATE TABLE `userprofile` (
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_user1_idx` (`user_id`),
   CONSTRAINT `fk_userprofile_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -685,7 +684,7 @@ CREATE TABLE `userprofile` (
 
 LOCK TABLES `userprofile` WRITE;
 /*!40000 ALTER TABLE `userprofile` DISABLE KEYS */;
-INSERT INTO `userprofile` VALUES (67,NULL,NULL,NULL,NULL,90),(68,'Rua da Silveira, Figueira da Foz',431252354,961234513,'diogo',91),(80,'Rua das Camelias, Buarcos',123456789,123456789,'Joao',104),(86,NULL,NULL,NULL,NULL,111),(87,'',NULL,NULL,'Jose',112),(88,'null',NULL,NULL,'null',113);
+INSERT INTO `userprofile` VALUES (67,NULL,NULL,NULL,NULL,90),(68,'Rua da Silveira, Figueira da Foz',431252354,961234513,'diogo',91),(80,'Rua das Camelias, Buarcos',123456789,123456789,'Joao',104),(86,NULL,NULL,NULL,NULL,111),(87,'',NULL,NULL,'Jose',112);
 /*!40000 ALTER TABLE `userprofile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -698,4 +697,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-15 21:35:58
+-- Dump completed on 2025-01-18 22:02:01

@@ -8,8 +8,11 @@ color ic_user_background
 color purple_500
 color red_500
 color white
+drawable addimg03
+drawable addimg04
 drawable appbg
 drawable appbg2
+drawable appbg3
 drawable ic_action_add
 drawable ic_action_api
 drawable ic_action_cart
@@ -124,6 +127,7 @@ id tvItemsTitle
 id tvLoginLink
 id tvMorada
 id tvNIF
+id tvNoFavorites
 id tvNoReviews
 id tvNome
 id tvOrderSummaryHeader
@@ -140,6 +144,8 @@ id tvReviewContent
 id tvReviewEval
 id tvReviewUser
 id tvReviewsTitle
+id tvService1
+id tvService2
 id tvSubtitle
 id tvTelefone
 id tvTitulo

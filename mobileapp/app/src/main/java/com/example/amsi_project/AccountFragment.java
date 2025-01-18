@@ -133,8 +133,9 @@ public class AccountFragment extends Fragment implements UserListener, UserProfi
                         .setTitle("Delete Account")
                         .setMessage("Are you sure you want to delete this account? This action cannot be undone.")
                         .setPositiveButton("Yes", (dialog, which) -> {
-                            // Perform delete operation
                             SingletonGardenLabsManager.getInstance(getContext()).removerUserAPI(getContext());
+                            Intent intent = new Intent(getContext(), LoginActivity.class);
+                            startActivity(intent);
                         })
                         .setNegativeButton("No", (dialog, which) -> {
                             // Dismiss the dialog
