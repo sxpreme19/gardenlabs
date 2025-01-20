@@ -868,6 +868,18 @@ public class SingletonGardenLabsManager {
         public void getFaturaAPI(int id,final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+
+                Fatura fatura = BD.getFaturaBD(id);
+
+                if (faturaListener != null) {
+                    faturaListener.onRefreshDetalhes(fatura.getId(),fatura.getTotal(), fatura.getDatahora(),fatura.getNome_destinatario(),fatura.getMorada_destinatario(),fatura.getTelefone_destinatario(),fatura.getNif_destinatario(),BD.getMetodopagamentoDescricaoById(fatura.getMetodopagamento_id()));
+                }
+
+                ArrayList<Linhafatura> linhasfatura = BD.getLinhasFaturaByFaturaId(id);
+
+                if (linhasFaturaListener != null) {
+                    linhasFaturaListener.onRefreshListaLinhasFatura(linhasfatura);
+                }
             } else {
                 JsonObjectRequest reqFatura = new JsonObjectRequest(Request.Method.GET, baseURL + "faturas/" + id + "?access-token=" + getTokenFromSharedPreferences(context), null, new Response.Listener<JSONObject>() {
                     @Override

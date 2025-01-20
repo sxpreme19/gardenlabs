@@ -786,6 +786,58 @@ public class BDHelper extends SQLiteOpenHelper {
         return latestId+1;
     }
 
+    public Fatura getFaturaBD(int id) {
+        Fatura fatura = null;
+        Cursor cursor = null;
+        try {
+            cursor = this.db.query(
+                    FATURAS,
+                    new String[]{ID, TOTAL, DATAHORA, NOME_DESTINATARIO, MORADA_DESTINATARIO, TELEFONE_DESTINATARIO, NIF_DESTINATARIO, METODOPAGAMENTO_ID, USERPROFILE_ID},
+                    ID + "=?",
+                    new String[]{String.valueOf(id)},
+                    null, null, null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                Date dataHora = null;
+                try {
+                    String dataHoraString = cursor.getString(2);
+                    if (dataHoraString != null && !dataHoraString.isEmpty()) {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
+                        dataHora = dateFormat.parse(dataHoraString);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("getFaturaById", "Error parsing date, setting to default: " + e.getMessage());
+                }
+
+                if (dataHora == null) {
+                    dataHora = new Date(0);
+                }
+
+                fatura = new Fatura(
+                        cursor.getInt(0),
+                        cursor.getDouble(1),
+                        dataHora,
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getInt(5),
+                        cursor.getInt(6),
+                        cursor.getInt(7),
+                        cursor.getInt(8)
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("getFaturaById", "Error retrieving Fatura by ID: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return fatura;
+    }
+
     public ArrayList<Fatura> getAllFaturasBD(){
 
         ArrayList<Fatura> faturas = new ArrayList<>();
@@ -796,14 +848,31 @@ public class BDHelper extends SQLiteOpenHelper {
             do{
                 Date dataHora = null;
                 try {
-                    // Parse the TEXT column to a Date object
-                    String dataHoraString = cursor.getString(2); // Column index 2
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                    dataHora = dateFormat.parse(dataHoraString);
+                    String dataHoraString = cursor.getString(2);
+                    if (dataHoraString != null && !dataHoraString.isEmpty()) {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
+                        dataHora = dateFormat.parse(dataHoraString);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Log.e("getAllFaturasBD", "Error parsing date, setting to default: " + e.getMessage());
                 }
-                Fatura aux = new Fatura(cursor.getInt(0),cursor.getDouble(1),dataHora, cursor.getString(3), cursor.getString(4),cursor.getInt(5),cursor.getInt(6),cursor.getInt(7),cursor.getInt(8));
+
+                if (dataHora == null) {
+                    dataHora = new Date(0);
+                }
+
+                Fatura aux = new Fatura(
+                        cursor.getInt(0),
+                        cursor.getDouble(1),
+                        dataHora,
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getInt(5),
+                        cursor.getInt(6),
+                        cursor.getInt(7),
+                        cursor.getInt(8)
+                );
                 faturas.add(aux);
             }while(cursor.moveToNext());
             cursor.close();
@@ -848,6 +917,43 @@ public class BDHelper extends SQLiteOpenHelper {
         }
 
         return null;
+    }
+
+    public ArrayList<Linhafatura> getLinhasFaturaByFaturaId(int faturaId) {
+        ArrayList<Linhafatura> linhasFatura = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            cursor = this.db.query(
+                    LINHAFATURA,
+                    new String[]{ID, QUANTIDADE,PRECOUNITARIO,FATURA_ID, SERVICO_ID},
+                    FATURA_ID + "=?", // Selection clause
+                    new String[]{String.valueOf(faturaId)},
+                    null, null, null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    Linhafatura linhaFatura = new Linhafatura(
+                            cursor.getInt(0),
+                            cursor.getInt(1),
+                            cursor.getDouble(2),
+                            cursor.getInt(3),
+                            cursor.getInt(4)
+                    );
+                    linhasFatura.add(linhaFatura);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("getLinhasFaturaByFaturaId", "Error retrieving LinhasFatura: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return linhasFatura;
     }
 
     //endregion
