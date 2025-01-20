@@ -26,6 +26,7 @@ import com.example.amsi_project.listeners.CartListener;
 import com.example.amsi_project.listeners.FaturaListener;
 import com.example.amsi_project.listeners.FaturasListener;
 import com.example.amsi_project.listeners.FavoritosListener;
+import com.example.amsi_project.listeners.HomeListener;
 import com.example.amsi_project.listeners.LinhasFaturaListener;
 import com.example.amsi_project.listeners.LoginListener;
 import com.example.amsi_project.listeners.MetodosPagamentoListener;
@@ -92,6 +93,7 @@ public class SingletonGardenLabsManager {
     private LoginListener loginListener;
     private RegisterListener registerListener;
     private ResetPasswordListener resetPasswordListener;
+    private HomeListener homeListener;
 
     public void setUserListener(UserListener userListener) {
         this.userListener = userListener;
@@ -149,6 +151,10 @@ public class SingletonGardenLabsManager {
         this.resetPasswordListener = resetPasswordListener;
     }
 
+    public void setHomeListener(HomeListener homeListener) {
+        this.homeListener = homeListener;
+    }
+
     //endregion
 
     public static synchronized SingletonGardenLabsManager getInstance(Context context) {
@@ -162,6 +168,7 @@ public class SingletonGardenLabsManager {
         services = new ArrayList<>();
         BD = new BDHelper(context);
         ip = getAPIHostFromSharedPreferences(context);
+        Log.d("DEBUG", "API Host from SharedPreferences: " + ip);
         baseURL = "http://"+ip+"/gardenlabs/webapp/backend/web/api/";
     }
 
@@ -246,6 +253,36 @@ public class SingletonGardenLabsManager {
 
     //region Acesso á API
         //region API-Servicos
+        public void getServiceCountAPI(final Context context) {
+            if (!JsonParser.isConnectionInternet(context)) {
+                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+            } else {
+                StringRequest reqUserprofile = new StringRequest(Request.Method.GET, baseURL+"servico/count?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int serviceCount;
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            serviceCount = jsonResponse.getInt("count");
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        if (homeListener != null) {
+                            homeListener.onRefreshHome(serviceCount);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String errorMessage = "Error on count!";
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+                    }
+                });
+                volleyQueue.add(reqUserprofile); //faz o pedido á API;
+            }
+        }
         public void getAllServicesAPI(final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
@@ -319,24 +356,6 @@ public class SingletonGardenLabsManager {
                 volleyQueue.add(reqUserprofile); //faz o pedido á API;
             }
         }
-        public void getAllServicesCountAPI(final Context context) {
-            if (!JsonParser.isConnectionInternet(context)) {
-                Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
-            } else {
-                StringRequest reqServices = new StringRequest(Request.Method.GET, baseURL+"servico/count?access-token="+getTokenFromSharedPreferences(context), new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-                volleyQueue.add(reqServices); //faz o pedido á API;
-            }
-        }
         //endregion
 
         //region API-Reviews
@@ -348,6 +367,7 @@ public class SingletonGardenLabsManager {
                     @Override
                     public void onResponse(String response) {
                         BD.adicionarReviewBD(JsonParser.parserJsonReview(response));
+                        SingletonGardenLabsManager.getInstance(context).getServiceReviewsAPI(servicoid,context);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -407,6 +427,7 @@ public class SingletonGardenLabsManager {
                     @Override
                     public void onResponse(String response) {
                         BD.removerReviewBD(id);
+                        SingletonGardenLabsManager.getInstance(context).getServiceReviewsAPI(id,context);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -434,7 +455,15 @@ public class SingletonGardenLabsManager {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                        String errorMessage = (error != null && error.getMessage() != null)
+                                ? error.getMessage()
+                                : "An unknown error occurred";
+
+                        // Log the error for debugging
+                        Log.e("ERROR", errorMessage, error);
+
+                        // Display a user-friendly message
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
                 volleyQueue.add(reqUsers); //faz o pedido á API;
@@ -839,6 +868,18 @@ public class SingletonGardenLabsManager {
         public void getFaturaAPI(int id,final Context context) {
             if (!JsonParser.isConnectionInternet(context)) {
                 Toast.makeText(context, "Não tem ligação á internet", Toast.LENGTH_LONG).show();
+
+                Fatura fatura = BD.getFaturaBD(id);
+
+                if (faturaListener != null) {
+                    faturaListener.onRefreshDetalhes(fatura.getId(),fatura.getTotal(), fatura.getDatahora(),fatura.getNome_destinatario(),fatura.getMorada_destinatario(),fatura.getTelefone_destinatario(),fatura.getNif_destinatario(),BD.getMetodopagamentoDescricaoById(fatura.getMetodopagamento_id()));
+                }
+
+                ArrayList<Linhafatura> linhasfatura = BD.getLinhasFaturaByFaturaId(id);
+
+                if (linhasFaturaListener != null) {
+                    linhasFaturaListener.onRefreshListaLinhasFatura(linhasfatura);
+                }
             } else {
                 JsonObjectRequest reqFatura = new JsonObjectRequest(Request.Method.GET, baseURL + "faturas/" + id + "?access-token=" + getTokenFromSharedPreferences(context), null, new Response.Listener<JSONObject>() {
                     @Override
@@ -1043,7 +1084,8 @@ public class SingletonGardenLabsManager {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, "Register inválido!", Toast.LENGTH_LONG).show();
+                    String errorMessage = "Register inválido!";
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
                 }
             }) {
                 @Nullable

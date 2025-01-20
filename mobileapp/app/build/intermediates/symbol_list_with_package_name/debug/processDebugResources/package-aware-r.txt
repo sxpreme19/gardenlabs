@@ -2991,8 +2991,11 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable addimg03
+drawable addimg04
 drawable appbg
 drawable appbg2
+drawable appbg3
 drawable avd_hide_password
 drawable avd_show_password
 drawable btn_checkbox_checked_mtrl
@@ -3677,6 +3680,7 @@ id tvBillingNifLabel
 id tvBillingPhone
 id tvBillingPhoneLabel
 id tvData
+id tvDeleteReview
 id tvDescricao
 id tvDescricaoLabel
 id tvDuracao
@@ -3692,6 +3696,8 @@ id tvItemsTitle
 id tvLoginLink
 id tvMorada
 id tvNIF
+id tvNoFavorites
+id tvNoReviews
 id tvNome
 id tvOrderSummaryHeader
 id tvPaymentMethod
@@ -3707,6 +3713,8 @@ id tvReviewContent
 id tvReviewEval
 id tvReviewUser
 id tvReviewsTitle
+id tvService1
+id tvService2
 id tvSubtitle
 id tvTelefone
 id tvTitulo

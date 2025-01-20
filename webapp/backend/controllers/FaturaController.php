@@ -5,6 +5,10 @@ namespace backend\controllers;
 use common\models\Fatura;
 use common\models\FaturaSearch;
 use common\models\Linhafatura;
+use common\models\Metodoexpedicao;
+use common\models\Metodopagamento;
+use common\models\User;
+use common\models\Userprofile;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -73,8 +77,18 @@ class FaturaController extends Controller
      */
     public function actionView($id, $userprofile_id)
     {
+
+        $model = $this->findModel($id,$userprofile_id);
+        $paymentMethod = Metodopagamento::findOne(['id' => $model->metodopagamento_id]);
+        $shippingMethod = Metodoexpedicao::findOne(['id' => $model->metodoexpedicao_id]);
+        $userprofile = Userprofile::findOne(['id' => $model->userprofile_id]);
+        $user = User::findOne(['id' => $userprofile->user_id]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id, $userprofile_id),
+            'model' => $model,
+            'paymentMethod' => $paymentMethod,
+            'shippingMethod' => $shippingMethod,
+            'user' => $user,
         ]);
     }
 

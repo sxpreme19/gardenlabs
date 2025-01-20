@@ -100,15 +100,15 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/tvDeleteReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Eliminar"
+            android:textColor="@color/delete_red"
+            android:clickable="false"
+            android:textSize="14sp"
+            android:visibility="gone" />
     </LinearLayout>
-    <ImageButton
-        android:id="@+id/btnRemove"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@android:color/transparent"
-        android:visibility="invisible"
-        android:clickable="false"
-        app:srcCompat="@drawable/ic_action_remove"
-        app:tint="@color/delete_red" />
 </LinearLayout>

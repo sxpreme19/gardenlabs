@@ -6,29 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <!-- Background -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/appbg2"
+        android:src="@drawable/appbg3"
         android:alpha="0.3" />
 
-    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Welcome Section -->
         <TextView
             android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome back!"
-            android:textSize="24sp"
-            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginTop="32dp" />
 
@@ -37,9 +34,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Explore our services!"
-            android:textSize="16sp"
-            android:textColor="@android:color/darker_gray"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="44dp"
+            android:gravity="center"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tvService1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discover our gardening services tailored just for you!"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="left"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/addimg03"
+                android:layout_marginBottom="36dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/tvService2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Our team of experts is committed to providing innovative solutions that help our clients create beautiful and eco-friendly outdoor spaces!"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="left"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/addimg04"
+                android:scaleType="centerCrop"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

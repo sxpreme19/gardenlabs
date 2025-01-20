@@ -80,7 +80,7 @@ public class ListaReviewsAdaptador extends BaseAdapter {
     }
 
     private class ViewHolderLista{
-        private TextView tvConteudo, tvAvaliacao, tvPostedBy;
+        private TextView tvConteudo, tvAvaliacao, tvPostedBy,tvRemove;
         private ImageView imgCapa;
         private ImageButton removeReview;
 
@@ -89,16 +89,18 @@ public class ListaReviewsAdaptador extends BaseAdapter {
             tvAvaliacao = view.findViewById(R.id.tvReviewEval);
             tvPostedBy = view.findViewById(R.id.tvReviewUser);
             imgCapa = view.findViewById(R.id.imgCapa);
-            removeReview = view.findViewById(R.id.btnRemove);
+            tvRemove = view.findViewById(R.id.tvDeleteReview);
         }
 
         public void update(Review r){
-
-            if(r.getUserprofile_id() == getUserProfileIDFromSharedPreferences(context)){
-                removeReview.setVisibility(View.VISIBLE);
-                removeReview.setClickable(true);
-                Log.d("CHANGIGN VISIBILITY", String.valueOf(removeReview.getVisibility()));
+            if (r.getUserprofile_id() == getUserProfileIDFromSharedPreferences(context)) {
+                tvRemove.setVisibility(View.VISIBLE);
+                tvRemove.setClickable(true);
+            } else {
+                tvRemove.setVisibility(View.GONE);
+                tvRemove.setClickable(false);
             }
+
 
             Userprofile userprofile = getUserProfileById(r.getUserprofile_id());
             User user = getUserById(userprofile.getUser_id());
@@ -114,7 +116,7 @@ public class ListaReviewsAdaptador extends BaseAdapter {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
 
-            removeReview.setOnClickListener(new View.OnClickListener() {
+            tvRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SingletonGardenLabsManager.getInstance(context).removerReviewAPI(r.getId(),context);
