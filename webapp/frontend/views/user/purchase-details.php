@@ -27,6 +27,9 @@
                         <h4><strong>Invoice Date</strong></h4>
                         <p><?= date('l, F j, Y', strtotime($invoice->datahora)) ?></p>
                         <p><?= date('g:i A', strtotime($invoice->datahora)) ?></p>
+                        <br>
+                        <h4><strong>State</strong></h4>
+                        <p><?= $invoice->status?></p>
                     </div>
                 </div>
                 <div class="table-responsive mb-4">

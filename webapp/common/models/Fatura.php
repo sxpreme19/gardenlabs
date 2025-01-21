@@ -15,6 +15,7 @@ use Yii;
  * @property int|null $telefone_destinatario
  * @property int|null $nif_destinatario
  * @property float $preco_envio
+ * @property string $status
  * @property int $metodopagamento_id
  * @property int $metodoexpedicao_id
  * @property int $userprofile_id
@@ -40,6 +41,7 @@ class Fatura extends \yii\db\ActiveRecord
             [['datahora'], 'safe'],
             [['telefone_destinatario', 'nif_destinatario', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'integer'],
             [['nome_destinatario', 'morada_destinatario'], 'string', 'max' => 80],
+            [['status'], 'string', 'max' => 30],
         ];
     }
 
@@ -57,6 +59,7 @@ class Fatura extends \yii\db\ActiveRecord
             'telefone_destinatario' => 'Telefone Destinatario',
             'nif_destinatario' => 'Nif Destinatario',
             'preco_envio' => 'Preco Envio',
+            'status' => 'Status',
             'metodopagamento_id' => 'Metodopagamento ID',
             'metodoexpedicao_id' => 'Metodoexpedicao ID',
             'userprofile_id' => 'Userprofile ID',

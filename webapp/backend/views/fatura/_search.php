@@ -29,6 +29,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'nif_destinatario') ?>
 
+    <?php // echo $form->field($model, 'preco_envio') ?>
+
+    <?= $form->field($model, 'status') ?>
+
     <?php // echo $form->field($model, 'metodopagamento_id') ?>
 
     <?php // echo $form->field($model, 'metodoexpedicao_id') ?>

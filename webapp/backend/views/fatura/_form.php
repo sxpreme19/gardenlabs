@@ -26,6 +26,15 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'preco_envio')->textInput(['type' => 'number','step' => '0.01','min' => '0.01']) ?>
 
+        <?= $form->field($model, 'status')->dropDownList(
+            [
+                'Paid' => 'Paid', 
+                'Sent' => 'Sent',
+                'Delivered' => 'Delivered',
+            ],
+            ['prompt' => 'Select Status']
+        ) ?>
+
         <?= $form->field($model, 'metodopagamento_id')->dropDownList(
             \yii\helpers\ArrayHelper::map(\common\models\Metodopagamento::find()->all(), 'id', 'descricao'),
             ['prompt' => 'Select Payment Method']

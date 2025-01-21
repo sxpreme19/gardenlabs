@@ -37,6 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h4><strong>Invoice Date</strong></h4>
                     <p><?= date('l, F j, Y', strtotime($model->datahora)) ?></p>
                     <p><?= date('g:i A', strtotime($model->datahora)) ?></p>
+                    <?php if ($model->status != null): ?>
+                    <br>
+                    <h4><strong>State</strong></h4>
+                    <p><?= $model->status ?></p>
+                    <?php endif;?>
                 </div>
             </div>
             <div class="table-responsive mb-4">
@@ -44,8 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <table class="table table-bordered">
                     <thead class="table-light">
                         <tr>
-                            <?php if($model->metodoexpedicao_id != null): ?>
-                            <th>Product</th>
+                            <?php if ($model->metodoexpedicao_id != null): ?>
+                                <th>Product</th>
                             <?php else: ?>
                                 <th>Service</th>
                             <?php endif; ?>
@@ -79,30 +84,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     <p><?= $paymentMethod->descricao ?></p>
                 </div>
                 <?php if ($shippingMethod != null): ?>
-                <div class="col-6 text-end">
-                    <h5><strong>Shipping Method</strong></h5>
-                    <p><?= $shippingMethod->descricao ?> (<?= $shippingMethod->duracao ?>)</p>
-                </div>
-                <?php endif;?>
+                    <div class="col-6 text-end">
+                        <h5><strong>Shipping Method</strong></h5>
+                        <p><?= $shippingMethod->descricao ?> (<?= $shippingMethod->duracao ?>)</p>
+                    </div>
+                <?php endif; ?>
             </div>
             <?php if ($shippingMethod != null): ?>
-            <div class="row mb-4">
-                <div class="col-6">
-                    <p><strong>Subtotal:</strong></p>
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <p><strong>Subtotal:</strong></p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <p><?= number_format($model->total - $model->preco_envio, 2) ?>€</p>
+                    </div>
                 </div>
-                <div class="col-6 text-end">
-                    <p><?= number_format($model->total - $model->preco_envio, 2) ?>€</p>
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <p><strong>Shipping Cost:</strong></p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <p><?= $model->preco_envio == 0 ? 'Free' : number_format($model->preco_envio, 2) . '€' ?></p>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-6">
-                    <p><strong>Shipping Cost:</strong></p>
-                </div>
-                <div class="col-6 text-end">
-                    <p><?= $model->preco_envio == 0 ? 'Free' : number_format($model->preco_envio, 2) . '€' ?></p>
-                </div>
-            </div>
-            <?php endif;?>
+            <?php endif; ?>
             <div class="row">
                 <div class="col-6">
                     <h4><strong>Grand Total</strong></h4>

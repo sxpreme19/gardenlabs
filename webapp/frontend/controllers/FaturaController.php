@@ -169,6 +169,7 @@ class FaturaController extends Controller
         $invoice->telefone_destinatario = $phone;
         $invoice->nif_destinatario = $nif;
         $invoice->preco_envio = $shippingPrice;
+        $invoice->status = "Paid";
 
         if ($invoice->save()) {
             foreach ($userCart->linhacarrinhoprodutos as $cartItem) {

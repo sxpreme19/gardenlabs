@@ -18,8 +18,8 @@ class FaturaSearch extends Fatura
     {
         return [
             [['id', 'telefone_destinatario', 'nif_destinatario', 'metodopagamento_id', 'metodoexpedicao_id', 'userprofile_id'], 'integer'],
-            [['total'], 'number'],
-            [['datahora', 'nome_destinatario', 'morada_destinatario'], 'safe'],
+            [['total','preco_envio'], 'number'],
+            [['datahora', 'nome_destinatario', 'morada_destinatario','status'], 'safe'],
         ];
     }
 
@@ -64,6 +64,8 @@ class FaturaSearch extends Fatura
             'datahora' => $this->datahora,
             'telefone_destinatario' => $this->telefone_destinatario,
             'nif_destinatario' => $this->nif_destinatario,
+            'preco_envio' => $this->preco_envio,
+            'status' => $this->status,
             'metodopagamento_id' => $this->metodopagamento_id,
             'metodoexpedicao_id' => $this->metodoexpedicao_id,
             'userprofile_id' => $this->userprofile_id,
