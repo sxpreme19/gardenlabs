@@ -149,6 +149,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
                 SharedPreferences sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("apihost", apihost);
+                Log.d("IP",apihost);
                 editor.apply();
             }
         });

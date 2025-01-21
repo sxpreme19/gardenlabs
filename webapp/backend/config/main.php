@@ -136,6 +136,13 @@ return [
                         '{id}' => '<id:\\d+>',
                     ],
                 ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/matematica',
+                    'extraPatterns' => [
+                        'GET raizdois' => 'raizdois',
+                    ],
+                ],
             ],
         ],
 
