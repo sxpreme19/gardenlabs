@@ -32,9 +32,9 @@
                     <div class="col-lg-3 col-md-6 special-grid <?= $product->categoria_id ?>">
                         <div class="products-single fix">
                             <div class="box-img-hover">
-                                <div class="type-lb">
+                                <!--<div class="type-lb">
                                     <p class="sale">Sale</p>
-                                </div>
+                                </div>-->
                                 <?php
                                 $productImages = $product->imagems;
                                 if (!empty($productImages)):

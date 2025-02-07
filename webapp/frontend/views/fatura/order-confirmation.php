@@ -18,10 +18,10 @@
                         <p><strong>Email:</strong> <?= Yii::$app->user->identity->email ?></p>
                         <p><strong>Address:</strong> <?= $invoice->morada_destinatario ?></p>
                         <?php if ($invoice->telefone_destinatario != null): ?>
-                        <p><strong>Phone:</strong> <?= $invoice->telefone_destinatario ?></p>
+                            <p><strong>Phone:</strong> <?= $invoice->telefone_destinatario ?></p>
                         <?php endif; ?>
                         <?php if ($invoice->nif_destinatario != null): ?>
-                        <p><strong>Nif:</strong> <?= $invoice->nif_destinatario ?></p>
+                            <p><strong>Nif:</strong> <?= $invoice->nif_destinatario ?></p>
                         <?php endif; ?>
                     </div>
                     <div class="col-6 text-end">
@@ -63,12 +63,28 @@
                         <p><?= $shippingMethod->descricao ?> (<?= $shippingMethod->duracao ?>)</p>
                     </div>
                 </div>
+                <?php
+                $subtotal = 0;
+                foreach ($invoice->linhafaturas as $invoiceDetail) {
+                    $subtotal += $invoiceDetail->precounitario * $invoiceDetail->quantidade;
+                }
+                $iva = $subtotal * 0.23;
+                ?>
                 <div class="row mb-4">
                     <div class="col-6">
                         <p><strong>Subtotal:</strong></p>
                     </div>
                     <div class="col-6 text-end">
-                        <p><?= number_format($invoice->total - $invoice->preco_envio, 2) ?>€</p>
+                        <p><?= number_format($subtotal, 2) ?>€</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <p><strong>IVA (23%):</strong></p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <p><?= number_format($iva, 2) ?>€</p>
                     </div>
                 </div>
                 <div class="row mb-4">
@@ -88,7 +104,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="card-footer text-center">
                 <a href="<?= yii\helpers\Url::to(['produto/index']) ?>" class="btn btn-outline-primary">
                     <i class="fas fa-arrow-left"></i> Back to Shop

@@ -155,8 +155,11 @@ class FaturaController extends Controller
         $shippingMethod = Metodoexpedicao::findOne($shippingMethodId);
         $paymentMethod = Metodopagamento::findOne($paymentMethodId);
 
+        $subtotal = $userCart->total; 
+        $iva = $subtotal * 0.23;       
         $shippingPrice = $shippingMethod->preco;
-        $invoiceTotal = $userCart->total + $shippingPrice;
+
+        $invoiceTotal = $subtotal + $iva + $shippingPrice;
 
         $invoice = new Fatura();
         $invoice->userprofile_id = $userProfile->id;

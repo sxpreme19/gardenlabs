@@ -29,7 +29,7 @@
                         <p><?= date('g:i A', strtotime($invoice->datahora)) ?></p>
                         <br>
                         <h4><strong>State</strong></h4>
-                        <p><?= $invoice->status?></p>
+                        <p><?= $invoice->status ?></p>
                     </div>
                 </div>
                 <div class="table-responsive mb-4">
@@ -65,12 +65,28 @@
                         <p><?= $shippingMethod->descricao ?> (<?= $shippingMethod->duracao ?>)</p>
                     </div>
                 </div>
+                <?php
+                $subtotal = 0;
+                foreach ($invoice->linhafaturas as $invoiceDetail) {
+                    $subtotal += $invoiceDetail->precounitario * $invoiceDetail->quantidade;
+                }
+                $iva = $subtotal * 0.23;
+                ?>
                 <div class="row mb-4">
                     <div class="col-6">
                         <p><strong>Subtotal:</strong></p>
                     </div>
                     <div class="col-6 text-end">
-                        <p><?= number_format($invoice->total - $shippingMethod->preco, 2) ?>€</p>
+                        <p><?= number_format($subtotal, 2) ?>€</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <p><strong>IVA (23%):</strong></p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <p><?= number_format($iva, 2) ?>€</p>
                     </div>
                 </div>
                 <div class="row mb-4">

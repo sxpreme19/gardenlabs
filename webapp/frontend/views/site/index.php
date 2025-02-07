@@ -31,7 +31,7 @@
                 </div>
             </li>
             <li class="text-center">
-                <img src="images/banner-03.jpg" alt="">
+                <img src="images/banner-04.jpg" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">

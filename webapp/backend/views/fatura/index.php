@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     return Url::toRoute([$action, 'id' => $model->id, 'userprofile_id' => $model->userprofile_id]);
                  },
-                 'template' => '{view} {update} {delete} {invoiceLines} ', 
+                 'template' => '{view} ', 
                  'buttons' => [
                      'invoiceLines' => function ($url, $model) {
                          return Html::a('<i class="fas fa-file-invoice"></i>', $url, [
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                      'delete' => function ($model, $key, $index) {
                          return Yii::$app->user->can('invoiceDelete');
                      },
-                     'images' => function ($model, $key, $index) {
+                     'invoiceLines' => function ($model, $key, $index) {
                          return Yii::$app->user->can('invoiceLinesIndex');
                      },
                  ],

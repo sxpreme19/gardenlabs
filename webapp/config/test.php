@@ -3,12 +3,16 @@
 return [
     'id' => 'app-tests',
     'basePath' => dirname(__DIR__),
-    'components' => [   
+    'components' => [
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
-            'baseUrl' => 'http://localhost/gardenlabs/webapp',
-            'enablePrettyUrl' => true,
-            'showScriptName' => false
+            'baseUrl' => '/gardenlabs/webapp',
+            'enablePrettyUrl' => false,
+            'showScriptName' => false,
+        ],
+        'request' => [
+            'hostInfo' => 'http://localhost',
+            'baseUrl' => '/gardenlabs/webapp',
         ],
         'db' => [
             'class' => 'yii\db\Connection',
@@ -16,6 +20,10 @@ return [
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
+            'enableSchemaCache' => true,
+            'schemaCacheDuration' => 60,
+            'schemaCache' => 'cache',
         ],
     ],
 ];
+

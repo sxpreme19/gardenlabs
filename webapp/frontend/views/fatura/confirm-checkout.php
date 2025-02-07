@@ -32,18 +32,27 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <?php
+                        $subtotal = $userCart->total;
+                        $iva = $subtotal * 0.23;
+                        $grandTotal = $subtotal + $iva + $shippingMethod->preco;
+                        ?>
                         <hr>
                         <div class="d-flex justify-content-between">
                             <strong>Subtotal</strong>
-                            <p><?= $userCart->total ?>€</p>
+                            <p><?= number_format($subtotal, 2) ?>€</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <strong>IVA (23%)</strong>
+                            <p><?= number_format($iva, 2) ?>€</p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <strong>Shipping Cost</strong>
-                            <p><?= $shippingMethod->preco == 0 ? 'Free' : $shippingMethod->preco . '€' ?></p>
+                            <p><?= $shippingMethod->preco == 0 ? 'Free' : number_format($shippingMethod->preco, 2) . '€' ?></p>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <strong class="grand-total">Grand Total</strong>
-                            <strong class="grand-total"><?= $userCart->total + $shippingMethod->preco ?>€</strong>
+                            <strong class="grand-total"><?= number_format($grandTotal, 2) ?>€</strong>
                         </div>
                     </div>
                 </div>
@@ -106,10 +115,10 @@
                 </a>
             <?php endif; ?>
             <?php if (Yii::$app->user->can('orderConfirmed')): ?>
-            <a href="<?= yii\helpers\Url::to(['fatura/confirm-order', 'shippingMethodId' => $shippingMethod->id, 'paymentMethodId' => $paymentMethod->id, 'fullName' => $nome, 'address' => $morada, 'phone' => $phone, 'nif' => $nif]) ?>" class="btn btn-success">
-                <i class="fas fa-check"></i> Confirm and Pay
-            </a>
-            <?php endif;?>
+                <a href="<?= yii\helpers\Url::to(['fatura/confirm-order', 'shippingMethodId' => $shippingMethod->id, 'paymentMethodId' => $paymentMethod->id, 'fullName' => $nome, 'address' => $morada, 'phone' => $phone, 'nif' => $nif]) ?>" class="btn btn-success">
+                    <i class="fas fa-check"></i> Confirm and Pay
+                </a>
+            <?php endif; ?>
         </div>
     </div>
 </body>

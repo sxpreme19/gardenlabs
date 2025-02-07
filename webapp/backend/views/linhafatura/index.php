@@ -42,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'urlCreator' => function ($action, Linhafatura $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  },
+                 'template' => '{view} ',
                  'visibleButtons' => [
                     'view' => function ($model, $key, $index) {
                         return Yii::$app->user->can('invoiceLineView');

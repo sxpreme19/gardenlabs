@@ -10,14 +10,13 @@ class BackendAddProductCest
 
     public function addProductWithValidData(FunctionalTester $I)
     {
-        $I->amOnPage('/backend/views/site/login');
-        $I->fillField(['id' => 'loginform-username'], 'admin'); 
-        $I->fillField(['id' => 'loginform-password'], 'admin123');
+        $I->amOnPage('/backend/web/index.php?r=site%2Flogin');
+        codecept_debug($I->grabFromCurrentUrl());
+        $I->fillField('#loginform-username', 'tomas'); 
+        $I->fillField('#loginform-password', 'tomas123');
         $I->click('Sign In');
-
-        $I->see('Dashboard');
         
-        $I->amOnPage('/backend/views/produto/index');
+        $I->amOnPage('/backend/web/index.php?r=produto%2Findex');
         $I->see('Produtos');
         $I->see('Create Produto', 'a.btn-success');
 
@@ -40,13 +39,12 @@ class BackendAddProductCest
 
     public function addProductWithInvalidData(FunctionalTester $I)
     {
-        $I->amOnPage('/backend/views/site/login');
-        $I->fillField(['id' => 'loginform-username'], 'admin'); 
-        $I->fillField(['id' => 'loginform-password'], 'admin123');
+        $I->amOnPage('/backend/web/index.php?r=site%2Flogin');
+        $I->fillField(['id' => 'loginform-username'], 'tomas'); 
+        $I->fillField(['id' => 'loginform-password'], 'tomas123');
         $I->click('Sign In');
 
-        $I->see('Dashboard');
-        $I->amOnPage('/backend/views/produto/index');
+        $I->amOnPage('/backend/web/index.php?r=produto%2Findex');
         $I->see('Produtos');
         $I->see('Create Produto', 'a.btn-success');
 

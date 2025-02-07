@@ -33,6 +33,7 @@ class Fornecedor extends \yii\db\ActiveRecord
             [['telefone'], 'integer'],
             [['nome', 'email'], 'string', 'max' => 80],
             [['localizacao'], 'string', 'max' => 200],
+            ['telefone', 'match', 'pattern' => '/^\d{9}$/', 'message' => 'Telefone must be exactly 9 digits.'],
         ];
     }
 

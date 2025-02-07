@@ -209,10 +209,10 @@ class ProdutoController extends Controller
      */
     public function actionGallery()
     {
-        $products = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->andWhere(['>', 'produto.quantidade', 0])->all();
+        $products = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->all();
 
         $categories = Categoria::find()->all();
-        $productTotalCount = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->count();
+        $productTotalCount = Produto::find()->joinWith('imagems')->where(['not', ['imagem.id' => null]])->distinct()->count();
 
         if (isset(Yii::$app->user->identity->userProfile)) {
             $userProfile = Yii::$app->user->identity->userProfile;

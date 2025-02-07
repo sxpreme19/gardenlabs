@@ -104,7 +104,7 @@ class SiteController extends Controller
 
         $categoryImages = [
             'images/category1.jpg',
-            'images/categories_img_03.jpg',
+            'images/categories_img_4.jpg',
             'images/categories_img_2.jpg'
         ];
 

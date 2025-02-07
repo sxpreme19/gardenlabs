@@ -13,17 +13,22 @@ class FirstCest
 
     public function checkoutProcess(AcceptanceTester $I)
     {
-        $I->amOnPage('/frontend/web/site/login');
+        $I->amOnPage('/frontend/web/index.php?r=site%2Flogin');
+        codecept_debug($I->grabFromCurrentUrl());
         $I->fillField('#loginform-username', 'diogo'); 
-        $I->fillField('#loginform-username', 'diogo123');
+        $I->fillField('#loginform-password', 'diogo123');
         $I->click('Login');
-        $I->see('Welcome');
+        //$I->see('Welcome');
 
-        $I->amOnPage('/frontend/web/produto/index');
+        $I->amOnPage('/frontend/web/index.php?r=produto%2Findex');
         $I->see('Product Shop');
-        $I->click(['link' => 'Add to Cart']);
+        $I->click(['link' => 'View']);
 
-        $I->amOnPage('/frontend/web/carrinhoproduto/index');
+        $I->amOnPage('/frontend/web/index.php?r=produto%2Fproduct-details&id=54');
+        $I->see('available');
+        $I->click(['link' => 'Add to cart']);
+
+        $I->amOnPage('/frontend/web/index.php?r=carrinhoproduto%2Findex');
         $I->see('Cart');
         $I->see('Produto');
         $I->click(['link' => 'Checkout']);
