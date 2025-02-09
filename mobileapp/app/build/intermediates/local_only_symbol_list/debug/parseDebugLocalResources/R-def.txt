@@ -118,9 +118,13 @@ id tvDuracao
 id tvDuracaoLabel
 id tvEmail
 id tvGrandTotalHeader
+id tvIVA
+id tvIVAHeader
 id tvInvoiceDate
 id tvInvoiceDescription
+id tvInvoiceIVA
 id tvInvoiceId
+id tvInvoiceSubtotal
 id tvInvoiceTitle
 id tvInvoiceTotal
 id tvItemsTitle
@@ -147,6 +151,8 @@ id tvReviewsTitle
 id tvService1
 id tvService2
 id tvSubtitle
+id tvSubtotal
+id tvSubtotalHeader
 id tvTelefone
 id tvTitulo
 id tvTotal

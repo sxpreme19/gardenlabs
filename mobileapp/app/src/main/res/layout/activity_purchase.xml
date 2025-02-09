@@ -185,11 +185,47 @@
                 android:layout_marginTop="4dp" />
 
             <TextView
+                android:id="@+id/tvSubtotalHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subtotal"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/tvInvoiceSubtotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/tvIVAHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="IVA (23%)"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/tvInvoiceIVA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+
+            <TextView
                 android:id="@+id/tvGrandTotalHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Total"
-                android:textSize="18sp"
+                android:textSize="19sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp" />
 
@@ -198,7 +234,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="22sp"
+                android:textSize="23sp"
                 android:textStyle="bold"
                 android:textColor="@color/gl_green"
                 android:layout_marginTop="8dp" />

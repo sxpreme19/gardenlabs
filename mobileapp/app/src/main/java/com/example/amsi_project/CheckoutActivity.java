@@ -42,7 +42,7 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
     private BDHelper bdHelper;
     private Spinner spMetodosPagamento;
     private ListView listaLinhascarrinho;
-    private TextView tvTotal;
+    private TextView tvSubtotal,tvIva,tvTotal;
     private EditText etNome,etMorada,etTelefone,etNIF;
     private Button btnConfirmPurchase;
     private ArrayList<Linhacarrinhoservico> linhascarrinhoservico;
@@ -60,6 +60,8 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
         linhascarrinhoservico = new ArrayList<>();
 
         listaLinhascarrinho = findViewById(R.id.lvLinhasCarrinho);
+        tvSubtotal = findViewById(R.id.tvSubtotal);
+        tvIva = findViewById(R.id.tvIVA);
         tvTotal = findViewById(R.id.tvTotal);
         spMetodosPagamento = findViewById(R.id.spMetodoPagamento);
         etNome = findViewById(R.id.etNome);
@@ -145,8 +147,19 @@ public class CheckoutActivity extends AppCompatActivity implements CartListener,
 
     @Override
     public void onRefreshDetalhes(Double total) {
-        tvTotal.setText("Total: " + total + "€");
-        this.total = total;
+        double ivaRate = 0.23;
+        double ivaAmount = total * ivaRate;
+        double totalWithIVA = total + ivaAmount;
+
+        TextView tvSubtotal = findViewById(R.id.tvSubtotal);
+        TextView tvIVA = findViewById(R.id.tvIVA);
+        TextView tvTotal = findViewById(R.id.tvTotal);
+
+        tvSubtotal.setText("Subtotal: " + total + "€");
+        tvIVA.setText("IVA (23%): " + ivaAmount + "€");
+        tvTotal.setText("Total: " + totalWithIVA + "€");
+
+        this.total = totalWithIVA;
     }
 
     @Override

@@ -14,7 +14,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => $totalIncome . '€',
+                'title' => number_format($totalIncome, 2) . '€',
                 'text' => 'Total Income',
                 'icon' => 'fas fa-euro-sign',
                 'theme' => 'gradient-success',

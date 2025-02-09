@@ -29,7 +29,7 @@ import java.util.Locale;
 
 public class DetalhesFaturaActivity extends AppCompatActivity implements FaturaListener, LinhasFaturaListener {
 
-    private TextView tvInvoiceTitle,tvInvoiceDate,tvInvoiceName,tvInvoiceEmail,tvInvoiceAddress,tvInvoicePhone,tvInvoiceNif,tvInvoicePaymentMethod,tvInvoiceTotal,tvPhonelbl,tvNiflbl;
+    private TextView tvInvoiceTitle,tvInvoiceDate,tvInvoiceName,tvInvoiceEmail,tvInvoiceAddress,tvInvoicePhone,tvInvoiceNif,tvInvoicePaymentMethod,tvInvoiceTotal,tvPhonelbl,tvNiflbl,tvInvoiceSubtotal, tvInvoiceIVA;
     private ListView lvInvoiceLines;
     int faturaid;
 
@@ -54,6 +54,8 @@ public class DetalhesFaturaActivity extends AppCompatActivity implements FaturaL
         tvInvoiceTotal = findViewById(R.id.tvInvoiceTotal);
         tvPhonelbl = findViewById(R.id.tvBillingPhoneLabel);
         tvNiflbl = findViewById(R.id.tvBillingNifLabel);
+        tvInvoiceSubtotal = findViewById(R.id.tvInvoiceSubtotal);
+        tvInvoiceIVA = findViewById(R.id.tvInvoiceIVA);
 
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setLinhasFaturaListener(this);
         SingletonGardenLabsManager.getInstance(getApplicationContext()).setFaturaListener(this);
@@ -82,7 +84,14 @@ public class DetalhesFaturaActivity extends AppCompatActivity implements FaturaL
         }
 
         tvInvoicePaymentMethod.setText(metodopagamento);
-        tvInvoiceTotal.setText(total+"€");
+
+        double ivaRate = 0.23;
+        double subtotal = total / (1 + ivaRate);
+        double iva = total - subtotal;
+
+        tvInvoiceSubtotal.setText(subtotal + "€");
+        tvInvoiceIVA.setText(iva + "€");
+        tvInvoiceTotal.setText(total + "€");
     }
 
     @Override

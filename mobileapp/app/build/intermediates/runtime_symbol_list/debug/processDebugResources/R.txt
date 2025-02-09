@@ -3686,9 +3686,13 @@ int id tvDuracao 0x7f080225
 int id tvDuracaoLabel 0x7f080226
 int id tvEmail 0x7f080227
 int id tvGrandTotalHeader 0x7f080228
+int id tvIVA 0x7f080263
+int id tvIVAHeader 0x7f080265
 int id tvInvoiceDate 0x7f080229
 int id tvInvoiceDescription 0x7f08022a
+int id tvInvoiceIVA 0x7f080266
 int id tvInvoiceId 0x7f08022b
+int id tvInvoiceSubtotal 0x7f080267
 int id tvInvoiceTitle 0x7f08022c
 int id tvInvoiceTotal 0x7f08022d
 int id tvItemsTitle 0x7f08022e
@@ -3715,6 +3719,8 @@ int id tvReviewsTitle 0x7f080242
 int id tvService1 0x7f080243
 int id tvService2 0x7f080244
 int id tvSubtitle 0x7f080245
+int id tvSubtotal 0x7f080264
+int id tvSubtotalHeader 0x7f080268
 int id tvTelefone 0x7f080246
 int id tvTitulo 0x7f080247
 int id tvTotal 0x7f080248

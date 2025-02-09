@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: localhost    Database: gardenlabstests
+-- Host: localhost    Database: gardenlabs
 -- ------------------------------------------------------
 -- Server version	8.2.0
 
@@ -38,7 +38,7 @@ CREATE TABLE `auth_assignment` (
 
 LOCK TABLES `auth_assignment` WRITE;
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
-INSERT INTO `auth_assignment` VALUES ('admin','90',1735756927),('client','91',1735758358),('client','93',1735759267),('provider','94',1735759746);
+INSERT INTO `auth_assignment` VALUES ('admin','90',1735756927),('client','121',1739063046),('client','91',1736182073),('manager','111',1736373522),('provider','104',1736111455),('provider','112',1736650985);
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +139,7 @@ CREATE TABLE `carrinhoproduto` (
   `userprofile_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_carrinhoproduto_userprofile1_idx` (`userprofile_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,6 +148,7 @@ CREATE TABLE `carrinhoproduto` (
 
 LOCK TABLES `carrinhoproduto` WRITE;
 /*!40000 ALTER TABLE `carrinhoproduto` DISABLE KEYS */;
+INSERT INTO `carrinhoproduto` VALUES (50,0,93),(29,0,68),(28,0,67);
 /*!40000 ALTER TABLE `carrinhoproduto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +190,7 @@ CREATE TABLE `carrinhoservico` (
   `userprofile_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_carrinhoservico_userprofile1_idx` (`userprofile_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,6 +199,7 @@ CREATE TABLE `carrinhoservico` (
 
 LOCK TABLES `carrinhoservico` WRITE;
 /*!40000 ALTER TABLE `carrinhoservico` DISABLE KEYS */;
+INSERT INTO `carrinhoservico` VALUES (28,0,68),(27,0,67),(49,0,93);
 /*!40000 ALTER TABLE `carrinhoservico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +214,7 @@ CREATE TABLE `categoria` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,6 +223,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES (21,'Watering & Irrigation'),(23,'Tools & Equipment'),(24,'Soil & Fertilizers'),(25,'Seeds & Plants'),(26,'Gardening Accessories');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,7 +242,8 @@ CREATE TABLE `fatura` (
   `morada_destinatario` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `telefone_destinatario` int DEFAULT NULL,
   `nif_destinatario` int DEFAULT NULL,
-  `preco_envio` double NOT NULL,
+  `preco_envio` double DEFAULT NULL,
+  `status` varchar(30) DEFAULT NULL,
   `metodopagamento_id` int NOT NULL,
   `metodoexpedicao_id` int DEFAULT NULL,
   `userprofile_id` int NOT NULL,
@@ -247,7 +251,7 @@ CREATE TABLE `fatura` (
   KEY `fk_fatura_metodopagamento1_idx` (`metodopagamento_id`),
   KEY `fk_fatura_metodoexpedicao1_idx` (`metodoexpedicao_id`),
   KEY `fk_fatura_userprofile1_idx` (`userprofile_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=160 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,6 +260,7 @@ CREATE TABLE `fatura` (
 
 LOCK TABLES `fatura` WRITE;
 /*!40000 ALTER TABLE `fatura` DISABLE KEYS */;
+INSERT INTO `fatura` VALUES (154,157.9554,'2025-02-08 23:03:11','diogo','Rua da Silveira, Figueira da Foz',961234513,431252354,3,'Paid',7,8,68),(155,9.1377,'2025-02-08 23:13:01','diogo','Rua da Silveira, Figueira da Foz',961234513,431252354,3,'Paid',7,8,68),(153,37.9,'2025-02-07 03:37:54','diogo','Rua da Silveira, Figueira da Foz',961234513,431252354,1,'Paid',5,7,68),(159,1107,'2025-02-09 15:12:35','Diogo Silva','Rua da Silveira, Figueira da Foz',961234517,431252359,NULL,NULL,5,NULL,68);
 /*!40000 ALTER TABLE `fatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +280,7 @@ CREATE TABLE `favorito` (
   KEY `fk_favorito_userprofile1_idx` (`userprofile_id`),
   KEY `fk_favorito_servico1_idx` (`servico_id`),
   KEY `fk_favorito_produto1_idx` (`produto_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,6 +289,7 @@ CREATE TABLE `favorito` (
 
 LOCK TABLES `favorito` WRITE;
 /*!40000 ALTER TABLE `favorito` DISABLE KEYS */;
+INSERT INTO `favorito` VALUES (48,91,NULL,58);
 /*!40000 ALTER TABLE `favorito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,7 +307,7 @@ CREATE TABLE `fornecedor` (
   `telefone` int NOT NULL,
   `localizacao` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,6 +316,7 @@ CREATE TABLE `fornecedor` (
 
 LOCK TABLES `fornecedor` WRITE;
 /*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
+INSERT INTO `fornecedor` VALUES (7,'Gardeners','gardeners@gmail.com',223983123,'Rua das Silverinhas, Leiria'),(8,'Gardenera','gardenera@gmail.com',223158123,'Rua da Indústria, Leiria'),(9,'HydroGardening','hydrogardening@gmail.com',223156822,'Rua da Indústria, Leiria');
 /*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,7 +333,7 @@ CREATE TABLE `imagem` (
   `produto_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_imagem_produto1_idx` (`produto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,6 +342,7 @@ CREATE TABLE `imagem` (
 
 LOCK TABLES `imagem` WRITE;
 /*!40000 ALTER TABLE `imagem` DISABLE KEYS */;
+INSERT INTO `imagem` VALUES (54,'56.9206CS_Pointed_Shovel_LS3.jpg',56),(55,'57.potting_soil.jpg',57),(56,'58.watering_can.jpeg',58),(57,'59.sprinkler.jpg',59),(58,'60.sunflower.jpg',60),(59,'61.GWT-071_Garden_Watering_Kit_2_2.jpg',61),(60,'61.GWT-071_Garden_Watering_Kit_1.jpg',61),(62,'62.pruning_shears.jpg',62),(63,'63.GDN-533_Showa_Waterproof_Gloves_2.jpg',63),(65,'64.letuce_seed_kit.jpg',64),(66,'65.Yts Nature\'s Way Organic Compost 30L v2-01.png',65),(67,'66.GCG-362_Kneelo_Garden_Kneeling_Pad_3_3.jpg',66),(68,'67.gardening_tool_belt.jpg',67),(69,'68.basil seeds.jpg',68);
 /*!40000 ALTER TABLE `imagem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +362,7 @@ CREATE TABLE `linhacarrinhoproduto` (
   PRIMARY KEY (`id`),
   KEY `fk_linhacarrinhoproduto_carrinhoproduto1_idx` (`carrinhoproduto_id`),
   KEY `fk_linhacarrinhoproduto_produto1_idx` (`produto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -381,7 +389,7 @@ CREATE TABLE `linhacarrinhoservico` (
   PRIMARY KEY (`id`),
   KEY `fk_linhacarrinhoservico_carrinhoservico1_idx` (`carrinhoservico_id`),
   KEY `fk_linhacarrinhoservico_servico1_idx` (`servico_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -411,7 +419,7 @@ CREATE TABLE `linhafatura` (
   KEY `fk_linhafatura_fatura1_idx` (`fatura_id`),
   KEY `fk_linhafatura_produto1_idx` (`produto_id`),
   KEY `fk_linhafatura_servico1_idx` (`servico_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -420,6 +428,7 @@ CREATE TABLE `linhafatura` (
 
 LOCK TABLES `linhafatura` WRITE;
 /*!40000 ALTER TABLE `linhafatura` DISABLE KEYS */;
+INSERT INTO `linhafatura` VALUES (153,1,30,153,56,NULL),(154,1,60,154,59,NULL),(155,2,2.99,154,60,NULL),(156,2,30,154,56,NULL),(157,1,4.99,155,64,NULL),(161,1,900,159,NULL,19);
 /*!40000 ALTER TABLE `linhafatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,7 +446,7 @@ CREATE TABLE `metodoexpedicao` (
   `duracao` varchar(60) NOT NULL,
   `disponivel` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -446,6 +455,7 @@ CREATE TABLE `metodoexpedicao` (
 
 LOCK TABLES `metodoexpedicao` WRITE;
 /*!40000 ALTER TABLE `metodoexpedicao` DISABLE KEYS */;
+INSERT INTO `metodoexpedicao` VALUES (6,'Standard',0.5,'5 a 7 dias úteis',1),(7,'Fast',1,'3 a 4 dias utéis',1),(8,'Express',3,'1 a 2 dias utéis',1);
 /*!40000 ALTER TABLE `metodoexpedicao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -461,7 +471,7 @@ CREATE TABLE `metodopagamento` (
   `descricao` varchar(45) NOT NULL,
   `disponivel` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -470,6 +480,7 @@ CREATE TABLE `metodopagamento` (
 
 LOCK TABLES `metodopagamento` WRITE;
 /*!40000 ALTER TABLE `metodopagamento` DISABLE KEYS */;
+INSERT INTO `metodopagamento` VALUES (5,'Paypal',1),(6,'MBWay',1),(7,'Credit Card',1),(8,'ATM Reference',1);
 /*!40000 ALTER TABLE `metodopagamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -515,7 +526,7 @@ CREATE TABLE `produto` (
   PRIMARY KEY (`id`),
   KEY `fk_produto_fornecedor1_idx` (`fornecedor_id`),
   KEY `fk_produto_categoria1_idx` (`categoria_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -524,6 +535,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (57,'Give your plants the best start with our Premium Potting Soil, specially formulated for healthy root development, optimal drainage, and long-lasting nourishment. Ideal for indoor and outdoor plants.',13.5,'Potting Soil',31,8,24),(56,'Tackle any digging task with ease using our Ames Shovel. Made with high-quality materials, this shovel ensures durability, comfort, and efficiency for every job.',30,'Ames Shovel',39,7,23),(58,'Keep your plants happy and hydrated with our Premium Watering Can, designed for indoor and outdoor gardening. ',7,'Watering Can',0,9,21),(59,'Achieve a lush, green lawn and healthy plants with our Premium Sprinkler, designed for maximum coverage, water efficiency, and durability.',60,'Premium Sprinkler',21,9,21),(60,'Bring warmth and color to your garden with our Premium Sunflower Seeds, carefully selected for high germination rates, strong growth, and stunning blooms.',2.99,'Sunflower Seeds',51,7,25),(61,'Save water and nourish your plants efficiently with our Drip Irrigation Kit, designed for precise, automated watering. Perfect for gardens, greenhouses, and potted plants.',45.99,'Drip Irrigation Kit',28,9,21),(62,'Keep your plants in top shape with our sharp and ergonomic Pruning Shears, perfect for trimming branches, flowers, and shrubs with ease.',18.3,'Pruning Shears',35,7,23),(63,'Protect your hands while working with our durable and breathable Gardening Gloves, designed for comfort, grip, and flexibility.',12,'Gardening Gloves',50,8,26),(64,'Grow your own fresh vegetables with our Lettuce Seed Pack, featuring a selection of premium, high-yield seeds for home gardening.',4.99,'Lettuce Seed Pack',59,7,25),(65,'Enhance soil fertility and plant health with our Organic Compost, rich in nutrients and perfect for sustainable gardening.',20,'Organic Compost',36,8,24),(66,'Protect your knees while gardening with our soft and durable Kneeling Pad. Made from high-density foam, it provides comfort and support for long gardening sessions.',15.99,'Kneeling Pad',45,8,26),(67,'Stay organized with our adjustable Garden Tool Belt, featuring multiple pockets for shears, gloves, and small tools. Perfect for hands-free gardening!',22.5,'Garden Tool Belt',30,8,26),(68,'Grow your own fresh basil with our high-quality seeds. Perfect for indoor pots, outdoor gardens, and culinary use. Easy to grow and full of flavor!',3.99,'Basil Herb Seeds',50,7,25);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -546,7 +558,7 @@ CREATE TABLE `review` (
   KEY `fk_review_servico1_idx` (`servico_id`),
   KEY `fk_review_produto1_idx` (`produto_id`),
   KEY `fk_review_userprofile1_idx` (`userprofile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -555,6 +567,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (20,'Good service!','2025-02-09 01:03:41',4,15,NULL,68),(21,'Great Shovel!','2025-02-09 01:08:01',5,NULL,56,68),(22,'Quite low germination rate!','2025-02-09 01:09:52',3,NULL,60,93),(23,'Very low germination rate!','2025-02-09 01:10:35',1,NULL,60,68);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -574,7 +587,7 @@ CREATE TABLE `servico` (
   `prestador_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_servico_userprofile1_idx` (`prestador_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -583,6 +596,7 @@ CREATE TABLE `servico` (
 
 LOCK TABLES `servico` WRITE;
 /*!40000 ALTER TABLE `servico` DISABLE KEYS */;
+INSERT INTO `servico` VALUES (15,'Mowing, edging, and trimming performed twice a week to keep your lawn in perfect shape. 1 month (8 visits)',120,'Weekly Lawn Care Service',31,80),(16,'Comprehensive garden care including pruning, weeding, and soil enrichment, performed once a week. 3 months (12 visits)',350,'Seasonal Garden Maintenance',93,87),(17,'Regular trimming and shaping of hedges and shrubs every two weeks for a well-maintained look. 3 months (6 visits)',180,'Hedge & Shrub Management',93,80),(18,'Tree pruning, disease prevention, and general upkeep performed once a month to ensure tree health. 6 months (6 visits)',250,'Tree & Large Plant Care',186,80),(19,'A complete garden care package including lawn maintenance, flowerbed care, and pest control, with three visits per week. 3 months (36 visits)',900,'Premium Full-Service Garden Care',93,87);
 /*!40000 ALTER TABLE `servico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -633,7 +647,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -642,6 +656,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (90,'tomas','QLm-YoUugMwTquwdvKmvpDSBufUWXe8n','$2y$13$8lYPp59HqnwWZiWkc6nk8.yIuIKwYS4vdSELZ4WW6gzdMfj3qxIzu',NULL,'tomas@gmail.com',10,1735756927,1735756927,'NZ1f2jj-EXneXqbcFYpcjN5DPm_KuXhN_1735756927'),(91,'diogo','-C4WYp3oSJqGeKOC4mKPBp8rNYG2rEMt','$2y$13$pXVoHXOTcQVQ8ELnNZF/ku4nASob5FfdjLZHS9StdgyoTXgXX.cee',NULL,'diogo@gmail.com',10,1735758358,1736380142,'yIuxw0RtB6dEjh_mjKCUKCRmU25wvsER_1735758358'),(104,'joao','rjKGITclVw9zGKGwuMR2XoJlyJkf2xnj','$2y$13$8cRyd2b9O0H8Lh6NaJ.CZ.Y9ZC9EMKg/rk1pbuwyEHxp2umu/ivWO',NULL,'joao@gmail.com',10,1736111455,1736111455,'YwG_zHJtdymLCPeVUorK7DNjBCEI0iyN_1736111455'),(111,'martim','nFZvg5J-KakGR2xbbC0ZTbJuCUCQHIKl','$2y$13$IfisfN4aTgX/cou6ghZaMethqIeNLWg8GqC3oGmeSxlu8gwRxGqe.',NULL,'martim@gmail.com',10,1736373522,1736373522,'OyjeyjpDeOiPKClAtmFWw5Mk6ZlZ6gJM_1736373522'),(112,'jose','7st92yxXiEHN-_TEt93FxO6sSHeVdLte','$2y$13$Xt62HQU1g9OE.QtOPDwnPOjy3Dxz0ll0vPtQivN7neXZDRuq9P38.',NULL,'jose@gmail.com',10,1736650985,1736650985,'AGkj-Xaqg-9gIlBiqWOoXx2ZqdQ0Q7ei_1736650985'),(121,'andre','eSyWOrME6Ejkr7EWJ6P_DapOONtlAJXC','$2y$13$gpP8unoT1tXMDlVP6auM7O7923Cqj/sEuB/UeQG9x0G2TU0oUDNT2',NULL,'andre@gmail.com',10,1739063046,1739063046,'f85HQ4wRJDtgNDYX5jktJuzTxzDgnVgA_1739063046');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -662,7 +677,7 @@ CREATE TABLE `userprofile` (
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_user1_idx` (`user_id`),
   CONSTRAINT `fk_userprofile_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -671,6 +686,7 @@ CREATE TABLE `userprofile` (
 
 LOCK TABLES `userprofile` WRITE;
 /*!40000 ALTER TABLE `userprofile` DISABLE KEYS */;
+INSERT INTO `userprofile` VALUES (67,NULL,NULL,NULL,NULL,90),(68,'Rua da Silveira, Figueira da Foz',431252359,961234517,'Diogo Silva',91),(80,'Rua das Camelias, Buarcos',123456789,123456789,'Joao',104),(86,NULL,NULL,NULL,NULL,111),(87,'',NULL,NULL,'Jose',112),(93,'Rua Combatentes, Leiria',NULL,NULL,'Andre Gomes',121);
 /*!40000 ALTER TABLE `userprofile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -683,4 +699,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-03  1:40:10
+-- Dump completed on 2025-02-09 15:29:32

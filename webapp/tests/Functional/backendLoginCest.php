@@ -10,10 +10,10 @@ class BackendLoginCest
 
     public function loginWithValidCredentials(FunctionalTester $I)
     {
-        $I->amOnPage('/backend/web/site/login');
+        $I->amOnPage('/backend/web/index.php?r=site%2Flogin');
 
-        $I->fillField(['id' => 'loginform-username'], 'tomas'); 
-        $I->fillField(['id' => 'loginform-password'], 'tomas123');
+        $I->fillField('#loginform-username', 'tomas');
+        $I->fillField('#loginform-password', 'tomas123');
         $I->click('Sign In');
 
         $I->see('Dashboard');
@@ -22,10 +22,10 @@ class BackendLoginCest
 
     public function loginWithInvalidCredentials(FunctionalTester $I)
     {
-        $I->amOnPage('gardenlabs/webapp/backend/views/site/login');
+        $I->amOnPage('/backend/web/index.php?r=site%2Flogin');
 
-        $I->fillField(['id' => 'loginform-username'], 'invalidUser');
-        $I->fillField(['id' => 'loginform-password'], 'wrongPassword');
+        $I->fillField('#loginform-username', 'invalidUser');
+        $I->fillField('#loginform-password', 'wrongPassword');
         $I->click('Sign In');
 
         $I->see('Invalid username or password.');
